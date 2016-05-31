@@ -1,0 +1,13 @@
+{
+  "name": "focus-help-center",
+  "version": "0.1.0",
+  "description": "Focus help center",
+  "author": "KleeGroup",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "2.11.1",
+    "eslint-plugin-react": "^5.1.1",
+    "tslint": "3.10.2",
+    "typescript": "1.8.10"
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "focus-help-center-api",
+    "version": "0.1.0",
+    "description": "API for the Focus help center",
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "gulp build",
+        "watch": "gulp watch",
+        "postinstall": "typings install",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "KleeGroup",
+    "license": "MIT",
+    "dependencies": {
+        "express": "4.13.4",
+        "lodash": "4.13.1",
+        "sequelize": "3.23.3"
+    },
+    "devDependencies": {
+        "babel-cli": "6.9.0",
+        "babel-preset-node6": "11.0.0",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^6.1.2",
+        "gulp-typescript": "^2.13.5",
+        "typescript": "1.8.10",
+        "typings": "1.0.4"
+    }
+}
