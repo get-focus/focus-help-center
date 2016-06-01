@@ -1,15 +1,21 @@
-const configBuilder = require('webpack-focus').configBuilder;
-const customConfig = {
-    externals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        'redux-devtools': 'redux-devtools',
-        'react-addons-css-transition-group': {
-            root: ['React', 'addons', 'CSSTransitionGroup']
-        },
-        moment: 'moment',
-        lodash: 'lodash'
-    }
-}
-
-module.exports = configBuilder(customConfig);
+const path  = require('path');
+module.exports =  {
+    entry: {
+        back: './back-office/index',
+        extension: './extension/index'
+    },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name].js'
+    },
+    loaders: [
+        {
+            test: /\.jsx?$/,
+            include: /(node_modules|bower_components)/,
+            loader: 'babel',
+            query: {
+                presets: ['focus']
+            }
+        }
+    ]
+};

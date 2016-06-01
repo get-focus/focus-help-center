@@ -4,6 +4,7 @@
     "description": "Help Center extension for focus",
     "main": "src/index.js",
     "scripts": {
+        "build-apps": "webpack --config ./webpack.config.js",
         "build": "npm run babelify && npm run copy-sass && npm run bundle",
         "bundle": "better-npm-run bundle",
         "copy-sass": "better-npm-run copy-sass",
@@ -21,7 +22,7 @@
                 "DEV": false,
                 "NODE_ENV": "production",
                 "BABEL_ENV": "production",
-                "LIBRARY_NAME": "FocusNotifications",
+                "LIBRARY_NAME": "FocusHelpCenter",
                 "MINIMIFY": false,
                 "PACKAGE_JSON_PATH": "../"
             }
@@ -33,7 +34,7 @@
             "env": {
                 "BABEL_ENV": "production"
             },
-            "command": "babel src --out-dir ./ --source-maps inline"
+            "command": "npm run babel-core src --out-dir ./ --source-maps inline"
         },
         "dev-server": {
             "command": "node ./server.js",
