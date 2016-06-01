@@ -5,10 +5,11 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "gulp build",
-    "buildDb": "node ./dist/db/init.js",
+    "db:init": "node ./dist/db/init.js",
     "postinstall": "typings install && gulp build && node ./dist/db/init.js",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha src/**/__tests__/**/*.ts",
+    "test:watch": "mocha src/**/__tests__/**/*.ts -w",
     "watch": "gulp watch"
   },
   "author": "KleeGroup",
@@ -22,9 +23,12 @@
   "devDependencies": {
     "babel-cli": "6.9.0",
     "babel-preset-node6": "11.0.0",
+    "chai": "3.5.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-typescript": "2.13.5",
+    "mocha": "2.5.3",
+    "ts-node": "0.7.3",
     "typescript": "1.8.10",
     "typings": "1.0.4"
   }

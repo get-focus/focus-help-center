@@ -5,7 +5,8 @@ const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
         storage: './dist/db/db.sqlite',
-        port: 3306
+        port: 3306,
+        logging: false
     });
 
 const article =

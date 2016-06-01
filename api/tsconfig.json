@@ -6,6 +6,8 @@
         "allowSyntheticDefaultImports": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "test",
+        "src/db/__tests__"
     ]
 }
