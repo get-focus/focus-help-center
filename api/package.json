@@ -9,7 +9,7 @@
     "postinstall": "typings install && gulp build && node ./dist/db/init.js",
     "start": "node dist/index.js",
     "test": "mocha src/**/__tests__/**/*.ts",
-    "test:watch": "mocha src/**/__tests__/**/*.ts -w || 0",
+    "test:watch": "mocha src/**/__tests__/**/*.ts -w",
     "watch": "gulp watch"
   },
   "author": "KleeGroup",
