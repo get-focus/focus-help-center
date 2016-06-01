@@ -1,108 +1,107 @@
 {
-  "name": "focus-help-center",
-  "version": "0.0.1",
-  "description": "Help Center extension for focus",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "better-npm-run dev-server"
-  },
-  "betterScripts": {
-    "dev-server": {
-      "command": "node ./server.js",
-      "env": {
-        "DEV": true,
-        "SOURCE_MAP": false,
-        "ENTRY_FILE_PATH": "./src/example/index",
-        "PAGE_TITLE": "Focus entity dev page",
-        "MINIMIFY": false,
-        "API_PORT": 9999,
-        "PACKAGE_JSON_PATH": "../",
-        "ANCHOR_CLASS": "entity-example"
-      }
+    "name": "focus-help-center",
+    "version": "0.0.1",
+    "description": "Help Center extension for focus",
+    "main": "src/index.js",
+    "scripts": {
+        "build": "npm run babelify && npm run copy-sass && npm run bundle",
+        "bundle": "better-npm-run bundle",
+        "copy-sass": "better-npm-run copy-sass",
+        "babelify": "better-npm-run babelify",
+        "start": "better-npm-run dev-server",
+        "test": "better-npm-run test",
+        "lint": "eslint src",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "better-npm-run dev-server"
+    },
+    "betterScripts": {
+        "bundle": {
+            "command": "webpack --progress",
+            "env": {
+                "DEV": false,
+                "NODE_ENV": "production",
+                "BABEL_ENV": "production",
+                "LIBRARY_NAME": "FocusNotifications",
+                "MINIMIFY": false,
+                "PACKAGE_JSON_PATH": "../"
+            }
+        },
+        "copy-sass": {
+            "command": "cd src && find . -name *.scss | xargs tar cvf - | tar xfp - -C ../"
+        },
+        "babelify": {
+            "env": {
+                "BABEL_ENV": "production"
+            },
+            "command": "babel src --out-dir ./ --source-maps inline"
+        },
+        "dev-server": {
+            "command": "node ./server.js",
+            "env": {
+                "DEV": true,
+                "SOURCE_MAP": false,
+                "ENTRY_FILE_PATH": "./src/example/index",
+                "PAGE_TITLE": "Focus entity dev page",
+                "MINIMIFY": false,
+                "API_PORT": 9999,
+                "PACKAGE_JSON_PATH": "../",
+                "ANCHOR_CLASS": "entity-example"
+            }
+        }
+    },
+    "babel": {
+        "presets": [
+            "focus"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pierr/data-behaviours.git"
+    },
+    "keywords": [
+        "react",
+        "redux",
+        "help",
+        "center",
+        "focus"
+    ],
+    "author": "Pierre Besson <Pierre.besson7+npm@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/get-focus/focus-help-center/issues"
+    },
+    "homepage": "https://github.com/get-focus/focus-help-center/app/#readme",
+    "devDependencies": {
+        "autoprefixer-loader": "^3.2.0",
+        "babel-core": "^6.9.1",
+        "babel-eslint": "^6.0.4",
+        "babel-loader": "^6.2.4",
+        "babel-preset-focus": "^0.5.2",
+        "better-npm-run": "0.0.8",
+        "body-parser": "^1.15.1",
+        "css-loader": "^0.23.1",
+        "express": "^4.13.4",
+        "extract-text-webpack-plugin": "^1.0.1",
+        "faker": "^3.1.0",
+        "file-loader": "^0.8.5",
+        "html-webpack-plugin": "^2.19.0",
+        "json-loader": "^0.5.4",
+        "lodash": "^4.13.1",
+        "material-design-icons-iconfont": "^2.0.5",
+        "material-design-lite": "^1.1.3",
+        "node-sass": "^3.7.0",
+        "react": "^15.1.0",
+        "react-dom": "^15.1.0",
+        "react-hot-loader": "^1.3.0",
+        "react-redux": "^4.4.5",
+        "redux": "^3.5.2",
+        "redux-thunk": "^2.1.0",
+        "sass-loader": "^3.2.0",
+        "source-map-loader": "^0.1.5",
+        "style-loader": "^0.13.1",
+        "url-loader": "^0.5.7",
+        "webpack": "^1.13.1",
+        "webpack-dev-server": "^1.14.1",
+        "webpack-focus": "^0.11.5"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pierr/data-behaviours.git"
-  },
-  "keywords": [
-    "react",
-    "redux",
-    "help",
-    "center",
-    "focus"
-  ],
-  "author": "Pierre Besson <Pierre.besson7+npm@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/get-focus/focus-help-center/issues"
-  },
-  "homepage": "https://github.com/get-focus/focus-help-center/app/#readme",
-  "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
-    "babel-core": "^6.4.5",
-    "babel-eslint": "^4.1.8",
-    "babel-loader": "^6.2.2",
-    "babel-preset-focus": "^0.3.1",
-    "better-npm-run": "0.0.6",
-    "body-parser": "^1.14.2",
-    "css-loader": "^0.23.1",
-    "express": "^4.13.4",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "faker": "^3.0.1",
-    "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.8.1",
-    "json-loader": "^0.5.4",
-    "lodash": "^4.2.1",
-    "material-design-icons-iconfont": "^2.0.4",
-    "material-design-lite": "^1.1.1",
-    "node-sass": "^3.4.2",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-hot-loader": "^1.3.0",
-    "react-redux": "^4.3.0",
-    "redux": "^3.2.1",
-    "redux-thunk": "^1.0.3",
-    "sass-loader": "^3.1.2",
-    "source-map-loader": "^0.1.5",
-    "style-loader": "^0.13.0",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.13",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-focus": "^0.10.1"
-  },
-  "dependencies": {
-    "autoprefixer-loader": "^3.2.0",
-    "babel-core": "^6.9.1",
-    "babel-eslint": "^6.0.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-focus": "^0.5.2",
-    "better-npm-run": "0.0.8",
-    "body-parser": "^1.15.1",
-    "css-loader": "^0.23.1",
-    "express": "^4.13.4",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "faker": "^3.1.0",
-    "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.19.0",
-    "json-loader": "^0.5.4",
-    "lodash": "^4.13.1",
-    "material-design-icons-iconfont": "^2.0.5",
-    "material-design-lite": "^1.1.3",
-    "node-sass": "^3.7.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-hot-loader": "^1.3.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0",
-    "sass-loader": "^3.2.0",
-    "source-map-loader": "^0.1.5",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-focus": "^0.11.5"
-  }
 }
