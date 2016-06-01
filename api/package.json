@@ -26,7 +26,6 @@
     "chai": "3.5.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
-    "gulp-mocha": "2.2.0",
     "gulp-typescript": "2.13.5",
     "mocha": "2.5.3",
     "ts-node": "0.7.3",
