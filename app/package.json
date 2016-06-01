@@ -4,16 +4,15 @@
     "description": "Help Center extension for focus",
     "main": "src/index.js",
     "scripts": {
-        "build-apps": "webpack --config ./webpack.config.js",
+        "build-apps": "webpack --config ./webpack.back.js && webpack --config ./webpack.ext.js",
         "build": "npm run babelify && npm run copy-sass && npm run bundle",
         "bundle": "better-npm-run bundle",
         "copy-sass": "better-npm-run copy-sass",
         "babelify": "better-npm-run babelify",
-        "start": "better-npm-run dev-server",
+        "start": "better-npm-run start",
         "test": "better-npm-run test",
         "lint": "eslint src",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "better-npm-run dev-server"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "betterScripts": {
         "bundle": {
@@ -36,17 +35,11 @@
             },
             "command": "npm run babel-core src --out-dir ./ --source-maps inline"
         },
-        "dev-server": {
-            "command": "node ./server.js",
+        "start": {
+            "command": "node ./dev-server",
             "env": {
-                "DEV": true,
-                "SOURCE_MAP": false,
-                "ENTRY_FILE_PATH": "./src/example/index",
-                "PAGE_TITLE": "Focus entity dev page",
-                "MINIMIFY": false,
-                "API_PORT": 9999,
-                "PACKAGE_JSON_PATH": "../",
-                "ANCHOR_CLASS": "entity-example"
+                "DEV_SERVER_PORT": 9999,
+                "DEV_SERVER_HOST": "localhost"
             }
         }
     },
