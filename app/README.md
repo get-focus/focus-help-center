@@ -1,7 +1,6 @@
 ## Applications
 
-## Structure
-
 There will be two applications here :
-- **back-office**
-- **extension**
+
+**back-office** : *this is the admin side app*
+**extension** : *this is be the floating help extension*
