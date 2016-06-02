@@ -1,13 +1,15 @@
 import express from 'express';
-import {Article} from './db/index';
+import {articleService} from './services/article';
+import {swaggerService} from './swagger/index';
+import path from 'path';
 
 const app = express();
+app.use(express.static(path.resolve(process.cwd(), '../docs')));
 
-app.get('/', (req, res) => {
-    res.send('Hello world!');
-});
+// Registers the services.
+articleService(app);
+swaggerService(app);
 
 app.listen(3000, () => {
     console.log('Lauching app on port 3000');
-    Article.find().then(article => console.log('Article in the database :', article.get()));
 });
