@@ -1,5 +1,5 @@
 --compilers js:babel-core/register
---require test/mocha-bootload
+--require test/mocha-init
 --require chai
 --reporter spec
 --ui bdd
