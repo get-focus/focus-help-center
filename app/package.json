@@ -5,7 +5,9 @@
     "scripts": {
         "build": "webpack --config ./webpack.back.js && webpack --config ./webpack.ext.js",
         "start": "better-npm-run start",
-        "test": ""
+        "test": "mocha back-office/**/__tests__/**/*.js || mocha extension/**/__tests__/**/*.js",
+        "test:watch": "mocha back-office/**/__tests__/**/*.js || mocha extension/**/__tests__/**/*.js -w",
+        "watch": "webpack --watch"
     },
     "betterScripts": {
         "start": {
