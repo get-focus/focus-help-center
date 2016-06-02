@@ -12,6 +12,10 @@ import {Article} from '../db/index';
  *         type: string
  *       content:
  *         type: string
+ *       createdAt:
+ *         type: string
+ *       updatedAt:
+ *         type: string
  */
 
 export function articleService(app: express.Application) {
