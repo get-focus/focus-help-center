@@ -4,10 +4,10 @@ const webpack = require('webpack');
 
 module.exports = (app, isDev) => ({
     entry: Object.assign({
-        [app]: `./${app}/index`
+        [app]: `./${app}/index.jsx`
     }, isDev ? [`webpack-dev-server/client?http://localhost:9999`, 'webpack/hot/only-dev-server'] : {}),
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.resolve('dist'),
         filename: '[name].js'
     },
     plugins: [
@@ -18,14 +18,16 @@ module.exports = (app, isDev) => ({
     ].concat(isDev ? [
         new webpack.HotModuleReplacementPlugin()
     ] : []),
-    loaders: [
-        {
-            test: /\.jsx?$/,
-            include: ['common', app],
-            loader: isDev ? 'react-hot!babel' : 'babel',
-            query: {
-                presets: ['focus']
+    module: {
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: isDev ? 'react-hot!babel' : 'babel'
             }
+        ],
+        resolve: {
+            extensions: ['', '.js', '.jsx']
         }
-    ]
+    }
 });
