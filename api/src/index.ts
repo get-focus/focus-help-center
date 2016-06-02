@@ -1,13 +1,17 @@
 import express from 'express';
-import {Article} from './db/index';
+import {articleService} from './services/article';
+import {swaggerService} from './swagger/index';
 
 const app = express();
 
+// Registers the services.
+articleService(app);
+swaggerService(app);
+
 app.get('/', (req, res) => {
-    res.send('Hello world!');
+    res.send('Bienvenue sur le centre d\'aide Focus');
 });
 
 app.listen(3000, () => {
     console.log('Lauching app on port 3000');
-    Article.find().then(article => console.log('Article in the database :', article.get()));
 });

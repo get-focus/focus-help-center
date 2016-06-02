@@ -4,7 +4,7 @@ import {IArticle, IArticleInstance} from './article';
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
-        storage: './dist/db/db.sqlite',
+        storage: './db/db.sqlite',
         port: 3306,
         logging: false
     });
