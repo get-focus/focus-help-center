@@ -5,10 +5,8 @@
     "scripts": {
         "build": "webpack --config ./webpack.back.js && webpack --config ./webpack.ext.js",
         "start": "better-npm-run start",
-        "test-back": "better-npm-run test-back",
-        "test-back:watch": "better-npm-run test-back-watch",
-        "test-extension": "better-npm-run test-extension",
-        "test-extension:watch": "better-npm-run test-extension-watch",
+        "test": "better-npm-run test",
+        "test:watch": "better-npm-run test-watch",
         "watch": "webpack --watch"
     },
     "betterScripts": {
@@ -19,26 +17,14 @@
                 "DEV_SERVER_HOST": "localhost"
             }
         },
-        "test-back": {
-            "command": "mocha back-office/**/__tests__/**/*.js",
+        "test": {
+            "command": "mocha src/**/__tests__/**/*.js",
             "env": {
                 "BABEL_ENV": "production"
             }
         },
-        "test-back-watch": {
-            "command": "mocha back-office/**/__tests__/**/*.js -w",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        },
-        "test-extension": {
-            "command": "mocha extension/**/__tests__/**/*.js",
-            "env": {
-                "BABEL_ENV": "production"
-            }
-        },
-        "test-extension-watch": {
-            "command": "mocha extension/**/__tests__/**/*.js -w",
+        "test-watch": {
+            "command": "mocha src/**/__tests__/**/*.js -w",
             "env": {
                 "BABEL_ENV": "production"
             }

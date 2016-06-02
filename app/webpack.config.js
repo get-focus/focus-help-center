@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = (app, isDev) => ({
     entry: Object.assign({
-        [app]: `./${app}/index`
+        [app]: `./src/${app}/index`
     }, isDev ? [`webpack-dev-server/client?http://localhost:9999`, 'webpack/hot/only-dev-server'] : {}),
     output: {
         path: path.resolve('dist'),
@@ -12,7 +12,7 @@ module.exports = (app, isDev) => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './common/index.html',
+            template: './src/common/index.html',
             filename: `${app}.html`
         })
     ].concat(isDev ? [

@@ -14,7 +14,6 @@ global.ReactDOM = require('react-dom');
 global.chai = chai;
 global.sinon = sinon;
 global.TestUtils = require('react-addons-test-utils');
-global.sandbox = require('./sandbox');
 global.componentHandler = {upgradeElement: function(){}};
 // Js dom
 import jsdom from 'jsdom';

@@ -28,7 +28,6 @@ describe('Basic tests', () => {
         before(() => {
             onClickSpy = sinon.spy();
             function onClickSpan() {
-                console.log('Success');
                 onClickSpy();
             }
             testComponent = renderIntoDocument(<VeryFirstDiv click={onClickSpan}/>);
