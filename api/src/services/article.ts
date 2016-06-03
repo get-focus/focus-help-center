@@ -57,10 +57,10 @@ export function articleService(app: express.Application) {
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: none
-     *         description: none.
+     *       - name: search
+     *         description: maximum number of results to return.
      *         in: path
-     *         required: true
+     *         required: false
      *         type: any
      *     responses:
      *       200:
