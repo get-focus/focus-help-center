@@ -19,7 +19,7 @@ module.exports = (app, isDev) => ({
         new webpack.HotModuleReplacementPlugin()
     ] : []),
     resolve: {
-        extensions: ['', '.js', '.jsx', '.ts', '.tsx']
+        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.d.ts']
     },
     module: {
         loaders: [

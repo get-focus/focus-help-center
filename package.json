@@ -5,8 +5,9 @@
   "author": "KleeGroup",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "6.0.4",
     "eslint": "2.11.1",
-    "eslint-plugin-react": "^5.1.1",
+    "eslint-plugin-react": "5.1.1",
     "tslint": "3.10.2",
     "typescript": "1.8.10"
   }
