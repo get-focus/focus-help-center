@@ -6,8 +6,8 @@
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp watch",
-    "db-init": "node ./dist/db/init.js",
-    "postinstall": "typings install && gulp build && node ./dist/db/init.js",
+    "db-init": "cd dist && node ./db/init.js",
+    "postinstall": "typings install && gulp build && cd dist && node ./db/init.js",
     "start": "cd dist && node index.js",
     "start:watch": "cd dist && nodemon index.js",
     "test": "mocha src/**/__tests__/**/*.ts",
@@ -26,6 +26,7 @@
     "babel-cli": "6.9.0",
     "babel-preset-node6": "11.0.0",
     "chai": "3.5.0",
+    "faker": "^3.1.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-typescript": "2.13.5",
