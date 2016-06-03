@@ -14,7 +14,7 @@ async function initDb() {
 
     // Syncs the model
     try {
-        await sequelize.sync({force: true});
+        await sequelize.sync({ force: true });
         console.log('Database sync sucessful');
     } catch (error) {
         console.log(`Error while trying to sync the model with the database : ${error}`);
@@ -22,15 +22,15 @@ async function initDb() {
 
     // Inserts an article, to replace with fake data.
     try {
-        await Article.create({title: faker.random.word(), description: faker.lorem.sentence(), content: faker.lorem.sentences()});
+        await Article.create({ title: faker.random.word(), description: faker.lorem.sentence(), content: faker.lorem.sentences() });
     } catch (error) {
         console.log(`Error while trying to insert an article in the database : ${error}`);
     }
 
     //Populate the database with fake articles
     try {
-        for(let i = 0; i < 10; i++) {
-        await Article.create({title: faker.random.word(), description: faker.lorem.sentence(), content: faker.lorem.sentences()});
+        for (let i = 0; i < 10; i++) {
+            await Article.create({ title: faker.random.word(), description: faker.lorem.sentence(), content: faker.lorem.sentences() });
         }
     } catch (error) {
         console.log(`Error while trying to insert an article in the database : ${error}`);
