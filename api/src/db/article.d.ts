@@ -2,6 +2,7 @@ import Sequelize from 'sequelize';
 
 /** Represents an article. */
 interface IArticle {
+    id?: number;
     title: string;
     description: string;
     content: string;

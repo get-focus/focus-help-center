@@ -1,5 +1,5 @@
 import {sequelize, Article} from './index';
-var faker = require('faker');
+import faker from 'faker';
 
 /** Create the database. */
 async function initDb() {
@@ -23,7 +23,7 @@ async function initDb() {
     //Populate the database with fake datas
     try {
         for (let i = 0; i < 10; i++) {
-            await Article.create({ title: faker.random.word(), description: faker.lorem.sentence(), content: faker.lorem.sentences() });
+            await Article.create({title: faker.lorem.words(1), description: faker.lorem.sentence(), content: faker.lorem.sentences() });
         }
     } catch (error) {
         console.log(`Error while trying to insert an article in the database : ${error}`);
