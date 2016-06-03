@@ -1,8 +1,7 @@
-/* global describe, before, it, chai, sinon */
 import {createClass} from 'react';
 import {renderIntoDocument, Simulate} from 'react-addons-test-utils';
 
-const VeryFirstDiv = createClass({
+const VeryFirstDiv = createClass<{click?}, {}>({
     render() {
         const {click} = this.props;
         return (
@@ -34,7 +33,7 @@ describe('Basic tests', () => {
             Simulate.click(testComponent.refs.myTest);
         });
         it('Should be called at least once', () => {
-            chai.expect(onClickSpy).to.have.been.called.once;
+            chai.expect(onClickSpy).to.have.been.calledOnce;
         });
     });
 });
