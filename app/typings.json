@@ -1,0 +1,18 @@
+{
+    "dependencies": {
+        "lodash": "registry:npm/lodash#4.0.0+20160416211519",
+        "react-redux": "registry:npm/react-redux#4.4.0+20160207114942"
+    },
+    "globalDependencies": {
+        "chai": "registry:dt/chai#3.4.0+20160317120654",
+        "chai-subset": "registry:dt/chai-subset#1.0.0+20160317120654",
+        "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+        "react": "registry:dt/react#0.14.0+20160602151522",
+        "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638",
+        "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+        "redux": "registry:dt/redux#3.3.1+20160326112656",
+        "redux-thunk": "registry:dt/redux-thunk#2.0.1+20160317120654",
+        "sinon": "registry:dt/sinon#1.16.0+20160517064723",
+        "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654"
+    }
+}
