@@ -66,7 +66,9 @@ export function articleService(app: express.Application) {
      *       200:
      *         description: Returns all the articles.
      *         schema:
-     *           $ref: '#/definitions/Article'
+     *         type: array
+     *         items:
+     *             $ref: '#/definitions/Article'
      */
     app.get('/api/article', async (req, res) => {
         res.json(await Article.findAll());
