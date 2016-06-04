@@ -51,10 +51,7 @@ const {registerAssertions} = require('redux-actions-assertions/chai');
 // Redux-actions-assertions setup.
 const {registerMiddlewares} = require('redux-actions-assertions');
 const thunk = require('redux-thunk');
-const {registerInitialStoreState} = require('redux-actions-assertions');
-
-registerMiddlewares([thunk]);
-registerInitialStoreState();
+registerMiddlewares([thunk.default]);
 
 // registration
 chai.use(chaiSubset);
