@@ -1,6 +1,8 @@
 import {Action} from './index';
 import {Article} from '../definitions/article';
 import {ArticleListAction} from '../definitions/article-list';
+// import {api} from './api';
+import {api} from '../../../test/api-mock';
 
 /** Action creator called on load request. */
 function requestArticleList(): ArticleListAction {
@@ -20,14 +22,9 @@ function receiveArticleList(list: Article[]): ArticleListAction {
 
 /** Loads the article list, with fake data. */
 export function loadArticleList() {
-    return (dispatch: Redux.Dispatch) => {
+    return async (dispatch: Redux.Dispatch) => {
         dispatch(requestArticleList());
-        setTimeout(() => {
-            const articleList = [
-                {id: 1, title: 'Title', description: 'Description', content: 'Content'},
-                {id: 2, title: 'Title2', description: 'Description2', content: 'Content2'}
-            ];
-            dispatch(receiveArticleList(articleList));
-        }, 500);
+        const articleList = await api.loadArticleList();
+        dispatch(receiveArticleList(articleList));
     };
 }
