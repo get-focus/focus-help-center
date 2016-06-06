@@ -6,8 +6,7 @@ import {Api} from '../server/index';
 /** Action creator called on load request. */
 function requestArticleList(): ArticleListAction {
     return {
-        type: Action.RequestArticleList,
-        isLoading: true
+        type: Action.RequestArticleList
     };
 }
 
@@ -19,11 +18,22 @@ function receiveArticleList(list: Article[]): ArticleListAction {
     };
 }
 
+function failureArticleList(error: string): ArticleListAction {
+    return {
+        type: Action.FailureArticleList,
+        error
+    };
+}
+
 /** Loads the article list. Dispatches the request immediately and the result when it's loaded. */
 export function loadArticleList() {
     return async (dispatch: Redux.Dispatch, getState, api: Api) => {
         dispatch(requestArticleList());
-        const articleList = await api.loadArticleList();
-        dispatch(receiveArticleList(articleList));
+        try {
+            const articleList = await api.loadArticleList();
+            dispatch(receiveArticleList(articleList));
+        } catch (err) {
+            dispatch(failureArticleList(err.message));
+        }
     };
 }

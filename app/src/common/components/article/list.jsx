@@ -25,7 +25,9 @@ export class ArticleList extends Component {
             <ul>
                 {articleList.isLoading ?
                     <span>Loading...</span> :
-                    articleList.list.map(article =>
+                 articleList.error ?
+                    <span>{articleList.error}</span> :
+                 articleList.list.map(article =>
                         <ArticleLine
                             key={article.id}
                             article={article}

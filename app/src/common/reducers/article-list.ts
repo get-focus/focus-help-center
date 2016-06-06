@@ -16,6 +16,11 @@ export function articleList(state: ArticleListState = defaultValue, action: Arti
                 isLoading: false,
                 list: action.list
             };
+        case Action.FailureArticleList:
+            return {
+                isLoading: false,
+                error: action.error
+            };
         default:
             return state;
     }
