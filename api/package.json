@@ -6,12 +6,40 @@
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp watch",
-    "db-init": "node ./dist/db/init.js",
-    "postinstall": "typings install && gulp build && node ./dist/db/init.js",
-    "start": "cd dist && node index.js",
-    "start:watch": "cd dist && nodemon index.js",
-    "test": "mocha src/**/__tests__/**/*.ts",
-    "test:watch": "mocha src/**/__tests__/**/*.ts -w"
+    "db-init": "cd dist && node ./db/init.js",
+    "postinstall": "typings install && gulp build && cd dist && node ./db/init.js",
+    "start": "better-npm-run start",
+    "start:watch": "better-npm-run start-watch",
+    "start:test": "better-npm-run start-test",
+    "start:test-watch": "better-npm-run start-watch-test",
+    "diagnostic": "mocha src/db/__tests__/**/*.ts",
+    "test": "mocha src/services/__tests__/**/*.ts"
+  },
+  "betterScripts": {
+    "start": {
+      "command": "cd dist && node index.js",
+      "env": {
+        "DB_ENV": "production"
+      }
+    },
+    "start-watch": {
+      "command": "cd dist && nodemon index.js",
+      "env": {
+        "DB_ENV": "production"
+      }
+    },
+    "start-test": {
+      "command": "cd dist && node index.js",
+      "env": {
+        "DB_ENV": "test"
+      }
+    },
+    "start-watch-test": {
+      "command": "cd dist && nodemon index.js",
+      "env": {
+        "DB_ENV": "test"
+      }
+    }
   },
   "author": "KleeGroup",
   "license": "MIT",
@@ -25,10 +53,13 @@
   "devDependencies": {
     "babel-cli": "6.9.0",
     "babel-preset-node6": "11.0.0",
+    "better-npm-run": "0.0.8",
     "chai": "3.5.0",
+    "faker": "^3.1.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-typescript": "2.13.5",
+    "isomorphic-fetch": "^2.2.1",
     "mocha": "2.5.3",
     "nodemon": "^1.9.2",
     "ts-node": "0.7.3",

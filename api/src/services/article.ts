@@ -6,6 +6,8 @@ import {Article} from '../db/index';
  * definition:
  *   Article:
  *     properties:
+ *       id:
+ *         type: integer
  *       title:
  *         type: string
  *       description:
@@ -42,6 +44,33 @@ export function articleService(app: express.Application) {
      *           $ref: '#/definitions/Article'
      */
     app.get('/api/article/:id', async (req, res) => {
-        res.json(await Article.find({where: {id: req.param('id')}}));
+        res.json(await Article.findById(req.params.id));
+    });
+
+    /**
+     * @swagger
+     * /api/article:
+     *   get:
+     *     tags:
+     *       - Article
+     *     description: Returns all the articles.
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: search
+     *         description: maximum number of results to return.
+     *         in: path
+     *         required: false
+     *         type: any
+     *     responses:
+     *       200:
+     *         description: Returns all the articles.
+     *         schema:
+     *         type: array
+     *         items:
+     *             $ref: '#/definitions/Article'
+     */
+    app.get('/api/article', async (req, res) => {
+        res.json(await Article.findAll());
     });
 }

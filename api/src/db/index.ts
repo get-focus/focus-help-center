@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize';
 import {IArticle, IArticleInstance} from './article';
+import path from 'path';
 
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
-        storage: './db/db.sqlite',
+        storage: process.env.DB_ENV === 'production' ? path.join(__dirname, '../../dist/db/db.sqlite') : ':memory:',
         port: 3306,
         logging: false
     });

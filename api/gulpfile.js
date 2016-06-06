@@ -4,7 +4,7 @@ const babel = require('gulp-babel');
 
 gulp.task('build', () => {
     const tsProject = ts.createProject('./tsconfig.json');
-    return tsProject.src()
+    return gulp.src(["src/**/*.ts", "typings/**/*.ts", "!src/**/__tests__/**"])
         .pipe(ts(tsProject))
         .pipe(babel())
         .pipe(gulp.dest('./dist'));
