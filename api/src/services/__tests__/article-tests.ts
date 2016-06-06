@@ -3,9 +3,9 @@ import mochaAsync from '../../../test/mocha-async';
 
 describe('Testing the services', () => {
     describe('When call an article with its ID', () => {
-        let couchdb;
+        let fetchDB;
         before(mochaAsync(async () => {
-            couchdb = await fetch('http://localhost:3000/api/article/5').then(function (response) {
+            fetchDB = await fetch('http://localhost:3000/api/article/5').then(function (response) {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
                 }
@@ -13,7 +13,7 @@ describe('Testing the services', () => {
             });
         }));
         it('should return the good Article', () => {
-            chai.expect(couchdb.id).to.equal(5);
+            chai.expect(fetchDB.id).to.equal(5);
         });
     });
 });
