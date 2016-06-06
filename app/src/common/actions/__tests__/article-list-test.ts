@@ -5,9 +5,9 @@ import {apiMockData} from '../../server/api-mock';
 describe('action: loadArticleList', () => {
     it('should dispatch request then receive actions', done => {
         chai.expect(loadArticleList()).to.dispatch.actions([{
-            type: Action.RequestArticleList
+            type: Action.REQUEST_ARTICLE_LIST
         }, {
-            type: Action.ReceiveArticleList,
+            type: Action.SUCCESS_ARTICLE_LIST,
             list: apiMockData.loadArticleList
         }], done);
     });

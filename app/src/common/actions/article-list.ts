@@ -6,21 +6,21 @@ import {Api} from '../server/index';
 /** Action creator called on load request. */
 function requestArticleList(): ArticleListAction {
     return {
-        type: Action.RequestArticleList
+        type: Action.REQUEST_ARTICLE_LIST
     };
 }
 
 /** Action creator called on successful request. */
-function receiveArticleList(list: Article[]): ArticleListAction {
+function successArticleList(list: Article[]): ArticleListAction {
     return {
-        type: Action.ReceiveArticleList,
+        type: Action.SUCCESS_ARTICLE_LIST,
         list
     };
 }
 
 function failureArticleList(error: string): ArticleListAction {
     return {
-        type: Action.FailureArticleList,
+        type: Action.FAILURE_ARTICLE_LIST,
         error
     };
 }
@@ -31,7 +31,7 @@ export function loadArticleList() {
         dispatch(requestArticleList());
         try {
             const articleList = await api.loadArticleList();
-            dispatch(receiveArticleList(articleList));
+            dispatch(successArticleList(articleList));
         } catch (err) {
             dispatch(failureArticleList(err.message));
         }

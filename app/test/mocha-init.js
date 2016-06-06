@@ -12,9 +12,9 @@ const babelOpts = {
     ast: false
 };
 
-var tsLoader = require.extensions['.ts', '.tsx'];
+let tsLoader = require.extensions['.ts', '.tsx'];
 
-var property = {
+const property = {
     enumerable: true,
     set: newTSLoader => tsLoader = newTSLoader,
     get: () => loadPipeline
