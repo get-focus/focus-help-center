@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import mochaAsync from '../../../test/mocha-async';
-import request from 'request';
 
 describe('Testing the services', () => {
     describe('When call an article with its ID', () => {
