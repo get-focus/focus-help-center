@@ -13,9 +13,6 @@ export default function HelpCenter() {
         <HelpCenterBase>
             <h4>Back office</h4>
             <ArticleList />
-            <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                <i className="material-icons">add</i>
-            </button>
         </HelpCenterBase>
     );
 }
