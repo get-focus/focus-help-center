@@ -1,8 +1,7 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-const {renderIntoDocument, Simulate} = TestUtils;
+import {createClass} from 'react';
+import {renderIntoDocument, Simulate} from 'react-addons-test-utils';
 
-const VeryFirstDiv = React.createClass ({
+const VeryFirstDiv = createClass<{click?}, {}>({
     render() {
         const {click} = this.props;
         return (
@@ -31,10 +30,10 @@ describe('Basic tests', () => {
                 onClickSpy();
             }
             testComponent = renderIntoDocument(<VeryFirstDiv click={onClickSpan}/>);
-            Simulate.click(testComponent.refs.myTest)
+            Simulate.click(testComponent.refs.myTest);
         });
         it('Should be called at least once', () => {
-            chai.expect(onClickSpy).to.have.been.called.once;
+            chai.expect(onClickSpy).to.have.been.calledOnce;
         });
     });
 });
