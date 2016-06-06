@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import '../style/index';
 import React from 'react';
 window.React = React;
 

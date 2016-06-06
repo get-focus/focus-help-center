@@ -35,6 +35,10 @@ module.exports = (app, isDev) => ({
                 query: {
                     useBabel: true
                 }
+            },
+            {
+                test: /\.scss$/,
+                loader: 'style!css!sass'
             }
         ]
     }
