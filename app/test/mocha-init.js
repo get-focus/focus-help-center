@@ -51,7 +51,7 @@ const {registerAssertions} = require('redux-actions-assertions/chai');
 // Redux-actions-assertions setup.
 const {registerMiddlewares} = require('redux-actions-assertions');
 const thunk = require('redux-thunk');
-registerMiddlewares([thunk.default]);
+registerMiddlewares([thunk.default.withExtraArgument(require('../src/common/server/api-mock').api)]);
 
 // registration
 chai.use(chaiSubset);

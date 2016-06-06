@@ -1,6 +1,6 @@
 /** Article definition, the same as on the server. */
 export interface Article {
-    id: number;
+    id?: number;
     title: string;
     description: string;
     content: string;
