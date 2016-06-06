@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp watch",
-    "db-init": "cd dist && node ./db/init.js",
+    "db-init": "better-npm-run db-init",
     "postinstall": "typings install && gulp build && cd dist && node ./db/init.js",
     "start": "better-npm-run start",
     "start:watch": "better-npm-run start-watch",
@@ -16,6 +16,12 @@
     "test": "mocha src/services/__tests__/**/*.ts"
   },
   "betterScripts": {
+    "db-init": {
+      "command": "cd dist && node ./db/init.js",
+      "env": {
+        "DB_ENV": "production"
+      }
+    },
     "start": {
       "command": "cd dist && node index.js",
       "env": {

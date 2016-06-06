@@ -9,7 +9,7 @@ export async function initDb() {
 
     await sequelize.sync({ force: true });
 
-    //Populate the database with fake datas
+    // Populate the database with fake data.
     await Article.create(article1);
     await Article.create(article2);
     await Article.create(article3);

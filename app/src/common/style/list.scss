@@ -33,6 +33,7 @@
         margin: 10px;
         display: flex;
         align-content: center;
+        transition: background 0.1s ease-out;
 
         > .material-icons {
             font-size: 36pt;
