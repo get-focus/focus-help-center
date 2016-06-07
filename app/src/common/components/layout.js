@@ -1,9 +1,5 @@
-import React from 'react';
+// IMPORTS
 
-const AppLayout = (props) => (
-    <div>
-        {props.children}
-    </div>
-)
-
-export default AppLayout;
+export function MainLayout ({children}) {
+    return <div>{children}</div>
+}

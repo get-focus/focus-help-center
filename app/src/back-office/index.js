@@ -4,7 +4,7 @@ import './index.scss';
 import {HelpCenterBase} from '../common/components/index';
 import {ArticleList} from '../common/components/article/list';
 import {Router, browserHistory} from 'react-router';
-import routes from './router/routes';
+import routes from './routes';
 
 /** Root component of the back-office app. */
 function HelpCenter() {
