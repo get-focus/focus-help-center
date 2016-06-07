@@ -1,6 +1,7 @@
 // IMPORTS
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import {Link} from 'react-router';
+import {ContentArea} from './content-area';
 
 export class EditPage extends Component {
     componentDidMount() {
@@ -14,10 +15,10 @@ export class EditPage extends Component {
                     <i className='material-icons'>home</i>
                 </Link>
 
-                <div className='mdl-grid mdl-grid--no-spacing edition-main-grid'>
-                    <div className='mdl-cell mdl-cell--2-col-desktop edition-grid'>
-                        <h4>Parametrage</h4>
-                        Titre
+                <div className='mdl-grid mdl-grid--no-spacing edit-main-grid'>
+
+                    <div className='mdl-cell mdl-cell--2-col-desktop edit-grid edit-grid-parameters'>
+                        <span className='edit-span-parameters'>Titre</span>
                         <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
                             editer
                         </div>
@@ -28,26 +29,20 @@ export class EditPage extends Component {
                         </div>
 
                         <br/><br/>
-                        <p>Description</p>
+                        <span className='edit-span-parameters'>Description</span>
+                        <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
+                            editer
+                        </div>
+
                         <div className="mdl-textfield mdl-js-textfield">
                             <input className='mdl-textfield__input' type='text' id='sample1' />
                             <label className="mdl-textfield__label" htmlFor="sample1">Description...</label>
                         </div>
                     </div>
 
-                    <div className='mdl-cell mdl-cell--5-col-desktop edition-grid'>
-                        <h4>Zone d'édition</h4>
-                        <div className="mdl-textfield mdl-js-textfield text-area-div">
-                            <textarea className="mdl-textfield__input" type="text" rows= "30" id="textArea" ></textarea>
-                            <label className="mdl-textfield__label" htmlFor="textArea">Zone de texte...</label>
-                        </div>
+                    <div className='mdl-cell mdl-cell--10-col-desktop edit-grid'>
+                        <ContentArea />
                     </div>
-
-                    <div className='mdl-cell mdl-cell--5-col-desktop edition-grid'>
-                        <h4>Preview</h4>
-                        <p>here the preview</p>
-                    </div>
-
                 </div>
             </div>
         );
