@@ -1,5 +1,5 @@
 // Components
-import {EditPage} from '../../../common/components/edition-page';
+import {EditPage} from '../../../common/components/article-edition';
 
 /** Root component of the back-office app. */
 export function CreateArticleView() {
