@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 
 import {HelpCenterBase} from '../common/components/index';
-import {ArticleList} from '../common/components/article/list';
+import {ArticleList} from '../common/components/article-list/index';
 
 /** Root component of the back-office app. */
 function HelpCenter() {
