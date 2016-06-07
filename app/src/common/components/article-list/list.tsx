@@ -1,25 +1,29 @@
 import {ArticleListState} from '../../definitions/article-list';
 import i18n from 'i18next';
 import {ArticleLine} from './line';
+import {Link} from 'react-router';
 
 /** Component that displays the list of all articles */
-export function ArticleList({articleList: {isLoading, list, error}}: {articleList: ArticleListState}) {
+export function ArticleList({articleList: {isLoading, list, error}}: { articleList: ArticleListState }) {
     return (
         <div className='article-list'>
-            <h3>{i18n.t('article-list.title')}</h3>
+            <h3>{i18n.t('article-list.title') }</h3>
             <div
-                style={!isLoading ? {display: 'none'} : {}}
+                style={!isLoading ? { display: 'none' } : {}}
                 className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
-            />
+                />
             {error ?
                 <div className='article-list-error'><i className='material-icons'>error</i><div>{error}</div></div>
-            : ''}
+                : ''}
             {list && list.map(article =>
                 <ArticleLine
                     key={article.id}
                     article={article}
-                />
+                    />
             )}
-        </div>
+            <Link to='/create-article' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored'>
+                <i className='material-icons'>add</i>
+            </Link>
+        </div >
     );
 }
