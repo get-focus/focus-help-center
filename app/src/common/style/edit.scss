@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .content-area {
     display: flex;
     height: calc(100% - 22px);
@@ -60,10 +61,13 @@
         }
     }
 }
+=======
+>>>>>>> 61d66e139b317fe506b403176d43a47c21c6c7d4
 .text-area-div {
     width: 100%;
 }
 
+<<<<<<< HEAD
 .mdl-button--fab {
     bottom: 0;
     right: 0;
@@ -91,3 +95,20 @@
 .edit-span-parameters {
     padding-top: 10px;
 }
+=======
+ .mdl-button--fab {
+        bottom: 0;
+        right: 0;
+        margin: 25px;
+        position: fixed;
+        padding-left: 0;
+    }
+
+    .edition-grid {
+        border-top-style: solid;
+        border-left-style: solid;
+        border-right-style: solid;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+>>>>>>> 61d66e139b317fe506b403176d43a47c21c6c7d4
