@@ -2,14 +2,14 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 
 import {HelpCenterBase} from '../common/components/index';
-import {Router, browserHistory} from 'react-router';
+import {Router, hashHistory} from 'react-router';
 import routes from './routes';
 
 /** Root component of the back-office app. */
 function HelpCenter() {
     return (
         <HelpCenterBase>
-            <Router history={browserHistory} routes={routes}/>
+            <Router history={hashHistory} routes={routes}/>
         </HelpCenterBase>
     );
 }
