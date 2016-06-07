@@ -1,5 +1,6 @@
 import {PropTypes} from 'react';
 import {Link} from 'react-router';
+import i18n from 'i18next';
 
 /** Component that displays an article as a line. */
 function ArticleLine({article}) {
@@ -16,14 +17,14 @@ function ArticleLine({article}) {
             </div>
             <Link className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored article-list-item-button' to={`edit-article/${article.id}`}>
                 <i className='material-icons'>edit</i>
-                éditer
+                {i18n.t('article-list.item.edit')}
             </Link>
         </Link>
     );
 }
 
 ArticleLine.propTypes = {
-    article: PropTypes.object.isRequired,
+    article: PropTypes.object.isRequired
 };
 
 ArticleLine.displayName = 'ArticleLine';
