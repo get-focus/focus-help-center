@@ -7,6 +7,11 @@ export const en = {
                 edit: 'edit'
             }
         },
+        'article-edit': {
+            content: {
+                placeholder: 'Type an article...'
+            }
+        },
 
         // Back office specific labels.
         'back-office': {

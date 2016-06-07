@@ -6,7 +6,8 @@
     },
     "globals": {
         "__dirname": false,
-        "process": false
+        "process": false,
+        "componentHandler": false
     },
     "parser": "babel-eslint",
     "extends": ["eslint:recommended", "plugin:react/recommended"],
@@ -45,6 +46,7 @@
         ],
         "react/prop-types": 0,
         "react/react-in-jsx-scope": 0,
+        "react/no-danger": 0,
         "semi": [
             "error",
             "always"
