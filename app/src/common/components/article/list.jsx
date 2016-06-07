@@ -3,6 +3,7 @@ import {Component, PropTypes} from 'react';
 
 import {loadArticleList} from '../../actions/article-list';
 import ArticleLine from './line';
+import NavLink from '../link';
 
 /** Component that displays the list of all articles, connected to the store. */
 @connect(
@@ -38,9 +39,11 @@ export class ArticleList extends Component {
                         onClickEdit={() => null}
                     />
                 )}
-                <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                    <i className="material-icons">add</i>
-                </button>
+                <NavLink to='/edit-article'>
+                    <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                        <i className="material-icons">add</i>
+                    </button>
+                </NavLink>
             </div>
         );
     }
