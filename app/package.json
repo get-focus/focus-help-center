@@ -14,7 +14,8 @@
     "build": {
       "command": "webpack --config ./webpack.back.js && webpack --config ./webpack.ext.js",
       "env": {
-        "BABEL_ENV": "production"
+        "BABEL_ENV": "production",
+        "LANG": "fr"
       }
     },
     "start": {
@@ -22,7 +23,8 @@
       "env": {
         "DEV_SERVER_PORT": 9999,
         "DEV_SERVER_HOST": "localhost",
-        "BABEL_ENV": "development"
+        "BABEL_ENV": "development",
+        "LANG": "fr"
       }
     },
     "test": {
@@ -57,6 +59,7 @@
   "homepage": "https://github.com/get-focus/focus-help-center/app/#readme",
   "dependencies": {
     "babel-polyfill": "6.9.1",
+    "i18next": "3.1.0",
     "isomorphic-fetch": "2.2.1",
     "lodash": "4.13.1",
     "react": "15.1.0",

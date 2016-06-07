@@ -1,4 +1,5 @@
 import {PropTypes} from 'react';
+import i18n from 'i18next';
 
 /** Component that displays an article as a line. */
 function ArticleLine({article, onClickEdit}) {
@@ -18,7 +19,7 @@ function ArticleLine({article, onClickEdit}) {
                 onClick={() => onClickEdit(article.id)}
             >
                 <i className='material-icons'>edit</i>
-                éditer
+                {i18n.t('article-list.item.edit')}
             </div>
         </a>
     );

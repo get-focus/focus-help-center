@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
+import i18n from 'i18next';
 
 import {loadArticleList} from '../../actions/article-list';
 import ArticleLine from './line';
@@ -23,7 +24,7 @@ export class ArticleList extends Component {
         const {articleList} = this.props;
         return (
             <div className='article-list'>
-                <h3>Liste des articles d'aide</h3>
+                <h3>{i18n.t('article-list.title')}</h3>
                 <div
                     style={!articleList.isLoading ? {display: 'none'} : {}}
                     className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${articleList.isLoading ? 'is-active' : ''}`}

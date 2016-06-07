@@ -14,6 +14,9 @@ module.exports = (app, isDev) => ({
         new HtmlWebpackPlugin({
             template: './src/common/index.html',
             filename: `${app}.html`
+        }),
+        new webpack.DefinePlugin({
+            'process.env.LANG': `"${process.env.LANG}"`
         })
     ].concat(isDev ? [
         new webpack.HotModuleReplacementPlugin()

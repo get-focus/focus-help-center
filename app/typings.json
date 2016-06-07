@@ -1,11 +1,13 @@
 {
     "dependencies": {
         "lodash": "registry:npm/lodash#4.0.0+20160416211519",
-        "react-redux": "registry:npm/react-redux#4.4.0+20160207114942"
+        "react-redux": "registry:npm/react-redux#4.4.0+20160207114942",
+        "webpack": "registry:npm/webpack#1.12.9+20160418172948"
     },
     "globalDependencies": {
         "chai": "registry:dt/chai#3.4.0+20160317120654",
         "chai-subset": "registry:dt/chai-subset#1.0.0+20160317120654",
+        "i18next": "registry:dt/i18next#2.3.4+20160521153543",
         "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
         "mocha": "registry:dt/mocha#2.2.5+20160317120654",
         "react": "registry:dt/react#0.14.0+20160423065914",
