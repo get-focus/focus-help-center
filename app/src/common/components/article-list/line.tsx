@@ -1,18 +1,18 @@
-import {PropTypes} from 'react';
+import {Article} from '../../definitions/article';
 import {Link} from 'react-router';
 import i18n from 'i18next';
 
 /** Component that displays an article as a line. */
-function ArticleLine({article}) {
+export function ArticleLine({article: {id, title, description}, onClickEdit}: {article: Article, onClickEdit}) {
     return (
         <Link className='article-list-item' to='/'>
             <i className='material-icons'>receipt</i>
             <div className='article-list-item-content'>
                 <div className='article-list-item-content-title'>
-                    {article.title}
+                    {title}
                 </div>
                 <div className='article-list-item-content-description'>
-                    {article.description}
+                    {description}
                 </div>
             </div>
             <Link className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored article-list-item-button' to={`edit-article/${article.id}`}>
@@ -22,10 +22,3 @@ function ArticleLine({article}) {
         </Link>
     );
 }
-
-ArticleLine.propTypes = {
-    article: PropTypes.object.isRequired
-};
-
-ArticleLine.displayName = 'ArticleLine';
-export default ArticleLine;
