@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 
 import {HelpCenterBase} from '../common/components/index';
-import {ArticleList} from '../common/components/article/list';
 import {Router, browserHistory} from 'react-router';
 import routes from './routes';
 
