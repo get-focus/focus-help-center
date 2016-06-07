@@ -39,7 +39,7 @@ export class ArticleList extends Component {
                         onClickEdit={() => null}
                     />
                 )}
-                <Link to='/edit-article' className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <Link to='/create-article' className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                     <i className="material-icons">add</i>
                 </Link>
             </div>

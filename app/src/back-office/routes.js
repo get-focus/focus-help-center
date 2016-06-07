@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import {HomeView} from './views/home';
 import {EditArticleView} from './views/edit-article';
+import {CreateArticleView} from './views/create-article';
 import {MainLayout} from '../common/components/layout'
 
 export default {
@@ -14,8 +15,12 @@ export default {
             component: HomeView
         },
         {
-            path: '/edit-article',
+            path: '/edit-article/:id',
             component: EditArticleView
+        },
+        {
+            path: '/create-article',
+            component: CreateArticleView
         }
     ]
 };

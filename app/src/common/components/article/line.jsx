@@ -1,9 +1,10 @@
 import {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 /** Component that displays an article as a line. */
-function ArticleLine({article, onClickEdit}) {
+function ArticleLine({article}) {
     return (
-        <a className='article-list-item' href="#">
+        <Link className='article-list-item' to='/'>
             <i className='material-icons'>receipt</i>
             <div className='article-list-item-content'>
                 <div className='article-list-item-content-title'>
@@ -13,20 +14,17 @@ function ArticleLine({article, onClickEdit}) {
                     {article.description}
                 </div>
             </div>
-            <div
-                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored article-list-item-button'
-                onClick={() => onClickEdit(article.id)}
-            >
+            <Link className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored article-list-item-button' to={`edit-article/${article.id}`}>
                 <i className='material-icons'>edit</i>
                 éditer
-            </div>
-        </a>
+            </Link>
+        </Link>
     );
 }
 
 ArticleLine.propTypes = {
     article: PropTypes.object.isRequired,
-    onClickEdit: PropTypes.func.isRequired
 };
+
 ArticleLine.displayName = 'ArticleLine';
 export default ArticleLine;
