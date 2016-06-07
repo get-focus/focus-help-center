@@ -8,12 +8,12 @@ module.exports = (app, isDev) => ({
     }, isDev ? ['webpack-dev-server/client?http://localhost:9999', 'webpack/hot/only-dev-server'] : {}),
     output: {
         path: path.resolve('dist'),
-        filename: '[name].js'
+        filename: app === 'back-office' ? 'index.js' : '[name].js'
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/common/index.html',
-            filename: `${app}.html`
+            filename: app === 'back-office' ? 'index.html' : `${app}.html`
         })
     ].concat(isDev ? [
         new webpack.HotModuleReplacementPlugin()

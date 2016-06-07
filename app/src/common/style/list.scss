@@ -26,6 +26,14 @@
         }
     }
 
+    .mdl-button--fab {
+        bottom: 0;
+        right: 0;
+        margin: 25px;
+        position: fixed;
+        padding-left: 0;
+    }
+
     .article-list-item {
         text-decoration: none;
         background: white;
