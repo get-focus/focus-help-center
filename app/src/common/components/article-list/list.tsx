@@ -18,7 +18,6 @@ export function ArticleList({articleList: {isLoading, list, error}}: {articleLis
                 <ArticleLine
                     key={article.id}
                     article={article}
-                    onClickEdit={() => null}
                 />
             )}
         </div>

@@ -3,11 +3,10 @@ import '../style/index';
 import React from 'react';
 window.React = React;
 
-import {i18nInit} from '../i18n/index';
-i18nInit();
-
 import {Provider} from 'react-redux';
 import {configureStore} from '../store/index';
+import {i18nInit} from '../i18n/index';
+i18nInit();
 
 /** Root common component for both apps. Abstract away the connection to the store. */
 export function HelpCenterBase({children}) {
