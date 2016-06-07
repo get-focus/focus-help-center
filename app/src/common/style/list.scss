@@ -36,7 +36,6 @@
 
     .article-list-item {
         cursor: pointer;
-        text-decoration: none;
         background: white;
         padding: 15px;
         margin: 10px;
@@ -53,6 +52,7 @@
 
         .article-list-item-content {
             flex: 1 1 100%;
+            text-decoration: none;
 
             .article-list-item-content-title {
                 color: black;
