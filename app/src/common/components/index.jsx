@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import '../style/index';
 import React from 'react';
+import 'material-design-lite/material';
 window.React = React;
 
 import {Provider} from 'react-redux';
