@@ -12,6 +12,28 @@ export const en = {
                 placeholder: 'Type an article...'
             }
         },
+        'edit-cartridge': {
+            input: {
+                title: 'Title...',
+                description: 'Article description...'
+            },
+            content: {
+                title: 'Title',
+                description: 'Description'
+            }
+        },
+        'edit-page': {
+            content: {
+                section: 'SECTION',
+                'context-url': 'CONTEXTUAL URL',
+                'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
+            }
+        },
+        button: {
+            save: 'Save',
+            edit: 'Edit',
+             add: 'Add'
+        },
 
         // Back office specific labels.
         'back-office': {
