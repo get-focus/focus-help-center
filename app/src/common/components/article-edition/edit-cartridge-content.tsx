@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import i18n from 'i18next';
 
 export class EditCartridgeContent extends Component<any, any> {
 
@@ -26,17 +27,17 @@ export class EditCartridgeContent extends Component<any, any> {
         const {titleEditable} = this.state;
         if (!titleEditable) {
             return (
-                <h4 className='edit-cartridge-title' onClick={this.titleClickHandler.bind(this) }>Titre</h4>
+                <h4 className='edit-cartridge-title' onClick={this.titleClickHandler.bind(this) }>{i18n.t('edit-cartridge.content.title')}</h4>
             );
         } else {
             return (
                 <div>
                     <div className='mdl-textfield mdl-js-textfield edit-cartridge-title'>
                         <input className='mdl-textfield__input edit-cartridge-title' type='text' id='sample1' autoFocus/>
-                        <label className='mdl-textfield__label edit-cartridge-title' htmlFor='sample1'>Titre...</label>
+                        <label className='mdl-textfield__label edit-cartridge-title' htmlFor='sample1'>{i18n.t('edit-cartridge.input.title')}</label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect' onClick={this.titleClickHandler.bind(this)}>
-                        Sauvegarder
+                        {i18n.t('button.save')}
                     </div>
                 </div>
             );
@@ -54,7 +55,7 @@ export class EditCartridgeContent extends Component<any, any> {
         const {descriptionEditable} = this.state;
         if (!descriptionEditable) {
             return (
-                <h4 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>Description</h4>
+                <h4 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>{i18n.t('edit-cartridge.content.description')}</h4>
             );
         } else {
             return (
@@ -69,11 +70,11 @@ export class EditCartridgeContent extends Component<any, any> {
                             className='mdl-textfield__label edit-cartridge-description'
                             htmlFor='textarea'
                             >
-                            Description
+                            {i18n.t('edit-cartridge.input.description')}
                         </label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-description' onClick={this.descriptionClickHandler.bind(this)}>
-                        Sauvegarder
+                        {i18n.t('button.save')}
                     </div>
                 </div>
             );

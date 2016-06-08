@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {Link} from 'react-router';
 import {ContentArea} from './content-area';
 import {EditCartridgeContent} from './edit-cartridge-content';
+import i18n from 'i18next';
 
 export class EditPage extends Component<any, any> {
 
@@ -33,9 +34,9 @@ export class EditPage extends Component<any, any> {
                     <div className={`edit-parameters-item${isVisible ? '' : '-hidden'}`} ref='parametersBloc'>
                         <div className='edit-parameters-bloc'>
                             <h5>PARAMÉTRAGE</h5><br/>
-                            <span className='edit-parameters-label'>RUBRIQUES</span>
+                            <span className='edit-parameters-label'>{i18n.t('edit-page.content.section')}</span>
                             <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
-                                ajouter
+                                {i18n.t('button.add')}
                             </div><br/>
 
                             <div className='mdl-textfield mdl-js-textfield'>
@@ -44,9 +45,9 @@ export class EditPage extends Component<any, any> {
                             </div>
 
                             <br/><br/>
-                            <span className='edit-parameters-label'>URL CONTEXTUELLE</span>
+                            <span className='edit-parameters-label'>{i18n.t('edit-page.content.context-url')}</span>
                             <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
-                                editer
+                                {i18n.t('button.edit')}
                             </div><br/>
 
                             <div className='mdl-textfield mdl-js-textfield'>
@@ -55,9 +56,9 @@ export class EditPage extends Component<any, any> {
                             </div>
 
                             <br/><br/>
-                            <span className='edit-parameters-label'>BLOC D'INFORMATION CONTEXTUEL</span>
+                            <span className='edit-parameters-label'>{i18n.t('edit-page.content.bloc-information')}</span>
                             <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
-                                editer
+                                {i18n.t('button.edit')}
                             </div><br/>
 
                             <div className='mdl-textfield mdl-js-textfield'>

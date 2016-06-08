@@ -23,7 +23,7 @@ const property = {
 Object.defineProperty(require.extensions, '.ts', property);
 Object.defineProperty(require.extensions, '.tsx', property);
 
-require('ts-node/register');
+require('ts-node').register({disableWarnings: true});
 
 function loadPipeline(m, filename) {
     m._compile(compile(filename), filename);
