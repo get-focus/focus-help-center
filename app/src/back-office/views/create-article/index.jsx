@@ -5,7 +5,6 @@ import {EditPage} from '../../../common/components/article-edition';
 export function CreateArticleView() {
     return (
         <div>
-            <h3>Creation Page</h3>
             <EditPage />
         </div>
     );

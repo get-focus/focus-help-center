@@ -59,8 +59,6 @@
   "homepage": "https://github.com/get-focus/focus-help-center/app/#readme",
   "dependencies": {
     "babel-polyfill": "6.9.1",
-    "focus-components": "0.15.5-beta1",
-    "focus-core": "^0.15.1-beta0",
     "i18next": "3.1.0",
     "isomorphic-fetch": "2.2.1",
     "lodash": "4.13.1",
