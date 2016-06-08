@@ -50,6 +50,8 @@
   "author": "KleeGroup",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "1.15.1",
+    "cookie-session": "2.0.0-alpha.1",
     "express": "4.13.4",
     "lodash": "4.13.1",
     "sequelize": "3.23.3",

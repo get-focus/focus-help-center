@@ -10,7 +10,7 @@ describe('Testing the services', () => {
         before(mochaAsync(async () => {
             const response = await fetch('http://localhost:3000/api/article/2');
             if (response.status >= 400) {
-                throw new Error("Bad response from server");
+                throw new Error('Bad response from server');
             }
             fetchDB = await response.json<IArticle>();
         }));
@@ -27,7 +27,7 @@ describe('Testing the services', () => {
         before(mochaAsync(async () => {
             const response = await fetch('http://localhost:3000/api/article');
             if (response.status >= 400) {
-                throw new Error("Bad response from server");
+                throw new Error('Bad response from server');
             }
             fetchDB = await response.json<IArticle>();
         }));
