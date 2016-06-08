@@ -1,10 +1,28 @@
+.edit-page-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.edit-zone-item {
+    flex: 10 1 auto;
+}
+
+.edit-header-item {
+    flex: 1 1 auto;
+    background-color: #BFBFBF;
+}
+
+.edit-parameters-item {
+    flex: 0 1 auto;
+    padding: 15px;
+}
+
 .content-area {
     display: flex;
     height: calc(100% - 22px);
 
     .content-area-textarea {
         background: white;
-        flex: 1 1 auto;
         width: 50%;
         border-right: 1px solid #888;
         padding: 10px;
@@ -64,6 +82,7 @@
     width: 100%;
 }
 
+
 .mdl-button--fab {
     bottom: 0;
     right: 0;
@@ -72,22 +91,7 @@
     padding-left: 0;
 }
 
-.edit-grid {
-    border-top-style: solid;
-    border-left-style: solid;
-    border-right-style: solid;
-    border-width: 1px;
-}
-
 .edit-button {
     float: right;
     margin-top: -7px;
-}
-
-.edit-grid-parameters {
-    padding: 15px;
-}
-
-.edit-span-parameters {
-    padding-top: 10px;
 }

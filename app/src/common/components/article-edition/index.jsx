@@ -11,17 +11,24 @@ export class EditPage extends Component {
     render() {
         return (
             <div>
-                <Link to='/' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' >
-                    <i className='material-icons'>home</i>
-                </Link>
+                <div className='edit-page-container'>
+                    <div className='edit-header-item'>
+                        Header
+                    </div>
+                </div>
 
-                <div className='mdl-grid mdl-grid--no-spacing edit-main-grid'>
+                <div className='edit-page-container'>
+                    <div className='edit-parameters-item'>
+                        <h5>PARAMÉTRAGE
+                            <button className="mdl-button mdl-js-button mdl-button--icon edit-button">
+                                <i className="material-icons">settings</i>
+                            </button>
+                        </h5><br/>
 
-                    <div className='mdl-cell mdl-cell--2-col-desktop edit-grid edit-grid-parameters'>
                         <span className='edit-span-parameters'>Titre</span>
                         <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
                             editer
-                        </div>
+                        </div><br/>
 
                         <div className="mdl-textfield mdl-js-textfield">
                             <input className='mdl-textfield__input' type='text' id='sample1' />
@@ -32,7 +39,7 @@ export class EditPage extends Component {
                         <span className='edit-span-parameters'>Description</span>
                         <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-button'>
                             editer
-                        </div>
+                        </div><br/>
 
                         <div className="mdl-textfield mdl-js-textfield">
                             <input className='mdl-textfield__input' type='text' id='sample1' />
@@ -40,9 +47,13 @@ export class EditPage extends Component {
                         </div>
                     </div>
 
-                    <div className='mdl-cell mdl-cell--10-col-desktop edit-grid'>
+                    <div className='edit-zone-item'>
                         <ContentArea />
                     </div>
+
+                    <Link to='#' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' >
+                        <i className='material-icons'>home</i>
+                    </Link>
                 </div>
             </div>
         );
