@@ -1,4 +1,4 @@
-import {Action} from '../actions/index';
+import {Action} from '../actions';
 import {Article} from './article';
 
 /** State spec for the `articleDetail` store node. */

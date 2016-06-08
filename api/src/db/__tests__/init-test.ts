@@ -1,4 +1,4 @@
-import {sequelize} from '../index';
+import {sequelize} from '../';
 import mochaAsync from '../../../test/mocha-async';
 
 describe('db', () => {

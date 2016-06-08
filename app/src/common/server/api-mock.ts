@@ -1,4 +1,4 @@
-import {Api} from './index';
+import {Api} from './';
 
 /** Mock data for the api mock object. */
 export const apiMockData = {

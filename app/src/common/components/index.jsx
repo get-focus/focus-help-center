@@ -1,12 +1,12 @@
 import 'babel-polyfill';
-import '../style/index';
+import '../style';
 import React from 'react';
 import 'material-design-lite/material';
 window.React = React;
 
 import {Provider} from 'react-redux';
-import {configureStore} from '../store/index';
-import {i18nInit} from '../i18n/index';
+import {configureStore} from '../store';
+import {i18nInit} from '../i18n';
 i18nInit();
 
 /** Root common component for both apps. Abstract away the connection to the store. */

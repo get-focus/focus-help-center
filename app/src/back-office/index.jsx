@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import './style/index';
+import './style';
 
-import {HelpCenterBase} from '../common/components/index';
+import {HelpCenterBase} from '../common/components';
 import {Router, hashHistory} from 'react-router';
 import routes from './routes';
 

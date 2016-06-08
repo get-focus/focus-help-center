@@ -1,4 +1,4 @@
-import {Action} from '../actions/index';
+import {Action} from '../actions';
 import {ArticleListState, ArticleListAction} from '../definitions/article-list';
 
 export const defaultValue: ArticleListState = {isLoading: false, list: []};
