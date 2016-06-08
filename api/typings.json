@@ -1,6 +1,8 @@
 {
     "globalDependencies": {
+        "body-parser": "registry:dt/body-parser#0.0.0+20160317120654",
         "chai": "registry:dt/chai#3.4.0+20160317120654",
+        "cookie-session": "registry:dt/cookie-session#2.0.0-alpha.1+20160317120654",
         "express": "registry:dt/express#4.0.0+20160317120654",
         "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160322035842",
         "faker": "registry:dt/faker#0.0.0+20160406111603",
