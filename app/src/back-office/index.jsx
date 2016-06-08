@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import './index.scss';
+import './style/index';
 
 import {HelpCenterBase} from '../common/components/index';
 import {Router, hashHistory} from 'react-router';

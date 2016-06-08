@@ -1,7 +1,7 @@
 import {HomeView} from './views/home';
 import {EditArticleView} from './views/edit-article';
 import {CreateArticleView} from './views/create-article';
-import {MainLayout} from '../common/components/layout';
+import MainLayout from './layout';
 
 export default {
     path: '/',
