@@ -18,6 +18,7 @@ function successArticleList(list: Article[]): ArticleListAction {
     };
 }
 
+/** Action creator called on failed request. */
 function failureArticleList(error: string): ArticleListAction {
     return {
         type: Action.FAILURE_ARTICLE_LIST,
