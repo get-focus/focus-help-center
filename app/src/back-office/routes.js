@@ -5,19 +5,19 @@ import {MainLayout} from '../common/components/layout';
 
 export default {
     path: '/',
-    indexRoute: {onEnter: ({params}, replace) => replace('/home')},
+    indexRoute: {onEnter: ({params}, replace) => replace('home')},
     component: MainLayout,
     childRoutes: [
         {
-            path: '/home',
+            path: 'home',
             component: HomeView
         },
         {
-            path: '/edit-article/:id',
+            path: 'edit-article/:id',
             component: EditArticleView
         },
         {
-            path: '/create-article',
+            path: 'create-article',
             component: CreateArticleView
         }
     ]
