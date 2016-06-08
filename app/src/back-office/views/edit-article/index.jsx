@@ -1,12 +1,12 @@
-//Style
-
-// Components
+import Layout from '../../layout';
+import {EditPage} from '../../../common/components/article-edition/index';
+import {EditCartridgeContent} from '../../../common/components/article-edition/edit-cartridge-content';
 
 /** Root component of the back-office app. */
-export function EditArticleView() {
+export function EditArticle() {
     return (
-        <div>
-            <h3>Edit Page</h3>
-        </div>
+        <Layout Content={<EditCartridgeContent />}>
+            <EditPage />
+        </Layout>
     );
 }

@@ -1,12 +1,9 @@
 import {HomeView} from './views/home';
-import {EditArticleView} from './views/edit-article';
-import {CreateArticleView} from './views/create-article';
-import MainLayout from './layout';
+import {EditArticle} from './views/edit-article/index';
 
 export default {
     path: '/',
     indexRoute: {onEnter: ({params}, replace) => replace('home')},
-    component: MainLayout,
     childRoutes: [
         {
             path: 'home',
@@ -14,11 +11,11 @@ export default {
         },
         {
             path: 'edit-article/:id',
-            component: EditArticleView
+            component: EditArticle
         },
         {
             path: 'create-article',
-            component: CreateArticleView
+            component: EditArticle
         }
     ]
 };

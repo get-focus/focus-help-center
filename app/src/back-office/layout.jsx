@@ -18,7 +18,7 @@ function Layout({children, BarLeft, BarRight, BarMiddle, Content, actions}) {
                 </div>
                 {Content}
                 <div data-focus='header-actions'>
-                    {actions.map(primary => {
+                    {actions && actions.map(primary => {
                         const {action, icon} = primary;
                         return (
                             <div

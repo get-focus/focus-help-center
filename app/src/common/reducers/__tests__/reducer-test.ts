@@ -1,10 +1,11 @@
 import {defaultValue as articleList} from '../article-list';
+import {defaultValue as articleDetail} from '../article-detail';
 import {rootReducer} from '../index';
 import {Action} from '../../actions/index';
 import {omit} from 'lodash';
 
 describe('rootReducer', () => {
-    const state = {articleList};
+    const state = {articleList, articleDetail};
 
     describe('articleList', () => {
         describe('REQUEST_ARTICLE_LIST', () => {
