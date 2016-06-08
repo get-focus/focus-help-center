@@ -2,12 +2,11 @@
 import {Component} from 'react';
 import {Link} from 'react-router';
 import {ContentArea} from './content-area';
-import ReactDOM from 'react-dom';
 
 export class EditPage extends Component {
 
     state = {
-        isVisible: true
+        isVisible: false
     };
 
     componentDidMount() {
@@ -21,7 +20,6 @@ export class EditPage extends Component {
 
     render() {
         const {isVisible} = this.state;
-        let classVisibility = isVisible ? '' : '-hidden';
         return (
             <div>
                 <div className='edit-page-container'>
@@ -31,7 +29,7 @@ export class EditPage extends Component {
                 </div>
 
                 <div className='edit-page-container'>
-                    <div className={`edit-parameters-item${classVisibility}`} ref='parametersBloc'>
+                    <div className={`edit-parameters-item${isVisible ? '' : '-hidden'}`} ref='parametersBloc'>
                         <div className='edit-parameters-bloc'>
                             <h5>PARAMÉTRAGE</h5><br/>
                             <span className='edit-parameters-label'>RUBRIQUES</span>
@@ -70,11 +68,12 @@ export class EditPage extends Component {
 
                     <div className='edit-parameters-button-zone'>
                         <button
-                        className="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect edit-button parameters-icon"
+                        className="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect parameters-icon"
                         onClick={this.parameterButtonHandler.bind(this)}
                         >
                             <i className="material-icons">settings</i>
-                        </button>
+                        </button><br/><br/>
+                        <span className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</span>
                     </div>
 
                     <div className='edit-zone-item'>
