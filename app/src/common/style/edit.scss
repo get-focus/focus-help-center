@@ -5,7 +5,7 @@
 
 .edit-header-item {
     flex: auto;
-    background-color: #BFBFBF;
+    background-color: #e0e0e0;
 }
 
 .edit-parameters-item {
@@ -19,7 +19,7 @@
 }
 
 .edit-parameters-button-zone {
-    padding-top: 30px;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: #f6f6f6;
@@ -60,11 +60,9 @@
             font-family: Roboto;
             height: 100%;
             font-size: 14px;
-            padding-top: 24px;
         }
 
         label {
-            padding-top: 20px;
             margin: -10px 10px 0;
             width: calc(100% - 20px);
             height: calc(100% - 3px);
@@ -79,7 +77,7 @@
         border-left: 1px solid #888;
         overflow-y: scroll;
         overflow-x: hidden;
-        padding: 24px 10px;
+        padding: 15px 10px;
 
         blockquote {
             padding: 10px 20px;
@@ -132,4 +130,8 @@
 
 h5 {
     color: #afafaf;
+}
+
+.edit-description {
+    margin-top: -95px;
 }

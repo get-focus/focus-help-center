@@ -33,7 +33,7 @@
         "BABEL_ENV": "production"
       }
     },
-    "test:watch": {
+    "test-watch": {
       "command": "mocha src/**/__tests__/**/*.ts* -w",
       "env": {
         "BABEL_ENV": "production"
