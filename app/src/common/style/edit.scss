@@ -11,11 +11,38 @@
 .edit-parameters-item {
     flex: 0 0 auto;
     padding: 15px;
-    background-color: #fcfcfc;
+    background-color: #f6f6f6;
+}
+
+.edit-parameters-item-hidden {
+    display: none;
+}
+
+.edit-parameters-button-zone {
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #f6f6f6;
 }
 
 .edit-zone-item {
     flex: 10 1 auto;
+}
+
+.edit-parameters-label {
+    color: #626262;
+}
+
+.edit-parameters-text {
+    writing-mode:vertical-rl;
+    transform: rotate(180deg);
+    font-size: 200%;
+    padding-right: 5px;
+    color: #afafaf;
+}
+
+.edit-parameters-text-hidden {
+    display: none
 }
 
 .content-area {
@@ -103,20 +130,6 @@
     color: black;
 }
 
-.edit-parameters-label {
-    color: #626262;
-}
-
-.edit-parameters-button-zone {
-    padding-left: 0;
-    padding-top: 37px;
-    background-color: #fcfcfc;
-}
-
 h5 {
     color: #afafaf;
-}
-
-.edit-parameters-item-hidden {
-    display: none;
 }
