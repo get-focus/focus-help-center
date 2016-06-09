@@ -1,9 +1,23 @@
-import {Component} from 'react';
+// IMPORTS
+import {connect} from 'react-redux';
+import {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
+import {updateArticle} from '../../actions/article-detail';
+import {Article} from '../../definitions/article';
 
 // TODO: Connect to redux store to article node and dispatch (update + all others) article node.
+@connect(
+    state => ({article: state.article}),
+    dispatch => ({updateArticle: article => dispatch(updateArticle(article))})
+)
 export class EditPage extends Component<any, any> {
+
+    static propTypes = {
+        article: PropTypes.object,
+        updateArticle: PropTypes.func
+    }
 
     state = {
         isVisible: false

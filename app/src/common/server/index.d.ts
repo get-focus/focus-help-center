@@ -11,4 +11,7 @@ export interface Api {
 
     /** Queries the server to know if the user is connected or not. */
     isConnected: () => Promise<boolean>;
+
+    /** Save an article */
+    saveArticle: () => Promise<Article>;
 }
