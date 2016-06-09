@@ -1,14 +1,16 @@
 import {PropTypes} from 'react';
+import i18n from 'i18next';
 
 /** Layout component. */
-function Layout({children, BarLeft, BarRight, BarMiddle, Content, actions}) {
+function Layout({children, BarRight, BarMiddle, Content, actions}) {
     return (
         <div data-focus='layout'>
             <header>
                 <div data-focus='header-top-row'>
-                    <div data-focus='header-top-row-left'>
-                        {BarLeft}
-                    </div>
+                    <a data-focus='header-top-row-left' className='mdl-button mdl-js-button'>
+                        <i className='material-icons'>exit_to_app</i>
+                        <span>{i18n.t('back-office.layout.back-to-app')}</span>
+                    </a>
                     <div data-focus='header-top-row-middle'>
                         {BarMiddle}
                     </div>
@@ -39,8 +41,6 @@ function Layout({children, BarLeft, BarRight, BarMiddle, Content, actions}) {
 }
 
 Layout.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.node),
-    BarLeft: PropTypes.node,
     BarMiddle: PropTypes.node,
     BarRight: PropTypes.node,
     Content: PropTypes.arrayOf(PropTypes.node),

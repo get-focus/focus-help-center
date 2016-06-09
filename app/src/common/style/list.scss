@@ -1,5 +1,6 @@
 .article-list {
     padding: 10px;
+    flex: 1;
 
     h3 {
         font-size: 20pt;
@@ -71,10 +72,6 @@
             display: none;
             flex: 0 0 auto;
             margin-top: 6px;
-
-            .material-icons {
-                margin: 0 5px 0 -5px;
-            }
         }
 
         &:hover {
