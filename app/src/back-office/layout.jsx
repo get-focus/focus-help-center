@@ -1,8 +1,9 @@
 import {PropTypes} from 'react';
 import i18n from 'i18next';
+import {PasswordComponent} from '../common/components/password';
 
 /** Layout component. */
-function Layout({children, BarRight, BarMiddle, Content, actions}) {
+function Layout({children, BarMiddle, Content, actions}) {
     return (
         <div data-focus='layout'>
             <header>
@@ -15,7 +16,7 @@ function Layout({children, BarRight, BarMiddle, Content, actions}) {
                         {BarMiddle}
                     </div>
                     <div data-focus='header-top-row-right'>
-                        {BarRight}
+                        <PasswordComponent />
                     </div>
                 </div>
                 {Content}
@@ -42,7 +43,6 @@ function Layout({children, BarRight, BarMiddle, Content, actions}) {
 
 Layout.propTypes = {
     BarMiddle: PropTypes.node,
-    BarRight: PropTypes.node,
     Content: PropTypes.arrayOf(PropTypes.node),
     actions: PropTypes.array
 };

@@ -61,8 +61,8 @@ export class EditPage extends Component<any, any> {
 
                 <div className='edit-parameters-button-zone'>
                     <button
-                    className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect parameters-icon'
-                    onClick={this.parameterButtonHandler.bind(this)}
+                        className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect parameters-icon'
+                        onClick={this.parameterButtonHandler.bind(this)}
                     >
                         <i className='material-icons'>settings</i>
                     </button><br/><br/>

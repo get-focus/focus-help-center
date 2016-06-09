@@ -12,10 +12,15 @@ export const api: Api = {
     async login(password: string) {
         const response = await fetch('http://localhost:3000/signin', {
             method: 'POST',
-            body: password
+            body: password,
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            credentials: 'include'
         });
-        const data = await response.json<{succcess: boolean, error: string}>();
-        if (data.succcess) {
+
+        const data = await response.json<{success: boolean, error: string}>();
+        if (data.success) {
             return true;
         } else {
             return data.error;

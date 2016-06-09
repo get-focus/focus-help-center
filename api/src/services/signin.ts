@@ -7,10 +7,8 @@ export function signinService(app: express.Application) {
         .post((req, res) => {
             if (req.body === 'password') {
                 req.session['signedIn'] = true;
-                res.status(200);
                 res.json({success: true});
             } else {
-                res.status(403);
                 req.session = null;
                 res.json({error: 'Incorrect password'});
             }

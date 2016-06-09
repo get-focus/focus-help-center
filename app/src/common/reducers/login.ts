@@ -22,6 +22,11 @@ export function login(state: LoginState = defaultValue, action: LoginAction) {
                 error: action.error,
                 isConnected: false
             };
+        case Action.CLEAR_ERROR_LOGIN:
+            return {
+                isLoading: false,
+                isConnected: false
+            }
         default:
             return state;
     }

@@ -5,7 +5,6 @@ import {login, loginAndGetCookie} from './login';
 describe('Session', () => {
     it('should sign in and receive a cookie with correct password', mochaAsync(async () => {
         const response = await login('password');
-        chai.expect(response.status).to.equal(200);
         chai.expect(response.headers.getAll('set-cookie')).is.not.empty;
         chai.expect(await response.json()).to.deep.equal({success: true});
     }));
@@ -18,7 +17,6 @@ describe('Session', () => {
 
     it('shouldn\'t sign in with incorrect password', mochaAsync(async () => {
         const response = await login('yolo');
-        chai.expect(response.status).to.equal(403);
         chai.expect(await response.json()).to.deep.equal({error: 'Incorrect password'});
     }));
 

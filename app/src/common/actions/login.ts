@@ -25,17 +25,30 @@ function failureLogin(error: string): LoginAction {
     };
 }
 
-/** Tries to log in on the server. */
+/** Logs in on the server. */
 export function login(password: string) {
     return async (dispatch, getState, api: Api) => {
         dispatch(requestLogin());
-        const response = await api.login(password);
         try {
+            const response = await api.login(password);
             if (response === true) {
                 dispatch(receiveLogin(true));
             } else {
                 dispatch(failureLogin(response as string));
             }
+        } catch (err) {
+            dispatch(failureLogin(err));
+        }
+    };
+}
+
+/** Logs out of the server. */
+export function logout() {
+    return async (dispatch, getState, api: Api) => {
+        dispatch(requestLogin());
+        try {
+            await api.login('yolo');
+            dispatch(receiveLogin(false));
         } catch (err) {
             dispatch(failureLogin(err));
         }
@@ -52,4 +65,9 @@ export function isConnected() {
             dispatch(failureLogin(err));
         }
     };
+}
+
+/** Clear the login error. */
+export function clearError(): LoginAction {
+    return {type: Action.CLEAR_ERROR_LOGIN};
 }
