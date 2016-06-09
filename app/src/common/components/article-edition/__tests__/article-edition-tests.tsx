@@ -1,4 +1,4 @@
-import {EditPage} from '../index';
+import {EditPage} from '../';
 import {shallow} from 'enzyme';
 
 describe('Edition Page', () => {

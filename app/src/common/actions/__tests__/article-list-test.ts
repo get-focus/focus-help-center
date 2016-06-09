@@ -1,5 +1,5 @@
 import {loadArticleList} from '../article-list';
-import {Action} from '../../actions/index';
+import {Action} from '../../actions';
 import {apiMockData} from '../../server/api-mock';
 
 describe('action: loadArticleList', () => {

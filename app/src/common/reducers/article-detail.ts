@@ -1,4 +1,4 @@
-import {Action} from '../actions/index';
+import {Action} from '../actions';
 import {ArticleDetailAction, ArticleDetailState} from '../definitions/article-detail';
 
 export const defaultValue: ArticleDetailState = {isLoading: false};

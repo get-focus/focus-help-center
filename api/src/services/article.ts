@@ -1,5 +1,5 @@
 import express from 'express';
-import {Article} from '../db/index';
+import {Article} from '../db';
 
 /**
  * @swagger

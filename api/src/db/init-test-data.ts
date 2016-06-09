@@ -1,4 +1,4 @@
-import {sequelize, Article} from './index';
+import {sequelize, Article} from './';
 
 export const article1 = {id: 1, title: 'The First', description: 'The first description', content: 'Blablabla is the base' };
 export const article2 = {id: 2, title: 'The Second', description: 'The second description', content: 'Blablabla is the base : 2' };

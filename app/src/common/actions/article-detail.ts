@@ -1,4 +1,4 @@
-import {Action} from './index';
+import {Action} from './';
 import {Article} from '../definitions/article';
 import {ArticleDetailAction} from '../definitions/article-detail';
 

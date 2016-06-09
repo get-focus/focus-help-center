@@ -1,4 +1,4 @@
-import {sequelize, Article} from './index';
+import {sequelize, Article} from './';
 import {IArticle} from '../db/article';
 import faker from 'faker';
 
