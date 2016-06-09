@@ -32,12 +32,15 @@ export const fr = {
         button: {
             save: 'Sauvegarder',
             edit: 'Éditer',
-             add: 'Ajouter'
+            add: 'Ajouter'
         },
 
         // Back office specific labels.
         'back-office': {
-
+            layout: {
+                'back-to-app': 'Retour à l\'application'
+            },
+            title: 'centre d\'aide'
         },
 
         // Extension specific labels.

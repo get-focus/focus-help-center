@@ -1,5 +1,4 @@
 import {ArticleListState} from '../../definitions/article-list';
-import i18n from 'i18next';
 import {ArticleLine} from './line';
 import {Link} from 'react-router';
 
@@ -7,7 +6,6 @@ import {Link} from 'react-router';
 export function ArticleList({articleList: {isLoading, list, error}}: { articleList: ArticleListState }) {
     return (
         <div className='article-list'>
-            <h3>{i18n.t('article-list.title') }</h3>
             <div
                 style={!isLoading ? { display: 'none' } : {}}
                 className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}

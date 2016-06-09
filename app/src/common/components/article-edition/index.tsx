@@ -1,6 +1,4 @@
-// IMPORTS
 import {Component} from 'react';
-import {Link} from 'react-router';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
 
@@ -71,13 +69,7 @@ export class EditPage extends Component<any, any> {
                     <span className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</span>
                 </div>
 
-                <div className='edit-zone-item'>
-                    <ContentArea />
-                </div>
-
-                <Link to='#' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' >
-                    <i className='material-icons'>home</i>
-                </Link>
+                <ContentArea />
             </div>
         );
     }
