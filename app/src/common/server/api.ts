@@ -36,8 +36,20 @@ export const api: Api = {
         return !!data.success;
     },
 
-    async saveArticle() {
-        const response = await fetch('http://localhost:3000/save-article')
-        return response.json<Article>();
+    async saveArticle(article: Article) {
+        if (article !== undefined) {
+            await fetch('http://localhost:3000/save-article', {
+                method: 'POST',
+                body: JSON.stringify(article),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(article);
+            return true;
+        } else {
+            console.log('ERROR, ARTICLE NOT SAVED \nRecieved article : ', article);
+            return false;
+        }
     }
 };

@@ -1,6 +1,5 @@
 import express from 'express';
 import {sequelize, Article} from '../db/index';
-import {IArticle} from '../db/article';
 
 export function articleUpdateService(app: express.Application) {
 
@@ -31,6 +30,8 @@ async function addArticle(article) {
     try {
         await Article.create(article);
         console.log('Article added with success');
+        const test = Article.findAll();
+        console.log(test);
     } catch (error) {
         console.log(`Error while trying to insert an article in the database : ${error}`);
     }

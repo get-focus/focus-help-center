@@ -13,5 +13,5 @@ export interface Api {
     isConnected: () => Promise<boolean>;
 
     /** Save an article */
-    saveArticle: () => Promise<Article>;
+    saveArticle: (article) => Promise<boolean>;
 }
