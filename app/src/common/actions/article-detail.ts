@@ -6,10 +6,8 @@ import {Api} from '../server/index';
 /** Action creator to update article in store. */
 
 /**Update article action */
-export function updateArticle(article: Article, values?): any {
-    article.title = values[0];
-    article.description = values[1];
-    article.content = values[2];
+export function updateArticle(article: Article, attribute?: string, value?: string): any {
+    article[`${attribute}`] = value;
     return async (dispatch) => {
         try {
             dispatch(successUpdateArtictleDetail(article));

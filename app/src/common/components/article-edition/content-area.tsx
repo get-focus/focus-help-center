@@ -12,7 +12,7 @@ export class ContentArea extends Component<any, any> {
     handleChange = () => {
         const value = this.refs['textarea']['value'];
         this.setState({value});
-        this.props.onChange(value);
+        this.props.onChange('description', value);
     }
     rawMarkup = () => ({__html: this.md.render(this.state.value)});
 

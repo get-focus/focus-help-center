@@ -10,8 +10,9 @@ import {updateArticle, saveArticle} from '../../actions/article-detail';
     state => ({article: state.article}),
     dispatch => (
         {
-            updateArticle: (article, values) => dispatch(updateArticle(article, values)),
-            saveArticle: article => dispatch(saveArticle(article))
+            updateArticle: (article, attribute, value) => dispatch(updateArticle(article, attribute, value)),
+            saveArticle: article => dispatch(saveArticle(article)),
+            article: {title: '', description: '', content: ''}
         })
 )
 export class EditPage extends Component<any, any> {
@@ -39,13 +40,17 @@ export class EditPage extends Component<any, any> {
         this.props.saveArticle(this.props.article);
     }
 
-    onChangeHandler() {
-        this.props.updateArticle(this.props.article, ['toto', 'tata', 'titi']);
+    onChangeHandler(argument, argument2) {
+        const stringChecker = ''
+        if(typeof argument === typeof stringChecker) {
+            this.props.updateArticle(this.props.article, argument, argument2);
+        } else {
+            this.props.updateArticle(this.props.article, argument.target.name, argument.target.value);
+        }
     }
 
     render() {
         const {isVisible} = this.state;
-        console.log(this.props.article);
         return (
             <div className='edit-page-container'>
                 <div className={`edit-parameters-item${isVisible ? '' : '-hidden'}`} ref='parametersBloc'>
@@ -57,7 +62,7 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' ref='sectionInput' onChange={this.onChangeHandler.bind(this)}/>
+                            <input className='mdl-textfield__input' type='text' id='sample1' name='section' onChange={this.onChangeHandler.bind(this)}/>
                             <label className='mdl-textfield__label' htmlFor='sample1'>Rubriques...</label>
                         </div>
 
@@ -103,7 +108,7 @@ export class EditPage extends Component<any, any> {
                     <span className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</span>
                 </div>
 
-                <ContentArea />
+                <ContentArea onChange={this.onChangeHandler.bind(this)}/>
             </div>
         );
     }
