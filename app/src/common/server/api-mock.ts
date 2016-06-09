@@ -12,5 +12,17 @@ export const apiMockData = {
 export const api: Api = {
     async loadArticleList() {
         return apiMockData.loadArticleList;
+    },
+
+    async login(password: string) {
+        if (password === 'password') {
+            return true;
+        } else {
+            return 'Incorrect password';
+        }
+    },
+
+    async isConnected() {
+        return true;
     }
 };
