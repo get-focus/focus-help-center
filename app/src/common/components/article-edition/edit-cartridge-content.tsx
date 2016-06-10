@@ -74,7 +74,7 @@ class EditCartridgeContent extends Component<any, any> {
                         <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-title' onClick={this.titleClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
+                        {i18n.t('button.edit') }
                     </div>
                 </div>
             );
@@ -119,7 +119,7 @@ class EditCartridgeContent extends Component<any, any> {
                         </label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-description' onClick={this.descriptionClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
+                        {i18n.t('button.edit') }
                     </div>
                 </div>
             );
