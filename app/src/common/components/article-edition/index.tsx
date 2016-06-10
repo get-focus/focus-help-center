@@ -31,7 +31,7 @@ export class EditPage extends Component<any, any> {
     }
 
     componentDidMount() {
-        componentHandler.upgradeDom();
+        // componentHandler.upgradeDom();
     }
 
     parameterButtonHandler() {

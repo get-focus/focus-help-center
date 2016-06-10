@@ -16,7 +16,7 @@ export class ContentArea extends Component<any, any> {
     rawMarkup = () => ({__html: this.md.render(this.props.value)});
 
     componentDidMount() {
-        componentHandler.upgradeDom();
+        // componentHandler.upgradeDom();
     }
 
     render() {
