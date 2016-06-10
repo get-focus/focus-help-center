@@ -45,4 +45,23 @@ describe('Article', () => {
             chai.expect(articles[2].content).to.equal(article3.content);
         }));
     });
+
+    describe('POST /article', () => {
+        it('Should create a new article', mochaAsync(async () => {
+            const article = {
+                title: 'Hello',
+                description: 'This is a description',
+                content: 'Hey, the content will be there, you know ?',
+                published: false
+            };
+            const response = await fetch('http://localhost:3000/api/article', {
+                method: 'POST',
+                body: JSON.stringify(article),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            chai.expect(await response.json()).to.deep.equal({success: true});
+        }));
+    });
 });
