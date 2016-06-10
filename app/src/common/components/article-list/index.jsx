@@ -6,20 +6,31 @@ import {ArticleList as List} from './list';
 
 /** Component that displays the list of all articles, connected to the store. */
 @connect(
-    state => ({articleList: state.articleList}),
+    state => ({
+        articleList: state.articleList,
+        connected: state.login.isConnected
+    }),
     dispatch => ({loadArticleList: () => dispatch(loadArticleList())})
 )
 export class ArticleList extends Component {
     static propTypes = {
         articleList: PropTypes.object,
-        loadArticleList: PropTypes.func
+        loadArticleList: PropTypes.func,
+        connected: PropTypes.bool
     }
 
     componentWillMount() {
         this.props.loadArticleList();
     }
 
+    componentWillReceiveProps({connected}) {
+        if (this.props.connected !== connected) {
+            this.componentWillMount();
+        }
+    }
+
     render() {
-        return <List articleList={this.props.articleList} />;
+        const {connected, articleList} = this.props;
+        return <List articleList={articleList} connected={connected} />;
     }
 }

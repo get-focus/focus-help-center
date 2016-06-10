@@ -14,7 +14,8 @@ const article =
     sequelizeInstance.define<IArticleInstance, IArticle>('Article', {
         title: Sequelize.STRING,
         description: Sequelize.STRING,
-        content: Sequelize.STRING
+        content: Sequelize.STRING,
+        published: Sequelize.BOOLEAN
     });
 
 /** ORM instance. */
