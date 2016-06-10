@@ -9,7 +9,7 @@ import routes from './routes';
 function HelpCenter() {
     return (
         <HelpCenterBase>
-            <Router history={hashHistory} routes={routes}/>
+            <Router history={hashHistory} routes={routes} />
         </HelpCenterBase>
     );
 }

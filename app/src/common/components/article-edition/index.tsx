@@ -1,4 +1,3 @@
-// IMPORTS
 import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
@@ -6,13 +5,15 @@ import i18n from 'i18next';
 import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/article-detail';
 
 @connect(
-    state => ({article: state.articleDetail.article}),
-    dispatch => (
-        {
-            updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-            saveArticle: article => dispatch(saveArticle(article)),
-            loadArticleDetail: article => dispatch(loadArticleDetail(article))
-        })
+    state => ({
+        article: state.articleDetail.article,
+        connected: state.login.isConnected
+    }),
+    dispatch => ({
+        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
+        saveArticle: article => dispatch(saveArticle(article)),
+        loadArticleDetail: article => dispatch(loadArticleDetail(article))
+    })
 )
 export class EditPage extends Component<any, any> {
 
@@ -48,6 +49,10 @@ export class EditPage extends Component<any, any> {
     }
 
     render() {
+        if (!this.props.connected) {
+            return <div />;
+        }
+
         const {isVisible} = this.state;
         return (
             <div className='edit-page-container'>
