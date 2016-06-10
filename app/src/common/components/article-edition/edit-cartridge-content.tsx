@@ -4,7 +4,10 @@ import {connect} from 'react-redux';
 import {updateArticle, saveArticle} from '../../actions/article-detail';
 
 @connect(
-    state => ({article: state.articleDetail.article}),
+    state => ({
+        article: state.articleDetail.article,
+        connected: state.login.isConnected
+    }),
     dispatch => (
         {
             updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
@@ -107,6 +110,10 @@ export class EditCartridgeContent extends Component<any, any> {
     };
 
     render() {
+        if (!this.props.connected) {
+            return <div />;
+        }
+
         return (
             <div>
                 {this.renderTitleZone() }
