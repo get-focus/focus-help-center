@@ -3,7 +3,6 @@ import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {updateArticle, saveArticle} from '../../actions/article-detail';
 
-// TODO: Connect to redux store to article node and dispatch update article node.
 @connect(
     state => ({article: state.articleDetail.article}),
     dispatch => (

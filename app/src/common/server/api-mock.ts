@@ -24,5 +24,9 @@ export const api: Api = {
 
     async isConnected() {
         return true;
+    },
+
+    async saveArticle(article) {
+        return true;
     }
 };
