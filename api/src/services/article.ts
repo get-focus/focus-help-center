@@ -14,6 +14,8 @@ import {Article} from '../db';
  *         type: string
  *       content:
  *         type: string
+ *       published:
+ *         type: boolean
  *       createdAt:
  *         type: string
  *       updatedAt:
@@ -44,7 +46,17 @@ export function articleService(app: express.Application) {
      *           $ref: '#/definitions/Article'
      */
     app.get('/api/article/:id', async (req, res) => {
-        res.json(await Article.findById(req.params.id));
+        const {signedIn} = req.session;
+        const article = await Article.findById(req.params.id);
+        if (!article) {
+            res.status(404);
+            res.json({error: 'No article found'});
+        } else if (signedIn || article.get().published === true) {
+            res.json(article);
+        } else {
+            res.status(403);
+            res.json({error: 'This article isn\'t published'});
+        }
     });
 
     /**
@@ -71,6 +83,11 @@ export function articleService(app: express.Application) {
      *             $ref: '#/definitions/Article'
      */
     app.get('/api/article', async (req, res) => {
-        res.json(await Article.findAll());
+        const {signedIn} = req.session;
+        if (signedIn) {
+            res.json(await Article.findAll());
+        } else {
+            res.json(await Article.findAll({where: {published: true}}));
+        }
     });
 }

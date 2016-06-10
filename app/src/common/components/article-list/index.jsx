@@ -23,6 +23,12 @@ export class ArticleList extends Component {
         this.props.loadArticleList();
     }
 
+    componentWillReceiveProps({connected}) {
+        if (this.props.connected !== connected) {
+            this.componentWillMount();
+        }
+    }
+
     render() {
         const {connected, articleList} = this.props;
         return <List articleList={articleList} connected={connected} />;

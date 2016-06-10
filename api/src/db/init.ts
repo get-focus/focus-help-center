@@ -25,7 +25,7 @@ async function initDb() {
     try {
         let data: IArticle[] = [];
         for (let i = 0; i < 10; i++) {
-            data.push({title: faker.commerce.department(), description: faker.lorem.sentence(), content: faker.lorem.sentences()});
+            data.push({title: faker.commerce.department(), description: faker.lorem.sentence(), content: faker.lorem.sentences(), published: faker.random.boolean()});
         }
         await Article.bulkCreate(data);
         console.log('10 articles successfully inserted.');
