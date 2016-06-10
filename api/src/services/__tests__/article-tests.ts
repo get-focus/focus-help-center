@@ -53,7 +53,7 @@ describe('Article', () => {
         it('Should create a new article', mochaAsync(async () => {
             const article = {
                 title: 'Hello',
-                description: 'This is a description',
+                description: 'description',
                 content: 'Hey, the content will be there, you know ?',
                 published: false
             };
@@ -61,7 +61,12 @@ describe('Article', () => {
                 method: 'POST',
                 body: JSON.stringify(article)
             });
-            chai.expect(await response.json()).to.deep.equal({success: true});
+            const returnedObject = await response.json();
+            chai.expect(returnedObject.success).to.equal(true);
+            chai.expect(returnedObject.article.title).to.equal('Hello');
+            chai.expect(returnedObject.article.description).to.equal('description');
+            chai.expect(returnedObject.article.content).to.equal('Hey, the content will be there, you know ?');
+            chai.expect(returnedObject.article.published).to.equal(false);
         }));
     });
 
