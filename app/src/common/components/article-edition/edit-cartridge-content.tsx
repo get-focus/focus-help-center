@@ -93,7 +93,7 @@ class EditCartridgeContent extends Component<any, any> {
         if (!descriptionEditable) {
             return (
                 <h5 className='edit-cartridge-description'>
-                    {this.renderLabel('description') }
+                    <em>{this.renderLabel('description') }</em>
                     <div className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored  article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
                         <i className='material-icons'>edit</i>
                         {i18n.t('button.edit') }
