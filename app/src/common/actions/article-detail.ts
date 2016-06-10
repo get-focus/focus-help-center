@@ -37,19 +37,17 @@ export function updateArticle(attribute: string, value: string): ArticleDetailAc
 export function saveArticle(article: Article): any {
     return async (dispatch, getState, api: Api) => {
         try {
-            dispatch(successSaveDetail(await api.saveArticle(article), article));
+            const response = await api.saveArticle(article);
+            if (response === true) {
+                dispatch({type: Action.SUCCESS_SAVE_ARTICLE});
+            } else {
+                dispatch(failSaveDetail(response as string));
+            }
+
             // Set timeout and do an action which make success to false
         } catch (error) {
             dispatch(failSaveDetail(error));
         }
-    };
-}
-
-function successSaveDetail(success: boolean, article: Article): ArticleDetailAction {
-    return {
-        type: Action.SUCCESS_SAVE_ARTICLE,
-        success,
-        article
     };
 }
 

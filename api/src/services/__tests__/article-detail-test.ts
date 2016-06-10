@@ -9,6 +9,6 @@ describe('Article detail tests', () => {
             content: 'Hey, the content will be there, you know ?'
         };
         let response = await saveCall(article);
-        chai.expect(await response.text()).to.equal('Data sent');
+        chai.expect(await response.json()).to.deep.equal({ success: true });
     }));
 });

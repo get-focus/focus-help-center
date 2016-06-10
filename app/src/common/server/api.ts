@@ -37,19 +37,19 @@ export const api: Api = {
     },
 
     async saveArticle(article: Article) {
-        if (article !== undefined) {
-            await fetch('http://localhost:3000/save-article', {
-                method: 'POST',
-                body: JSON.stringify(article),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(article);
+        const response = await fetch('http://localhost:3000/api/article', {
+            method: 'POST',
+            body: JSON.stringify(article),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json<{success: boolean, error: string}>();
+        if (data.success) {
             return true;
         } else {
-            console.log('ERROR, ARTICLE NOT SAVED \nRecieved article : ', article);
-            return false;
+            return data.error;
         }
     }
 };

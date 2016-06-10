@@ -5,7 +5,6 @@ import path from 'path';
 
 import {articleService} from './services/article';
 import {signinService} from './services/signin';
-import {articleSaveService} from './services/article-detail';
 import {swaggerService} from './swagger/index';
 
 import {initDb} from './db/init-test-data';
@@ -32,7 +31,6 @@ app.use((req, res, next) => {
 // Registers the services.
 articleService(app);
 signinService(app);
-articleSaveService(app);
 swaggerService(app);
 
 app.listen(3000, () => {

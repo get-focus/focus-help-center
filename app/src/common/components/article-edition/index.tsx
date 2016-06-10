@@ -43,13 +43,8 @@ export class EditPage extends Component<any, any> {
         this.props.saveArticle(this.props.article);
     }
 
-    onChangeHandler(changeOrAttribute, value) {
-        const stringChecker = '';
-        if (typeof changeOrAttribute === typeof stringChecker) {
-            this.props.updateArticle(changeOrAttribute, value);
-        } else {
-            this.props.updateArticle(changeOrAttribute.target.name, changeOrAttribute.target.value);
-        }
+    onChangeHandler(attribute, value?) {
+        this.props.updateArticle(attribute, value || this.refs[attribute]);
     }
 
     render() {
@@ -65,7 +60,7 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sectionInput' name='section'/>
+                            <input className='mdl-textfield__input' type='text' id='sectionInput' name='section' ref='section'/>
                             <label className='mdl-textfield__label' htmlFor='sectionInput'>Rubriques...</label>
                         </div>
 
@@ -76,7 +71,7 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='urlInput' name='url' />
+                            <input className='mdl-textfield__input' type='text' id='urlInput' name='url' ref='url' />
                             <label className='mdl-textfield__label' htmlFor='urlInput'>URL...</label>
                         </div>
 
@@ -87,7 +82,7 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' />
+                            <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' ref='blocInformation' />
                             <label className='mdl-textfield__label' htmlFor='blocInformationInput'>Bloc d'information...</label>
                         </div>
 

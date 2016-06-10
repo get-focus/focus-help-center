@@ -56,8 +56,8 @@ export class EditCartridgeContent extends Component<any, any> {
             return (
                 <div>
                     <div className='mdl-textfield mdl-js-textfield edit-cartridge-title'>
-                        <input className='mdl-textfield__input edit-cartridge-title' type='text' id='titleInput' name='title' autoFocus onChange={this.onChangeHandler.bind(this)} />
-                        <label className='mdl-textfield__label edit-cartridge-title' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title')}</label>
+                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' autoFocus onChange={this.onChangeHandler.bind(this)} />
+                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title')}</label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect' onClick={this.titleClickHandler.bind(this)}>
                         {i18n.t('button.save')}
