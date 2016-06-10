@@ -1,40 +1,78 @@
-import {defaultValue as articleList} from '../article-list';
-import {defaultValue as articleDetail} from '../article-detail';
+import {defaultState} from '../../store/default-state';
 import {rootReducer} from '../';
 import {Action} from '../../actions';
 import {omit} from 'lodash';
 
 describe('rootReducer', () => {
-    const state = {articleList, articleDetail};
-    let newState: typeof state;
-    describe('articleList', () => {
-        describe('REQUEST_ARTICLE_LIST', () => {
-            newState = rootReducer(state, {type: Action.REQUEST_ARTICLE_LIST});
+
+    describe('login', () => {
+        describe('REQUEST_LOGIN', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_LOGIN});
 
             it('shouldn\'t alter the remaining state nodes', () => {
-                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(state, 'articleList'));
+                chai.expect(omit(newState, 'login')).to.deep.equal(omit(defaultState, 'login'));
+            });
+
+            it('should update correctly the state with a REQUEST_LOGIN action', () => {
+                chai.expect(newState.login).to.deep.equal({isConnected: false, isLoading: true});
+            });
+        });
+
+        describe('RECEIVE_LOGIN', () => {
+            const newState = rootReducer(defaultState, {type: Action.RECEIVE_LOGIN, isConnected: true});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'login')).to.deep.equal(omit(defaultState, 'login'));
+            });
+
+            it('should update correctly the state with a RECEIVE_LOGIN action', () => {
+                chai.expect(newState.login).to.deep.equal({isConnected: true, isLoading: false});
+            });
+        });
+
+        describe('FAILURE_LOGIN', () => {
+            const newState = rootReducer(defaultState, {type: Action.FAILURE_LOGIN, error: 'error'});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'login')).to.deep.equal(omit(defaultState, 'login'));
+            });
+
+            it('should update correctly the state with a FAILURE_LOGIN action', () => {
+                chai.expect(newState.login).to.deep.equal({isLoading: false, isConnected: false, error: 'error'});
+            });
+        });
+    });
+
+    describe('articleList', () => {
+        describe('REQUEST_ARTICLE_LIST', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_ARTICLE_LIST});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(defaultState, 'articleList'));
             });
 
             it('should update correctly the state with a REQUEST_ARTICLE_LIST action', () => {
                 chai.expect(newState.articleList).to.deep.equal({list: [], isLoading: true});
             });
         });
+
         describe('SUCCESS_ARTICLE_LIST', () => {
-            newState = rootReducer(state, {type: Action.SUCCESS_ARTICLE_LIST, list: [{test: 'ok'}]});
+            const newState = rootReducer(defaultState, {type: Action.SUCCESS_ARTICLE_LIST, list: [{test: 'ok'}]});
 
             it('shouldn\'t alter the remaining state nodes', () => {
-                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(state, 'articleList'));
+                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(defaultState, 'articleList'));
             });
 
             it('should update correctly the state with a SUCCESS_ARTICLE_LIST action', () => {
                 chai.expect(newState.articleList).to.deep.equal({list: [{test: 'ok'}], isLoading: false});
             });
         });
+
         describe('FAILURE_ARTICLE_LIST', () => {
-            newState = rootReducer(state, {type: Action.FAILURE_ARTICLE_LIST, error: 'error'});
+            const newState = rootReducer(defaultState, {type: Action.FAILURE_ARTICLE_LIST, error: 'error'});
 
             it('shouldn\'t alter the remaining state nodes', () => {
-                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(state, 'articleList'));
+                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(defaultState, 'articleList'));
             });
 
             it('should update correctly the state with a FAILURE_ARTICLE_LIST action', () => {

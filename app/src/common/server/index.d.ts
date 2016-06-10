@@ -5,4 +5,10 @@ export interface Api {
 
     /** Loads all the articles */
     loadArticleList: () => Promise<Article[]>;
+
+    /** Logs in on the server */
+    login: (password: string) => Promise<boolean | string>;
+
+    /** Queries the server to know if the user is connected or not. */
+    isConnected: () => Promise<boolean>;
 }

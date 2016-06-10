@@ -34,6 +34,10 @@ export const fr = {
             edit: 'Éditer',
             add: 'Ajouter'
         },
+        password: {
+            password: 'Mot de passe',
+            connected: 'Connecté'
+        },
 
         // Back office specific labels.
         'back-office': {

@@ -11,14 +11,19 @@ import {initDb} from './db/init-test-data';
 
 const app = express();
 app.use(express.static(path.resolve(process.cwd(), '../docs')));
-app.use(cookieSession({name: 'session', secret: 'secret'}));
+app.use(cookieSession({
+    name: 'session',
+    secret: 'secret',
+    path: null,
+    httpOnly: false
+}));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
 // Allow CORS.
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:9999');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
