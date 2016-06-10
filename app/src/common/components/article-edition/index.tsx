@@ -3,15 +3,15 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, saveArticle} from '../../actions/article-detail';
+import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/article-detail';
 
 @connect(
-    state => ({article: state.article}),
+    state => ({article: state.articleDetail.article}),
     dispatch => (
         {
-            updateArticle: (article, attribute, value) => dispatch(updateArticle(article, attribute, value)),
+            updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
             saveArticle: article => dispatch(saveArticle(article)),
-            article: {title: '', description: '', content: ''}
+            loadArticleDetail: article => dispatch(loadArticleDetail(article))
         })
 )
 export class EditPage extends Component<any, any> {
@@ -26,6 +26,10 @@ export class EditPage extends Component<any, any> {
         isVisible: false
     };
 
+    componentWillMount() {
+        this.props.loadArticleDetail({title: '', description: '', content: ''});
+    }
+
     componentDidMount() {
         componentHandler.upgradeDom();
     }
@@ -36,15 +40,16 @@ export class EditPage extends Component<any, any> {
     }
 
     saveArticle() {
+        console.log(this.props.article);
         this.props.saveArticle(this.props.article);
     }
 
-    onChangeHandler(argument, argument2) {
+    onChangeHandler(changeOrAttribute, value) {
         const stringChecker = '';
-        if (typeof argument === typeof stringChecker) {
-            this.props.updateArticle(this.props.article, argument, argument2);
+        if (typeof changeOrAttribute === typeof stringChecker) {
+            this.props.updateArticle(changeOrAttribute, value);
         } else {
-            this.props.updateArticle(this.props.article, argument.target.name, argument.target.value);
+            this.props.updateArticle(changeOrAttribute.target.name, changeOrAttribute.target.value);
         }
     }
 
@@ -61,8 +66,8 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' name='section' onChange={this.onChangeHandler.bind(this)}/>
-                            <label className='mdl-textfield__label' htmlFor='sample1'>Rubriques...</label>
+                            <input className='mdl-textfield__input' type='text' id='sectionInput' name='section'/>
+                            <label className='mdl-textfield__label' htmlFor='sectionInput'>Rubriques...</label>
                         </div>
 
                         <br/><br/>
@@ -72,8 +77,8 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' />
-                            <label className='mdl-textfield__label' htmlFor='sample1'>URL...</label>
+                            <input className='mdl-textfield__input' type='text' id='urlInput' name='url' />
+                            <label className='mdl-textfield__label' htmlFor='urlInput'>URL...</label>
                         </div>
 
                         <br/><br/>
@@ -83,8 +88,8 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' />
-                            <label className='mdl-textfield__label' htmlFor='sample1'>Bloc d'information...</label>
+                            <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' />
+                            <label className='mdl-textfield__label' htmlFor='blocInformationInput'>Bloc d'information...</label>
                         </div>
 
                         <br/><br/>
@@ -107,7 +112,7 @@ export class EditPage extends Component<any, any> {
                     <span className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</span>
                 </div>
 
-                <ContentArea onChange={this.onChangeHandler.bind(this)}/>
+                <ContentArea onChange={this.onChangeHandler.bind(this)} value={this.props.article.content} />
             </div>
         );
     }

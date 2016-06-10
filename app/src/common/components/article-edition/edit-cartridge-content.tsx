@@ -4,6 +4,14 @@ import {connect} from 'react-redux';
 import {updateArticle, saveArticle} from '../../actions/article-detail';
 
 // TODO: Connect to redux store to article node and dispatch update article node.
+@connect(
+    state => ({article: state.articleDetail.article}),
+    dispatch => (
+        {
+            updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
+            saveArticle: article => dispatch(saveArticle(article))
+        })
+)
 export class EditCartridgeContent extends Component<any, any> {
 
     state = {
@@ -25,19 +33,32 @@ export class EditCartridgeContent extends Component<any, any> {
         this.setState({ titleEditable: !titleEditable ? true : false });
     }
 
+    onChangeHandler(changeEvent) {
+        this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
+    }
+
+    renderLabel(attribute) {
+        const {article} = this.props;
+        if (article[`${attribute}`] === '' || article[`${attribute}`] === undefined) {
+            return i18n.t(`edit-cartridge.content.${attribute}`);
+        } else {
+            return article[`${attribute}`];
+        }
+    }
+
     // Display the title zone
     renderTitleZone() {
         const {titleEditable} = this.state;
         if (!titleEditable) {
             return (
-                <h4 className='edit-cartridge-title' onClick={this.titleClickHandler.bind(this) }>{i18n.t('edit-cartridge.content.title')}</h4>
+                <h4 className='edit-cartridge-title' onClick={this.titleClickHandler.bind(this) }>{this.renderLabel('title')}</h4>
             );
         } else {
             return (
                 <div>
                     <div className='mdl-textfield mdl-js-textfield edit-cartridge-title'>
-                        <input className='mdl-textfield__input edit-cartridge-title' type='text' id='sample1' autoFocus/>
-                        <label className='mdl-textfield__label edit-cartridge-title' htmlFor='sample1'>{i18n.t('edit-cartridge.input.title')}</label>
+                        <input className='mdl-textfield__input edit-cartridge-title' type='text' id='titleInput' name='title' autoFocus onChange={this.onChangeHandler.bind(this)} />
+                        <label className='mdl-textfield__label edit-cartridge-title' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title')}</label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect' onClick={this.titleClickHandler.bind(this)}>
                         {i18n.t('button.save')}
@@ -58,7 +79,7 @@ export class EditCartridgeContent extends Component<any, any> {
         const {descriptionEditable} = this.state;
         if (!descriptionEditable) {
             return (
-                <h4 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>{i18n.t('edit-cartridge.content.description')}</h4>
+                <h4 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>{this.renderLabel('description')}</h4>
             );
         } else {
             return (
@@ -68,6 +89,8 @@ export class EditCartridgeContent extends Component<any, any> {
                             className='mdl-textfield__input edit-cartridge-description'
                             id='textarea'
                             autoFocus
+                            name = 'description'
+                            onChange={this.onChangeHandler.bind(this)}
                             />
                         <label
                             className='mdl-textfield__label edit-cartridge-description'

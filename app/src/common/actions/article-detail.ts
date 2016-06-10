@@ -5,12 +5,13 @@ import {Api} from '../server/index';
 
 /** Action creator to update article in store. */
 
+// TODO: in the future, this will load an existing article. Taken by its ID from the URL query or POST data
 export function loadArticleDetail(article: Article): any {
     console.log(article);
     return async (dispatch, getState) => {
         try {
             dispatch(successLoadArtictleDetail(article));
-        } catch (err){
+        } catch (err) {
             throw err;
         }
     };
@@ -24,29 +25,20 @@ function successLoadArtictleDetail(article: Article): ArticleDetailAction {
 }
 
 /**Update article action */
-export function updateArticle(article: Article, attribute?: string, value?: string): any {
-    article[`${attribute}`] = value;
-    return async (dispatch, getState) => {
-        try {
-            dispatch(successUpdateArtictleDetail(article));
-        } catch (err) {
-            throw err;
-        }
-    };
-}
-
-function successUpdateArtictleDetail(article: Article): ArticleDetailAction {
+export function updateArticle(attribute: string, value: string): ArticleDetailAction {
     return {
         type: Action.UPDATE_ARTICLE,
-        article
+        attribute,
+        value
     };
 }
 
 /** Save article action */
 export function saveArticle(article: Article): any {
-    return async (dispatch, api: Api) => {
+    return async (dispatch, getState, api: Api) => {
         try {
             dispatch(successSaveDetail(await api.saveArticle(article), article));
+            // Set timeout and do an action which make success to false
         } catch (error) {
             dispatch(failSaveDetail(error));
         }
