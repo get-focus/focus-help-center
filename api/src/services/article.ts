@@ -204,5 +204,12 @@ export function articleService(app: express.Application) {
                 res.json({ error: `No article deleted` });
             }
         }
+        res.status(200);
+        try {
+            const article = (await Article.create(req.body)).get()
+            res.json({article: article, success: true});
+        } catch (error) {
+            res.json({error});
+        }
     });
 }
