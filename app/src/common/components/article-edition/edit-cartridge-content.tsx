@@ -1,5 +1,7 @@
 import {Component} from 'react';
 import i18n from 'i18next';
+import {connect} from 'react-redux';
+import {updateArticle, saveArticle} from '../../actions/article-detail';
 
 // TODO: Connect to redux store to article node and dispatch update article node.
 export class EditCartridgeContent extends Component<any, any> {

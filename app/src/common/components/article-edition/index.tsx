@@ -5,7 +5,6 @@ import {ContentArea} from './content-area';
 import i18n from 'i18next';
 import {updateArticle, saveArticle} from '../../actions/article-detail';
 
-// TODO: Connect to redux store to article node and dispatch (update + all others) article node.
 @connect(
     state => ({article: state.article}),
     dispatch => (
@@ -41,8 +40,8 @@ export class EditPage extends Component<any, any> {
     }
 
     onChangeHandler(argument, argument2) {
-        const stringChecker = ''
-        if(typeof argument === typeof stringChecker) {
+        const stringChecker = '';
+        if (typeof argument === typeof stringChecker) {
             this.props.updateArticle(this.props.article, argument, argument2);
         } else {
             this.props.updateArticle(this.props.article, argument.target.name, argument.target.value);
