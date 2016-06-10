@@ -4,7 +4,7 @@ import {Article} from '../db';
 /**
  * @swagger
  * definition:
- *   Article:
+ *   Article-Get:
  *     properties:
  *       id:
  *         type: integer
@@ -19,6 +19,32 @@ import {Article} from '../db';
  *       createdAt:
  *         type: string
  *       updatedAt:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definition:
+ *   Article-Post:
+ *     properties:
+ *       id:
+ *         type: integer
+ *       title:
+ *         type: string
+ *       description:
+ *         type: string
+ *       content:
+ *         type: string
+ *       published:
+ *         type: boolean
+ */
+
+/**
+ * @swagger
+ * definition:
+ *   Error:
+ *     properties:
+ *       error:
  *         type: string
  */
 
@@ -43,7 +69,15 @@ export function articleService(app: express.Application) {
      *       200:
      *         description: A single article.
      *         schema:
-     *           $ref: '#/definitions/Article'
+     *           $ref: '#/definitions/Article-Get'
+     *       403:
+     *         description: Article not published and no rights
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     *       404:
+     *         description: Article not found
+     *         schema:
+     *           $ref: '#/definitions/Error'
      */
     app.get('/api/article/:id', async (req, res) => {
         const {signedIn} = req.session;
@@ -68,19 +102,13 @@ export function articleService(app: express.Application) {
      *     description: Returns all the articles.
      *     produces:
      *       - application/json
-     *     parameters:
-     *       - name: search
-     *         description: maximum number of results to return.
-     *         in: path
-     *         required: false
-     *         type: any
      *     responses:
      *       200:
      *         description: Returns all the articles.
      *         schema:
      *         type: array
      *         items:
-     *             $ref: '#/definitions/Article'
+     *             $ref: '#/definitions/Article-Get'
      */
     app.get('/api/article', async (req, res) => {
         const {signedIn} = req.session;
@@ -92,15 +120,43 @@ export function articleService(app: express.Application) {
     });
 
     /**
-     *
+     * @swagger
+     * /api/article:
+     *   post:
+     *     tags:
+     *       - Article
+     *     description: Saves an article.
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: article
+     *         description: The article to save.
+     *         in: body
+     *         required: true
+     *         schema:
+     *           $ref: '#/definitions/Article-Post'
+     *     responses:
+     *       200:
+     *         description: The saved article with its id.
+     *         schema:
+     *           $ref: '#/definitions/Article-Get'
+     *       403:
+     *         description: No rights to save
+     *         schema:
+     *           $ref: '#/definitions/Error'
      */
     app.post('/api/article', async (req, res) => {
-        res.status(200);
-        try {
-            await Article.create(req.body);
-            res.json({success: true});
-        } catch (error) {
-            res.json({error});
+        const {signedIn} = req.session;
+        if (!signedIn) {
+            res.status(403);
+            res.json({error: 'Cannot save an article when not connected'});
+        } else {
+            try {
+                await Article.create(req.body);
+                res.json({success: true});
+            } catch (error) {
+                res.json({error});
+            }
         }
     });
 }

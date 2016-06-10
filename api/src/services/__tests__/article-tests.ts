@@ -47,6 +47,11 @@ describe('Article', () => {
     });
 
     describe('POST /article', () => {
+        it('should return an error when not connected', mochaAsync(async () => {
+            const response = await(await fetch('http://localhost:3000/api/article', {method: 'POST', body: JSON.stringify(article1)})).json();
+            chai.expect(response).to.deep.equal({error: 'Cannot save an article when not connected'});
+        }));
+
         it('Should create a new article', mochaAsync(async () => {
             const article = {
                 title: 'Hello',
@@ -54,11 +59,13 @@ describe('Article', () => {
                 content: 'Hey, the content will be there, you know ?',
                 published: false
             };
+            const cookie = await loginAndGetCookie('password');
             const response = await fetch('http://localhost:3000/api/article', {
                 method: 'POST',
                 body: JSON.stringify(article),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    cookie
                 }
             });
             chai.expect(await response.json()).to.deep.equal({success: true});

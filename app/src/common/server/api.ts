@@ -40,6 +40,7 @@ export const api: Api = {
         const response = await fetch('http://localhost:3000/api/article', {
             method: 'POST',
             body: JSON.stringify(article),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             }
