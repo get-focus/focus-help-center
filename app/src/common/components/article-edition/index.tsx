@@ -31,7 +31,7 @@ export class EditPage extends Component<any, any> {
     }
 
     componentDidMount() {
-        // componentHandler.upgradeDom();
+        componentHandler.upgradeDom();
     }
 
     parameterButtonHandler() {
@@ -40,7 +40,6 @@ export class EditPage extends Component<any, any> {
     }
 
     saveArticle() {
-        console.log(this.props.article);
         this.props.saveArticle(this.props.article);
     }
 

@@ -8,7 +8,7 @@ describe('Edition Page', () => {
             chai.expect(component.find('.edit-parameters-item-hidden')).to.have.length(1);
         });
         it('Should have a visible label on parameter button zone', () => {
-            // chai.expect(component.find('.edit-parameters-text')).to.have.length(1);
+            chai.expect(component.find('.edit-parameters-text')).to.have.length(1);
         });
     });
     describe('When the settings button is pressed', () => {

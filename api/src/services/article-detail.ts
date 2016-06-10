@@ -1,5 +1,5 @@
 import express from 'express';
-import {sequelize, Article} from '../db/index';
+import {Article} from '../db/index';
 
 export function articleSaveService(app: express.Application) {
 
@@ -18,15 +18,6 @@ export function articleSaveService(app: express.Application) {
 }
 
 async function addArticle(article) {
-// Creates the file.
-    try {
-        await sequelize.authenticate();
-        console.log('Connection to the database successful.');
-    } catch (error) {
-        console.log(`Error while trying to connect to the database: ${error}`);
-    }
-
-    // Populate the database with fake data
     try {
         await Article.create(article);
         console.log('Article added with success');

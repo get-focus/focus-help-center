@@ -78,7 +78,7 @@ export class EditCartridgeContent extends Component<any, any> {
         const {descriptionEditable} = this.state;
         if (!descriptionEditable) {
             return (
-                <h4 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>{this.renderLabel('description')}</h4>
+                <h5 className='edit-cartridge-description' onClick={this.descriptionClickHandler.bind(this) }>{this.renderLabel('description')}</h5>
             );
         } else {
             return (
