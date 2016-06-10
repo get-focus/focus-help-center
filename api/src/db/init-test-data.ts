@@ -1,8 +1,8 @@
 import {sequelize, Article} from './';
 
-export const article1 = {id: 1, title: 'The First', description: 'The first description', content: 'Blablabla is the base' };
-export const article2 = {id: 2, title: 'The Second', description: 'The second description', content: 'Blablabla is the base : 2' };
-export const article3 = {id: 3, title: 'The Third', description: 'The third description', content: 'Blablabla is the base : 3' };
+export const article1 = {id: 1, title: 'The First', description: 'The first description', content: 'Blablabla is the base', published: true};
+export const article2 = {id: 2, title: 'The Second', description: 'The second description', content: 'Blablabla is the base : 2', published: true};
+export const article3 = {id: 3, title: 'The Third', description: 'The third description', content: 'Blablabla is the base : 3', published: false};
 
 /** Create the database. */
 export async function initDb() {

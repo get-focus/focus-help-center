@@ -6,6 +6,7 @@ interface IArticle {
     title: string;
     description: string;
     content: string;
+    published: boolean;
     createdAt?: string;
     updatedAt?: string;
 }

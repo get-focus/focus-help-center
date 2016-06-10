@@ -5,7 +5,7 @@ import {Api} from './index';
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList() {
-        const response = await fetch('http://localhost:3000/api/article');
+        const response = await fetch('http://localhost:3000/api/article', {credentials: 'include'});
         return response.json<Article[]>();
     },
 
