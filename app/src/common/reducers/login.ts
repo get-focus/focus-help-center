@@ -26,7 +26,7 @@ export function login(state: LoginState = defaultValue, action: LoginAction) {
             return {
                 isLoading: false,
                 isConnected: false
-            }
+            };
         default:
             return state;
     }
