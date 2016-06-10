@@ -1,7 +1,7 @@
 import express from 'express';
 import {sequelize, Article} from '../db/index';
 
-export function articleUpdateService(app: express.Application) {
+export function articleSaveService(app: express.Application) {
 
     /** save service. */
     app.route('/save-article')

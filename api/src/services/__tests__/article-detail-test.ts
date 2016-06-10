@@ -1,5 +1,5 @@
 import mochaAsync from '../../../test/mocha-async';
-import {updateCall} from './update-detail';
+import {saveCall} from './save-article';
 
 describe('Article detail tests', () => {
     it('Should create a new article', mochaAsync(async () => {
@@ -8,7 +8,7 @@ describe('Article detail tests', () => {
             description: 'This is a description',
             content: 'Hey, the content will be there, you know ?'
         };
-        let response = await updateCall(article);
+        let response = await saveCall(article);
         chai.expect(await response.text()).to.equal('Data sent');
     }));
 });
