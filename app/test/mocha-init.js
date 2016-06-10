@@ -63,7 +63,7 @@ global.React = require('react');
 global.ReactDOM = require('react-dom');
 global.chai = chai;
 global.sinon = sinon;
-global.componentHandler = {upgradeElement: function(){}};
+global.componentHandler = {upgradeDom: function(){}};
 
 // Js dom
 const jsdom = require('jsdom');

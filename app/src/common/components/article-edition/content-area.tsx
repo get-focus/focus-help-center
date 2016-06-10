@@ -7,14 +7,13 @@ export class ContentArea extends Component<any, any> {
         value: PropTypes.string,
         onChange: PropTypes.func.isRequired
     };
-    state = {value: undefined};
+
     md = new Markdown();
     handleChange = () => {
         const value = this.refs['textarea']['value'];
-        this.setState({value});
-        this.props.onChange(value);
+        this.props.onChange('content', value);
     }
-    rawMarkup = () => ({__html: this.md.render(this.state.value)});
+    rawMarkup = () => ({__html: this.md.render(this.props.value)});
 
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -27,7 +26,7 @@ export class ContentArea extends Component<any, any> {
                     <textarea
                         ref='textarea'
                         className='mdl-textfield__input'
-                        defaultValue={this.props.value}
+                        value={this.props.value}
                         onChange={this.handleChange}
                         id='textarea'
                     />

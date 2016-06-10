@@ -1,13 +1,34 @@
-import {Component} from 'react';
+// IMPORTS
+import {connect} from 'react-redux';
+import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
+import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/article-detail';
 
-// TODO: Connect to redux store to article node and dispatch (update + all others) article node.
+@connect(
+    state => ({article: state.articleDetail.article}),
+    dispatch => (
+        {
+            updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
+            saveArticle: article => dispatch(saveArticle(article)),
+            loadArticleDetail: article => dispatch(loadArticleDetail(article))
+        })
+)
 export class EditPage extends Component<any, any> {
+
+    static propTypes = {
+        article: PropTypes.object,
+        updateArticle: PropTypes.func,
+        saveArticle: PropTypes.func
+    };
 
     state = {
         isVisible: false
     };
+
+    componentWillMount() {
+        this.props.loadArticleDetail({title: '', description: '', content: ''});
+    }
 
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -16,6 +37,14 @@ export class EditPage extends Component<any, any> {
     parameterButtonHandler() {
         const {isVisible} = this.state;
         this.setState({isVisible: isVisible ? false : true});
+    }
+
+    saveArticle() {
+        this.props.saveArticle(this.props.article);
+    }
+
+    onChangeHandler(attribute, value?) {
+        this.props.updateArticle(attribute, value || this.refs[attribute]);
     }
 
     render() {
@@ -31,8 +60,8 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' />
-                            <label className='mdl-textfield__label' htmlFor='sample1'>Rubriques...</label>
+                            <input className='mdl-textfield__input' type='text' id='sectionInput' name='section' ref='section'/>
+                            <label className='mdl-textfield__label' htmlFor='sectionInput'>Rubriques...</label>
                         </div>
 
                         <br/><br/>
@@ -42,8 +71,8 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' />
-                            <label className='mdl-textfield__label' htmlFor='sample1'>URL...</label>
+                            <input className='mdl-textfield__input' type='text' id='urlInput' name='url' ref='url' />
+                            <label className='mdl-textfield__label' htmlFor='urlInput'>URL...</label>
                         </div>
 
                         <br/><br/>
@@ -53,9 +82,17 @@ export class EditPage extends Component<any, any> {
                         </div><br/>
 
                         <div className='mdl-textfield mdl-js-textfield'>
-                            <input className='mdl-textfield__input' type='text' id='sample1' />
-                            <label className='mdl-textfield__label' htmlFor='sample1'>Bloc d'information...</label>
+                            <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' ref='blocInformation' />
+                            <label className='mdl-textfield__label' htmlFor='blocInformationInput'>Bloc d'information...</label>
                         </div>
+
+                        <br/><br/>
+                            <button
+                                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored edit-button'
+                                onClick={this.saveArticle.bind(this)}
+                                >
+                                {i18n.t('button.save')}
+                            </button>
                     </div>
                 </div>
 
@@ -69,7 +106,7 @@ export class EditPage extends Component<any, any> {
                     <span className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</span>
                 </div>
 
-                <ContentArea />
+                <ContentArea onChange={this.onChangeHandler.bind(this)} value={this.props.article.content} />
             </div>
         );
     }

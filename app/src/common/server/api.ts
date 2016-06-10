@@ -19,7 +19,7 @@ export const api: Api = {
             credentials: 'include'
         });
 
-        const data = await response.json<{success: boolean, error: string}>();
+        const data = await response.json<{ success: boolean, error: string }>();
         if (data.success) {
             return true;
         } else {
@@ -32,7 +32,24 @@ export const api: Api = {
             method: 'GET',
             credentials: 'include'
         });
-        const data = await response.json<{success: boolean}>();
+        const data = await response.json<{ success: boolean }>();
         return !!data.success;
+    },
+
+    async saveArticle(article: Article) {
+        const response = await fetch('http://localhost:3000/api/article', {
+            method: 'POST',
+            body: JSON.stringify(article),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json<{success: boolean, error: string}>();
+        if (data.success) {
+            return true;
+        } else {
+            return data.error;
+        }
     }
 };

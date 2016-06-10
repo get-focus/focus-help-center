@@ -7,19 +7,34 @@
     }
 }
 
+.edit-cartridge-title {
+    padding-left: 120px;
+    left: 120px;
+}
+
+.edit-cartridge-description {
+    padding-left: 120px;
+    left: 120px;
+}
+
 .edit-header-item {
     flex: auto;
     background-color: #e0e0e0;
 }
 
 .edit-parameters-item {
-    flex: 0 0 auto;
+    width: 0;
+    flex-grow: 0.5;
+    transition: flex-grow 150ms linear;
     padding: 15px;
     background-color: #f6f6f6;
+    display: block;
 }
 
 .edit-parameters-item-hidden {
-    display: none;
+    width: 0;
+    flex-grow: .00001;
+    transition: flex-grow 150ms linear;
 }
 
 .edit-parameters-button-zone {

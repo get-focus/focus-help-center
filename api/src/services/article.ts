@@ -73,4 +73,17 @@ export function articleService(app: express.Application) {
     app.get('/api/article', async (req, res) => {
         res.json(await Article.findAll());
     });
+
+    /**
+     *
+     */
+    app.post('/api/article', async (req, res) => {
+        res.status(200);
+        try {
+            await Article.create(req.body);
+            res.json({success: true});
+        } catch (error) {
+            res.json({error});
+        }
+    });
 }

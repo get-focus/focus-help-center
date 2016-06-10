@@ -5,7 +5,7 @@ import path from 'path';
 
 import {articleService} from './services/article';
 import {signinService} from './services/signin';
-import {swaggerService} from './swagger';
+import {swaggerService} from './swagger/index';
 
 import {initDb} from './db/init-test-data';
 

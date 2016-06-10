@@ -1,9 +1,9 @@
+import {mountElement} from '../../__tests__/util';
 import {EditPage} from '../';
-import {shallow} from 'enzyme';
 
 describe('Edition Page', () => {
     describe('When the component is displayed', () => {
-        let component = shallow(<EditPage />);
+        let component = mountElement(<EditPage />);
         it('Should have an hidden left panel', () => {
             chai.expect(component.find('.edit-parameters-item-hidden')).to.have.length(1);
         });
@@ -12,7 +12,7 @@ describe('Edition Page', () => {
         });
     });
     describe('When the settings button is pressed', () => {
-        let component = shallow(<EditPage />);
+        let component = mountElement(<EditPage />);
         it('Should have an hidden left panel', () => {
             component.find('.parameters-icon').simulate('click');
             chai.expect(component.find('.edit-parameters-item')).to.have.length(1);
