@@ -85,12 +85,6 @@ export class EditPage extends Component<any, any> {
                             <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' ref='blocInformation' />
                             <label className='mdl-textfield__label' htmlFor='blocInformationInput'>Bloc d'information...</label>
                         </div>
-
-                        <br/><br/>
-                            <button
-                                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored edit-button'>
-                                {i18n.t('button.save')}
-                            </button>
                     </div>
                 </div>
 
