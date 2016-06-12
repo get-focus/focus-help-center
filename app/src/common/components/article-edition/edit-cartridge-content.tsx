@@ -37,6 +37,16 @@ class EditCartridgeContent extends Component<any, any> {
 
     saveArticle() {
         this.props.saveArticle(this.props.article);
+        const {snackBarContainer} = this.refs;
+        const data = {
+            message: 'Article sauvegardé.',
+            timeout: 2000,
+            actionHandler: function() {
+                window.location.href = '';
+            },
+            actionText: 'Home'
+        };
+        snackBarContainer.MaterialSnackbar.showSnackbar(data);
     }
 
     // Changes the title editable state
@@ -151,6 +161,10 @@ class EditCartridgeContent extends Component<any, any> {
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
                     </div>
+                </div>
+                <div id="demo-snackbar-example" className="mdl-js-snackbar mdl-snackbar" ref='snackBarContainer'>
+                    <div className="mdl-snackbar__text"></div>
+                    <div className="mdl-snackbar__action"></div>
                 </div>
             </div>
         );
