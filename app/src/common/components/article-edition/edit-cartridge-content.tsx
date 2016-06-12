@@ -24,7 +24,7 @@ class EditCartridgeContent extends Component<any, any> {
 
     deleteArticle = () => {
         this.props.deleteArticle(this.props.article.id);
-        this.props.router.push({path: 'home'});
+        this.props.router.push({ path: 'home' });
     };
 
     componentDidMount() {
@@ -33,6 +33,10 @@ class EditCartridgeContent extends Component<any, any> {
 
     componentDidUpdate() {
         componentHandler.upgradeDom();
+    }
+
+    saveArticle() {
+        this.props.saveArticle(this.props.article);
     }
 
     // Changes the title editable state
@@ -102,7 +106,7 @@ class EditCartridgeContent extends Component<any, any> {
             );
         } else {
             return (
-                <div>
+                <div className='input-div-parent'>
                     <div className='mdl-textfield mdl-js-textfield input-div-area'>
                         <textarea
                             className='mdl-textfield__input'
@@ -134,10 +138,19 @@ class EditCartridgeContent extends Component<any, any> {
 
         return (
             <div>
-                {this.renderTitleZone()}
-                {this.renderDescriptionZone()}
+                {this.renderTitleZone() }
+                {this.renderDescriptionZone() }
                 <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect' onClick={this.deleteArticle}>
-                    <i className='material-icons'>delete</i>
+                    <i className='material-icons'>delete </i>
+                </div>
+                <div className='content-flex-cartridge'>
+                    {this.renderTitleZone() }
+                </div>
+                <div className='content-flex-cartridge'>
+                    {this.renderDescriptionZone() }
+                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
+                        {i18n.t('button.save') }
+                    </div>
                 </div>
             </div>
         );

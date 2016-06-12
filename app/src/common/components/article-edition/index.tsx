@@ -11,7 +11,6 @@ import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/artic
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        saveArticle: article => dispatch(saveArticle(article)),
         loadArticleDetail: article => dispatch(loadArticleDetail(article))
     })
 )
@@ -38,10 +37,6 @@ export class EditPage extends Component<any, any> {
     parameterButtonHandler() {
         const {isVisible} = this.state;
         this.setState({isVisible: isVisible ? false : true});
-    }
-
-    saveArticle() {
-        this.props.saveArticle(this.props.article);
     }
 
     onChangeHandler(attribute, value?) {
@@ -93,9 +88,7 @@ export class EditPage extends Component<any, any> {
 
                         <br/><br/>
                             <button
-                                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored edit-button'
-                                onClick={this.saveArticle.bind(this)}
-                                >
+                                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored edit-button'>
                                 {i18n.t('button.save')}
                             </button>
                     </div>

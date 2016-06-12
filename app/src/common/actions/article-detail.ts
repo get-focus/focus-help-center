@@ -43,7 +43,6 @@ export function saveArticle(article: Article): any {
             } else {
                 dispatch(failSaveDetail(response as string));
             }
-
             // Set timeout and do an action which make success to false
         } catch (error) {
             dispatch(failSaveDetail(error));
