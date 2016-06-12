@@ -39,12 +39,12 @@ class EditCartridgeContent extends Component<any, any> {
         this.props.saveArticle(this.props.article);
         const {snackBarContainer} = this.refs;
         const data = {
-            message: 'Article sauvegardé.',
+            message: i18n.t('edit-cartridge.content.snackBar.message'),
             timeout: 2000,
             actionHandler: function() {
                 window.location.href = '';
             },
-            actionText: 'Home'
+            actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
         };
         snackBarContainer.MaterialSnackbar.showSnackbar(data);
     }

@@ -19,7 +19,11 @@ export const fr = {
             },
             content: {
                 title: 'Titre',
-                description: 'Description'
+                description: 'Description',
+                snackBar: {
+                    message: 'Article sauvegardé.',
+                    actionText: 'Accueil'
+                }
             }
         },
         'edit-page': {

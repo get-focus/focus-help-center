@@ -19,7 +19,11 @@ export const en = {
             },
             content: {
                 title: 'Title',
-                description: 'Description'
+                description: 'Description',
+                snackBar: {
+                    message: 'Saved article.',
+                    actionText: 'Home'
+                }
             }
         },
         'edit-page': {
