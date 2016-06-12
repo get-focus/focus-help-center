@@ -7,7 +7,6 @@ import {Api} from '../server/index';
 
 // TODO: in the future, this will load an existing article. Taken by its ID from the URL query or POST data
 export function loadArticleDetail(article: Article): any {
-    console.log(article);
     return async (dispatch, getState) => {
         try {
             dispatch(successLoadArtictleDetail(article));
