@@ -39,14 +39,12 @@ export function saveArticle(article: Article): any {
             const response = await api.saveArticle(article);
             if (response === true) {
                 dispatch({type: Action.SUCCESS_SAVE_ARTICLE});
+                setTimeout(function() {
+                    dispatch({type: Action.SWITCH_DETAIL_SUCCESS});
+                }, 2000);
             } else {
                 dispatch(failSaveDetail(response as string));
             }
-            setTimeout(function() {
-                //function here
-                dispatch(failSaveDetail(''));
-            }, 2000);
-            // Set timeout and do an action which make success to false
         } catch (error) {
             dispatch(failSaveDetail(error));
         }

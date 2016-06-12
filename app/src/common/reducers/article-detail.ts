@@ -14,6 +14,7 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
                 article: action.article
             };
         case Action.SUCCESS_SAVE_ARTICLE:
+            console.log(state.success);
             return {
                 isLoading: false,
                 success: true,
@@ -40,6 +41,9 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             return {
                 isLoading: false
             };
+        case Action.SWITCH_DETAIL_SUCCESS:
+            console.log(state.success);
+            return a({}, state, {success: false});
         default:
             return state;
     }
