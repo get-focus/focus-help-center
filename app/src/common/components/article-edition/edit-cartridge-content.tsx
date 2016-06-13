@@ -74,7 +74,7 @@ class EditCartridgeContent extends Component<any, any> {
         if (!titleEditable) {
             return (
                 <h4 className='edit-cartridge-title'>{this.renderLabel('title') }
-                    <div className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored  article-item-button' onClick={this.titleClickHandler.bind(this) }>
+                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this) }>
                         <i className='material-icons'>edit</i>
                         {i18n.t('button.edit') }
                     </div>
@@ -88,7 +88,7 @@ class EditCartridgeContent extends Component<any, any> {
                         <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-title' onClick={this.titleClickHandler.bind(this) }>
-                        {i18n.t('button.edit') }
+                        {i18n.t('button.save') }
                     </div>
                 </div>
             );
@@ -108,7 +108,7 @@ class EditCartridgeContent extends Component<any, any> {
             return (
                 <h5 className='edit-cartridge-description'>
                     <em>{this.renderLabel('description') }</em>
-                    <div className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored  article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
+                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
                         <i className='material-icons'>edit</i>
                         {i18n.t('button.edit') }
                     </div>
@@ -133,7 +133,7 @@ class EditCartridgeContent extends Component<any, any> {
                         </label>
                     </div>
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-description' onClick={this.descriptionClickHandler.bind(this) }>
-                        {i18n.t('button.edit') }
+                        {i18n.t('button.save') }
                     </div>
                 </div>
             );

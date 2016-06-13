@@ -37,18 +37,21 @@ export function saveArticle(article: Article): any {
     return async (dispatch, getState, api: Api) => {
         try {
             const response = await api.saveArticle(article);
-            if (response === true) {
-                dispatch({type: Action.SUCCESS_SAVE_ARTICLE});
-                setTimeout(function() {
-                    dispatch({type: Action.SWITCH_DETAIL_SUCCESS});
-                }, 2000);
-            } else {
-                dispatch(failSaveDetail(response as string));
-            }
+            dispatch({ type: Action.SUCCESS_SAVE_ARTICLE, article: response });
+            // Here, LOAD THE ID !
+            setTimeout(function () {
+                dispatch({ type: Action.SWITCH_DETAIL_SUCCESS });
+            }, 3000);
         } catch (error) {
             dispatch(failSaveDetail(error));
         }
     };
+}
+
+function loadArticle(article: Article): ArticleDetailAction {
+    return {
+        type: Action.LOAD_ARTICLE
+    }
 }
 
 function failSaveDetail(error: string): ArticleDetailAction {

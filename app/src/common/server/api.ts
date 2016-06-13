@@ -45,9 +45,9 @@ export const api: Api = {
             body: JSON.stringify(article)
         });
 
-        const data = await response.json<{success: boolean, error: string}>();
+        const data = await response.json<{article: Article, success: boolean, error: string}>();
         if (data.success) {
-            return true;
+            return data.article;
         } else {
             return data.error;
         }

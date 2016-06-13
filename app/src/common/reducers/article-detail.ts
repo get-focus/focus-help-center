@@ -42,7 +42,6 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
                 isLoading: false
             };
         case Action.SWITCH_DETAIL_SUCCESS:
-            console.log(state.success);
             return a({}, state, {success: false});
         default:
             return state;
