@@ -24,8 +24,12 @@ class EditCartridgeContent extends Component<any, any> {
     };
 
     deleteArticle = () => {
-        this.props.deleteArticle(this.props.article.id, {title: '', description: '', content: ''});
-        this.props.router.push({ path: 'home' });
+
+        const {modal} = this.refs;
+        modal.style.display = 'block';
+
+        // this.props.deleteArticle(this.props.article.id, { title: '', description: '', content: '' });
+        // this.props.router.push({ path: 'home' });
     };
 
     componentDidMount() {
@@ -43,11 +47,11 @@ class EditCartridgeContent extends Component<any, any> {
         let data;
         const {snackBarContainer} = this.refs;
 
-        if ( title.trim() === '' || content.trim() === '' || description.trim() === '') {
+        if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
                 timeout: 2000,
-                actionHandler: () => {},
+                actionHandler: () => { },
                 actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
             };
         } else {
@@ -55,7 +59,7 @@ class EditCartridgeContent extends Component<any, any> {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.successMessage'),
                 timeout: 2000,
-                actionHandler: () => {},
+                actionHandler: () => { },
                 actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
             };
         }
@@ -87,7 +91,7 @@ class EditCartridgeContent extends Component<any, any> {
         if (!titleEditable) {
             return (
                 <h4 className='edit-cartridge-title'>{this.renderLabel('title') }
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this)}>
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this) }>
                         <i className='material-icons'>edit </i>
                     </div>
                 </h4>
@@ -120,7 +124,7 @@ class EditCartridgeContent extends Component<any, any> {
             return (
                 <h5 className='edit-cartridge-description'>
                     <em>{this.renderLabel('description') }</em>
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this)}>
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
                         <i className='material-icons'>edit </i>
                     </div>
                 </h5>
@@ -175,6 +179,22 @@ class EditCartridgeContent extends Component<any, any> {
                 <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
                     <div className='mdl-snackbar__text'></div>
                     <Link className='mdl-snackbar__action' to='/'></Link>
+                </div>
+
+                <div id='myModal' className='modal' ref='modal'>
+
+                    <div className='modal-content'>
+                        <span className='close' onClick={() => this.refs['modal']['style'].display = 'none'}>×</span>
+                        <center>
+                            <p>Voulez-vous vraiment supprimer cet article?</p>
+                            <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => console.log('hello') }>
+                                Oui
+                            </div>
+                            <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => console.log('hello') }>
+                                Non
+                            </div>
+                        </center>
+                    </div>
                 </div>
             </div>
         );
