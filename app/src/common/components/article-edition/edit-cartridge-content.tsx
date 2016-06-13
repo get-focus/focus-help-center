@@ -13,7 +13,7 @@ import {Link} from 'react-router';
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
         saveArticle: article => dispatch(saveArticle(article)),
-        deleteArticle: id => dispatch(deleteArticle(id))
+        deleteArticle: (id, article) => dispatch(deleteArticle(id, article))
     })
 )
 class EditCartridgeContent extends Component<any, any> {
@@ -24,7 +24,7 @@ class EditCartridgeContent extends Component<any, any> {
     };
 
     deleteArticle = () => {
-        this.props.deleteArticle(this.props.article.id);
+        this.props.deleteArticle(this.props.article.id, {title: '', description: '', content: ''});
         this.props.router.push({ path: 'home' });
     };
 

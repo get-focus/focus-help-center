@@ -38,7 +38,8 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             };
         case Action.SUCCESS_ARTICLE_DELETE:
             return {
-                isLoading: false
+                isLoading: false,
+                article: action.article
             };
         case Action.SWITCH_DETAIL_SUCCESS:
             return a({}, state, {success: false});

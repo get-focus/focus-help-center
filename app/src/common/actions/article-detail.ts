@@ -35,9 +35,9 @@ export function getArticle(id: number): any {
         try {
             let response;
             if (id) {
-            response = await api.getArticle(id);
+                response = await api.getArticle(id);
             } else {
-                response = ({title: '', description: '', content: ''});
+                response = ({ title: '', description: '', content: '' });
             }
             dispatch({ type: Action.LOAD_ARTICLE, article: response });
         } catch (error) {
@@ -54,13 +54,13 @@ function failSaveDetail(error: string): ArticleDetailAction {
 }
 
 /** Deletes an article */
-export function deleteArticle(id: number): any {
+export function deleteArticle(id: number, article: Article): any {
     return async (dispatch, getState, api: Api) => {
-        dispatch({type: Action.REQUEST_ARTICLE_DELETE});
+        dispatch({ type: Action.REQUEST_ARTICLE_DELETE });
         try {
             const response = await api.deleteArticle(id);
             if (response === true) {
-                dispatch({type: Action.SUCCESS_ARTICLE_DELETE});
+                dispatch({ type: Action.SUCCESS_ARTICLE_DELETE, article: article });
             } else {
                 dispatch(failSaveDetail(response as string));
             }
