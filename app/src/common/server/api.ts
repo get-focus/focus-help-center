@@ -9,7 +9,7 @@ export const api: Api = {
         return response.json<Article[]>();
     },
 
-    async login(password: string) {
+    async login(password) {
         const response = await fetch('http://localhost:3000/signin', {
             method: 'POST',
             body: password,
@@ -36,7 +36,7 @@ export const api: Api = {
         return !!data.success;
     },
 
-    async saveArticle(article: Article) {
+    async saveArticle(article) {
         const response = await fetch('http://localhost:3000/api/article', {
             method: 'POST',
             body: JSON.stringify(article),
@@ -44,6 +44,20 @@ export const api: Api = {
             headers: {
                 'Content-Type': 'application/json'
             }
+        });
+
+        const data = await response.json<{success: boolean, error: string}>();
+        if (data.success) {
+            return true;
+        } else {
+            return data.error;
+        }
+    },
+
+    async deleteArticle(id) {
+        const response = await fetch(`http://localhost:3000/api/article/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
         });
 
         const data = await response.json<{success: boolean, error: string}>();

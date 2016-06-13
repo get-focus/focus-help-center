@@ -42,6 +42,15 @@ import {Article} from '../db';
 /**
  * @swagger
  * definition:
+ *   Success:
+ *     properties:
+ *       success:
+ *         type: boolean
+ */
+
+/**
+ * @swagger
+ * definition:
  *   Error:
  *     properties:
  *       error:
@@ -151,11 +160,52 @@ export function articleService(app: express.Application) {
             res.status(403);
             res.json({error: 'Cannot save an article when not connected'});
         } else {
-            try {
-                await Article.create(req.body);
+            await Article.create(req.body);
+            res.json({success: true});
+        }
+    });
+
+    /**
+     * @swagger
+     * /api/article/{id}:
+     *   delete:
+     *     tags:
+     *       - Article
+     *     description: Deletes an article.
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: id
+     *         description: Id of the article to delete.
+     *         in: path
+     *         required: true
+     *         type: integer
+     *     responses:
+     *       200:
+     *         description: Success message
+     *         schema:
+     *           $ref: '#/definitions/Success'
+     *       403:
+     *         description: No rights to delete
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     *       404:
+     *         description: Can't find the article
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     */
+    app.delete('/api/article/:id', async (req, res) => {
+        const {signedIn} = req.session;
+        if (!signedIn) {
+            res.status(403);
+            res.json({error: 'Cannot delete an article when not connected'});
+        } else {
+            const deletedRows = await Article.destroy({where: {id: req.params.id}});
+            if (deletedRows === 1) {
                 res.json({success: true});
-            } catch (error) {
-                res.json({error});
+            } else {
+                res.status(404);
+                res.json({error: `No article deleted`});
             }
         }
     });

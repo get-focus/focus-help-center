@@ -71,4 +71,21 @@ describe('Article', () => {
             chai.expect(await response.json()).to.deep.equal({success: true});
         }));
     });
+
+    describe('DELETE /article/:id', () => {
+        it('should delete the correct article when connected', mochaAsync(async () => {
+            const cookie = await loginAndGetCookie('password');
+            const response = await(await fetch('http://localhost:3000/api/article/3', {method: 'DELETE', headers: {cookie}})).json();
+            chai.expect(response).to.deep.equal({success: true});
+        }));
+        it('should return an error when trying to delete when not connected', mochaAsync(async () => {
+            const response = await(await fetch('http://localhost:3000/api/article/3', {method: 'DELETE'})).json();
+            chai.expect(response).to.deep.equal({error: 'Cannot delete an article when not connected'});
+        }));
+        it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
+            const cookie = await loginAndGetCookie('password');
+            const response = await(await fetch('http://localhost:3000/api/article/5', {method: 'DELETE', headers: {cookie}})).json();
+            chai.expect(response).to.deep.equal({error: 'No article deleted'});
+        }));
+    });
 });

@@ -14,7 +14,7 @@ export const api: Api = {
         return apiMockData.loadArticleList;
     },
 
-    async login(password: string) {
+    async login(password) {
         if (password === 'password') {
             return true;
         } else {
@@ -27,6 +27,10 @@ export const api: Api = {
     },
 
     async saveArticle(article) {
+        return true;
+    },
+
+    async deleteArticle(id) {
         return true;
     }
 };

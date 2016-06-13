@@ -5,7 +5,7 @@ import {omit} from 'lodash';
 
 describe('rootReducer', () => {
 
-    describe('saveArticle', () => {
+    describe('articleDetail', () => {
         describe('SUCCESS_SAVE_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.SUCCESS_SAVE_ARTICLE});
             newState.articleDetail.article = {title: '', description: '', content: ''};
@@ -13,11 +13,26 @@ describe('rootReducer', () => {
                 chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, success: true, article: {title: '', description: '', content: ''}});
             });
         });
+
         describe('LOAD_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.LOAD_ARTICLE});
             newState.articleDetail.article = {title: '', description: '', content: ''};
             it('should correctly set the state with a LOAD_ARTICLE action', () => {
                 chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, success: false, article: {title: '', description: '', content: ''}});
+            });
+        });
+
+        describe('REQUEST_ARTICLE_DELETE', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_ARTICLE_DELETE});
+            it('should correctly set the state with a REQUEST_ARTICLE_DELETE action', () => {
+                chai.expect(newState.articleDetail).to.deep.equal({isLoading: true, article: defaultState.articleDetail.article});
+            });
+        });
+
+        describe('SUCCESS_ARTICLE_DELETE', () => {
+            const newState = rootReducer(defaultState, {type: Action.SUCCESS_ARTICLE_DELETE});
+            it('should correctly set the state with a SUCCESS_ARTICLE_DELETE action', () => {
+                chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, article: {}});
             });
         });
     });
