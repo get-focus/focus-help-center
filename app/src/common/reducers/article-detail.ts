@@ -14,11 +14,10 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
                 article: action.article
             };
         case Action.SUCCESS_SAVE_ARTICLE:
-            console.log(state.success);
             return {
                 isLoading: false,
                 success: true,
-                article: state.article
+                article: action.article
             };
         case Action.FAILURE_SAVE_ARTICLE:
             return {

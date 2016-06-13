@@ -40,6 +40,7 @@ export class ContentArea extends Component<any, any> {
                 <div
                     className='content-area-display'
                     dangerouslySetInnerHTML={this.rawMarkup()}
+                    ref='test'
                 />
             </div>
         );

@@ -13,8 +13,11 @@ export interface Api {
     isConnected: () => Promise<boolean>;
 
     /** Saves an article */
-    saveArticle: (article: Article) => Promise<boolean | string>;
+    saveArticle: (article: Article) => Promise<Article | boolean | string>;
 
     /** Deletes an article. */
     deleteArticle: (id: number) => Promise<boolean | string>;
+
+    /**Get an article */
+    getArticle: (id: number) => Promise<Article | string>;
 }

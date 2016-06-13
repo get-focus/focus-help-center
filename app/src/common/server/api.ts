@@ -14,7 +14,11 @@ async function fetchWithLogin(url: string, options?) {
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList() {
+<<<<<<< 7e36218b78de8b8efb14b3479ca946021351f095
         const response = await fetchWithLogin('http://localhost:3000/api/article');
+=======
+        const response = await fetch('http://localhost:3000/api/article', { credentials: 'include' });
+>>>>>>> Major update by adding the getArticle
         return response.json<Article[]>();
     },
 
@@ -45,7 +49,7 @@ export const api: Api = {
             body: JSON.stringify(article)
         });
 
-        const data = await response.json<{article: Article, success: boolean, error: string}>();
+        const data = await response.json<{ article: Article, success: boolean, error: string }>();
         if (data.success) {
             return data.article;
         } else {
@@ -58,6 +62,20 @@ export const api: Api = {
         const data = await response.json<{success: boolean, error: string}>();
         if (data.success) {
             return true;
+        } else {
+            return data.error;
+        }
+    },
+
+    async getArticle(id) {
+        const response = await fetch(`http://localhost:3000/api/article/${id}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        const data = await response.json<{ article: Article, error: string }>();
+        if (!data.error) {
+            return data.article;
         } else {
             return data.error;
         }

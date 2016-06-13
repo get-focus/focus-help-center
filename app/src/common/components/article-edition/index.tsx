@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/article-detail';
+import {updateArticle, getArticle} from '../../actions/article-detail';
 
 @connect(
     state => ({
@@ -11,7 +11,7 @@ import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/artic
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        loadArticleDetail: article => dispatch(loadArticleDetail(article))
+        getArticle: id => dispatch(getArticle(id))
     })
 )
 export class EditPage extends Component<any, any> {
@@ -27,7 +27,11 @@ export class EditPage extends Component<any, any> {
     };
 
     componentWillMount() {
-        this.props.loadArticleDetail({title: '', description: '', content: ''});
+        if (this.props.id) {
+            this.props.getArticle(this.props.id);
+        } else {
+            this.props.getArticle();
+        }
     }
 
     componentDidMount() {

@@ -3,26 +3,6 @@ import {Article} from '../definitions/article';
 import {ArticleDetailAction} from '../definitions/article-detail';
 import {Api} from '../server/index';
 
-/** Action creator to update article in store. */
-
-// TODO: in the future, this will load an existing article. Taken by its ID from the URL query or POST data
-export function loadArticleDetail(article: Article): any {
-    return async (dispatch, getState) => {
-        try {
-            dispatch(successLoadArtictleDetail(article));
-        } catch (err) {
-            throw err;
-        }
-    };
-}
-
-function successLoadArtictleDetail(article: Article): ArticleDetailAction {
-    return {
-        type: Action.LOAD_ARTICLE,
-        article
-    };
-}
-
 /**Update article action */
 export function updateArticle(attribute: string, value: string): ArticleDetailAction {
     return {
@@ -38,7 +18,8 @@ export function saveArticle(article: Article): any {
         try {
             const response = await api.saveArticle(article);
             dispatch({ type: Action.SUCCESS_SAVE_ARTICLE, article: response });
-            // Here, LOAD THE ID !
+
+            dispatch(getArticle(response['id']));
             setTimeout(function () {
                 dispatch({ type: Action.SWITCH_DETAIL_SUCCESS });
             }, 3000);
@@ -48,10 +29,21 @@ export function saveArticle(article: Article): any {
     };
 }
 
-function loadArticle(article: Article): ArticleDetailAction {
-    return {
-        type: Action.LOAD_ARTICLE
-    }
+/**Get article action */
+export function getArticle(id: number): any {
+    return async (dispatch, getState, api: Api) => {
+        try {
+            let response;
+            if (id) {
+            response = await api.getArticle(id);
+            } else {
+                response = ({title: '', description: '', content: ''});
+            }
+            dispatch({ type: Action.LOAD_ARTICLE, article: response });
+        } catch (error) {
+            dispatch(failSaveDetail(error));
+        }
+    };
 }
 
 function failSaveDetail(error: string): ArticleDetailAction {

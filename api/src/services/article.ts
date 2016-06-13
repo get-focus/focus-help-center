@@ -94,7 +94,7 @@ export function articleService(app: express.Application) {
             res.status(404);
             res.json({error: 'No article found'});
         } else if (req.user && req.user.signedIn || article.get().published === true) {
-            res.json(article);
+            res.json({article: article});
         } else {
             res.status(403);
             res.json({ error: 'This article isn\'t published' });
@@ -157,7 +157,13 @@ export function articleService(app: express.Application) {
             res.status(403);
             res.json({ error: 'Cannot save an article when not connected' });
         } else {
-            const article = (await Article.create(req.body)).get()
+            let article;
+            if (!req.body.id) {
+            article = (await Article.create(req.body)).get();
+            } else {
+                (await Article.update(req.body, {where: {id: req.body.id}}));
+                article = req.body;
+            }
             res.json({ article: article, success: true });
         }
     });

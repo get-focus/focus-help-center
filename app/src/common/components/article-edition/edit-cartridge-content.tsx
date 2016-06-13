@@ -3,6 +3,7 @@ import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {updateArticle, saveArticle, deleteArticle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
+import {Link} from 'react-router';
 
 @connect(
     state => ({
@@ -41,12 +42,10 @@ class EditCartridgeContent extends Component<any, any> {
         const data = {
             message: i18n.t('edit-cartridge.content.snackBar.message'),
             timeout: 2000,
-            actionHandler: function() {
-                window.location.href = '';
-            },
+            actionHandler: () => {},
             actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
         };
-        snackBarContainer.MaterialSnackbar.showSnackbar(data);
+        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
     }
 
     // Changes the title editable state
@@ -74,9 +73,8 @@ class EditCartridgeContent extends Component<any, any> {
         if (!titleEditable) {
             return (
                 <h4 className='edit-cartridge-title'>{this.renderLabel('title') }
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this) }>
-                        <i className='material-icons'>edit</i>
-                        {i18n.t('button.edit') }
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this)}>
+                        <i className='material-icons'>edit </i>
                     </div>
                 </h4>
             );
@@ -108,9 +106,8 @@ class EditCartridgeContent extends Component<any, any> {
             return (
                 <h5 className='edit-cartridge-description'>
                     <em>{this.renderLabel('description') }</em>
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
-                        <i className='material-icons'>edit</i>
-                        {i18n.t('button.edit') }
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this)}>
+                        <i className='material-icons'>edit </i>
                     </div>
                 </h5>
             );
@@ -148,11 +145,6 @@ class EditCartridgeContent extends Component<any, any> {
 
         return (
             <div>
-                {this.renderTitleZone() }
-                {this.renderDescriptionZone() }
-                <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect' onClick={this.deleteArticle}>
-                    <i className='material-icons'>delete </i>
-                </div>
                 <div className='content-flex-cartridge'>
                     {this.renderTitleZone() }
                 </div>
@@ -161,10 +153,14 @@ class EditCartridgeContent extends Component<any, any> {
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
                     </div>
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.deleteArticle}>
+                        <i className='material-icons'>delete </i>
+                    </div>
                 </div>
-                <div id="demo-snackbar-example" className="mdl-js-snackbar mdl-snackbar" ref='snackBarContainer'>
-                    <div className="mdl-snackbar__text"></div>
-                    <div className="mdl-snackbar__action"></div>
+
+                <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
+                    <div className='mdl-snackbar__text'></div>
+                    <Link className='mdl-snackbar__action' to='/'></Link>
                 </div>
             </div>
         );

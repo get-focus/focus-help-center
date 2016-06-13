@@ -16,6 +16,10 @@
     margin-top: 13px;
 }
 
+.delete-article {
+    margin-top: 15px;
+}
+
 .input-div {
     flex: 1 1 auto;
     left: 120px;
@@ -65,7 +69,6 @@
 
 .article-item-button {
     left: 15px;
-    margin-bottom: 6px;
     display: none;
 }
 
@@ -83,6 +86,7 @@
     display: block;
 }
 
+//https://facebook.github.io/react/docs/animation.html
 .edit-parameters-item-hidden {
     width: 0;
     flex-grow: .00001;
