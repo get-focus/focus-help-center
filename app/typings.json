@@ -2,8 +2,8 @@
     "dependencies": {
         "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
         "lodash": "registry:npm/lodash#4.0.0+20160416211519",
-        "react-redux": "registry:npm/react-redux#4.4.0+20160207114942",
-        "react-router": "registry:npm/react-router#2.0.0+20160214194820",
+        "react-redux": "github:jabx/typings-react-redux",
+        "react-router": "github:jabx/typings-react-router",
         "redux-thunk": "registry:npm/redux-thunk#2.0.0+20160525185520",
         "webpack": "registry:npm/webpack#1.12.9+20160418172948"
     },

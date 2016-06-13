@@ -12,6 +12,9 @@ export interface Api {
     /** Queries the server to know if the user is connected or not. */
     isConnected: () => Promise<boolean>;
 
-    /** Save an article */
-    saveArticle: (article) => Promise<boolean | string>;
+    /** Saves an article */
+    saveArticle: (article: Article) => Promise<boolean | string>;
+
+    /** Deletes an article. */
+    deleteArticle: (id: number) => Promise<boolean | string>;
 }

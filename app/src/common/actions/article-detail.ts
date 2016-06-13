@@ -58,4 +58,19 @@ function failSaveDetail(error: string): ArticleDetailAction {
     };
 }
 
-// TODO: DELETE ARTICLE ACTION
+/** Deletes an article */
+export function deleteArticle(id: number): any {
+    return async (dispatch, getState, api: Api) => {
+        dispatch({type: Action.REQUEST_ARTICLE_DELETE});
+        try {
+            const response = await api.deleteArticle(id);
+            if (response === true) {
+                dispatch({type: Action.SUCCESS_ARTICLE_DELETE});
+            } else {
+                dispatch(failSaveDetail(response as string));
+            }
+        } catch (error) {
+            dispatch(failSaveDetail(error));
+        }
+    };
+}

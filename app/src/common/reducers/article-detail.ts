@@ -31,9 +31,15 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
                 article: a({}, state.article, {[action.attribute]: action.value}),
                 isLoading: false
             };
-        // TODO: here it will be the action to set success to false look at successSaveArticle from the ACTIONS
-        case 142155:
-            return a({}, state, {success: false});
+        case Action.REQUEST_ARTICLE_DELETE:
+            return {
+                isLoading: true,
+                article: state.article
+            };
+        case Action.SUCCESS_ARTICLE_DELETE:
+            return {
+                isLoading: false
+            };
         default:
             return state;
     }

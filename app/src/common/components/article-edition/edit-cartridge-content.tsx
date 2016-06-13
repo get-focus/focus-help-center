@@ -1,24 +1,30 @@
 import {Component} from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {updateArticle, saveArticle} from '../../actions/article-detail';
+import {updateArticle, saveArticle, deleteArticle} from '../../actions/article-detail';
+import {withRouter} from 'react-router';
 
 @connect(
     state => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected
     }),
-    dispatch => (
-        {
-            updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-            saveArticle: article => dispatch(saveArticle(article))
-        })
+    dispatch => ({
+        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
+        saveArticle: article => dispatch(saveArticle(article)),
+        deleteArticle: id => dispatch(deleteArticle(id))
+    })
 )
-export class EditCartridgeContent extends Component<any, any> {
+class EditCartridgeContent extends Component<any, any> {
 
     state = {
         titleEditable: false,
         descriptionEditable: false
+    };
+
+    deleteArticle = () => {
+        this.props.deleteArticle(this.props.article.id);
+        this.props.router.push({path: 'home'});
     };
 
     componentDidMount() {
@@ -110,15 +116,21 @@ export class EditCartridgeContent extends Component<any, any> {
     };
 
     render() {
-        if (!this.props.connected) {
+        const {connected} = this.props;
+        if (!connected) {
             return <div />;
         }
 
         return (
             <div>
-                {this.renderTitleZone() }
-                {this.renderDescriptionZone() }
+                {this.renderTitleZone()}
+                {this.renderDescriptionZone()}
+                <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect' onClick={this.deleteArticle}>
+                    <i className='material-icons'>delete</i>
+                </div>
             </div>
         );
     }
 }
+
+export default withRouter(EditCartridgeContent);

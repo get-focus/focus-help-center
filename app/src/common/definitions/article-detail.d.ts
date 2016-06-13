@@ -4,7 +4,7 @@ import {Article} from './article';
 /** State spec for the `articleDetail` store node. */
 export interface ArticleDetailState {
     isLoading: boolean;
-    article: Article;
+    article?: Article;
     error?: string;
     success?: boolean;
 }
