@@ -5,7 +5,7 @@ import {Api} from './index';
 async function fetchWithLogin(url: string, options?) {
     const token = localStorage.getItem('token');
     if (token) {
-        return fetch(url, Object.assign({}, options, {headers: {Authorization: `Bearer ${token}`}}));
+        return fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
     } else {
         return fetch(url, options);
     }
@@ -14,11 +14,7 @@ async function fetchWithLogin(url: string, options?) {
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList() {
-<<<<<<< 7e36218b78de8b8efb14b3479ca946021351f095
         const response = await fetchWithLogin('http://localhost:3000/api/article');
-=======
-        const response = await fetch('http://localhost:3000/api/article', { credentials: 'include' });
->>>>>>> Major update by adding the getArticle
         return response.json<Article[]>();
     },
 
@@ -46,7 +42,10 @@ export const api: Api = {
     async saveArticle(article) {
         const response = await fetchWithLogin('http://localhost:3000/api/article', {
             method: 'POST',
-            body: JSON.stringify(article)
+            body: JSON.stringify(article),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
         const data = await response.json<{ article: Article, success: boolean, error: string }>();
@@ -68,10 +67,7 @@ export const api: Api = {
     },
 
     async getArticle(id) {
-        const response = await fetch(`http://localhost:3000/api/article/${id}`, {
-            method: 'GET',
-            credentials: 'include'
-        });
+        const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'GET'});
 
         const data = await response.json<{ article: Article, error: string }>();
         if (!data.error) {
