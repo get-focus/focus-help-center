@@ -89,12 +89,11 @@ export function articleService(app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.get('/api/article/:id', async (req, res) => {
-        const {signedIn} = req.session;
         const article = await Article.findById(req.params.id);
         if (!article) {
             res.status(404);
             res.json({error: 'No article found'});
-        } else if (signedIn || article.get().published === true) {
+        } else if (req.user && req.user.signedIn || article.get().published === true) {
             res.json(article);
         } else {
             res.status(403);
@@ -120,8 +119,7 @@ export function articleService(app: express.Application) {
      *             $ref: '#/definitions/Article-Get'
      */
     app.get('/api/article', async (req, res) => {
-        const {signedIn} = req.session;
-        if (signedIn) {
+        if (req.user && req.user.signedIn ) {
             res.json(await Article.findAll());
         } else {
             res.json(await Article.findAll({where: {published: true}}));
@@ -155,8 +153,7 @@ export function articleService(app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.post('/api/article', async (req, res) => {
-        const {signedIn} = req.session;
-        if (!signedIn) {
+        if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({error: 'Cannot save an article when not connected'});
         } else {
@@ -195,8 +192,7 @@ export function articleService(app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.delete('/api/article/:id', async (req, res) => {
-        const {signedIn} = req.session;
-        if (!signedIn) {
+        if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({error: 'Cannot delete an article when not connected'});
         } else {

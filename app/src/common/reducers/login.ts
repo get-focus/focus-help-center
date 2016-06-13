@@ -9,7 +9,7 @@ export function login(state: LoginState = defaultValue, action: LoginAction) {
         case Action.REQUEST_LOGIN:
             return {
                 isLoading: true,
-                isConnected: false
+                isConnected: state.isConnected
             };
         case Action.RECEIVE_LOGIN:
             return {
