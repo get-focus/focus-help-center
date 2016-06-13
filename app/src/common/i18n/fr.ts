@@ -21,7 +21,8 @@ export const fr = {
                 title: 'Titre',
                 description: 'Description',
                 snackBar: {
-                    message: 'Article sauvegardé.',
+                    successMessage: 'Article sauvegardé.',
+                    failedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
                     actionText: 'Accueil'
                 }
             }

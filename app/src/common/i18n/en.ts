@@ -21,7 +21,8 @@ export const en = {
                 title: 'Title',
                 description: 'Description',
                 snackBar: {
-                    message: 'Saved article.',
+                    successMessage: 'Saved article.',
+                    failedMessage: 'Fail to save. Fields are empty.',
                     actionText: 'Home'
                 }
             }

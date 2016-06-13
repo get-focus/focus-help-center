@@ -37,14 +37,28 @@ class EditCartridgeContent extends Component<any, any> {
     }
 
     saveArticle() {
-        this.props.saveArticle(this.props.article);
+        const title = this.props.article.title;
+        const content = this.props.article.content;
+        const description = this.props.article.description;
+        let data;
         const {snackBarContainer} = this.refs;
-        const data = {
-            message: i18n.t('edit-cartridge.content.snackBar.message'),
-            timeout: 2000,
-            actionHandler: () => {},
-            actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
-        };
+
+        if ( title.trim() === '' || content.trim() === '' || description.trim() === '') {
+            data = {
+                message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
+                timeout: 2000,
+                actionHandler: () => {},
+                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+            };
+        } else {
+            this.props.saveArticle(this.props.article);
+            data = {
+                message: i18n.t('edit-cartridge.content.snackBar.successMessage'),
+                timeout: 2000,
+                actionHandler: () => {},
+                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+            };
+        }
         snackBarContainer['MaterialSnackbar'].showSnackbar(data);
     }
 
