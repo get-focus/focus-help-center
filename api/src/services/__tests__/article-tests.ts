@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import mochaAsync from '../../../test/mocha-async';
 import {IArticle} from '../../db/article';
 import {article1, article2, article3} from '../../db/init-test-data';
-import {loginAndGetCookie} from './login';
+import {fetchWithLogin} from './login';
 import {omit} from 'lodash';
 
 describe('Article', () => {
@@ -16,8 +16,7 @@ describe('Article', () => {
             chai.expect(response).to.deep.equal({error: 'This article isn\'t published'});
         }));
         it('should return the correct unpublished article when connected', mochaAsync(async () => {
-            const cookie = await loginAndGetCookie('password');
-            const article = await(await fetch('http://localhost:3000/api/article/3', {headers: {cookie}})).json<IArticle>();
+            const article = await(await fetchWithLogin('http://localhost:3000/api/article/3')).json<IArticle>();
             chai.expect(omit(article, 'createdAt', 'updatedAt')).to.deep.equal(omit(article3, 'createdAt', 'updatedAt'));
         }));
         it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
@@ -36,8 +35,7 @@ describe('Article', () => {
         }));
 
         it('should return all articles when connected', mochaAsync(async () => {
-            const cookie = await loginAndGetCookie('password');
-            const articles = await(await fetch('http://localhost:3000/api/article', {headers: {cookie}})).json<IArticle[]>();
+            const articles = await(await fetchWithLogin('http://localhost:3000/api/article')).json<IArticle[]>();
             chai.expect(articles).to.be.a('array');
             chai.expect(articles).to.have.length(3);
             chai.expect(articles[0].title).to.equal(article1.title);
@@ -59,14 +57,9 @@ describe('Article', () => {
                 content: 'Hey, the content will be there, you know ?',
                 published: false
             };
-            const cookie = await loginAndGetCookie('password');
-            const response = await fetch('http://localhost:3000/api/article', {
+            const response = await fetchWithLogin('http://localhost:3000/api/article', {
                 method: 'POST',
-                body: JSON.stringify(article),
-                headers: {
-                    'Content-Type': 'application/json',
-                    cookie
-                }
+                body: JSON.stringify(article)
             });
             chai.expect(await response.json()).to.deep.equal({success: true});
         }));
@@ -74,8 +67,7 @@ describe('Article', () => {
 
     describe('DELETE /article/:id', () => {
         it('should delete the correct article when connected', mochaAsync(async () => {
-            const cookie = await loginAndGetCookie('password');
-            const response = await(await fetch('http://localhost:3000/api/article/3', {method: 'DELETE', headers: {cookie}})).json();
+            const response = await(await fetchWithLogin('http://localhost:3000/api/article/3', {method: 'DELETE'})).json();
             chai.expect(response).to.deep.equal({success: true});
         }));
         it('should return an error when trying to delete when not connected', mochaAsync(async () => {
@@ -83,8 +75,7 @@ describe('Article', () => {
             chai.expect(response).to.deep.equal({error: 'Cannot delete an article when not connected'});
         }));
         it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
-            const cookie = await loginAndGetCookie('password');
-            const response = await(await fetch('http://localhost:3000/api/article/5', {method: 'DELETE', headers: {cookie}})).json();
+            const response = await(await fetchWithLogin('http://localhost:3000/api/article/5', {method: 'DELETE'})).json();
             chai.expect(response).to.deep.equal({error: 'No article deleted'});
         }));
     });

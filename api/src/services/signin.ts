@@ -1,4 +1,5 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 
 export function signinService(app: express.Application) {
 
@@ -6,14 +7,13 @@ export function signinService(app: express.Application) {
     app.route('/signin')
         .post((req, res) => {
             if (req.body === 'password') {
-                req.session['signedIn'] = true;
-                res.json({success: true});
+                const token = jwt.sign({signedIn: true}, 'secret', {expiresIn: '10h'});
+                res.json({token});
             } else {
-                req.session = null;
                 res.json({error: 'Incorrect password'});
             }
         })
         .get((req, res) => {
-            res.json({success: !!req.session['signedIn']});
+            res.json({success: !!(req.user && req.user.signedIn)});
         });
 }

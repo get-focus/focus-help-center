@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 export async function login(password: string) {
     return await fetch('http://localhost:3000/signin', {
         method: 'POST',
@@ -8,8 +10,11 @@ export async function login(password: string) {
     });
 }
 
-export async function loginAndGetCookie(password: string) {
-    return (await login(password)).headers.getAll('set-cookie')
-        .map(r => r.replace('; path=/; httponly', ''))
-        .join('; ');
+export async function fetchWithLogin(url: string, options?) {
+    const response = await (await login('password')).json<{token?: string, error?: string}>();
+    if (response.error) {
+        throw new Error('Incorrect password');
+    }
+
+    return await fetch(url, Object.assign({}, {headers: {Authorization: `Bearer ${response.token}`}}, options));
 }
