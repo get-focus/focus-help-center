@@ -6,4 +6,5 @@ export interface Article {
     content: string;
     createdAt?: string;
     updatedAt?: string;
+    published: boolean;
 }

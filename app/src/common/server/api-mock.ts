@@ -2,10 +2,10 @@ import {Api} from './';
 
 /** Mock data for the api mock object. */
 export const apiMockData = {
-    getArticle: {id: 1, title: 'Title', description: 'Description', content: 'Content'},
+    getArticle: {id: 1, title: 'Title', description: 'Description', content: 'Content', published:  true},
     loadArticleList: [
-        {id: 1, title: 'Title', description: 'Description', content: 'Content'},
-        {id: 2, title: 'Title2', description: 'Description2', content: 'Content2'}
+        {id: 1, title: 'Title', description: 'Description', content: 'Content', published:  true},
+        {id: 2, title: 'Title2', description: 'Description2', content: 'Content2', published:  false}
     ]
 };
 

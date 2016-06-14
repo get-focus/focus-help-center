@@ -5,14 +5,14 @@ import {shallow} from 'enzyme';
 
 describe('Article List', () => {
     describe('Loading', () => {
-        let component = shallow(<ArticleList articleList={{isLoading: true}} />);
+        let component = shallow(<ArticleList articleList={{isLoading: true}} connected={true} />);
 
         it('should have an active spinner', () => {
             chai.expect(component.find('.is-active')).to.have.length(1);
         });
 
         it('shouldn\'t display an error', () => {
-            chai.expect(component.find('.article-list-error')).to.have.length(0);
+            chai.expect(component.find('.error')).to.have.length(0);
         });
 
         it('shouldn\'t display any lines', () => {
@@ -20,14 +20,14 @@ describe('Article List', () => {
         });
     });
     describe('Error', () => {
-        let component = shallow(<ArticleList articleList={{error: 'error'}} />);
+        let component = shallow(<ArticleList articleList={{error: 'error'}} connected={true}/>);
 
         it('shouldn\'t have an active spinner', () => {
             chai.expect(component.find('.is-active')).to.have.length(0);
         });
 
         it('should display an error', () => {
-            chai.expect(component.find('.article-list-error')).to.have.length(1);
+            chai.expect(component.find('.error')).to.have.length(1);
         });
 
         it('shouldn\'t display any lines', () => {
@@ -35,14 +35,14 @@ describe('Article List', () => {
         });
     });
     describe('Lines', () => {
-        let component = shallow(<ArticleList articleList={{list: [{title: 't', description: 't', content: 't'}, {title: '1', description: '1', content: '1'}]}} />);
+        let component = shallow(<ArticleList articleList={{list: [{title: 't', description: 't', content: 't', published: true}, {title: '1', description: '1', content: '1', published: true}]}} connected={true}/>);
 
         it('shouldn\'t have an active spinner', () => {
             chai.expect(component.find('.is-active')).to.have.length(0);
         });
 
         it('shouldn\'t display an error', () => {
-            chai.expect(component.find('.article-list-error')).to.have.length(0);
+            chai.expect(component.find('.error')).to.have.length(0);
         });
 
         it('should display two lines', () => {
