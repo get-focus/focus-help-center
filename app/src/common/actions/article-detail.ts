@@ -4,8 +4,8 @@ import {ArticleDetailAction} from '../definitions/article-detail';
 import {Api} from '../server/index';
 
 /** Action creator called on any article request. */
-function requestActionArticle(clearStore?: boolean): ArticleDetailAction {
-    return {type: Action.REQUEST_ACTION_ARTICLE, clearStore};
+function requestActionArticle(): ArticleDetailAction {
+    return {type: Action.REQUEST_ACTION_ARTICLE};
 }
 
 /** Action creator called on successful article load. */
@@ -44,7 +44,7 @@ export function deleteArticle(id: number): any {
 /** Load an article. */
 export function loadArticle(id: number): any {
     return async (dispatch, getState, api: Api) => {
-        dispatch(requestActionArticle(true));
+        dispatch(requestActionArticle());
         try {
             const article = await api.getArticle(id);
             dispatch(successLoadArticle(article));

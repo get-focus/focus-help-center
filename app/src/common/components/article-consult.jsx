@@ -5,7 +5,10 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
 @connect(
-    state => ({article: state.articleDetail.article}),
+    state => ({
+        article: state.articleDetail.article,
+        isLoading: state.articleDetail.isLoading
+    }),
     dispatch => ({loadArticle: id => dispatch(loadArticle(id))})
 )
 export class ArticleConsult extends Component {
@@ -18,15 +21,24 @@ export class ArticleConsult extends Component {
     }
 
     render() {
-        const {title} = this.props.article;
+        const {article, isLoading} = this.props;
+        console.log(isLoading);
         return (
             <div className='article-consult'>
                 <div className='article-consult-card'>
                     <div className='article-consult-card-close'>
                         <Link to='/'><i className='material-icons'>close</i></Link>
                     </div>
-                    <h3>{title}</h3>
-                    <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                    <div
+                        style={!isLoading ? {display: 'none'} : {}}
+                        className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
+                    />
+                    {!isLoading ?
+                        <div>
+                            <h3>{article.title}</h3>
+                            <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                        </div>
+                    : ''}
                 </div>
             </div>
         );
