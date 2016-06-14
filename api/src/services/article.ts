@@ -1,6 +1,6 @@
 import express from 'express';
 import {Article} from '../db';
-
+import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
@@ -94,10 +94,10 @@ export function articleService(app: express.Application) {
             res.status(404);
             res.json({error: 'No article found'});
         } else if (req.user && req.user.signedIn || article.get().published === true) {
-            res.json({article: article});
+            res.json(article);
         } else {
             res.status(403);
-            res.json({ error: 'This article isn\'t published' });
+            res.json({error: 'This article isn\'t published'});
         }
     });
 
@@ -110,6 +110,12 @@ export function articleService(app: express.Application) {
      *     description: Returns all the articles.
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: filter
+     *         description: Optional filter by title or description.
+     *         in: query
+     *         required: false
+     *         type: string
      *     responses:
      *       200:
      *         description: Returns all the articles.
@@ -118,11 +124,22 @@ export function articleService(app: express.Application) {
      *         items:
      *             $ref: '#/definitions/Article-Get'
      */
-    app.get('/api/article', async (req, res) => {
-        if (req.user && req.user.signedIn ) {
-            res.json(await Article.findAll());
+    app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
+        let {filter} = req.query;
+        const order = [fn('lower', col('title')), fn('lower', col('description'))];
+        if (filter) {
+            const like = or({title: {like: `%${filter}%`}}, {description: {like: `%${filter}%`}});
+            if (req.user && req.user.signedIn) {
+                res.json(await Article.findAll({where: [like], order}));
+            } else {
+                res.json(await Article.findAll({where: [and({published: true}, like)], order}));
+            }
         } else {
-            res.json(await Article.findAll({ where: { published: true } }));
+            if (req.user && req.user.signedIn) {
+                res.json(await Article.findAll({order}));
+            } else {
+                res.json(await Article.findAll({where: {published: true}, order}));
+            }
         }
     });
 
@@ -155,16 +172,16 @@ export function articleService(app: express.Application) {
     app.post('/api/article', async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({ error: 'Cannot save an article when not connected' });
+            res.json({error: 'Cannot save an article when not connected'});
         } else {
             let article;
             if (!req.body.id) {
-            article = (await Article.create(req.body)).get();
+                article = (await Article.create(req.body)).get();
             } else {
                 (await Article.update(req.body, {where: {id: req.body.id}}));
                 article = req.body;
             }
-            res.json({ article: article, success: true });
+            res.json(article);
         }
     });
 
@@ -204,10 +221,10 @@ export function articleService(app: express.Application) {
         } else {
             const deletedRows = await Article.destroy({ where: { id: req.params.id } });
             if (deletedRows === 1) {
-                res.json({ success: true });
+                res.json({success: true});
             } else {
                 res.status(404);
-                res.json({ error: `No article deleted` });
+                res.json({error: `No article deleted`});
             }
         }
     });

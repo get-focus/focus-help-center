@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, loadArticle} from '../../actions/article-detail';
+import {updateArticle, loadArticle, clearArticle} from '../../actions/article-detail';
 
 export class EditPage extends Component<any, any> {
 
@@ -20,7 +20,7 @@ export class EditPage extends Component<any, any> {
         if (this.props.id) {
             this.props.getArticle(this.props.id);
         } else {
-            this.props.getArticle();
+            this.props.clearArticle();
         }
     }
 
@@ -105,6 +105,7 @@ export default connect(
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        getArticle: id => dispatch(loadArticle(id))
+        getArticle: id => dispatch(loadArticle(id)),
+        clearArticle: () => dispatch(clearArticle())
     })
 )(EditPage);

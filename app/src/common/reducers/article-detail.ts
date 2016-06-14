@@ -34,6 +34,8 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
                 article: a({}, state.article, {[action.attribute]: action.value}),
                 isLoading: false
             };
+        case Action.CLEAR_ARTICLE:
+            return defaultValue;
         default:
             return state;
     }
