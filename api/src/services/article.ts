@@ -1,6 +1,6 @@
 import express from 'express';
 import {Article} from '../db';
-import {or, and} from 'sequelize';
+import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
@@ -126,18 +126,19 @@ export function articleService(app: express.Application) {
      */
     app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
         let {filter} = req.query;
+        const order = [fn('lower', col('title')), fn('lower', col('description'))];
         if (filter) {
             const like = or({title: {like: `%${filter}%`}}, {description: {like: `%${filter}%`}});
             if (req.user && req.user.signedIn) {
-                res.json(await Article.findAll({where: [like]}));
+                res.json(await Article.findAll({where: [like], order}));
             } else {
-                res.json(await Article.findAll({where: [and({published: true}, like)]}));
+                res.json(await Article.findAll({where: [and({published: true}, like)], order}));
             }
         } else {
             if (req.user && req.user.signedIn) {
-                res.json(await Article.findAll());
+                res.json(await Article.findAll({order}));
             } else {
-                res.json(await Article.findAll({where: {published: true}}));
+                res.json(await Article.findAll({where: {published: true}, order}));
             }
         }
     });
