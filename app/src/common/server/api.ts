@@ -29,13 +29,13 @@ export const api: Api = {
             return true;
         } else {
             localStorage.removeItem('token');
-            return data.error;
+            throw new Error(data.error);
         }
     },
 
     async isConnected() {
         const response = await fetchWithLogin('http://localhost:3000/signin');
-        const data = await response.json<{ success: boolean }>();
+        const data = await response.json<{success: boolean}>();
         return !!data.success;
     },
 
@@ -47,12 +47,11 @@ export const api: Api = {
                 'Content-Type': 'application/json'
             }
         });
-
-        const data = await response.json<{ article: Article, success: boolean, error: string }>();
+        const data = await response.json<{article: Article, success: boolean, error: string}>();
         if (data.success) {
             return data.article;
         } else {
-            return data.error;
+            throw new Error(data.error);
         }
     },
 
@@ -62,18 +61,17 @@ export const api: Api = {
         if (data.success) {
             return true;
         } else {
-            return data.error;
+            throw new Error(data.error);
         }
     },
 
     async getArticle(id) {
         const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'GET'});
-
-        const data = await response.json<{ article: Article, error: string }>();
+        const data = await response.json<{article: Article, error: string}>();
         if (!data.error) {
             return data.article;
         } else {
-            return data.error;
+            throw new Error(data.error);
         }
     }
 };

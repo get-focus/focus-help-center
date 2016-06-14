@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, getArticle} from '../../actions/article-detail';
+import {updateArticle, loadArticle} from '../../actions/article-detail';
 
 @connect(
     state => ({
@@ -11,7 +11,7 @@ import {updateArticle, getArticle} from '../../actions/article-detail';
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        getArticle: id => dispatch(getArticle(id))
+        getArticle: id => dispatch(loadArticle(id))
     })
 )
 export class EditPage extends Component<any, any> {

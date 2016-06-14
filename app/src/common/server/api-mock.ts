@@ -2,6 +2,7 @@ import {Api} from './';
 
 /** Mock data for the api mock object. */
 export const apiMockData = {
+    getArticle: {id: 1, title: 'Title', description: 'Description', content: 'Content'},
     loadArticleList: [
         {id: 1, title: 'Title', description: 'Description', content: 'Content'},
         {id: 2, title: 'Title2', description: 'Description2', content: 'Content2'}
@@ -18,7 +19,7 @@ export const api: Api = {
         if (password === 'password') {
             return true;
         } else {
-            return 'Incorrect password';
+            throw new Error('Incorrect password');
         }
     },
 
@@ -27,10 +28,14 @@ export const api: Api = {
     },
 
     async saveArticle(article) {
-        return true;
+        return article;
     },
 
     async deleteArticle(id) {
         return true;
+    },
+
+    async getArticle() {
+        return apiMockData.getArticle;
     }
 };

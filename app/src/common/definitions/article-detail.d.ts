@@ -6,7 +6,6 @@ export interface ArticleDetailState {
     isLoading: boolean;
     article?: Article;
     error?: string;
-    success?: boolean;
 }
 
 /** Action spec for the `articleDetail` store node. */
@@ -14,7 +13,6 @@ export interface ArticleDetailAction {
     type: Action;
     article?: Article;
     error?: string;
-    success?: boolean;
     attribute?: string;
     value?: string;
 }
