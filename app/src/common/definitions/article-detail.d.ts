@@ -15,4 +15,5 @@ export interface ArticleDetailAction {
     error?: string;
     attribute?: string;
     value?: string;
+    clearStore?: boolean;
 }

@@ -10,7 +10,7 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
         case Action.REQUEST_ACTION_ARTICLE:
             return {
                 isLoading: true,
-                article: state.article
+                article: action.clearStore ? defaultValue.article : state.article
             };
         case Action.SUCCESS_LOAD_ARTICLE:
         case Action.SUCCESS_SAVE_ARTICLE:
