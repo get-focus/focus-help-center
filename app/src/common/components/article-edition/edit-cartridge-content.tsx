@@ -39,6 +39,9 @@ class EditCartridgeContent extends Component<any, any> {
 
     componentDidUpdate() {
         componentHandler.upgradeDom();
+        const {inputTitle, inputDescription} = this.refs;
+        inputTitle['MaterialTextfield'].change(this.props.article.title);
+        inputDescription['MaterialTextfield'].change(this.props.article.description);
     }
 
     saveArticle() {
@@ -67,94 +70,9 @@ class EditCartridgeContent extends Component<any, any> {
         snackBarContainer['MaterialSnackbar'].showSnackbar(data);
     }
 
-    // Changes the title editable state
-    titleClickHandler() {
-        const {titleEditable} = this.state;
-        this.setState({ titleEditable: !titleEditable ? true : false });
-    }
-
     onChangeHandler(changeEvent) {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
     }
-
-    renderLabel(attribute) {
-        const {article} = this.props;
-        if (article[`${attribute}`] === '' || article[`${attribute}`] === undefined) {
-            return i18n.t(`edit-cartridge.content.${attribute}`);
-        } else {
-            return article[`${attribute}`];
-        }
-    }
-
-    // Display the title zone
-    renderTitleZone() {
-        const {titleEditable} = this.state;
-        if (!titleEditable) {
-            return (
-                <h4 className='edit-cartridge-title'>{this.renderLabel('title') }
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this) }>
-                        <i className='material-icons'>edit </i>
-                    </div>
-                </h4>
-            );
-        } else {
-            return (
-                <div>
-                    <div className='mdl-textfield mdl-js-textfield input-div'>
-                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' autoFocus onChange={this.onChangeHandler.bind(this) } />
-                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
-                    </div>
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-title' onClick={this.titleClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    // Changes the desicription editable state
-    descriptionClickHandler() {
-        const {descriptionEditable} = this.state;
-        this.setState({ descriptionEditable: !descriptionEditable ? true : false });
-    }
-
-    // Display the title zone
-    renderDescriptionZone() {
-        const {descriptionEditable} = this.state;
-        if (!descriptionEditable) {
-            return (
-                <h5 className='edit-cartridge-description'>
-                    <em>{this.renderLabel('description') }</em>
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
-                        <i className='material-icons'>edit </i>
-                    </div>
-                </h5>
-            );
-        } else {
-            return (
-                <div className='input-div-parent'>
-                    <div className='mdl-textfield mdl-js-textfield input-div-area'>
-                        <textarea
-                            className='mdl-textfield__input'
-                            id='textarea'
-                            autoFocus
-                            name = 'description'
-                            onChange={this.onChangeHandler.bind(this) }
-                            />
-                        <label
-                            className='mdl-textfield__label'
-                            htmlFor='textarea'
-                            >
-                            {i18n.t('edit-cartridge.input.description') }
-                        </label>
-                    </div>
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-description' onClick={this.descriptionClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
-                </div>
-            );
-        }
-    };
 
     render() {
         const {connected} = this.props;
@@ -164,11 +82,44 @@ class EditCartridgeContent extends Component<any, any> {
 
         return (
             <div>
-                <div className='content-flex-cartridge'>
-                    {this.renderTitleZone() }
+                <div>
+                    <span className='label-title'>{i18n.t('edit-cartridge.content.title') }</span>
+                    <div className='mdl-textfield mdl-js-textfield input-div' ref='inputTitle'>
+                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' onChange={this.onChangeHandler.bind(this) } value={this.props.article.title} />
+                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
+                    </div>
                 </div>
+
                 <div className='content-flex-cartridge'>
-                    {this.renderDescriptionZone() }
+                    <span className='label-description'>{i18n.t('edit-cartridge.content.description') }</span>
+                    <div className='input-div-parent'>
+                        <div className='mdl-textfield mdl-js-textfield input-div-area' ref='inputDescription'>
+                            <textarea
+                                className='mdl-textfield__input'
+                                id='textarea'
+                                name = 'description'
+                                onChange={this.onChangeHandler.bind(this) }
+                                value={this.props.article.description}
+                                />
+                            <label
+                                className='mdl-textfield__label'
+                                htmlFor='textarea'
+                                >
+                                {i18n.t('edit-cartridge.input.description') }
+                            </label>
+                        </div>
+                    </div>
+                    <button id='demo-menu-lower-right'
+                        className='mdl-button mdl-js-button mdl-button--icon'>
+                        <i className='material-icons'>keyboard_arrow_down</i>
+                    </button>
+
+                    <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
+                        htmlFor='demo-menu-lower-right'>
+                        <li className='mdl-menu__item'>Publier</li>
+                        <li className='mdl-menu__item'>Dépublier</li>
+                    </ul>
+
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
                     </div>

@@ -13,59 +13,45 @@
 
 .save-article {
     margin-right: 15px;
-    margin-top: 13px;
+    margin-top: 25px;
+}
+
+.publish-article {
+    margin-right: 15px;
+    margin-top: 25px;
 }
 
 .delete-article {
-    margin-top: 15px;
+    margin-top: 28px;
+}
+
+.label-title {
+    font-size: 190%;
+    margin-left: 120px;
 }
 
 .input-div {
     flex: 1 1 auto;
-    left: 120px;
+    left: 15px;
     width: 180px;
 }
 
-.input-div-area {
-    flex: 1 1 auto;
-    left: 120px;
-    width: 250px;
+.label-description {
+    font-size: 190%;
+    margin-left: 120px;
+    margin-top: 20px;
 }
 
 .input-div-parent {
     flex: 1 1 auto;
 }
 
-.edit-title {
-    left: 120px;
+.input-div-area {
+    left: 15px;
+    bottom: 15px;
 }
 
-.edit-description {
-    margin-top: -95px;
-    left: 120px;
-}
 
-.edit-cartridge-title {
-    flex: 1 1 auto;
-    padding-left: 120px;
-
-    &:hover {
-        .article-item-button {
-            display: inline-block;
-        }
-    }
-}
-
-.edit-cartridge-description {
-    flex: 1 1 auto;
-    padding-left: 120px;
-
-    &:hover {
-        .article-item-button {
-            display: inline-block;
-        }
-    }
-}
 
 .article-item-button {
     left: 15px;
