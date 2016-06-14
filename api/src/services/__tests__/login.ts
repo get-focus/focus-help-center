@@ -16,5 +16,5 @@ export async function fetchWithLogin(url: string, options?) {
         throw new Error('Incorrect password');
     }
 
-    return await fetch(url, Object.assign({}, {headers: {Authorization: `Bearer ${response.token}`}}, options));
+    return await fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${response.token}`})}));
 }

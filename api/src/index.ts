@@ -23,6 +23,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// When testing, we recreate the db for each request.
+if (process.env.DB_ENV === 'test') {
+    app.use(async (req, res, next) => {
+        await initDb();
+        next();
+    });
+}
+
 // Registers the services.
 articleService(app);
 signinService(app);
@@ -30,8 +38,4 @@ swaggerService(app);
 
 app.listen(3000, () => {
     console.log('Lauching app on port 3000');
-    if (process.env.DB_ENV === 'test') {
-        console.log('Lauching the DB TEST INIT');
-        initDb();
-    }
 });

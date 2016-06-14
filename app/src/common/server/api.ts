@@ -51,11 +51,11 @@ export const api: Api = {
                 'Content-Type': 'application/json'
             }
         });
-        const data = await response.json<{article: Article, success: boolean, error: string}>();
-        if (data.success) {
-            return data.article;
+        const data = await response.json<Article | {error: string}>();
+        if ((data as Article).content) {
+            return data;
         } else {
-            throw new Error(data.error);
+            throw new Error((data as {error}).error);
         }
     },
 
@@ -71,11 +71,11 @@ export const api: Api = {
 
     async getArticle(id) {
         const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'GET'});
-        const data = await response.json<{article: Article, error: string}>();
-        if (!data.error) {
-            return data.article;
+        const data = await response.json<Article | {error: string}>();
+        if ((data as Article).content) {
+            return data;
         } else {
-            throw new Error(data.error);
+            throw new Error((data as {error}).error);
         }
     }
 };
