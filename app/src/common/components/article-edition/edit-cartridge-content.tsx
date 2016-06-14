@@ -33,10 +33,6 @@ class EditCartridgeContent extends Component<any, any> {
         modal['style'].display = 'block';
     }
 
-    closePopup() {
-
-    }
-
     componentDidMount() {
         componentHandler.upgradeDom();
     }

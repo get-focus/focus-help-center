@@ -2,7 +2,7 @@ import {Action} from '../actions';
 import {ArticleDetailAction, ArticleDetailState} from '../definitions/article-detail';
 const a = Object.assign;
 
-export const defaultValue: ArticleDetailState = {isLoading: false, article: {title: '', description: '', content: ''}};
+export const defaultValue: ArticleDetailState = {isLoading: false, article: {title: '', description: '', content: '', published: false}};
 
 /** Reducer that handles the `articleDetail` store node. */
 export function articleDetail(state = defaultValue, action: ArticleDetailAction) {
