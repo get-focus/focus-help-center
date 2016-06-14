@@ -24,6 +24,11 @@ export const fr = {
                     successMessage: 'Article sauvegardé.',
                     failedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
                     actionText: 'Accueil'
+                },
+                popup: {
+                    confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
+                    confirm: 'oui',
+                    cancel: 'non'
                 }
             }
         },

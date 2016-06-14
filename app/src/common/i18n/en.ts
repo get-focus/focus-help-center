@@ -24,6 +24,11 @@ export const en = {
                     successMessage: 'Saved article.',
                     failedMessage: 'Fail to save. Fields are empty.',
                     actionText: 'Home'
+                },
+                popup: {
+                    confirmMessage: 'Do you to delete this article ?',
+                    confirm: 'yes',
+                    cancel: 'no'
                 }
             }
         },

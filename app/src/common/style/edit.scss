@@ -225,7 +225,7 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    width: 20%;
 }
 
 /* The Close Button */
@@ -241,4 +241,8 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.popup-content {
+    text-align: center;
 }

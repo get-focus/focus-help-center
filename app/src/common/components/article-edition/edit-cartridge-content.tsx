@@ -24,13 +24,18 @@ class EditCartridgeContent extends Component<any, any> {
     };
 
     deleteArticle = () => {
-
-        const {modal} = this.refs;
-        modal.style.display = 'block';
-
-        // this.props.deleteArticle(this.props.article.id, { title: '', description: '', content: '' });
-        // this.props.router.push({ path: 'home' });
+        this.props.deleteArticle(this.props.article.id, { title: '', description: '', content: '' });
+        this.props.router.push({ path: 'home' });
     };
+
+    showPopup = () => {
+        const {modal} = this.refs;
+        modal['style'].display = 'block';
+    }
+
+    closePopup() {
+
+    }
 
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -171,7 +176,7 @@ class EditCartridgeContent extends Component<any, any> {
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
                     </div>
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.deleteArticle}>
+                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.showPopup}>
                         <i className='material-icons'>delete </i>
                     </div>
                 </div>
@@ -182,18 +187,19 @@ class EditCartridgeContent extends Component<any, any> {
                 </div>
 
                 <div id='myModal' className='modal' ref='modal'>
-
                     <div className='modal-content'>
                         <span className='close' onClick={() => this.refs['modal']['style'].display = 'none'}>×</span>
-                        <center>
-                            <p>Voulez-vous vraiment supprimer cet article?</p>
-                            <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => console.log('hello') }>
-                                Oui
+                        <div className='confirm-popup'>
+                            <div className='popup-content'>
+                                <p>{i18n.t('edit-cartridge.content.popup.confirmMessage') }</p>
+                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => this.deleteArticle() }>
+                                    {i18n.t('edit-cartridge.content.popup.confirm') }
+                                </div>
+                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => this.refs['modal']['style'].display = 'none' }>
+                                    {i18n.t('edit-cartridge.content.popup.cancel') }
+                                </div>
                             </div>
-                            <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => console.log('hello') }>
-                                Non
-                            </div>
-                        </center>
+                        </div>
                     </div>
                 </div>
             </div>
