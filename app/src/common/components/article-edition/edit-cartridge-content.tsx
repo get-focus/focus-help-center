@@ -74,6 +74,14 @@ class EditCartridgeContent extends Component<any, any> {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
     }
 
+    clickPublishHandler = () => {
+        if (this.props.article.published) {
+            this.props.updateArticle('published', false);
+        } else {
+            this.props.updateArticle('published', true);
+        }
+    }
+
     render() {
         const {connected} = this.props;
         if (!connected) {
@@ -109,15 +117,20 @@ class EditCartridgeContent extends Component<any, any> {
                             </label>
                         </div>
                     </div>
+
+                    <span className='publish-label'>
+                    {this.props.article.published ? 'Publié' : 'A publier' }
+                    </span>
                     <button id='demo-menu-lower-right'
-                        className='mdl-button mdl-js-button mdl-button--icon'>
+                        className='mdl-button mdl-js-button mdl-button--icon publish-article'>
                         <i className='material-icons'>keyboard_arrow_down</i>
                     </button>
 
                     <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
                         htmlFor='demo-menu-lower-right'>
-                        <li className='mdl-menu__item'>Publier</li>
-                        <li className='mdl-menu__item'>Dépublier</li>
+                        <li className='mdl-menu__item' onClick={this.clickPublishHandler}>
+                        {this.props.article.published ? 'Dépublier' : 'Publier' }
+                        </li>
                     </ul>
 
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
