@@ -2,18 +2,8 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, getArticle} from '../../actions/article-detail';
+import {updateArticle, loadArticle} from '../../actions/article-detail';
 
-@connect(
-    state => ({
-        article: state.articleDetail.article,
-        connected: state.login.isConnected
-    }),
-    dispatch => ({
-        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        getArticle: id => dispatch(getArticle(id))
-    })
-)
 export class EditPage extends Component<any, any> {
 
     static propTypes = {
@@ -107,3 +97,14 @@ export class EditPage extends Component<any, any> {
         );
     }
 }
+
+export default connect(
+    state => ({
+        article: state.articleDetail.article,
+        connected: state.login.isConnected
+    }),
+    dispatch => ({
+        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
+        getArticle: id => dispatch(loadArticle(id))
+    })
+)(EditPage);

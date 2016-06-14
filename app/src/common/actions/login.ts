@@ -30,14 +30,10 @@ export function login(password: string) {
     return async (dispatch, getState, api: Api) => {
         dispatch(requestLogin());
         try {
-            const response = await api.login(password);
-            if (response === true) {
-                dispatch(receiveLogin(true));
-            } else {
-                dispatch(failureLogin(response as string));
-            }
-        } catch (err) {
-            dispatch(failureLogin(err));
+            await api.login(password);
+            dispatch(receiveLogin(true));
+        } catch (e) {
+            dispatch(failureLogin(e.message));
         }
     };
 }
@@ -48,10 +44,10 @@ export function logout() {
         dispatch(requestLogin());
         try {
             await api.login('yolo');
-            dispatch(receiveLogin(false));
-        } catch (err) {
-            dispatch(failureLogin(err));
+        } catch (e) {
+            // We ignore errors.
         }
+        dispatch(receiveLogin(false));
     };
 }
 
@@ -61,8 +57,8 @@ export function isConnected() {
         dispatch(requestLogin());
         try {
             dispatch(receiveLogin(await api.isConnected()));
-        } catch (err) {
-            dispatch(failureLogin(err));
+        } catch (e) {
+            dispatch(failureLogin(e.message));
         }
     };
 }
