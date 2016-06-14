@@ -28,6 +28,11 @@ function errorActionArticle(error: string): ArticleDetailAction {
     return {type: Action.ERROR_ACTION_ARTICLE, error};
 }
 
+/** Clears the article store. */
+export function clearArticle() {
+    return {type: Action.CLEAR_ARTICLE};
+}
+
 /** Deletes an article. */
 export function deleteArticle(id: number): any {
     return async (dispatch, getState, api: Api) => {

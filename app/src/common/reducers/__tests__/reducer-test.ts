@@ -43,6 +43,13 @@ describe('rootReducer', () => {
                 chai.expect(newState.articleDetail.article.content).to.equal(defaultState.articleDetail.article.content);
             });
         });
+
+        describe('CLEAR_ARTICLE', () => {
+            const newState = rootReducer(defaultState, {type: Action.CLEAR_ARTICLE});
+            it('should correctly set the state with a CLEAR_ARTICLE action', () => {
+                chai.expect(newState.articleDetail).to.deep.equal(defaultState.articleDetail);
+            });
+        });
     });
 
     describe('login', () => {
