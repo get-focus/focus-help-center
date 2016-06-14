@@ -10,6 +10,10 @@ export default {
             component: HomeView
         },
         {
+            path: 'article/:id',
+            component: HomeView
+        },
+        {
             path: 'edit-article/:id',
             component: EditArticle
         },

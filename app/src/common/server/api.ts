@@ -3,11 +3,15 @@ import {Article} from '../definitions/article';
 import {Api} from './index';
 
 async function fetchWithLogin(url: string, options?) {
-    const token = localStorage.getItem('token');
-    if (token) {
-        return fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
-    } else {
-        return fetch(url, options);
+    try {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return await fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
+        } else {
+            return await fetch(url, options);
+        }
+    } catch (e) {
+        throw new Error(e.message);
     }
 }
 

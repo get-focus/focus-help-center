@@ -9,9 +9,9 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
             <div
                 style={!isLoading ? { display: 'none' } : {}}
                 className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
-                />
+            />
             {error ?
-                <div className='article-list-error'><i className='material-icons'>error</i><div>{error}</div></div>
+                <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
             : ''}
             {list && list.map(article =>
                 <ArticleLine

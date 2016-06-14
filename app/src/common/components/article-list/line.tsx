@@ -7,7 +7,7 @@ export function ArticleLine({article: {id, title, description}, canEdit}: {artic
     return (
         <div className='article-list-item'>
             <i className='material-icons'>receipt</i>
-            <Link className='article-list-item-content' to='/'>
+            <Link className='article-list-item-content' to={`article/${id}`}>
                 <div className='article-list-item-content-title'>
                     {title}
                 </div>
