@@ -5,3 +5,17 @@
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #EEE inset !important;
 }
+
+.error {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: indianred;
+
+    .material-icons {
+        font-size: 32px;
+        margin-right: 5px;
+    }
+}

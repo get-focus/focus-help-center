@@ -7,7 +7,8 @@ import {Link} from 'react-router';
 @connect(
     state => ({
         article: state.articleDetail.article,
-        isLoading: state.articleDetail.isLoading
+        isLoading: state.articleDetail.isLoading,
+        error: state.articleDetail.error
     }),
     dispatch => ({loadArticle: id => dispatch(loadArticle(id))})
 )
@@ -21,8 +22,7 @@ export class ArticleConsult extends Component {
     }
 
     render() {
-        const {article, isLoading} = this.props;
-        console.log(isLoading);
+        const {article, isLoading, error} = this.props;
         return (
             <div className='article-consult'>
                 <div className='article-consult-card'>
@@ -33,6 +33,9 @@ export class ArticleConsult extends Component {
                         style={!isLoading ? {display: 'none'} : {}}
                         className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
                     />
+                    {error ?
+                        <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
+                    : ''}
                     {!isLoading ?
                         <div>
                             <h3>{article.title}</h3>
