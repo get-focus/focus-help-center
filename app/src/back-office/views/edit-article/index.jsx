@@ -4,10 +4,10 @@ import EditCartridgeContent from '../../../common/components/article-edition/edi
 import {TitleComponent} from '../home/title-component';
 
 /** Edition page. */
-export function EditArticle() {
+export function EditArticle({params}) {
     return (
         <Layout Content={<EditCartridgeContent />} BarMiddle={<TitleComponent />}>
-            <EditPage />
+            <EditPage id={+params.id}/>
         </Layout>
     );
 }

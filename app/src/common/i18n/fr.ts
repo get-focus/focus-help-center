@@ -19,7 +19,17 @@ export const fr = {
             },
             content: {
                 title: 'Titre',
-                description: 'Description'
+                description: 'Description',
+                snackBar: {
+                    successMessage: 'Article sauvegardé.',
+                    failedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
+                    actionText: 'Accueil'
+                },
+                popup: {
+                    confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
+                    confirm: 'oui',
+                    cancel: 'non'
+                }
             }
         },
         'edit-page': {

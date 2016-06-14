@@ -17,7 +17,7 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             return {
                 isLoading: false,
                 success: true,
-                article: state.article
+                article: action.article
             };
         case Action.FAILURE_SAVE_ARTICLE:
             return {
@@ -38,8 +38,11 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             };
         case Action.SUCCESS_ARTICLE_DELETE:
             return {
-                isLoading: false
+                isLoading: false,
+                article: action.article
             };
+        case Action.SWITCH_DETAIL_SUCCESS:
+            return a({}, state, {success: false});
         default:
             return state;
     }

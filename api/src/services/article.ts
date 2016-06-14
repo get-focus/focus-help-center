@@ -94,10 +94,10 @@ export function articleService(app: express.Application) {
             res.status(404);
             res.json({error: 'No article found'});
         } else if (req.user && req.user.signedIn || article.get().published === true) {
-            res.json(article);
+            res.json({article: article});
         } else {
             res.status(403);
-            res.json({error: 'This article isn\'t published'});
+            res.json({ error: 'This article isn\'t published' });
         }
     });
 
@@ -122,7 +122,7 @@ export function articleService(app: express.Application) {
         if (req.user && req.user.signedIn ) {
             res.json(await Article.findAll());
         } else {
-            res.json(await Article.findAll({where: {published: true}}));
+            res.json(await Article.findAll({ where: { published: true } }));
         }
     });
 
@@ -155,10 +155,16 @@ export function articleService(app: express.Application) {
     app.post('/api/article', async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({error: 'Cannot save an article when not connected'});
+            res.json({ error: 'Cannot save an article when not connected' });
         } else {
-            await Article.create(req.body);
-            res.json({success: true});
+            let article;
+            if (!req.body.id) {
+            article = (await Article.create(req.body)).get();
+            } else {
+                (await Article.update(req.body, {where: {id: req.body.id}}));
+                article = req.body;
+            }
+            res.json({ article: article, success: true });
         }
     });
 
@@ -194,14 +200,14 @@ export function articleService(app: express.Application) {
     app.delete('/api/article/:id', async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({error: 'Cannot delete an article when not connected'});
+            res.json({ error: 'Cannot delete an article when not connected' });
         } else {
-            const deletedRows = await Article.destroy({where: {id: req.params.id}});
+            const deletedRows = await Article.destroy({ where: { id: req.params.id } });
             if (deletedRows === 1) {
-                res.json({success: true});
+                res.json({ success: true });
             } else {
                 res.status(404);
-                res.json({error: `No article deleted`});
+                res.json({ error: `No article deleted` });
             }
         }
     });

@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import {ContentArea} from './content-area';
 import i18n from 'i18next';
-import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/article-detail';
+import {updateArticle, getArticle} from '../../actions/article-detail';
 
 @connect(
     state => ({
@@ -11,8 +11,7 @@ import {updateArticle, saveArticle, loadArticleDetail} from '../../actions/artic
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        saveArticle: article => dispatch(saveArticle(article)),
-        loadArticleDetail: article => dispatch(loadArticleDetail(article))
+        getArticle: id => dispatch(getArticle(id))
     })
 )
 export class EditPage extends Component<any, any> {
@@ -28,7 +27,11 @@ export class EditPage extends Component<any, any> {
     };
 
     componentWillMount() {
-        this.props.loadArticleDetail({title: '', description: '', content: ''});
+        if (this.props.id) {
+            this.props.getArticle(this.props.id);
+        } else {
+            this.props.getArticle();
+        }
     }
 
     componentDidMount() {
@@ -38,10 +41,6 @@ export class EditPage extends Component<any, any> {
     parameterButtonHandler() {
         const {isVisible} = this.state;
         this.setState({isVisible: isVisible ? false : true});
-    }
-
-    saveArticle() {
-        this.props.saveArticle(this.props.article);
     }
 
     onChangeHandler(attribute, value?) {
@@ -90,14 +89,6 @@ export class EditPage extends Component<any, any> {
                             <input className='mdl-textfield__input' type='text' id='blocInformationInput' name='blocInformation' ref='blocInformation' />
                             <label className='mdl-textfield__label' htmlFor='blocInformationInput'>Bloc d'information...</label>
                         </div>
-
-                        <br/><br/>
-                            <button
-                                className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored edit-button'
-                                onClick={this.saveArticle.bind(this)}
-                                >
-                                {i18n.t('button.save')}
-                            </button>
                     </div>
                 </div>
 

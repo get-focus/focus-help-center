@@ -7,14 +7,69 @@
     }
 }
 
-.edit-cartridge-title {
-    padding-left: 120px;
+.content-flex-cartridge {
+    display: flex;
+}
+
+.save-article {
+    margin-right: 15px;
+    margin-top: 13px;
+}
+
+.delete-article {
+    margin-top: 15px;
+}
+
+.input-div {
+    flex: 1 1 auto;
+    left: 120px;
+    width: 180px;
+}
+
+.input-div-area {
+    flex: 1 1 auto;
+    left: 120px;
+    width: 250px;
+}
+
+.input-div-parent {
+    flex: 1 1 auto;
+}
+
+.edit-title {
     left: 120px;
 }
 
-.edit-cartridge-description {
-    padding-left: 120px;
+.edit-description {
+    margin-top: -95px;
     left: 120px;
+}
+
+.edit-cartridge-title {
+    flex: 1 1 auto;
+    padding-left: 120px;
+
+    &:hover {
+        .article-item-button {
+            display: inline-block;
+        }
+    }
+}
+
+.edit-cartridge-description {
+    flex: 1 1 auto;
+    padding-left: 120px;
+
+    &:hover {
+        .article-item-button {
+            display: inline-block;
+        }
+    }
+}
+
+.article-item-button {
+    left: 15px;
+    display: none;
 }
 
 .edit-header-item {
@@ -24,13 +79,14 @@
 
 .edit-parameters-item {
     width: 0;
-    flex-grow: 0.5;
+    flex-grow: 0.3;
     transition: flex-grow 150ms linear;
     padding: 15px;
     background-color: #f6f6f6;
     display: block;
 }
 
+//https://facebook.github.io/react/docs/animation.html
 .edit-parameters-item-hidden {
     width: 0;
     flex-grow: .00001;
@@ -148,6 +204,45 @@
     color: black;
 }
 
-.edit-description {
-    margin-top: -95px;
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-content {
+    text-align: center;
 }

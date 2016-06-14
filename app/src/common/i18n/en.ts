@@ -19,7 +19,17 @@ export const en = {
             },
             content: {
                 title: 'Title',
-                description: 'Description'
+                description: 'Description',
+                snackBar: {
+                    successMessage: 'Saved article.',
+                    failedMessage: 'Fail to save. Fields are empty.',
+                    actionText: 'Home'
+                },
+                popup: {
+                    confirmMessage: 'Do you to delete this article ?',
+                    confirm: 'yes',
+                    cancel: 'no'
+                }
             }
         },
         'edit-page': {

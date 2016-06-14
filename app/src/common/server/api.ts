@@ -5,7 +5,7 @@ import {Api} from './index';
 async function fetchWithLogin(url: string, options?) {
     const token = localStorage.getItem('token');
     if (token) {
-        return fetch(url, Object.assign({}, options, {headers: {Authorization: `Bearer ${token}`}}));
+        return fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
     } else {
         return fetch(url, options);
     }
@@ -42,12 +42,15 @@ export const api: Api = {
     async saveArticle(article) {
         const response = await fetchWithLogin('http://localhost:3000/api/article', {
             method: 'POST',
-            body: JSON.stringify(article)
+            body: JSON.stringify(article),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
-        const data = await response.json<{success: boolean, error: string}>();
+        const data = await response.json<{ article: Article, success: boolean, error: string }>();
         if (data.success) {
-            return true;
+            return data.article;
         } else {
             return data.error;
         }
@@ -58,6 +61,17 @@ export const api: Api = {
         const data = await response.json<{success: boolean, error: string}>();
         if (data.success) {
             return true;
+        } else {
+            return data.error;
+        }
+    },
+
+    async getArticle(id) {
+        const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'GET'});
+
+        const data = await response.json<{ article: Article, error: string }>();
+        if (!data.error) {
+            return data.article;
         } else {
             return data.error;
         }
