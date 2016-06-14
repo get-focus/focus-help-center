@@ -1,6 +1,6 @@
 import express from 'express';
 import {Article} from '../db';
-
+import {or, and} from 'sequelize';
 /**
  * @swagger
  * definition:
@@ -110,6 +110,12 @@ export function articleService(app: express.Application) {
      *     description: Returns all the articles.
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: filter
+     *         description: Optional filter by title or description.
+     *         in: query
+     *         required: false
+     *         type: string
      *     responses:
      *       200:
      *         description: Returns all the articles.
@@ -118,11 +124,22 @@ export function articleService(app: express.Application) {
      *         items:
      *             $ref: '#/definitions/Article-Get'
      */
-    app.get('/api/article', async (req, res) => {
-        if (req.user && req.user.signedIn ) {
-            res.json(await Article.findAll());
+    app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
+        let {filter} = req.query;
+        filter = `%${filter}%`;
+        const like = or({title: {like: filter}}, {description: {like: filter}});
+        if (req.user && req.user.signedIn) {
+            if (filter) {
+                res.json(await Article.findAll({where: [like]}));
+            } else {
+                res.json(await Article.findAll());
+            }
         } else {
-            res.json(await Article.findAll({ where: { published: true } }));
+            if (filter) {
+                res.json(await Article.findAll({where: [and({published: true}, like)]}));
+            } else {
+                res.json(await Article.findAll({where: {published: true}}));
+            }
         }
     });
 
