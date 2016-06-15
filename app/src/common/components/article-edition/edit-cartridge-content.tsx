@@ -18,11 +18,6 @@ import {Link} from 'react-router';
 )
 class EditCartridgeContent extends Component<any, any> {
 
-    state = {
-        titleEditable: false,
-        descriptionEditable: false
-    };
-
     deleteArticle = () => {
         this.props.deleteArticle(this.props.article.id);
         this.props.router.push({ path: 'home' });
@@ -39,136 +34,152 @@ class EditCartridgeContent extends Component<any, any> {
 
     componentDidUpdate() {
         componentHandler.upgradeDom();
+        const {inputTitle, inputDescription} = this.refs;
+        inputTitle['MaterialTextfield'].change(this.props.article.title);
+        inputDescription['MaterialTextfield'].change(this.props.article.description);
     }
 
+    /**
+     * Saves the article
+     * Checks if the attributes are given to save the article
+     */
     saveArticle() {
-        const title = this.props.article.title;
-        const content = this.props.article.content;
-        const description = this.props.article.description;
+        const {title, content, description} = this.props.article;
         let data;
-        const {snackBarContainer} = this.refs;
-
         if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
-                message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
-                timeout: 2000,
-                actionHandler: () => { },
-                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+                message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
+                timeout: 3000,
+                actionHandler: () => {this.props.router.push({ path: 'home' }); },
+                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
             this.props.saveArticle(this.props.article);
             data = {
-                message: i18n.t('edit-cartridge.content.snackBar.successMessage'),
-                timeout: 2000,
-                actionHandler: () => { },
-                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+                message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
+                timeout: 3000,
+                actionHandler: () => {this.props.router.push({ path: 'home' }); },
+                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
-        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
-    }
-
-    // Changes the title editable state
-    titleClickHandler() {
-        const {titleEditable} = this.state;
-        this.setState({ titleEditable: !titleEditable ? true : false });
+        this.showSnackBar(data);
     }
 
     onChangeHandler(changeEvent) {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
     }
 
-    renderLabel(attribute) {
-        const {article} = this.props;
-        if (article[`${attribute}`] === '' || article[`${attribute}`] === undefined) {
-            return i18n.t(`edit-cartridge.content.${attribute}`);
+    /**
+     * Shows the snackbar with the given information
+     */
+    showSnackBar = (data) => {
+        const {snackBarContainer} = this.refs;
+        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
+    }
+
+    /**
+     * Updates the article 'published' attribute
+     * Gives the data for the snackbar
+     */
+    clickPublishHandler = () => {
+        if (this.props.article.published) {
+            this.props.updateArticle('published', false);
+            this.showSnackBar({
+                message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
+                timeout: 1500,
+                actionHandler: () => {this.saveArticle(); },
+                actionText: i18n.t('button.save')
+            });
         } else {
-            return article[`${attribute}`];
+            this.props.updateArticle('published', true);
+            this.showSnackBar({
+                message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
+                timeout: 1500,
+                actionHandler: () => {this.saveArticle(); },
+                actionText: i18n.t('button.save')
+            });
         }
     }
 
-    // Display the title zone
-    renderTitleZone() {
-        const {titleEditable} = this.state;
-        if (!titleEditable) {
-            return (
-                <h4 className='edit-cartridge-title'>{this.renderLabel('title') }
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.titleClickHandler.bind(this) }>
-                        <i className='material-icons'>edit </i>
-                    </div>
-                </h4>
-            );
-        } else {
-            return (
-                <div>
-                    <div className='mdl-textfield mdl-js-textfield input-div'>
-                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' autoFocus onChange={this.onChangeHandler.bind(this) } />
-                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
-                    </div>
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-title' onClick={this.titleClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
-                </div>
-            );
-        }
-    }
+    /**
+     * Sets the information data to display
+     */
+    dateChecker = () => {
+        const {updatedAt} = this.props.article;
+        const date = new Date(updatedAt);
+        const today = new Date();
+        const diff = new Date(today.getTime() - date.getTime()).getUTCDate() - 1;
+        const month = Math.ceil(diff / 30);
+        const year = Math.ceil(month / 12);
 
-    // Changes the desicription editable state
-    descriptionClickHandler() {
-        const {descriptionEditable} = this.state;
-        this.setState({ descriptionEditable: !descriptionEditable ? true : false });
-    }
-
-    // Display the title zone
-    renderDescriptionZone() {
-        const {descriptionEditable} = this.state;
-        if (!descriptionEditable) {
-            return (
-                <h5 className='edit-cartridge-description'>
-                    <em>{this.renderLabel('description') }</em>
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect article-item-button' onClick={this.descriptionClickHandler.bind(this) }>
-                        <i className='material-icons'>edit </i>
-                    </div>
-                </h5>
-            );
-        } else {
-            return (
-                <div className='input-div-parent'>
-                    <div className='mdl-textfield mdl-js-textfield input-div-area'>
-                        <textarea
-                            className='mdl-textfield__input'
-                            id='textarea'
-                            autoFocus
-                            name = 'description'
-                            onChange={this.onChangeHandler.bind(this) }
-                            />
-                        <label
-                            className='mdl-textfield__label'
-                            htmlFor='textarea'
-                            >
-                            {i18n.t('edit-cartridge.input.description') }
-                        </label>
-                    </div>
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect edit-description' onClick={this.descriptionClickHandler.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
-                </div>
-            );
+        if (updatedAt !== undefined) {
+            if (diff === 0) {
+                return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
+            } else if (diff > 0) {
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
+            } else if (diff > 29) {
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
+            } else if (month => 12) {
+                if (year === 1) {
+                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
+                } else {
+                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
+                }
+            }
         }
-    };
+
+    }
 
     render() {
         const {connected} = this.props;
         if (!connected) {
             return <div />;
         }
-
         return (
             <div>
                 <div className='content-flex-cartridge'>
-                    {this.renderTitleZone() }
+                    <div className='mdl-textfield mdl-js-textfield input-div' ref='inputTitle'>
+                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' onChange={this.onChangeHandler.bind(this) } value={this.props.article.title} />
+                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
+                    </div>
                 </div>
+
                 <div className='content-flex-cartridge'>
-                    {this.renderDescriptionZone() }
+                    <div className='input-div-parent'>
+                        <div className='mdl-textfield mdl-js-textfield input-div-area' ref='inputDescription'>
+                            <textarea
+                                className='mdl-textfield__input'
+                                id='textarea'
+                                name = 'description'
+                                onChange={this.onChangeHandler.bind(this) }
+                                value={this.props.article.description}
+                                />
+                            <label
+                                className='mdl-textfield__label'
+                                htmlFor='textarea'
+                                >
+                                {i18n.t('edit-cartridge.input.description') }
+                            </label>
+                        </div>
+                    </div>
+
+                    <span className='publish-label'>
+                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish') }
+                        {this.dateChecker() }
+                    </span>
+                    <div id='demo-menu-lower-right'
+                        className='mdl-button mdl-js-button mdl-button--icon publish-article'>
+                        <i className='material-icons'>keyboard_arrow_down</i>
+                    </div>
+
+                    <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
+                        htmlFor='demo-menu-lower-right'>
+                        <li className='mdl-menu__item dropdown-item' onClick={this.clickPublishHandler}>
+                            {this.props.article.published ? i18n.t('edit-cartridge.content.publish') : i18n.t('edit-cartridge.content.unpublish') }
+                        </li>
+                    </ul>
+
+
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
                     </div>
@@ -179,7 +190,7 @@ class EditCartridgeContent extends Component<any, any> {
 
                 <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
                     <div className='mdl-snackbar__text'></div>
-                    <Link className='mdl-snackbar__action' to='/'></Link>
+                    <div className='mdl-snackbar__action' to='/'></div>
                 </div>
 
                 <div id='myModal' className='modal' ref='modal'>
