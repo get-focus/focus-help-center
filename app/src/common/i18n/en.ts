@@ -46,6 +46,9 @@ export const en = {
                 }
             }
         },
+        'content-area': {
+            'header-item-preview' : 'preview'
+        },
         'edit-page': {
             content: {
                 section: 'SECTION',

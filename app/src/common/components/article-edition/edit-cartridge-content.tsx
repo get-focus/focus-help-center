@@ -180,9 +180,6 @@ class EditCartridgeContent extends Component<any, any> {
                     </ul>
 
 
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
                     <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.showPopup}>
                         <i className='material-icons'>delete </i>
                     </div>
@@ -190,7 +187,7 @@ class EditCartridgeContent extends Component<any, any> {
 
                 <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
                     <div className='mdl-snackbar__text'></div>
-                    <div className='mdl-snackbar__action' to='/'></div>
+                    <div className='mdl-snackbar__action'></div>
                 </div>
 
                 <div id='myModal' className='modal' ref='modal'>
