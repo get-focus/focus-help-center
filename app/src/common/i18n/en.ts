@@ -25,6 +25,10 @@ export const en = {
                     failedMessage: 'Fail to save. Fields are empty.',
                     actionText: 'Home'
                 },
+                published: 'PUBLISHED',
+                toPublish: 'TO PUBLISH',
+                publish: 'Publish',
+                unpublish: 'Unpublish',
                 popup: {
                     confirmMessage: 'Do you to delete this article ?',
                     confirm: 'yes',

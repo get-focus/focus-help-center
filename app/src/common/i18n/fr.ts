@@ -25,6 +25,10 @@ export const fr = {
                     failedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
                     actionText: 'Accueil'
                 },
+                published: 'PUBLIÉ',
+                toPublish: 'A PUBLIER',
+                publish: 'Publier',
+                unpublish: 'Dépublier',
                 popup: {
                     confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
                     confirm: 'oui',

@@ -17,8 +17,16 @@
 }
 
 .publish-label {
-    font-size: 180%;
+    font-size: 250%;
     margin-top: 30px;
+    color: #8BC34A;
+
+    p {
+        font-size: 40%;
+        margin-top: 10px;
+        text-align: center;
+        color: black;
+    }
 }
 
 .publish-article {
@@ -42,12 +50,14 @@
     input {
         font-size: 20px;
         font-weight: bold;
-        color: #6a6a6a;
+        color: #616161;
     }
 }
+
 .input-div-parent {
     flex: 1 1 auto;
     margin-left: 120px;
+    margin-top: 20px;
 
     label {
         font-size: 18px;
@@ -56,7 +66,7 @@
     textarea {
         font-size: 20px;
         font-style: italic;
-        color: #838383;
+        color: #9E9E9E;
     }
 }
 
@@ -64,8 +74,6 @@
     left: 15px;
     bottom: 15px;
 }
-
-
 
 .article-item-button {
     left: 15px;
@@ -79,7 +87,7 @@
 
 .edit-parameters-item {
     width: 0;
-    flex-grow: 0.3;
+    flex: 0.3 1 auto;
     transition: flex-grow 150ms linear;
     padding: 15px;
     background-color: #f6f6f6;
@@ -89,7 +97,6 @@
 //https://facebook.github.io/react/docs/animation.html
 .edit-parameters-item-hidden {
     width: 0;
-    flex-grow: .00001;
     transition: flex-grow 150ms linear;
 }
 
@@ -117,7 +124,7 @@
 }
 
 .content-area {
-    flex: 1 1 auto;
+    flex: 1 1 100px;
     display: flex;
 
     .content-area-textarea {

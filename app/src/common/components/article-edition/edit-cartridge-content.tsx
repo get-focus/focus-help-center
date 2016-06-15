@@ -18,11 +18,6 @@ import {Link} from 'react-router';
 )
 class EditCartridgeContent extends Component<any, any> {
 
-    state = {
-        titleEditable: false,
-        descriptionEditable: false
-    };
-
     deleteArticle = () => {
         this.props.deleteArticle(this.props.article.id);
         this.props.router.push({ path: 'home' });
@@ -47,8 +42,6 @@ class EditCartridgeContent extends Component<any, any> {
     saveArticle() {
         const {title, content, description} = this.props.article;
         let data;
-        const {snackBarContainer} = this.refs;
-
         if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
@@ -65,27 +58,54 @@ class EditCartridgeContent extends Component<any, any> {
                 actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
             };
         }
-        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
+        this.showSnackBar(data);
     }
 
     onChangeHandler(changeEvent) {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
     }
 
-    clickPublishHandler = () => {
+    showSnackBar = (data) => {
         const {snackBarContainer} = this.refs;
+        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
+    }
+
+    clickPublishHandler = () => {
         if (this.props.article.published) {
             this.props.updateArticle('published', false);
-            snackBarContainer['MaterialSnackbar'].showSnackbar({
+            this.showSnackBar({
                 message: i18n.t('L\'article sera dépublié après la sauvegarde.'),
-                timeout: 3000
+                timeout: 1500
             });
         } else {
             this.props.updateArticle('published', true);
-            snackBarContainer['MaterialSnackbar'].showSnackbar({
+            this.showSnackBar({
                 message: i18n.t('L\'article sera publié après la sauvegarde.'),
-                timeout: 3000
+                timeout: 1500
             });
+        }
+    }
+
+    dataChecker = () => {
+        const {updatedAt} = this.props.article;
+        const date = new Date(updatedAt);
+        const today = new Date();
+        const diff = new Date(today.getTime() - date.getTime()).getUTCDate() - 1;
+        const month = Math.ceil(diff / 30);
+        const year = Math.ceil(month / 12);
+
+        if (diff === 0) {
+            return <p>Modifié aujourd'hui</p>;
+        } else if (diff > 0) {
+            return <p>`Modifié il y a ${diff} jours`</p>;
+        } else if (diff > 29) {
+            return <p>`Modifié il y a ${month} mois`</p>;
+        } else if (month => 12) {
+            if (year === 1) {
+                return <p>`Modifié il y a ${year} an`</p>;
+            } else {
+                return <p>`Modifié il y a ${year} ans`</p>;
+            }
         }
     }
 
@@ -94,7 +114,6 @@ class EditCartridgeContent extends Component<any, any> {
         if (!connected) {
             return <div />;
         }
-
         return (
             <div>
                 <div className='content-flex-cartridge'>
@@ -124,19 +143,21 @@ class EditCartridgeContent extends Component<any, any> {
                     </div>
 
                     <span className='publish-label'>
-                        {this.props.article.published ? 'Publié' : 'A publier' }
+                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish') }
+                        {this.dataChecker() }
                     </span>
-                    <button id='demo-menu-lower-right'
+                    <div id='demo-menu-lower-right'
                         className='mdl-button mdl-js-button mdl-button--icon publish-article'>
                         <i className='material-icons'>keyboard_arrow_down</i>
-                    </button>
+                    </div>
 
                     <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
                         htmlFor='demo-menu-lower-right'>
                         <li className='mdl-menu__item' onClick={this.clickPublishHandler}>
-                            {this.props.article.published ? 'Dépublier' : 'Publier' }
+                            {this.props.article.published ? i18n.t('edit-cartridge.content.publish') : i18n.t('edit-cartridge.content.unpublish') }
                         </li>
                     </ul>
+
 
                     <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
                         {i18n.t('button.save') }
