@@ -159,7 +159,7 @@ class EditCartridgeContent extends Component<any, any> {
 
                     <span className='publish-label'>
                         {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish') }
-                        {this.dataChecker() }
+                        {this.dateChecker() }
                     </span>
                     <div id='demo-menu-lower-right'
                         className='mdl-button mdl-js-button mdl-button--icon publish-article'>
