@@ -30,25 +30,34 @@
     margin-top: 28px;
 }
 
-.label-title {
-    font-size: 190%;
-    margin-left: 120px;
-}
-
 .input-div {
-    flex: 1 1 auto;
     left: 15px;
     width: 180px;
-}
-
-.label-description {
-    font-size: 190%;
     margin-left: 120px;
-    margin-top: 20px;
-}
 
+    label {
+        font-size: 18px;
+    }
+
+    input {
+        font-size: 20px;
+        font-weight: bold;
+        color: #6a6a6a;
+    }
+}
 .input-div-parent {
     flex: 1 1 auto;
+    margin-left: 120px;
+
+    label {
+        font-size: 18px;
+    }
+
+    textarea {
+        font-size: 20px;
+        font-style: italic;
+        color: #838383;
+    }
 }
 
 .input-div-area {

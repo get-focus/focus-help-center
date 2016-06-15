@@ -45,16 +45,14 @@ class EditCartridgeContent extends Component<any, any> {
     }
 
     saveArticle() {
-        const title = this.props.article.title;
-        const content = this.props.article.content;
-        const description = this.props.article.description;
+        const {title, content, description} = this.props.article;
         let data;
         const {snackBarContainer} = this.refs;
 
         if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
-                timeout: 2000,
+                timeout: 3000,
                 actionHandler: () => { },
                 actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
             };
@@ -62,7 +60,7 @@ class EditCartridgeContent extends Component<any, any> {
             this.props.saveArticle(this.props.article);
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.successMessage'),
-                timeout: 2000,
+                timeout: 3000,
                 actionHandler: () => { },
                 actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
             };
@@ -75,10 +73,19 @@ class EditCartridgeContent extends Component<any, any> {
     }
 
     clickPublishHandler = () => {
+        const {snackBarContainer} = this.refs;
         if (this.props.article.published) {
             this.props.updateArticle('published', false);
+            snackBarContainer['MaterialSnackbar'].showSnackbar({
+                message: i18n.t('L\'article sera dépublié après la sauvegarde.'),
+                timeout: 3000
+            });
         } else {
             this.props.updateArticle('published', true);
+            snackBarContainer['MaterialSnackbar'].showSnackbar({
+                message: i18n.t('L\'article sera publié après la sauvegarde.'),
+                timeout: 3000
+            });
         }
     }
 
@@ -90,8 +97,7 @@ class EditCartridgeContent extends Component<any, any> {
 
         return (
             <div>
-                <div>
-                    <span className='label-title'>{i18n.t('edit-cartridge.content.title') }</span>
+                <div className='content-flex-cartridge'>
                     <div className='mdl-textfield mdl-js-textfield input-div' ref='inputTitle'>
                         <input className='mdl-textfield__input' type='text' id='titleInput' name='title' onChange={this.onChangeHandler.bind(this) } value={this.props.article.title} />
                         <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
@@ -99,7 +105,6 @@ class EditCartridgeContent extends Component<any, any> {
                 </div>
 
                 <div className='content-flex-cartridge'>
-                    <span className='label-description'>{i18n.t('edit-cartridge.content.description') }</span>
                     <div className='input-div-parent'>
                         <div className='mdl-textfield mdl-js-textfield input-div-area' ref='inputDescription'>
                             <textarea
@@ -119,7 +124,7 @@ class EditCartridgeContent extends Component<any, any> {
                     </div>
 
                     <span className='publish-label'>
-                    {this.props.article.published ? 'Publié' : 'A publier' }
+                        {this.props.article.published ? 'Publié' : 'A publier' }
                     </span>
                     <button id='demo-menu-lower-right'
                         className='mdl-button mdl-js-button mdl-button--icon publish-article'>
@@ -129,7 +134,7 @@ class EditCartridgeContent extends Component<any, any> {
                     <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
                         htmlFor='demo-menu-lower-right'>
                         <li className='mdl-menu__item' onClick={this.clickPublishHandler}>
-                        {this.props.article.published ? 'Dépublier' : 'Publier' }
+                            {this.props.article.published ? 'Dépublier' : 'Publier' }
                         </li>
                     </ul>
 
