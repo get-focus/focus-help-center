@@ -21,18 +21,28 @@ export const en = {
                 title: 'Title',
                 description: 'Description',
                 snackBar: {
-                    successMessage: 'Saved article.',
-                    failedMessage: 'Fail to save. Fields are empty.',
-                    actionText: 'Home'
+                    saveSuccessMessage: 'Saved article.',
+                    saveFailedMessage: 'Fail to save. Fields are empty.',
+                    saveActionText: 'Home',
+                    unpublishMessage: 'The article will be unpublished after you save it.',
+                    publishMessage: 'The article will be published after you save it.'
                 },
-                published: 'PUBLISHED',
-                toPublish: 'TO PUBLISH',
-                publish: 'Publish',
-                unpublish: 'Unpublish',
+                published: 'published',
+                toPublish: 'to publish',
+                publish: 'publish',
+                unpublish: 'unpublish',
                 popup: {
                     confirmMessage: 'Do you to delete this article ?',
                     confirm: 'yes',
                     cancel: 'no'
+                },
+                label: {
+                    modifiedSince: 'Modified',
+                    oneDay: 'Modified today',
+                    days: 'days age',
+                    months: 'months ago',
+                    oneYear: 'year ago',
+                    years: 'years ago',
                 }
             }
         },

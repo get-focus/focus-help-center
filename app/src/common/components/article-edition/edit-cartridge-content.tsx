@@ -48,18 +48,18 @@ class EditCartridgeContent extends Component<any, any> {
         let data;
         if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
-                message: i18n.t('edit-cartridge.content.snackBar.failedMessage'),
+                message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
                 timeout: 3000,
                 actionHandler: () => { },
-                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
             this.props.saveArticle(this.props.article);
             data = {
-                message: i18n.t('edit-cartridge.content.snackBar.successMessage'),
+                message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
                 timeout: 3000,
                 actionHandler: () => { },
-                actionText: i18n.t('edit-cartridge.content.snackBar.actionText')
+                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
         this.showSnackBar(data);
@@ -85,13 +85,13 @@ class EditCartridgeContent extends Component<any, any> {
         if (this.props.article.published) {
             this.props.updateArticle('published', false);
             this.showSnackBar({
-                message: i18n.t('L\'article sera dépublié après la sauvegarde.'),
+                message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
                 timeout: 1500
             });
         } else {
             this.props.updateArticle('published', true);
             this.showSnackBar({
-                message: i18n.t('L\'article sera publié après la sauvegarde.'),
+                message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
                 timeout: 1500
             });
         }
@@ -99,7 +99,6 @@ class EditCartridgeContent extends Component<any, any> {
 
     /**
      * Sets the information data to display
-     * TODO: traduction for the text
      */
     dateChecker = () => {
         const {updatedAt} = this.props.article;
@@ -110,16 +109,16 @@ class EditCartridgeContent extends Component<any, any> {
         const year = Math.ceil(month / 12);
 
         if (diff === 0) {
-            return <p>Modifié aujourd'hui</p>;
+            return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
         } else if (diff > 0) {
-            return <p>`Modifié il y a ${diff} jours`</p>;
+            return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
         } else if (diff > 29) {
-            return <p>`Modifié il y a ${month} mois`</p>;
+            return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
         } else if (month => 12) {
             if (year === 1) {
-                return <p>`Modifié il y a ${year} an`</p>;
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
             } else {
-                return <p>`Modifié il y a ${year} ans`</p>;
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
             }
         }
     }
@@ -168,7 +167,7 @@ class EditCartridgeContent extends Component<any, any> {
 
                     <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
                         htmlFor='demo-menu-lower-right'>
-                        <li className='mdl-menu__item' onClick={this.clickPublishHandler}>
+                        <li className='mdl-menu__item dropdown-item' onClick={this.clickPublishHandler}>
                             {this.props.article.published ? i18n.t('edit-cartridge.content.publish') : i18n.t('edit-cartridge.content.unpublish') }
                         </li>
                     </ul>

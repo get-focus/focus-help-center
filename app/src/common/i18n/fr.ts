@@ -21,18 +21,28 @@ export const fr = {
                 title: 'Titre',
                 description: 'Description',
                 snackBar: {
-                    successMessage: 'Article sauvegardé.',
-                    failedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
-                    actionText: 'Accueil'
+                    saveSuccessMessage: 'Article sauvegardé.',
+                    saveFailedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
+                    saveActionText: 'Accueil',
+                    unpublishMessage: 'L\'article sera dépublié après la sauvegarde.',
+                    publishMessage: 'L\'article sera publié après la sauvegarde.'
                 },
-                published: 'PUBLIÉ',
-                toPublish: 'A PUBLIER',
-                publish: 'Publier',
-                unpublish: 'Dépublier',
+                published: 'publié',
+                toPublish: 'à publier',
+                publish: 'publier',
+                unpublish: 'dépublier',
                 popup: {
                     confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
                     confirm: 'oui',
                     cancel: 'non'
+                },
+                label: {
+                    modifiedSince: 'Modifié il y a',
+                    oneDay: 'Modifié aujourd\'hui',
+                    days: 'jours',
+                    months: 'mois',
+                    oneYear: 'an',
+                    years: 'ans',
                 }
             }
         },

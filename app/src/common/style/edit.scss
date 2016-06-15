@@ -20,13 +20,19 @@
     font-size: 250%;
     margin-top: 30px;
     color: #8BC34A;
+    text-transform: uppercase;
 
     p {
         font-size: 40%;
         margin-top: 10px;
         text-align: center;
         color: black;
+        text-transform: none;
     }
+}
+
+.dropdown-item {
+    text-transform: capitalize;
 }
 
 .publish-article {
