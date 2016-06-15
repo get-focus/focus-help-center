@@ -50,7 +50,7 @@ class EditCartridgeContent extends Component<any, any> {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
                 timeout: 3000,
-                actionHandler: () => { },
+                actionHandler: () => {this.props.router.push({ path: 'home' }); },
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
@@ -58,7 +58,7 @@ class EditCartridgeContent extends Component<any, any> {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
                 timeout: 3000,
-                actionHandler: () => { },
+                actionHandler: () => {this.props.router.push({ path: 'home' }); },
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
@@ -86,13 +86,17 @@ class EditCartridgeContent extends Component<any, any> {
             this.props.updateArticle('published', false);
             this.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
-                timeout: 1500
+                timeout: 1500,
+                actionHandler: () => {this.saveArticle(); },
+                actionText: i18n.t('button.save')
             });
         } else {
             this.props.updateArticle('published', true);
             this.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
-                timeout: 1500
+                timeout: 1500,
+                actionHandler: () => {this.saveArticle(); },
+                actionText: i18n.t('button.save')
             });
         }
     }
@@ -108,19 +112,22 @@ class EditCartridgeContent extends Component<any, any> {
         const month = Math.ceil(diff / 30);
         const year = Math.ceil(month / 12);
 
-        if (diff === 0) {
-            return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
-        } else if (diff > 0) {
-            return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
-        } else if (diff > 29) {
-            return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
-        } else if (month => 12) {
-            if (year === 1) {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
-            } else {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
+        if (updatedAt !== undefined) {
+            if (diff === 0) {
+                return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
+            } else if (diff > 0) {
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
+            } else if (diff > 29) {
+                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
+            } else if (month => 12) {
+                if (year === 1) {
+                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
+                } else {
+                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
+                }
             }
         }
+
     }
 
     render() {
@@ -183,7 +190,7 @@ class EditCartridgeContent extends Component<any, any> {
 
                 <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
                     <div className='mdl-snackbar__text'></div>
-                    <Link className='mdl-snackbar__action' to='/'></Link>
+                    <div className='mdl-snackbar__action' to='/'></div>
                 </div>
 
                 <div id='myModal' className='modal' ref='modal'>
