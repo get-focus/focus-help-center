@@ -39,6 +39,10 @@ class EditCartridgeContent extends Component<any, any> {
         inputDescription['MaterialTextfield'].change(this.props.article.description);
     }
 
+    /**
+     * Saves the article
+     * Checks if the attributes are given to save the article
+     */
     saveArticle() {
         const {title, content, description} = this.props.article;
         let data;
@@ -65,11 +69,18 @@ class EditCartridgeContent extends Component<any, any> {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
     }
 
+    /**
+     * Shows the snackbar with the given information
+     */
     showSnackBar = (data) => {
         const {snackBarContainer} = this.refs;
         snackBarContainer['MaterialSnackbar'].showSnackbar(data);
     }
 
+    /**
+     * Updates the article 'published' attribute
+     * Gives the data for the snackbar
+     */
     clickPublishHandler = () => {
         if (this.props.article.published) {
             this.props.updateArticle('published', false);
@@ -86,7 +97,11 @@ class EditCartridgeContent extends Component<any, any> {
         }
     }
 
-    dataChecker = () => {
+    /**
+     * Sets the information data to display
+     * TODO: traduction for the text
+     */
+    dateChecker = () => {
         const {updatedAt} = this.props.article;
         const date = new Date(updatedAt);
         const today = new Date();
