@@ -45,21 +45,23 @@ export class ContentArea extends Component<any, any> {
      * Checks if the attributes are given to save the article
      */
     saveArticle() {
+        console.log(this.props.article);
         const {title, content, description} = this.props.article;
         let data;
-        if (title === undefined || content === undefined || description  === undefined) {
+        if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
                 timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
+                actionHandler: () => { this.props.router.push({ path: 'home' }); },
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
+            console.log(this.props.article);
             this.props.saveArticle(this.props.article);
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
                 timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
+                actionHandler: () => { this.props.router.push({ path: 'home' }); },
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
@@ -71,7 +73,7 @@ export class ContentArea extends Component<any, any> {
             <div className='content-edit'>
                 <div className='header-edit'>
                     <div className='header-item-edit'>
-                        <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-button' onClick={this.saveArticle.bind(this)}>
+                        <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-button' onClick={this.saveArticle.bind(this) }>
                             {i18n.t('button.save') }
                         </div>
                     </div>
@@ -98,7 +100,6 @@ export class ContentArea extends Component<any, any> {
                     <div
                         className='content-area-display'
                         dangerouslySetInnerHTML={this.rawMarkup() }
-                        ref='test'
                         />
                 </div>
                 <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>

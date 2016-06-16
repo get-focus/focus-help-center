@@ -22,7 +22,7 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
                 />
             )}
             {connected ?
-                <Link to='/create-article' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored'>
+                <Link to='/create-article' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored add-button'>
                     <i className='material-icons'>add</i>
                 </Link>
             : ''}

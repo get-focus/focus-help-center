@@ -6,6 +6,7 @@
     "build": "better-npm-run build",
     "postinstall": "typings install",
     "start": "better-npm-run start",
+    "start:extension": "better-npm-run start-extension",
     "test": "better-npm-run test",
     "test:watch": "better-npm-run test-watch",
     "watch": "webpack --watch"
@@ -24,7 +25,18 @@
         "DEV_SERVER_PORT": 9999,
         "DEV_SERVER_HOST": "localhost",
         "BABEL_ENV": "development",
-        "LANG": "fr"
+        "LANG": "fr",
+        "APP_LAUNCHED": "back-office"
+      }
+    },
+    "start-extension": {
+      "command": "node ./dev-server",
+      "env": {
+        "DEV_SERVER_PORT": 1234,
+        "DEV_SERVER_HOST": "localhost",
+        "BABEL_ENV": "development",
+        "LANG": "fr",
+        "APP_LAUNCHED": "extension"
       }
     },
     "test": {

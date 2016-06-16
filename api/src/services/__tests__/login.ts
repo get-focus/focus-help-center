@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
 export async function login(password: string) {
-    return await fetch('http://localhost:3000/signin', {
+    return await fetch('http://localhost:1337/signin', {
         method: 'POST',
         body: password,
         headers: {

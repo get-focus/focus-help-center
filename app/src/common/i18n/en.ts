@@ -47,7 +47,7 @@ export const en = {
             }
         },
         'content-area': {
-            'header-item-preview' : 'preview'
+            'preview' : 'preview'
         },
         'edit-page': {
             content: {

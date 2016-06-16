@@ -179,7 +179,6 @@ class EditCartridgeContent extends Component<any, any> {
                         </li>
                     </ul>
 
-
                     <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.showPopup}>
                         <i className='material-icons'>delete </i>
                     </div>
