@@ -17,8 +17,8 @@ async function fetchWithLogin(url: string, options?) {
 
 /** Api object to call the server. */
 export const api: Api = {
-    async loadArticleList() {
-        const response = await fetchWithLogin('http://localhost:3000/api/article');
+    async loadArticleList(filter?: string) {
+        const response = await fetchWithLogin(`http://localhost:3000/api/article${filter ? `?filter=${filter}` : ''}`);
         return response.json<Article[]>();
     },
 

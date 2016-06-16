@@ -43,7 +43,7 @@ export class PasswordComponent extends Component {
             <div className='password-bar'>
                 <div
                     style={!loading ? {display: 'none'} : {}}
-                    className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${loading ? 'is-active' : ''}`}
+                    className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner is-upgraded ${loading ? 'is-active' : ''}`}
                 />
                 {error ?
                     <div className='mdl-button mdl-js-button' onClick={clearError}><i className='material-icons'>error</i>{error}</div>

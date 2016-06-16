@@ -26,15 +26,28 @@ function failureArticleList(error: string): ArticleListAction {
     };
 }
 
+/** Updates the filter on the article list. */
+function updateFilter(filter: string): ArticleListAction {
+    return {type: Action.UPDATE_ARTICLE_LIST_FILTER, filter};
+}
+
 /** Loads the article list. Dispatches the request immediately and the result when it's loaded. */
-export function loadArticleList() {
+export function loadArticleList(filter?: string) {
     return async (dispatch, getState, api: Api) => {
         dispatch(requestArticleList());
         try {
-            const articleList = await api.loadArticleList();
+            const articleList = await api.loadArticleList(filter);
             dispatch(successArticleList(articleList));
         } catch (err) {
             dispatch(failureArticleList(err.message));
         }
+    };
+}
+
+/** Filters the article list. */
+export function searchArticleList(filter: string) {
+    return dispatch => {
+        dispatch(updateFilter(filter));
+        dispatch(loadArticleList(filter));
     };
 }
