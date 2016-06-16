@@ -4,7 +4,7 @@ import {Article} from '../definitions/article';
 export interface Api {
 
     /** Loads all the articles. */
-    loadArticleList: () => Promise<Article[]>;
+    loadArticleList: (filter?: string) => Promise<Article[]>;
 
     /** Logs in on the server. */
     login: (password: string) => Promise<boolean>;

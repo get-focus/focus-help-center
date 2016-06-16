@@ -19,3 +19,7 @@ input:-webkit-autofill {
         margin-right: 5px;
     }
 }
+
+.label-error::after {
+    background: indianred;
+}

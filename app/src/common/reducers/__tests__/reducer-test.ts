@@ -99,7 +99,7 @@ describe('rootReducer', () => {
             });
 
             it('should update correctly the state with a REQUEST_ARTICLE_LIST action', () => {
-                chai.expect(newState.articleList).to.deep.equal({list: [], isLoading: true});
+                chai.expect(newState.articleList).to.deep.equal({list: defaultState.articleList.list, isLoading: true});
             });
         });
 
@@ -124,6 +124,18 @@ describe('rootReducer', () => {
 
             it('should update correctly the state with a FAILURE_ARTICLE_LIST action', () => {
                 chai.expect(newState.articleList).to.deep.equal({error: 'error', isLoading: false});
+            });
+        });
+
+        describe('UPDATE_ARTICLE_LIST_FILTER', () => {
+            const newState = rootReducer(defaultState, {type: Action.UPDATE_ARTICLE_LIST_FILTER, filter: 'filter'});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'articleList')).to.deep.equal(omit(defaultState, 'articleList'));
+            });
+
+            it('should update correctly the state with a FAILURE_ARTICLE_LIST action', () => {
+                chai.expect(newState.articleList).to.deep.equal({filter: 'filter', isLoading: false, list: defaultState.articleList.list});
             });
         });
     });
