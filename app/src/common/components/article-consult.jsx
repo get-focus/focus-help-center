@@ -31,7 +31,7 @@ export class ArticleConsult extends Component {
                     </div>
                     <div
                         style={!isLoading ? {display: 'none'} : {}}
-                        className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
+                        className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner is-upgraded ${isLoading ? 'is-active' : ''}`}
                     />
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
