@@ -38,7 +38,7 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
         case Action.SHOW_POPUP_EDITION:
             return a({}, state, {showPopup: !state.showPopup});
         case Action.SHOW_EDIT_SNACKBAR:
-            return a({}, state, {showEditSnackbar: !state.showEditSnackbar, snackbarData: action.snackbarData});
+            return a({}, state, {showEditSnackbar: !state.showEditSnackbar, snackbarData: action.snackbarData || state.snackbarData});
         default:
             return state;
     }

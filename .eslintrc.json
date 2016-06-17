@@ -6,8 +6,7 @@
     },
     "globals": {
         "__dirname": false,
-        "process": false,
-        "componentHandler": false
+        "process": false
     },
     "parser": "babel-eslint",
     "extends": ["eslint:recommended", "plugin:react/recommended"],
