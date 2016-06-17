@@ -34,7 +34,6 @@ class EditCartridgeContent extends Component<any, any> {
         const {inputTitle, inputDescription} = this.refs;
         inputTitle['MaterialTextfield'].change(this.props.article.title);
         inputDescription['MaterialTextfield'].change(this.props.article.description);
-        this.props.showPopup ? modal.style.display = 'block' : modal.style.display = 'none';
     }
 
     /**
@@ -183,7 +182,7 @@ class EditCartridgeContent extends Component<any, any> {
                     <div className='mdl-snackbar__action'></div>
                 </div>
 
-                <div id='myModal' className='modal' ref='modal'>
+                <div id='myModal' className='modal' ref='modal' style={{display: this.props.showPopup ? 'block' : 'none'}}>
                     <div className='modal-content'>
                         <span className='close' onClick={this.props.showEditPopup}>×</span>
                         <div className='confirm-popup'>
