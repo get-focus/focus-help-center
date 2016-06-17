@@ -1,8 +1,10 @@
 import {Component, PropTypes} from 'react';
 import i18n from 'i18next';
 import {PasswordComponent} from '../common/components/password';
+import {connect} from 'react-redux';
 
 /** Layout component. */
+@connect()
 export default class Layout extends Component {
 
     static propTypes = {
@@ -42,12 +44,12 @@ export default class Layout extends Component {
                     {Content}
                     <div data-focus='header-actions'>
                         {actions && actions.primary.map((primary, i) => {
-                            const {action, icon} = primary;
+                            const {clickHandler, icon, action} = primary;
                             return (
                                 <button
                                     key={i}
                                     className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect'
-                                    onClick={action}
+                                    onClick={action ? () => this.props.dispatch(action) : clickHandler}
                                     >
                                     <i className="material-icons">{icon}</i>
                                 </button>

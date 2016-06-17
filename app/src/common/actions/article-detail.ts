@@ -80,3 +80,9 @@ export function updateArticle(attribute: string, value: string): ArticleDetailAc
         value
     };
 }
+
+export function showEditPopup() {
+    return {
+        type: Action.SHOW_POPUP_EDITION
+    };
+}

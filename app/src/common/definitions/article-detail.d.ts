@@ -6,6 +6,7 @@ export interface ArticleDetailState {
     isLoading: boolean;
     article?: Article;
     error?: string;
+    showPopup?: boolean;
 }
 
 /** Action spec for the `articleDetail` store node. */

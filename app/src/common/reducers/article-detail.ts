@@ -2,7 +2,7 @@ import {Action} from '../actions';
 import {ArticleDetailAction, ArticleDetailState} from '../definitions/article-detail';
 const a = Object.assign;
 
-export const defaultValue: ArticleDetailState = {isLoading: false, article: {title: '', description: '', content: '', published: false}};
+export const defaultValue: ArticleDetailState = {isLoading: false, article: {title: '', description: '', content: '', published: false}, showPopup: false};
 
 /** Reducer that handles the `articleDetail` store node. */
 export function articleDetail(state = defaultValue, action: ArticleDetailAction) {
@@ -36,6 +36,8 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             };
         case Action.CLEAR_ARTICLE:
             return defaultValue;
+        case Action.SHOW_POPUP_EDITION:
+            return a({}, state, {showPopup: !state.showPopup});
         default:
             return state;
     }
