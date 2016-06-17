@@ -2,21 +2,23 @@ import {Component, PropTypes} from 'react';
 import Markdown from 'remarkable';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {saveArticle} from '../../actions/article-detail';
-import {Link} from 'react-router';
-
+import {saveArticle, showSnackBar} from '../../actions/article-detail';
+import {withRouter} from 'react-router';
 
 @connect(
     state => ({
         article: state.articleDetail.article,
-        connected: state.login.isConnected
+        connected: state.login.isConnected,
+        snackbarData: state.articleDetail.snackbarData,
+        showEditSnackbar: state.articleDetail.showEditSnackbar,
     }),
     dispatch => ({
-        saveArticle: article => dispatch(saveArticle(article))
+        saveArticle: article => dispatch(saveArticle(article)),
+        showSnackBar: (snackbarData) => dispatch(showSnackBar(snackbarData))
     })
 )
-export class ContentArea extends Component<any, any> {
-    static propTypes = {
+class ContentArea extends Component<any, any> {
+    static propTypes: any = {
         value: PropTypes.string,
         onChange: PropTypes.func.isRequired
     };
@@ -33,19 +35,10 @@ export class ContentArea extends Component<any, any> {
     }
 
     /**
-     * Shows the snackbar with the given information
-     */
-    showSnackBar = (data) => {
-        const {snackBarContainer} = this.refs;
-        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
-    }
-
-    /**
      * Saves the article
      * Checks if the attributes are given to save the article
      */
     saveArticle() {
-        console.log(this.props.article);
         const {title, content, description} = this.props.article;
         let data;
         if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
@@ -56,7 +49,6 @@ export class ContentArea extends Component<any, any> {
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
-            console.log(this.props.article);
             this.props.saveArticle(this.props.article);
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
@@ -65,7 +57,7 @@ export class ContentArea extends Component<any, any> {
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
-        this.showSnackBar(data);
+        this.props.showSnackBar(data);
     }
 
     render() {
@@ -102,11 +94,9 @@ export class ContentArea extends Component<any, any> {
                         dangerouslySetInnerHTML={this.rawMarkup() }
                         />
                 </div>
-                <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
-                    <div className='mdl-snackbar__text'></div>
-                    <Link className='mdl-snackbar__action' to='/'></Link>
-                </div>
             </div>
         );
     }
 }
+
+export default withRouter(ContentArea)

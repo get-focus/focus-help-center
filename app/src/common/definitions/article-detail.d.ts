@@ -6,7 +6,9 @@ export interface ArticleDetailState {
     isLoading: boolean;
     article?: Article;
     error?: string;
-    showPopup?: boolean;
+    showPopup: boolean;
+    showEditSnackbar: boolean;
+    snackbarData?: Object;
 }
 
 /** Action spec for the `articleDetail` store node. */
@@ -16,4 +18,5 @@ export interface ArticleDetailAction {
     error?: string;
     attribute?: string;
     value?: string;
+    snackbarData?: Object;
 }

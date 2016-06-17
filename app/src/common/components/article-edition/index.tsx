@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
-import {ContentArea} from './content-area';
+import ContentArea from './content-area';
 import i18n from 'i18next';
-import {updateArticle, loadArticle, clearArticle} from '../../actions/article-detail';
+import {updateArticle, loadArticle, clearArticle, showSnackBar} from '../../actions/article-detail';
 
-export class EditPage extends Component<any, any> {
+class EditPage extends Component<any, any> {
 
     static propTypes = {
         article: PropTypes.object,
@@ -35,6 +35,13 @@ export class EditPage extends Component<any, any> {
 
     onChangeHandler(attribute, value?) {
         this.props.updateArticle(attribute, value || this.refs[attribute]);
+    }
+
+    componentWillReceiveProps(props) {
+        const {snackBarContainer} = this.refs;
+        if (this.props.showEditSnackbar !== props.showEditSnackbar) {
+            snackBarContainer['MaterialSnackbar'].showSnackbar(props.snackbarData);
+        }
     }
 
     render() {
@@ -93,6 +100,10 @@ export class EditPage extends Component<any, any> {
                 </div>
 
                 <ContentArea onChange={this.onChangeHandler.bind(this)} value={this.props.article.content} />
+                <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
+                    <div className='mdl-snackbar__text'></div>
+                    <div className='mdl-snackbar__action' to='/'></div>
+                </div>
             </div>
         );
     }
@@ -101,7 +112,9 @@ export class EditPage extends Component<any, any> {
 export default connect(
     state => ({
         article: state.articleDetail.article,
-        connected: state.login.isConnected
+        connected: state.login.isConnected,
+        snackbarData: state.articleDetail.snackbarData,
+        showEditSnackbar: state.articleDetail.showEditSnackbar,
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),

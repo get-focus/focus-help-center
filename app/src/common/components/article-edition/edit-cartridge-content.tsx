@@ -1,20 +1,22 @@
 import {Component} from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {updateArticle, saveArticle, deleteArticle, showEditPopup} from '../../actions/article-detail';
+import {updateArticle, saveArticle, deleteArticle, showEditPopup, showSnackBar} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
 
 @connect(
     state => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected,
-        showPopup: state.articleDetail.showPopup
+        showPopup: state.articleDetail.showPopup,
+        snackbarData: state.articleDetail.snackbarData
     }),
     dispatch => ({
         updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
         saveArticle: article => dispatch(saveArticle(article)),
         deleteArticle: id => dispatch(deleteArticle(id)),
-        showEditPopup: () => dispatch(showEditPopup())
+        showEditPopup: () => dispatch(showEditPopup()),
+        showSnackBar: (snackbarData) => dispatch(showSnackBar(snackbarData))
     })
 )
 class EditCartridgeContent extends Component<any, any> {
@@ -29,7 +31,6 @@ class EditCartridgeContent extends Component<any, any> {
     }
 
     componentDidUpdate() {
-        const {modal} = this.refs;
         componentHandler.upgradeDom();
         const {inputTitle, inputDescription} = this.refs;
         inputTitle['MaterialTextfield'].change(this.props.article.title);
@@ -59,19 +60,11 @@ class EditCartridgeContent extends Component<any, any> {
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
-        this.showSnackBar(data);
+        this.props.showSnackBar(data);
     }
 
     onChangeHandler(changeEvent) {
         this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
-    }
-
-    /**
-     * Shows the snackbar with the given information
-     */
-    showSnackBar = (data) => {
-        const {snackBarContainer} = this.refs;
-        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
     }
 
     /**
@@ -81,7 +74,7 @@ class EditCartridgeContent extends Component<any, any> {
     clickPublishHandler = () => {
         if (this.props.article.published) {
             this.props.updateArticle('published', false);
-            this.showSnackBar({
+            this.props.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
                 timeout: 1500,
                 actionHandler: () => {this.saveArticle(); },
@@ -89,7 +82,7 @@ class EditCartridgeContent extends Component<any, any> {
             });
         } else {
             this.props.updateArticle('published', true);
-            this.showSnackBar({
+            this.props.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
                 timeout: 1500,
                 actionHandler: () => {this.saveArticle(); },
@@ -172,14 +165,9 @@ class EditCartridgeContent extends Component<any, any> {
                     <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
                         htmlFor='demo-menu-lower-right'>
                         <li className='mdl-menu__item dropdown-item' onClick={this.clickPublishHandler}>
-                            {this.props.article.published ? i18n.t('edit-cartridge.content.publish') : i18n.t('edit-cartridge.content.unpublish') }
+                            {this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish') }
                         </li>
                     </ul>
-                </div>
-
-                <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
-                    <div className='mdl-snackbar__text'></div>
-                    <div className='mdl-snackbar__action'></div>
                 </div>
 
                 <div id='myModal' className='modal' ref='modal' style={{display: this.props.showPopup ? 'block' : 'none'}}>
