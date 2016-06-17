@@ -18,7 +18,6 @@ export class ArticleListTitle extends Component {
     }
 
     render() {
-        console.log(this.props);
         const {loading, filter, search, error} = this.props;
         return (
             <div className='article-list-header'>

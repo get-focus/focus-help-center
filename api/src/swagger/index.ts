@@ -9,7 +9,7 @@ const swaggerSpec = swaggerJSDoc({
         version: '1.0.0',
         description: 'API for the Focus help center',
     },
-    host: 'localhost:3000',
+    host: 'localhost:1337',
     basePath: '/',
 },
     apis: ['./services/*.js'],

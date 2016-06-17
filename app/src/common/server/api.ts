@@ -18,12 +18,12 @@ async function fetchWithLogin(url: string, options?) {
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList(filter?: string) {
-        const response = await fetchWithLogin(`http://localhost:3000/api/article${filter ? `?filter=${filter}` : ''}`);
+        const response = await fetchWithLogin(`http://localhost:1337/api/article${filter ? `?filter=${filter}` : ''}`);
         return response.json<Article[]>();
     },
 
     async login(password) {
-        const response = await fetchWithLogin('http://localhost:3000/signin', {
+        const response = await fetchWithLogin('http://localhost:1337/signin', {
             method: 'POST',
             body: password
         });
@@ -38,13 +38,13 @@ export const api: Api = {
     },
 
     async isConnected() {
-        const response = await fetchWithLogin('http://localhost:3000/signin');
+        const response = await fetchWithLogin('http://localhost:1337/signin');
         const data = await response.json<{success: boolean}>();
         return !!data.success;
     },
 
     async saveArticle(article) {
-        const response = await fetchWithLogin('http://localhost:3000/api/article', {
+        const response = await fetchWithLogin('http://localhost:1337/api/article', {
             method: 'POST',
             body: JSON.stringify(article),
             headers: {
@@ -60,7 +60,7 @@ export const api: Api = {
     },
 
     async deleteArticle(id) {
-        const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'DELETE'});
+        const response = await fetchWithLogin(`http://localhost:1337/api/article/${id}`, {method: 'DELETE'});
         const data = await response.json<{success: boolean, error: string}>();
         if (data.success) {
             return true;
@@ -70,7 +70,7 @@ export const api: Api = {
     },
 
     async getArticle(id) {
-        const response = await fetchWithLogin(`http://localhost:3000/api/article/${id}`, {method: 'GET'});
+        const response = await fetchWithLogin(`http://localhost:1337/api/article/${id}`, {method: 'GET'});
         const data = await response.json<Article | {error: string}>();
         if ((data as Article).content) {
             return data;

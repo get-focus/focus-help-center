@@ -46,6 +46,9 @@ export const fr = {
                 }
             }
         },
+        'content-area': {
+            'preview' : 'prévisualisation'
+        },
         'edit-page': {
             content: {
                 section: 'RUBRIQUE',

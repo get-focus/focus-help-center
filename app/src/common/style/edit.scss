@@ -9,11 +9,16 @@
 
 .content-flex-cartridge {
     display: flex;
+    padding-right: 75px;
 }
 
 .save-article {
     margin-right: 15px;
     margin-top: 25px;
+}
+
+.save-button {
+    float: right;
 }
 
 .publish-label {
@@ -96,8 +101,9 @@
     flex: 0.3 1 auto;
     transition: flex-grow 150ms linear;
     padding: 15px;
-    background-color: #f6f6f6;
+    background-color: #F5F5F5;
     display: block;
+    z-index: 600;
 }
 
 //https://facebook.github.io/react/docs/animation.html
@@ -110,7 +116,9 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #f6f6f6;
+    background-color: #F5F5F5;
+    box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
+    z-index: 500;
 }
 
 .edit-parameters-label {
@@ -127,6 +135,41 @@
 
 .edit-parameters-text-hidden {
     display: none
+}
+
+
+.content-edit {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+}
+
+.header-edit {
+    display: flex;
+    box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
+    z-index: 400;
+
+    .header-item-edit {
+        flex: 1 1 97px;
+        background-color: #727272;
+        border-right: 1px solid #888;
+        padding: 15px;
+    }
+
+    .header-item-preview {
+        flex: 1 1 auto;
+        background-color: #B6B6B6;
+        padding: 15px;
+        border-left: 1px solid #888;
+
+        p {
+            text-transform: capitalize;
+            color: white;
+            font-weight: bold;
+            font-size: 115%;
+        }
+    }
 }
 
 .content-area {
@@ -199,15 +242,6 @@
     width: 100%;
 }
 
-
-.mdl-button--fab {
-    bottom: 0;
-    right: 0;
-    margin: 25px;
-    position: fixed;
-    padding-left: 0;
-}
-
 .edit-button {
     float: right;
     margin-top: -7px;
@@ -219,7 +253,6 @@
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */

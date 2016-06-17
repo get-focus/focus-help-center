@@ -9,7 +9,7 @@ describe('Session', () => {
     }));
 
     it('should be connected after login with correct password', mochaAsync(async () => {
-        const response = await fetchWithLogin('http://localhost:3000/signin');
+        const response = await fetchWithLogin('http://localhost:1337/signin');
         chai.expect(await response.json()).to.deep.equal({success: true});
     }));
 
@@ -19,7 +19,7 @@ describe('Session', () => {
     }));
 
     it('shouldn\'t be connected after login in with incorrect password', mochaAsync(async () => {
-        const response = await fetch('http://localhost:3000/signin');
+        const response = await fetch('http://localhost:1337/signin');
         chai.expect(await response.json()).to.deep.equal({success: false});
     }));
 });

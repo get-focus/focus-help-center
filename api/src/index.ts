@@ -36,6 +36,6 @@ articleService(app);
 signinService(app);
 swaggerService(app);
 
-app.listen(3000, () => {
-    console.log('Lauching app on port 3000');
+app.listen(1337, () => {
+    console.log('Lauching app on port 1337');
 });
