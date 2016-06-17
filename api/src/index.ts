@@ -10,7 +10,7 @@ import {swaggerService} from './swagger/index';
 import {initDb} from './db/init-test-data';
 
 const app = express();
-app.use(express.static(path.resolve(process.cwd(), process.env.IS_BUNDLE ? './app' : '../docs')));
+app.use(express.static(path.resolve(process.cwd(), process.env.IS_BUNDLE ? './app' : './docs')));
 app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
