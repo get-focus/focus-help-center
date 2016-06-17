@@ -1,5 +1,6 @@
 import {ArticleList} from '../list';
 import {ArticleLine} from '../line';
+import {CircularProgress} from 'material-ui';
 
 import {shallow} from 'enzyme';
 
@@ -8,7 +9,7 @@ describe('Article List', () => {
         let component = shallow(<ArticleList articleList={{isLoading: true}} connected={true} />);
 
         it('should have an active spinner', () => {
-            chai.expect(component.find('.is-active')).to.have.length(1);
+            chai.expect(component.find(CircularProgress)).to.have.length(1);
         });
 
         it('shouldn\'t display an error', () => {

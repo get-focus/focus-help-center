@@ -9,28 +9,49 @@ describe('rootReducer', () => {
         describe('REQUEST_ACTION_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.REQUEST_ACTION_ARTICLE});
             it('should correctly set the state with a REQUEST_ACTION_ARTICLE action', () => {
-                chai.expect(newState.articleDetail).to.deep.equal({isLoading: true, article: defaultState.articleDetail.article});
+                chai.expect(newState.articleDetail).to.deep.equal({
+                    isLoading: true,
+                    article: defaultState.articleDetail.article,
+                    showEditSnackbar: false,
+                    showPopup: false
+                });
             });
         });
 
         describe('SUCCESS_LOAD_ARTICLE & SUCCESS_SAVE_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.SUCCESS_LOAD_ARTICLE, article: apiMockData.getArticle});
             it('should correctly set the state with a SUCCESS_LOAD_ARTICLE action', () => {
-                chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, article: apiMockData.getArticle});
+                chai.expect(newState.articleDetail).to.deep.equal({
+                    isLoading: false,
+                    article: apiMockData.getArticle,
+                    showEditSnackbar: false,
+                    showPopup: false
+                });
             });
         });
 
         describe('SUCCESS_DELETE_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.SUCCESS_DELETE_ARTICLE});
             it('should correctly set the state with a SUCCESS_ARTICLE_DELETE action', () => {
-                chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, article: defaultState.articleDetail.article});
+                chai.expect(newState.articleDetail).to.deep.equal({
+                    isLoading: false,
+                    article: defaultState.articleDetail.article,
+                    showEditSnackbar: false,
+                    showPopup: false
+                });
             });
         });
 
         describe('ERROR_ACTION_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.ERROR_ACTION_ARTICLE, error: 'error'});
             it('should correctly set the state with a ERROR_ACTION_ARTICLE action', () => {
-                chai.expect(newState.articleDetail).to.deep.equal({isLoading: false, error: 'error', article: defaultState.articleDetail.article});
+                chai.expect(newState.articleDetail).to.deep.equal({
+                    isLoading: false,
+                    error: 'error',
+                    article: defaultState.articleDetail.article,
+                    showEditSnackbar: false,
+                    showPopup: false
+                });
             });
         });
 
@@ -111,7 +132,7 @@ describe('rootReducer', () => {
             });
 
             it('should update correctly the state with a SUCCESS_ARTICLE_LIST action', () => {
-                chai.expect(newState.articleList).to.deep.equal({list: [{test: 'ok'}], isLoading: false});
+                chai.expect(newState.articleList).to.deep.equal({list: [{test: 'ok'}], isLoading: false, filter: undefined});
             });
         });
 
@@ -123,7 +144,7 @@ describe('rootReducer', () => {
             });
 
             it('should update correctly the state with a FAILURE_ARTICLE_LIST action', () => {
-                chai.expect(newState.articleList).to.deep.equal({error: 'error', isLoading: false});
+                chai.expect(newState.articleList).to.deep.equal({error: 'error', isLoading: false, filter: undefined});
             });
         });
 
