@@ -76,8 +76,8 @@ class EditCartridgeContent extends Component<any, any> {
         }
         return (
             <div className='edit-cartridge'>
-                <div className='edit-cartridge-left'>
-                    <div className='edit-cartridge-title'>
+                <div className='left'>
+                    <div className={`title ${isEditTitle ? 'editing' : ''}`}>
                         {isEditTitle ?
                             <TextField
                                 name='title'
@@ -98,7 +98,7 @@ class EditCartridgeContent extends Component<any, any> {
                             <i className='material-icons'>{isEditTitle ? 'undo' : 'edit'}</i>
                         </IconButton>
                     </div>
-                    <div className={`edit-cartridge-description ${isEditDescription && this.props.article.description.match(/\n/) ? 'multiline' : ''}`}>
+                    <div className={`description ${isEditDescription ? 'editing' : ''}`}>
                         {isEditDescription ?
                             <TextField
                                 name='description'
@@ -121,8 +121,8 @@ class EditCartridgeContent extends Component<any, any> {
                         </IconButton>
                     </div>
                 </div>
-                <div className='edit-cartridge-publish'>
-                    <div className='publish-label'>
+                <div className='publish'>
+                    <div className='label'>
                         {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish')}
                         <IconMenu
                             iconButtonElement={<IconButton><i className='material-icons'>keyboard_arrow_down</i></IconButton>}

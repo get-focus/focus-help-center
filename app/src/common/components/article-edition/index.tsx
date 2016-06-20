@@ -26,42 +26,39 @@ export class EditPage extends Component<any, any> {
         const {isVisible} = this.state;
         const {message, timeout, actionHandler, actionText} = this.props.snackbarData || {message: '', timeout: 0, actionHandler: undefined, actionText: undefined};
         return (
-            <div className='edit-page-container'>
-                <div className={`edit-parameters-item${isVisible ? '' : '-hidden'}`} ref='parametersBloc'>
-                    <div className='edit-parameters-bloc'>
-                        <h5>PARAMÉTRAGE</h5>
+            <div className='edit-page'>
+                <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
+                    <h5>PARAMÉTRAGE</h5>
 
-                        <div className='edit-parameters-label'>
-                            <div>{i18n.t('edit-page.content.section')}</div>
-                            <FlatButton label={i18n.t('button.add')} />
-                        </div>
-                        <TextField hintText='Rubriques' />
-
-                        <div className='edit-parameters-label'>
-                            <div>{i18n.t('edit-page.content.context-url')}</div>
-                            <FlatButton label={i18n.t('button.edit')} />
-                        </div>
-                        <TextField hintText='URL...' />
-
-                        <div className='edit-parameters-label'>
-                            <div>{i18n.t('edit-page.content.bloc-information')}</div>
-                            <FlatButton label={i18n.t('button.edit')} />
-                        </div>
-                        <TextField hintText={`Bloc d'information...`} />
+                    <div className='label'>
+                        <div>{i18n.t('edit-page.content.section')}</div>
+                        <FlatButton label={i18n.t('button.add')} />
                     </div>
+                    <TextField hintText='Rubriques' />
+
+                    <div className='label'>
+                        <div>{i18n.t('edit-page.content.context-url')}</div>
+                        <FlatButton label={i18n.t('button.edit')} />
+                    </div>
+                    <TextField hintText='URL...' />
+
+                    <div className='label'>
+                        <div>{i18n.t('edit-page.content.bloc-information')}</div>
+                        <FlatButton label={i18n.t('button.edit')} />
+                    </div>
+                    <TextField hintText={`Bloc d'information...`} />
                 </div>
 
-                <div className='edit-parameters-button-zone'>
-                    <IconButton
-                        className='parameters-icon'
-                        onClick={() => this.setState({isVisible: !this.state.isVisible})}
-                    >
+                <div className='parameter-drawer'>
+                    <IconButton onClick={() => this.setState({isVisible: !this.state.isVisible})}>
                         <i className='material-icons'>settings</i>
                     </IconButton>
                     <br />
-                    <div className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</div>
+                    <div className={`text ${isVisible ? 'hidden' : ''}`}>PARAMÉTRAGE</div>
                 </div>
+
                 <ContentArea />
+
                 <Snackbar
                     open={this.props.showEditSnackbar}
                     message={message}

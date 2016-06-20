@@ -14,9 +14,9 @@ export default connect(
     return (
         <div className='article-list-header'>
             <h3>{i18n.t('article-list.title')}</h3>
-            <div className='article-list-header-search'>
+            <div className='search'>
                 <i className='material-icons'>search</i>
-                <div className='article-list-header-search-bar'>
+                <div className='search-bar'>
                     <TextField
                         underlineShow={!(loading && filter)}
                         errorText={error ? ' ' : null}

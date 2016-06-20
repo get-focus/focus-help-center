@@ -49,9 +49,9 @@ class ContentArea extends Component<any, any> {
 
     render() {
         return (
-            <div className='content-edit'>
-                <div className='header-edit'>
-                    <div className='header-item-edit'>
+            <div className='content'>
+                <div className='header'>
+                    <div className='edit'>
                         <RaisedButton
                             primary={true}
                             className='save-button'
@@ -59,12 +59,12 @@ class ContentArea extends Component<any, any> {
                             label={i18n.t('button.save')}
                         />
                     </div>
-                    <div className='header-item-preview'>
+                    <div className='preview'>
                         <h5>{i18n.t('content-area.preview')}</h5>
                     </div>
                 </div>
-                <div className='content-area'>
-                    <div className='content-area-textarea' ref='content-area-textarea'>
+                <div className='workspace'>
+                    <div className='textarea' ref='content-area-textarea'>
                         <TextField
                             ref='textarea'
                             multiLine={true}
@@ -77,7 +77,7 @@ class ContentArea extends Component<any, any> {
                         />
                     </div>
                     <div
-                        className='content-area-display'
+                        className='display'
                         dangerouslySetInnerHTML={this.rawMarkup()}
                     />
                 </div>

@@ -26,8 +26,8 @@ export class ArticleConsult extends Component {
         const {article, isLoading, error} = this.props;
         return (
             <div className='article-consult'>
-                <div className='article-consult-card'>
-                    <div className='article-consult-card-close'>
+                <div className='card'>
+                    <div className='close'>
                         <Link to='/'><i className='material-icons'>close</i></Link>
                     </div>
                     {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
