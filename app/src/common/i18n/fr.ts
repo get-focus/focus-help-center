@@ -22,7 +22,12 @@ export const fr = {
                 description: 'Description',
                 snackBar: {
                     saveSuccessMessage: 'Article sauvegardé.',
-                    saveFailedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
+                    saveSuccessMessageTitle: 'Titre sauvegardé.',
+                    saveSuccessMessageDescription: 'Description sauvegardée.',
+                    saveSuccessMessageContent: 'Contenu sauvegardé.',
+                    saveSuccessMessagePublished: 'Article publié.',
+                    saveSuccessMessageUnPublished: 'Article dépublié.',
+                    saveFailedMessage: 'Erreur lors de la sauvegarde.',
                     saveActionText: 'Accueil',
                     unpublishMessage: 'L\'article sera dépublié après la sauvegarde.',
                     publishMessage: 'L\'article sera publié après la sauvegarde.'

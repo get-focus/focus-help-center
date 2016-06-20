@@ -38,15 +38,15 @@ export class PasswordComponent extends Component {
         const {loading, connected, error, clearError} = this.props;
         return (
             <div className='password-bar'>
-                {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0'}} /> : ''}
+                {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0'}} /> : null}
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
-                : <div className='password-bar-ok'>
+                : <div className='ok'>
                     {connected ?
                         <strong>{i18n.t('password.connected')}</strong>
                         :
                         <div>
-                            <span className='password-bar-ok-text'>{i18n.t('password.password') + ' : '}</span>
+                            <span className='ok-text'>{i18n.t('password.password') + ' : '}</span>
                             <TextField style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
                         </div>
                     }

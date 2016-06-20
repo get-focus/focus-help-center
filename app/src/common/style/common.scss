@@ -10,12 +10,8 @@ input:-webkit-autofill {
     font-weight: bold;
     color: indianred;
 
-    .material-icons {
+    > .material-icons {
         font-size: 32px;
         margin-right: 5px;
     }
-}
-
-.label-error::after {
-    background: indianred;
 }

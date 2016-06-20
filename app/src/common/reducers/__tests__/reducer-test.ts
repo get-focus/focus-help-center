@@ -13,7 +13,9 @@ describe('rootReducer', () => {
                     isLoading: true,
                     article: defaultState.articleDetail.article,
                     showEditSnackbar: false,
-                    showPopup: false
+                    showPopup: false,
+                    isEditDescription: false,
+                    isEditTitle: false
                 });
             });
         });
@@ -25,7 +27,9 @@ describe('rootReducer', () => {
                     isLoading: false,
                     article: apiMockData.getArticle,
                     showEditSnackbar: false,
-                    showPopup: false
+                    showPopup: false,
+                    isEditDescription: false,
+                    isEditTitle: false
                 });
             });
         });
@@ -37,7 +41,9 @@ describe('rootReducer', () => {
                     isLoading: false,
                     article: defaultState.articleDetail.article,
                     showEditSnackbar: false,
-                    showPopup: false
+                    showPopup: false,
+                    isEditDescription: false,
+                    isEditTitle: false
                 });
             });
         });
@@ -50,7 +56,9 @@ describe('rootReducer', () => {
                     error: 'error',
                     article: defaultState.articleDetail.article,
                     showEditSnackbar: false,
-                    showPopup: false
+                    showPopup: false,
+                    isEditDescription: false,
+                    isEditTitle: false
                 });
             });
         });

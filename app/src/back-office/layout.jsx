@@ -28,24 +28,24 @@ export default class Layout extends Component {
     render() {
         const {children, BarMiddle, Content, actions} = this.props;
         return (
-            <div data-focus='layout'>
+            <div className='layout'>
                 <header>
-                    <div data-focus='header-top-row'>
-                        <div data-focus='header-top-row-left'>
+                    <div className='top'>
+                        <div className='left'>
                             <FlatButton
                                 icon={<i className='material-icons'>exit_to_app</i>}
                                 label={i18n.t('back-office.layout.back-to-app')}
                             />
                         </div>
-                        <div data-focus='header-top-row-middle'>
+                        <div className='middle'>
                             {BarMiddle}
                         </div>
-                        <div data-focus='header-top-row-right'>
+                        <div className='right'>
                             <PasswordComponent />
                         </div>
                     </div>
                     {Content}
-                    <div data-focus='header-actions'>
+                    <div className='actions'>
                         {actions && actions.primary.map(({clickHandler, icon, action}, i) => (
                             <FloatingActionButton
                                 secondary={true}
@@ -86,7 +86,7 @@ export default class Layout extends Component {
                         : null}
                     </div>
                 </header>
-                <div className='layout-content'>
+                <div className='content'>
                     {children}
                 </div>
             </div>

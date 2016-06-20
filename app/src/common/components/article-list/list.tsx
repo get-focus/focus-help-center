@@ -8,10 +8,10 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
     const loading = isLoading && (!list || list && list.length === 0);
     return (
         <div className='article-list'>
-            {loading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : ''}
+            {loading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
             {error ?
                 <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
-            : ''}
+            : null}
             {list && list.map(article =>
                 <ArticleLine
                     key={article.id}
@@ -25,7 +25,7 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
                         <i className='material-icons'>add</i>
                     </FloatingActionButton>
                 </Link>
-            : ''}
+            : null}
         </div>
     );
 }

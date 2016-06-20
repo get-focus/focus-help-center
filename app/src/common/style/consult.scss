@@ -7,7 +7,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 2000;
 
-    .article-consult-card {
+    > .card {
         position: relative;
         max-width: 1400px;
         height: 100%;
@@ -21,18 +21,18 @@
             color: rgb(96,125,139);
         }
 
-        .article-consult-card-close {
+        > .close {
             float: right;
             margin-right: 10px;
 
-            a {
+            > a {
                 display: block;
                 position: fixed;
                 color: black;
                 width: 32px;
                 height: 32px;
 
-                .material-icons {
+                > .material-icons {
                     font-size: 32px;
                 }
             }
