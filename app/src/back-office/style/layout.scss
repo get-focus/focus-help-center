@@ -90,26 +90,6 @@ $media-desktop-breakpoint: 840px !default;
         }
     }
 
-    [data-focus="header-actions"] {
-        text-align: right;
-
-        button {
-            margin: 0 5px;
-
-            &.mdl-button--fab {
-                background-color: #FFF !important;
-            }
-
-            &:hover {
-                background-color: #F9F9F9 !important;
-            }
-        }
-
-        div {
-            float: right;
-        }
-    }
-
     .layout-content {
         overflow-y: auto;
         display: flex;

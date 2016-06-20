@@ -3,6 +3,7 @@ import Markdown from 'remarkable';
 import {loadArticle} from '../actions/article-detail';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import {CircularProgress} from 'material-ui';
 
 @connect(
     state => ({
@@ -29,10 +30,7 @@ export class ArticleConsult extends Component {
                     <div className='article-consult-card-close'>
                         <Link to='/'><i className='material-icons'>close</i></Link>
                     </div>
-                    <div
-                        style={!isLoading ? {display: 'none'} : {}}
-                        className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner is-upgraded ${isLoading ? 'is-active' : ''}`}
-                    />
+                    {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : ''}
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
                     : ''}

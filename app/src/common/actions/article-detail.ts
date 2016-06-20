@@ -87,7 +87,7 @@ export function showEditPopup() {
     };
 }
 
-export function showSnackBar(snackbarData: Object) {
+export function showSnackBar(snackbarData?: Object) {
     return {
         type: Action.SHOW_EDIT_SNACKBAR,
         snackbarData

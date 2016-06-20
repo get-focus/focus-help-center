@@ -4,6 +4,7 @@
     align-items: center;
 
     h3 {
+        font-size: 24pt;
         text-align: center;
         color: #333;
         margin: 20px 0 0 0;
@@ -15,13 +16,14 @@
         display: flex;
         align-items: center;
 
+        margin: 10px 0;
         i {
             margin-right: 10px;
         }
 
-        .mdl-progress {
-            height: 2px;
-            margin-top: -2px;
+        .article-list-header-search-bar {
+            margin-top: -5px;
+            position: relative;
         }
     }
 }
@@ -29,18 +31,6 @@
 .article-list {
     padding: 10px;
     flex: 1;
-
-    h3 {
-        font-size: 20pt;
-        text-align: center;
-    }
-
-    .mdl-spinner {
-        margin-left: calc(50% - 25px);
-        width: 50px;
-        height: 50px;
-        position: fixed;
-    }
 
     .add-button {
         bottom: 0;

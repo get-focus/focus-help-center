@@ -2,6 +2,7 @@ import {Component, PropTypes} from 'react';
 import i18n from 'i18next';
 import {PasswordComponent} from '../common/components/password';
 import {connect} from 'react-redux';
+import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem} from 'material-ui';
 
 /** Layout component. */
 @connect()
@@ -13,9 +14,7 @@ export default class Layout extends Component {
         actions: PropTypes.object
     };
 
-    componentDidUpdate() {
-        componentHandler.upgradeDom();
-    }
+    state = {open: false};
 
     checkActions = () => {
         const {actions} = this.props;
@@ -24,16 +23,20 @@ export default class Layout extends Component {
         }
     };
 
+    togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
+
     render() {
         const {children, BarMiddle, Content, actions} = this.props;
         return (
             <div data-focus='layout'>
                 <header>
                     <div data-focus='header-top-row'>
-                        <a data-focus='header-top-row-left' className='mdl-button mdl-js-button'>
-                            <i className='material-icons'>exit_to_app</i>
-                            <span>{i18n.t('back-office.layout.back-to-app') }</span>
-                        </a>
+                        <div data-focus='header-top-row-left'>
+                            <FlatButton
+                                icon={<i className='material-icons'>exit_to_app</i>}
+                                label={i18n.t('back-office.layout.back-to-app')}
+                            />
+                        </div>
                         <div data-focus='header-top-row-middle'>
                             {BarMiddle}
                         </div>
@@ -43,40 +46,44 @@ export default class Layout extends Component {
                     </div>
                     {Content}
                     <div data-focus='header-actions'>
-                        {actions && actions.primary.map((primary, i) => {
-                            const {clickHandler, icon, action} = primary;
-                            return (
-                                <button
-                                    key={i}
-                                    className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect'
-                                    onClick={action ? () => this.props.dispatch(action) : clickHandler}
-                                    >
-                                    <i className="material-icons">{icon}</i>
-                                </button>
-                            );
-                        }) }
+                        {actions && actions.primary.map(({clickHandler, icon, action}, i) => (
+                            <FloatingActionButton
+                                secondary={true}
+                                key={i}
+                                onClick={action ? () => this.props.dispatch(action) : clickHandler}
+                                style={{margin: '0 3px'}}
+                            >
+                                <i className="material-icons">{icon}</i>
+                            </FloatingActionButton>
+                        ))}
                         {actions && actions.secondary !== undefined ?
-                            <button id='demo-menu-lower-right'
-                                className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect'>
-                                <i className='material-icons'>more_vert</i>
-                            </button>
-                            : <div/>
-                        }
+                            <FloatingActionButton
+                                secondary={true}
+                                onClick={this.togglePopover}
+                                style={{margin: '0 3px'}}
+                            >
+                                <i className="material-icons">more_vert</i>
+                            </FloatingActionButton>
+                        : null}
                         {this.checkActions() ?
-                            <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
-                                htmlFor='demo-menu-lower-right' ref='menu'>
-                                {actions.secondary.map((secondary, i) => {
-                                    return (
-                                        <li className='mdl-menu__item dropdown-item'
+                            <Popover
+                                open={this.state.open}
+                                anchorEl={this.state.anchorEl}
+                                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                onRequestClose={this.togglePopover}
+                            >
+                                <Menu>
+                                    {actions.secondary.map(({action, clickHandler, label}, i) => (
+                                        <MenuItem
                                             key={i}
-                                            >
-                                            {secondary.label}
-                                        </li>
-                                    );
-                                }) }
-                            </ul >
-                            : <div />
-                        }
+                                            primaryText={label}
+                                            onClick={action ? () => this.props.dispatch(action) : clickHandler}
+                                        />
+                                    ))}
+                                </Menu>
+                            </Popover>
+                        : null}
                     </div>
                 </header>
                 <div className='layout-content'>

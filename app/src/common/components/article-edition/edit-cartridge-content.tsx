@@ -3,6 +3,7 @@ import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {updateArticle, saveArticle, deleteArticle, showEditPopup, showSnackBar} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
+import {TextField, IconMenu, IconButton, MenuItem, Dialog, FlatButton} from 'material-ui';
 
 @connect(
     state => ({
@@ -22,20 +23,10 @@ import {withRouter} from 'react-router';
 class EditCartridgeContent extends Component<any, any> {
 
     deleteArticle = () => {
+        this.props.showEditPopup();
         this.props.deleteArticle(this.props.article.id);
-        this.props.router.push({ path: 'home' });
+        this.props.router.push({path: 'home'});
     };
-
-    componentDidMount() {
-        componentHandler.upgradeDom();
-    }
-
-    componentDidUpdate() {
-        componentHandler.upgradeDom();
-        const {inputTitle, inputDescription} = this.refs;
-        inputTitle['MaterialTextfield'].change(this.props.article.title);
-        inputDescription['MaterialTextfield'].change(this.props.article.description);
-    }
 
     /**
      * Saves the article
@@ -77,7 +68,7 @@ class EditCartridgeContent extends Component<any, any> {
             this.props.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
                 timeout: 1500,
-                actionHandler: () => {this.saveArticle(); },
+                actionHandler: () => this.saveArticle(),
                 actionText: i18n.t('button.save')
             });
         } else {
@@ -85,7 +76,7 @@ class EditCartridgeContent extends Component<any, any> {
             this.props.showSnackBar({
                 message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
                 timeout: 1500,
-                actionHandler: () => {this.saveArticle(); },
+                actionHandler: () => this.saveArticle(),
                 actionText: i18n.t('button.save')
             });
         }
@@ -128,64 +119,56 @@ class EditCartridgeContent extends Component<any, any> {
         return (
             <div>
                 <div className='content-flex-cartridge'>
-                    <div className='mdl-textfield mdl-js-textfield input-div' ref='inputTitle'>
-                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' onChange={this.onChangeHandler.bind(this) } value={this.props.article.title} />
-                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
-                    </div>
+                    <TextField
+                        className='input-div'
+                        name='title'
+                        hintText={i18n.t('edit-cartridge.input.title')}
+                        onChange={this.onChangeHandler.bind(this)}
+                        value={this.props.article.title}
+                    />
                 </div>
 
                 <div className='content-flex-cartridge'>
                     <div className='input-div-parent'>
-                        <div className='mdl-textfield mdl-js-textfield input-div-area' ref='inputDescription'>
-                            <textarea
-                                className='mdl-textfield__input'
-                                id='textarea'
-                                name = 'description'
-                                onChange={this.onChangeHandler.bind(this) }
-                                value={this.props.article.description}
-                                />
-                            <label
-                                className='mdl-textfield__label'
-                                htmlFor='textarea'
-                                >
-                                {i18n.t('edit-cartridge.input.description') }
-                            </label>
-                        </div>
+                        <TextField
+                            className='input-div-area'
+                            name='description'
+                            multiLine={true}
+                            rows={2}
+                            rowsMax={2}
+                            fullWidth={true}
+                            hintText={i18n.t('edit-cartridge.input.description')}
+                            onChange={this.onChangeHandler.bind(this)}
+                            value={this.props.article.description}
+                        />
                     </div>
 
                     <span className='publish-label'>
-                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish') }
-                        {this.dateChecker() }
+                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish')}
+                        {this.dateChecker()}
                     </span>
-                    <div id='demo-menu-lower-right'
-                        className='mdl-button mdl-js-button mdl-button--icon publish-article'>
-                        <i className='material-icons'>keyboard_arrow_down</i>
-                    </div>
-
-                    <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
-                        htmlFor='demo-menu-lower-right'>
-                        <li className='mdl-menu__item dropdown-item' onClick={this.clickPublishHandler}>
-                            {this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish') }
-                        </li>
-                    </ul>
-                </div>
-
-                <div id='myModal' className='modal' ref='modal' style={{display: this.props.showPopup ? 'block' : 'none'}}>
-                    <div className='modal-content'>
-                        <span className='close' onClick={this.props.showEditPopup}>×</span>
-                        <div className='confirm-popup'>
-                            <div className='popup-content'>
-                                <p>{i18n.t('edit-cartridge.content.popup.confirmMessage') }</p>
-                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => this.deleteArticle() }>
-                                    {i18n.t('edit-cartridge.content.popup.confirm') }
-                                </div>
-                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={this.props.showEditPopup}>
-                                    {i18n.t('edit-cartridge.content.popup.cancel') }
-                                </div>
-                            </div>
-                        </div>
+                    <div className='publish-article'>
+                        <IconMenu
+                            iconButtonElement={<IconButton><i className='material-icons'>keyboard_arrow_down</i></IconButton>}
+                            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                        >
+                            <MenuItem
+                                primaryText={this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish')}
+                                onClick={this.clickPublishHandler}
+                            />
+                        </IconMenu>
                     </div>
                 </div>
+                <Dialog
+                    open={this.props.showPopup}
+                    title={i18n.t('edit-cartridge.content.popup.confirmMessage')}
+                    modal={true}
+                    actions={[
+                        <FlatButton label={i18n.t('edit-cartridge.content.popup.cancel')} onClick={this.props.showEditPopup} />,
+                        <FlatButton primary={true} label={i18n.t('edit-cartridge.content.popup.confirm')} onClick={() => this.deleteArticle()} />
+                    ]}
+                />
             </div>
         );
     }

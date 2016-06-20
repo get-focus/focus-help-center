@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {Component} from 'react';
 import {searchArticleList} from '../../actions/article-list';
 import i18n from 'i18next';
+import {TextField, LinearProgress} from 'material-ui';
 
 @connect(
     state => ({
@@ -12,11 +13,6 @@ import i18n from 'i18next';
     dispatch => ({search: filter => dispatch(searchArticleList(filter))})
 )
 export class ArticleListTitle extends Component {
-
-    componentDidMount() {
-        componentHandler.upgradeDom();
-    }
-
     render() {
         const {loading, filter, search, error} = this.props;
         return (
@@ -24,10 +20,15 @@ export class ArticleListTitle extends Component {
                 <h3>{i18n.t('article-list.title')}</h3>
                 <div className='article-list-header-search'>
                     <i className='material-icons'>search</i>
-                    <div className='mdl-textfield mdl-js-textfield'>
-                        <input className='mdl-textfield__input' type='text' id='id' value={filter} onChange={e => search(e.target.value)} />
-                        <label className={`mdl-textfield__label ${error ? 'label-error' : ''}`} htmlFor='id' style={loading && filter ? {display: 'none'} : {}} />
-                        <div className='mdl-progress mdl-js-progress mdl-progress__indeterminate' style={!(loading && filter) ? {display: 'none'} : {}} />
+                    <div className='article-list-header-search-bar'>
+                        <TextField
+                            underlineShow={!(loading && filter)}
+                            errorText={error ? ' ' : null}
+                            errorStyle={{color: 'indianred'}}
+                            value={filter}
+                            onChange={e => search(e.target.value)}
+                        />
+                        {loading && filter ? <LinearProgress style={{position: 'absolute', bottom: '8px', height: '2px'}} /> : null}
                     </div>
                 </div>
             </div>

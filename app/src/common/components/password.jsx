@@ -2,6 +2,7 @@ import {Component} from 'react';
 import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
 import i18n from 'i18next';
+import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
 
 @connect(
     state => ({
@@ -22,7 +23,7 @@ export class PasswordComponent extends Component {
         if (this.props.connected) {
             this.props.logout();
         } else {
-            this.props.login(this.refs.input.value);
+            this.props.login(this.refs.input.getValue());
         }
     }
 
@@ -33,41 +34,27 @@ export class PasswordComponent extends Component {
         }
     }
 
-    componentDidUpdate() {
-        componentHandler.upgradeDom();
-    }
-
     render() {
         const {loading, connected, error, clearError} = this.props;
         return (
             <div className='password-bar'>
-                <div
-                    style={!loading ? {display: 'none'} : {}}
-                    className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner is-upgraded ${loading ? 'is-active' : ''}`}
-                />
+                {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0'}} /> : ''}
                 {error ?
-                    <div className='mdl-button mdl-js-button' onClick={clearError}><i className='material-icons'>error</i>{error}</div>
+                    <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
                 : <div className='password-bar-ok'>
                     {connected ?
                         <strong>{i18n.t('password.connected')}</strong>
                         :
                         <div>
                             <span className='password-bar-ok-text'>{i18n.t('password.password') + ' : '}</span>
-                            <div className="mdl-textfield mdl-js-textfield">
-                                <input style={{padding: 0}} ref='input' className="mdl-textfield__input" type="password" id="id" />
-                                <label className="mdl-textfield__label" htmlFor="id" />
-                            </div>
+                            <TextField style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
                         </div>
                     }
-                    <button
-                        className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect'
-                        onClick={this.login}
-                    >
-                        <i className="material-icons">{connected ? 'close' : 'arrow_forward'}</i>
-                    </button>
-                    </div>
+                    <IconButton onClick={this.login} iconClassName='material-icons'>
+                        {connected ? 'close' : 'arrow_forward'}
+                    </IconButton>
+                </div>
                 }
-
             </div>
         );
     }

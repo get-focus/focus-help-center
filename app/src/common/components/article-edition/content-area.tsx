@@ -4,6 +4,7 @@ import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {saveArticle, showSnackBar} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
+import {RaisedButton, TextField} from 'material-ui';
 
 @connect(
     state => ({
@@ -25,14 +26,10 @@ class ContentArea extends Component<any, any> {
 
     md = new Markdown();
     handleChange = () => {
-        const value = this.refs['textarea']['value'];
+        const value = this.refs['textarea']['getValue']();
         this.props.onChange('content', value);
     }
-    rawMarkup = () => ({ __html: this.md.render(this.props.value) });
-
-    componentDidMount() {
-        componentHandler.upgradeDom();
-    }
+    rawMarkup = () => ({__html: this.md.render(this.props.value)});
 
     /**
      * Saves the article
@@ -45,7 +42,7 @@ class ContentArea extends Component<any, any> {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
                 timeout: 3000,
-                actionHandler: () => { this.props.router.push({ path: 'home' }); },
+                actionHandler: () => this.props.router.push({path: 'home'}),
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         } else {
@@ -53,11 +50,28 @@ class ContentArea extends Component<any, any> {
             data = {
                 message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
                 timeout: 3000,
-                actionHandler: () => { this.props.router.push({ path: 'home' }); },
+                actionHandler: () => this.props.router.push({path: 'home'}),
                 actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
             };
         }
         this.props.showSnackBar(data);
+    }
+
+    componentWillMount() {
+        window.addEventListener('resize', () => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => this.forceUpdate());
+    }
+
+    getRowNumber = () => {
+        const textField = this.refs['content-area-textarea'] as Element;
+        if (textField) {
+            return Math.round(textField.clientHeight / 25) - 2;
+        } else {
+            return 10;
+        }
     }
 
     render() {
@@ -65,38 +79,38 @@ class ContentArea extends Component<any, any> {
             <div className='content-edit'>
                 <div className='header-edit'>
                     <div className='header-item-edit'>
-                        <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-button' onClick={this.saveArticle.bind(this) }>
-                            {i18n.t('button.save') }
-                        </div>
+                        <RaisedButton
+                            primary={true}
+                            className='save-button'
+                            onClick={this.saveArticle.bind(this)}
+                            label={i18n.t('button.save')}
+                        />
                     </div>
                     <div className='header-item-preview'>
-                        <p>{i18n.t('content-area.preview') }</p>
+                        <p>{i18n.t('content-area.preview')}</p>
                     </div>
                 </div>
                 <div className='content-area'>
-                    <div className='mdl-textfield mdl-js-textfield content-area-textarea'>
-                        <textarea
+                    <div className='content-area-textarea' ref='content-area-textarea'>
+                        <TextField
                             ref='textarea'
-                            className='mdl-textfield__input'
+                            multiLine={true}
+                            fullWidth={true}
+                            hintText={i18n.t('article-edit.content.placeholder')}
                             value={this.props.value}
                             onChange={this.handleChange}
-                            id='textarea'
-                            />
-                        <label
-                            className='mdl-textfield__label'
-                            htmlFor='textarea'
-                            >
-                            {i18n.t('article-edit.content.placeholder') }
-                        </label>
+                            rowsMax={this.getRowNumber()}
+                            rows={this.getRowNumber()}
+                        />
                     </div>
                     <div
                         className='content-area-display'
                         dangerouslySetInnerHTML={this.rawMarkup() }
-                        />
+                    />
                 </div>
             </div>
         );
     }
 }
 
-export default withRouter(ContentArea)
+export default withRouter(ContentArea);
