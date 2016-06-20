@@ -2,36 +2,20 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
-import {updateArticle, loadArticle, clearArticle, showSnackBar} from '../../actions/article-detail';
+import {loadArticle, clearArticle, showSnackBar} from '../../actions/article-detail';
 import {TextField, Snackbar, FlatButton, IconButton} from 'material-ui';
+import {State} from '../../store/default-state';
 
 export class EditPage extends Component<any, any> {
+    static propTypes = {id: PropTypes.number};
 
-    static propTypes = {
-        article: PropTypes.object,
-        updateArticle: PropTypes.func,
-        saveArticle: PropTypes.func
-    };
-
-    state = {
-        isVisible: false
-    };
+    state = {isVisible: false};
 
     componentWillMount() {
+        this.props.clearArticle();
         if (this.props.id) {
             this.props.getArticle(this.props.id);
-        } else {
-            this.props.clearArticle();
         }
-    }
-
-    parameterButtonHandler() {
-        const {isVisible} = this.state;
-        this.setState({isVisible: isVisible ? false : true});
-    }
-
-    onChangeHandler(attribute, value?) {
-        this.props.updateArticle(attribute, value || this.refs[attribute]);
     }
 
     render() {
@@ -70,15 +54,14 @@ export class EditPage extends Component<any, any> {
                 <div className='edit-parameters-button-zone'>
                     <IconButton
                         className='parameters-icon'
-                        onClick={() => this.parameterButtonHandler()}
+                        onClick={() => this.setState({isVisible: !this.state.isVisible})}
                     >
                         <i className='material-icons'>settings</i>
                     </IconButton>
                     <br />
                     <div className={`edit-parameters-text${isVisible ? '-hidden' : ''}`}>PARAMÉTRAGE</div>
                 </div>
-
-                <ContentArea onChange={this.onChangeHandler.bind(this)} value={this.props.article.content} />
+                <ContentArea />
                 <Snackbar
                     open={this.props.showEditSnackbar}
                     message={message}
@@ -93,14 +76,13 @@ export class EditPage extends Component<any, any> {
 }
 
 export default connect(
-    state => ({
+    (state: State) => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected,
         snackbarData: state.articleDetail.snackbarData,
         showEditSnackbar: state.articleDetail.showEditSnackbar,
     }),
     dispatch => ({
-        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
         getArticle: id => dispatch(loadArticle(id)),
         clearArticle: () => dispatch(clearArticle()),
         showSnackBar: () => dispatch(showSnackBar())

@@ -9,13 +9,29 @@
 
 .edit-cartridge {
     display: flex;
-    margin: 10px 75px;
+    margin: 10px 75px 35px;
 
     .edit-cartridge-left {
         flex: 1;
 
+        .edit-cartridge-title, .edit-cartridge-description {
+            display: flex;
+            align-items: center;
+
+            > div {
+                flex: 1;
+                white-space: pre;
+            }
+
+            &.multiline {
+                margin: -12px 0;
+            }
+        }
+
         .edit-cartridge-title {
-            width: 180px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #616161;
 
             label {
                 font-size: 18px!important;
@@ -30,10 +46,12 @@
 
         .edit-cartridge-description {
             flex: 1 1 auto;
-            margin-top: 20px;
+            font-size: 20px;
+            font-style: italic;
+            color: #9E9E9E;
 
             label {
-                font-size: 18px;
+                font-size: 18px!important;
             }
 
             textarea[style]  {
@@ -73,8 +91,12 @@
 }
 
 .edit-parameters-item-hidden {
-    margin-left: -355px;
+    width: 300px;
+    flex: 0 0 auto;
+    margin-left: -315px;
     transition: margin-left 150ms linear;
+    padding: 15px;
+    padding-right: 0;
 }
 
 .edit-parameters-button-zone {

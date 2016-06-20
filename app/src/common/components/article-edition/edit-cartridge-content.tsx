@@ -1,26 +1,33 @@
 import {Component} from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {updateArticle, saveArticle, deleteArticle, showEditPopup, showSnackBar} from '../../actions/article-detail';
+import {updateArticle, saveArticle, deleteArticle, showEditPopup, clickEditDescription, clickEditTitle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
 import {TextField, IconMenu, IconButton, MenuItem, Dialog, FlatButton} from 'material-ui';
+import {State} from '../../store/default-state';
+import {capitalize} from 'lodash';
 
 @connect(
-    state => ({
+    (state: State) => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected,
+        isEditDescription: state.articleDetail.isEditDescription,
+        isEditTitle: state.articleDetail.isEditTitle,
         showPopup: state.articleDetail.showPopup,
         snackbarData: state.articleDetail.snackbarData
     }),
     dispatch => ({
-        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        saveArticle: article => dispatch(saveArticle(article)),
+        clickEditDescription: () => dispatch(clickEditDescription()),
+        clickEditTitle: () => dispatch(clickEditTitle()),
         deleteArticle: id => dispatch(deleteArticle(id)),
+        saveArticle: article => dispatch(saveArticle(article)),
         showEditPopup: () => dispatch(showEditPopup()),
-        showSnackBar: (snackbarData) => dispatch(showSnackBar(snackbarData))
+        updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
 )
 class EditCartridgeContent extends Component<any, any> {
+
+    goHome = () => this.props.router.push({path: 'home'});
 
     deleteArticle = () => {
         this.props.showEditPopup();
@@ -28,63 +35,15 @@ class EditCartridgeContent extends Component<any, any> {
         this.props.router.push({path: 'home'});
     };
 
-    /**
-     * Saves the article
-     * Checks if the attributes are given to save the article
-     */
-    saveArticle() {
-        const {title, content, description} = this.props.article;
-        let data;
-        if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
-                timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        } else {
-            this.props.saveArticle(this.props.article);
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
-                timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        }
-        this.props.showSnackBar(data);
+    publishArticle() {
+        this.props.updateArticle('published', !this.props.article.published, this.goHome);
     }
 
-    onChangeHandler(changeEvent) {
-        this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
+    saveArticle(attribute) {
+        this.props[`clickEdit${capitalize(attribute)}`]();
+        this.props.updateArticle(attribute, this.refs[attribute]['getValue'](), this.goHome);
     }
 
-    /**
-     * Updates the article 'published' attribute
-     * Gives the data for the snackbar
-     */
-    clickPublishHandler = () => {
-        if (this.props.article.published) {
-            this.props.updateArticle('published', false);
-            this.props.showSnackBar({
-                message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
-                timeout: 1500,
-                actionHandler: () => this.saveArticle(),
-                actionText: i18n.t('button.save')
-            });
-        } else {
-            this.props.updateArticle('published', true);
-            this.props.showSnackBar({
-                message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
-                timeout: 1500,
-                actionHandler: () => this.saveArticle(),
-                actionText: i18n.t('button.save')
-            });
-        }
-    }
-
-    /**
-     * Sets the information data to display
-     */
     dateChecker = () => {
         const {updatedAt} = this.props.article;
         const date = new Date(updatedAt);
@@ -97,46 +56,70 @@ class EditCartridgeContent extends Component<any, any> {
             if (diff === 0) {
                 return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
             } else if (diff > 0) {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
+                return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} ${i18n.t('edit-cartridge.content.label.days')}`}</p>;
             } else if (diff > 29) {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
+                return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} ${i18n.t('edit-cartridge.content.label.months')}`}</p>;
             } else if (month => 12) {
                 if (year === 1) {
-                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
+                    return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} ${i18n.t('edit-cartridge.content.label.year')}`}</p>;
                 } else {
-                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
+                    return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} ${i18n.t('edit-cartridge.content.label.years')}`}</p>;
                 }
             }
         }
-
     }
 
     render() {
-        const {connected} = this.props;
+        const {connected, isEditDescription, isEditTitle} = this.props;
         if (!connected) {
             return <div />;
         }
         return (
             <div className='edit-cartridge'>
                 <div className='edit-cartridge-left'>
-                    <TextField
-                        className='edit-cartridge-title'
-                        name='title'
-                        hintText={i18n.t('edit-cartridge.input.title')}
-                        onChange={this.onChangeHandler.bind(this)}
-                        value={this.props.article.title}
-                    />
-                    <TextField
-                        className='edit-cartridge-description'
-                        name='description'
-                        multiLine={true}
-                        rows={2}
-                        rowsMax={2}
-                        fullWidth={true}
-                        hintText={i18n.t('edit-cartridge.input.description')}
-                        onChange={this.onChangeHandler.bind(this)}
-                        value={this.props.article.description}
-                    />
+                    <div className='edit-cartridge-title'>
+                        {isEditTitle ?
+                            <TextField
+                                name='title'
+                                ref='title'
+                                hintText={i18n.t('edit-cartridge.input.title')}
+                                defaultValue={this.props.article.title}
+                                fullWidth={true}
+                            />
+                        :
+                            <div>{this.props.article.title}</div>
+                        }
+                        {isEditTitle ?
+                            <IconButton onClick={() => this.saveArticle('title')}>
+                                <i className='material-icons'>save</i>
+                            </IconButton>
+                        : null}
+                        <IconButton onClick={this.props.clickEditTitle}>
+                            <i className='material-icons'>{isEditTitle ? 'undo' : 'edit'}</i>
+                        </IconButton>
+                    </div>
+                    <div className={`edit-cartridge-description ${isEditDescription && this.props.article.description.match(/\n/) ? 'multiline' : ''}`}>
+                        {isEditDescription ?
+                            <TextField
+                                name='description'
+                                ref='description'
+                                multiLine={true}
+                                fullWidth={true}
+                                hintText={i18n.t('edit-cartridge.input.description')}
+                                defaultValue={this.props.article.description}
+                            />
+                        :
+                            <div>{this.props.article.description}</div>
+                        }
+                        {isEditDescription ?
+                            <IconButton onClick={() => this.saveArticle('description')}>
+                                <i className='material-icons'>save</i>
+                            </IconButton>
+                        : null}
+                        <IconButton onClick={this.props.clickEditDescription}>
+                            <i className='material-icons'>{isEditDescription ? 'undo' : 'edit'}</i>
+                        </IconButton>
+                    </div>
                 </div>
                 <div className='edit-cartridge-publish'>
                     <div className='publish-label'>
@@ -148,7 +131,7 @@ class EditCartridgeContent extends Component<any, any> {
                         >
                             <MenuItem
                                 primaryText={this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish')}
-                                onClick={this.clickPublishHandler}
+                                onClick={() => this.publishArticle()}
                             />
                         </IconMenu>
                     </div>

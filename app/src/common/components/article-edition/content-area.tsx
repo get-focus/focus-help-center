@@ -1,69 +1,23 @@
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 import Markdown from 'remarkable';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {saveArticle, showSnackBar} from '../../actions/article-detail';
+import {updateArticle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
 import {RaisedButton, TextField} from 'material-ui';
+import {State} from '../../store/default-state';
 
 @connect(
-    state => ({
-        article: state.articleDetail.article,
+    (state: State) => ({
+        content: state.articleDetail.article.content,
         connected: state.login.isConnected,
-        snackbarData: state.articleDetail.snackbarData,
-        showEditSnackbar: state.articleDetail.showEditSnackbar,
     }),
-    dispatch => ({
-        saveArticle: article => dispatch(saveArticle(article)),
-        showSnackBar: (snackbarData) => dispatch(showSnackBar(snackbarData))
-    })
+    dispatch => ({updateArticle: (content, successHandler) => dispatch(updateArticle('content', content, successHandler))})
 )
 class ContentArea extends Component<any, any> {
-    static propTypes: any = {
-        value: PropTypes.string,
-        onChange: PropTypes.func.isRequired
-    };
+    state = {content: this.props.content};
 
     md = new Markdown({linkTarget: '_blank'});
-    handleChange = () => {
-        const value = this.refs['textarea']['getValue']();
-        this.props.onChange('content', value);
-    }
-    rawMarkup = () => ({__html: this.md.render(this.props.value)});
-
-    /**
-     * Saves the article
-     * Checks if the attributes are given to save the article
-     */
-    saveArticle() {
-        const {title, content, description} = this.props.article;
-        let data;
-        if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
-                timeout: 3000,
-                actionHandler: () => this.props.router.push({path: 'home'}),
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        } else {
-            this.props.saveArticle(this.props.article);
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
-                timeout: 3000,
-                actionHandler: () => this.props.router.push({path: 'home'}),
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        }
-        this.props.showSnackBar(data);
-    }
-
-    componentWillMount() {
-        window.addEventListener('resize', () => this.forceUpdate());
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', () => this.forceUpdate());
-    }
 
     getRowNumber = () => {
         const textField = this.refs['content-area-textarea'] as Element;
@@ -74,6 +28,25 @@ class ContentArea extends Component<any, any> {
         }
     }
 
+    handleChange = () => {
+        const content = this.refs['textarea']['getValue']();
+        this.setState({content});
+    }
+
+    rawMarkup = () => ({__html: this.md.render(this.state.content)});
+
+    componentWillMount() {
+        window.addEventListener('resize', () => this.forceUpdate());
+    }
+
+    componentWillReceiveProps({content}) {
+        this.setState({content});
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => this.forceUpdate());
+    }
+
     render() {
         return (
             <div className='content-edit'>
@@ -82,7 +55,7 @@ class ContentArea extends Component<any, any> {
                         <RaisedButton
                             primary={true}
                             className='save-button'
-                            onClick={this.saveArticle.bind(this)}
+                            onClick={() => this.props.updateArticle(this.state.content, () => this.props.router.push({path: ''}))}
                             label={i18n.t('button.save')}
                         />
                     </div>
@@ -97,7 +70,7 @@ class ContentArea extends Component<any, any> {
                             multiLine={true}
                             fullWidth={true}
                             hintText={i18n.t('article-edit.content.placeholder')}
-                            value={this.props.value}
+                            value={this.state.content}
                             onChange={this.handleChange}
                             rowsMax={this.getRowNumber()}
                             rows={this.getRowNumber()}
@@ -105,7 +78,7 @@ class ContentArea extends Component<any, any> {
                     </div>
                     <div
                         className='content-area-display'
-                        dangerouslySetInnerHTML={this.rawMarkup() }
+                        dangerouslySetInnerHTML={this.rawMarkup()}
                     />
                 </div>
             </div>

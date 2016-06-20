@@ -21,8 +21,13 @@ export const en = {
                 title: 'Title',
                 description: 'Description',
                 snackBar: {
-                    saveSuccessMessage: 'Saved article.',
-                    saveFailedMessage: 'Fail to save. Fields are empty.',
+                    saveSuccessMessage: 'Article saved.',
+                    saveSuccessMessageTitle: 'Title saved.',
+                    saveSuccessMessageDescription: 'Description saved.',
+                    saveSuccessMessageContent: 'Content saved.',
+                    saveSuccessMessagePublished: 'Article published.',
+                    saveSuccessMessageUnPublished: 'Article unpublished.',
+                    saveFailedMessage: 'Error while saving.',
                     saveActionText: 'Home',
                     unpublishMessage: 'The article will be unpublished after you save it.',
                     publishMessage: 'The article will be published after you save it.'

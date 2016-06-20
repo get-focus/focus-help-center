@@ -2,7 +2,14 @@ import {Action} from '../actions';
 import {ArticleDetailAction, ArticleDetailState} from '../definitions/article-detail';
 const a = Object.assign;
 
-export const defaultValue: ArticleDetailState = {isLoading: false, article: {title: '', description: '', content: '', published: false}, showPopup: false, showEditSnackbar: false};
+export const defaultValue: ArticleDetailState = {
+    article: {title: '', description: '', content: '', published: false},
+    isEditDescription: false,
+    isEditTitle: false,
+    isLoading: false,
+    showPopup: false,
+    showEditSnackbar: false
+};
 
 /** Reducer that handles the `articleDetail` store node. */
 export function articleDetail(state = defaultValue, action: ArticleDetailAction) {
@@ -38,7 +45,11 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
         case Action.SHOW_POPUP_EDITION:
             return a({}, state, {showPopup: !state.showPopup});
         case Action.SHOW_EDIT_SNACKBAR:
-            return a({}, state, {showEditSnackbar: !state.showEditSnackbar, snackbarData: action.snackbarData || state.snackbarData});
+            return a({}, state, {showEditSnackbar: !state.showEditSnackbar, snackbarData: a({}, action.snackbarData, {timeout: 3000}) || state.snackbarData});
+        case Action.CLICK_EDIT_DESCRIPTION:
+            return a({}, state, {isEditDescription: !state.isEditDescription});
+        case Action.CLICK_EDIT_TITLE:
+            return a({}, state, {isEditTitle: !state.isEditTitle});
         default:
             return state;
     }
