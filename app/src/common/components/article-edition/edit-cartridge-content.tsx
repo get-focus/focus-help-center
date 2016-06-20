@@ -117,37 +117,30 @@ class EditCartridgeContent extends Component<any, any> {
             return <div />;
         }
         return (
-            <div>
-                <div className='content-flex-cartridge'>
+            <div className='edit-cartridge'>
+                <div className='edit-cartridge-left'>
                     <TextField
-                        className='input-div'
+                        className='edit-cartridge-title'
                         name='title'
                         hintText={i18n.t('edit-cartridge.input.title')}
                         onChange={this.onChangeHandler.bind(this)}
                         value={this.props.article.title}
                     />
+                    <TextField
+                        className='edit-cartridge-description'
+                        name='description'
+                        multiLine={true}
+                        rows={2}
+                        rowsMax={2}
+                        fullWidth={true}
+                        hintText={i18n.t('edit-cartridge.input.description')}
+                        onChange={this.onChangeHandler.bind(this)}
+                        value={this.props.article.description}
+                    />
                 </div>
-
-                <div className='content-flex-cartridge'>
-                    <div className='input-div-parent'>
-                        <TextField
-                            className='input-div-area'
-                            name='description'
-                            multiLine={true}
-                            rows={2}
-                            rowsMax={2}
-                            fullWidth={true}
-                            hintText={i18n.t('edit-cartridge.input.description')}
-                            onChange={this.onChangeHandler.bind(this)}
-                            value={this.props.article.description}
-                        />
-                    </div>
-
-                    <span className='publish-label'>
+                <div className='edit-cartridge-publish'>
+                    <div className='publish-label'>
                         {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish')}
-                        {this.dateChecker()}
-                    </span>
-                    <div className='publish-article'>
                         <IconMenu
                             iconButtonElement={<IconButton><i className='material-icons'>keyboard_arrow_down</i></IconButton>}
                             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -159,6 +152,7 @@ class EditCartridgeContent extends Component<any, any> {
                             />
                         </IconMenu>
                     </div>
+                    {this.dateChecker()}
                 </div>
                 <Dialog
                     open={this.props.showPopup}

@@ -38,7 +38,7 @@ export class PasswordComponent extends Component {
         const {loading, connected, error, clearError} = this.props;
         return (
             <div className='password-bar'>
-                {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0'}} /> : ''}
+                {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0'}} /> : null}
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
                 : <div className='password-bar-ok'>

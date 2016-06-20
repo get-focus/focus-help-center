@@ -8,7 +8,7 @@ export function HomeView({params}) {
     return (
         <Layout Content={<ArticleListTitle />}>
             <ArticleList />
-            {params.id ? <ArticleConsult id={params.id} /> : ''}
+            {params.id ? <ArticleConsult id={params.id} /> : null}
         </Layout>
     );
 }

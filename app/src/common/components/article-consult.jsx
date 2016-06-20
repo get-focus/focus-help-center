@@ -30,16 +30,16 @@ export class ArticleConsult extends Component {
                     <div className='article-consult-card-close'>
                         <Link to='/'><i className='material-icons'>close</i></Link>
                     </div>
-                    {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : ''}
+                    {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
-                    : ''}
+                    : null}
                     {!isLoading ?
                         <div>
                             <h3>{article.title}</h3>
                             <div dangerouslySetInnerHTML={this.rawMarkup()} />
                         </div>
-                    : ''}
+                    : null}
                 </div>
             </div>
         );

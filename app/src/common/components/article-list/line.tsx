@@ -24,7 +24,7 @@ export function ArticleLine({article: {id, title, description}, canEdit}: {artic
                         icon={<FontIcon color='white' className='material-icons'>edit</FontIcon>}
                     />
                 </Link>
-            : ''}
+            : null}
         </div>
     );
 }

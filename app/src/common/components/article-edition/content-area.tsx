@@ -24,7 +24,7 @@ class ContentArea extends Component<any, any> {
         onChange: PropTypes.func.isRequired
     };
 
-    md = new Markdown();
+    md = new Markdown({linkTarget: '_blank'});
     handleChange = () => {
         const value = this.refs['textarea']['getValue']();
         this.props.onChange('content', value);
@@ -87,7 +87,7 @@ class ContentArea extends Component<any, any> {
                         />
                     </div>
                     <div className='header-item-preview'>
-                        <p>{i18n.t('content-area.preview')}</p>
+                        <h5>{i18n.t('content-area.preview')}</h5>
                     </div>
                 </div>
                 <div className='content-area'>

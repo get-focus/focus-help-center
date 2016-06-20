@@ -47,16 +47,22 @@ export class EditPage extends Component<any, any> {
                     <div className='edit-parameters-bloc'>
                         <h5>PARAMÉTRAGE</h5>
 
-                        <div className='edit-parameters-label'>{i18n.t('edit-page.content.section')}</div>
-                        <FlatButton style={{float: 'right'}} label={i18n.t('button.add')} />
+                        <div className='edit-parameters-label'>
+                            <div>{i18n.t('edit-page.content.section')}</div>
+                            <FlatButton label={i18n.t('button.add')} />
+                        </div>
                         <TextField hintText='Rubriques' />
 
-                        <div className='edit-parameters-label'>{i18n.t('edit-page.content.context-url')}</div>
-                        <FlatButton style={{float: 'right'}} label={i18n.t('button.edit')} />
+                        <div className='edit-parameters-label'>
+                            <div>{i18n.t('edit-page.content.context-url')}</div>
+                            <FlatButton label={i18n.t('button.edit')} />
+                        </div>
                         <TextField hintText='URL...' />
 
-                        <div className='edit-parameters-label'>{i18n.t('edit-page.content.bloc-information')}</div>
-                        <FlatButton style={{float: 'right'}} label={i18n.t('button.edit')} />
+                        <div className='edit-parameters-label'>
+                            <div>{i18n.t('edit-page.content.bloc-information')}</div>
+                            <FlatButton label={i18n.t('button.edit')} />
+                        </div>
                         <TextField hintText={`Bloc d'information...`} />
                     </div>
                 </div>
