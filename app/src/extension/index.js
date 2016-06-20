@@ -1,4 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<h1>Extension</h1>, document.getElementById('root'));
+import {HelpCenterBase} from '../common/components';
+import {Layout} from './views/layout/';
+
+function Extension() {
+    return (
+        <HelpCenterBase>
+            <Layout />
+        </HelpCenterBase>
+    );
+}
+
+ReactDOM.render(<Extension />, document.getElementById('root'));
