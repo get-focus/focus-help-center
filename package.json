@@ -5,11 +5,11 @@
   "author": "KleeGroup",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "6.0.4",
+    "babel-eslint": "6.0.5",
     "envify": "3.4.0",
-    "eslint": "2.11.1",
-    "eslint-plugin-react": "5.1.1",
-    "tslint": "3.10.2",
+    "eslint": "2.13.1",
+    "eslint-plugin-react": "5.2.2",
+    "tslint": "3.11.0",
     "typescript": "1.8.10"
   }
 }
