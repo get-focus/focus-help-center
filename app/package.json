@@ -6,7 +6,9 @@
     "build": "better-npm-run build",
     "postinstall": "typings install",
     "start": "better-npm-run start",
+    "start:dev": "better-npm-run start-dev",
     "start:extension": "better-npm-run start-extension",
+    "start:extension-dev": "better-npm-run start-extension-dev",
     "test": "better-npm-run test",
     "test:watch": "better-npm-run test-watch",
     "watch": "webpack --watch"
@@ -26,7 +28,19 @@
         "DEV_SERVER_HOST": "localhost",
         "BABEL_ENV": "development",
         "LANG": "fr",
-        "APP_LAUNCHED": "back-office"
+        "APP_LAUNCHED": "back-office",
+        "ENV": "production"
+      }
+    },
+    "start-dev": {
+      "command": "node ./dev-server",
+      "env": {
+        "DEV_SERVER_PORT": 9999,
+        "DEV_SERVER_HOST": "localhost",
+        "BABEL_ENV": "development",
+        "LANG": "fr",
+        "APP_LAUNCHED": "back-office",
+        "ENV": "development"
       }
     },
     "start-extension": {
@@ -36,7 +50,19 @@
         "DEV_SERVER_HOST": "localhost",
         "BABEL_ENV": "development",
         "LANG": "fr",
-        "APP_LAUNCHED": "extension"
+        "APP_LAUNCHED": "extension",
+        "ENV": "production"
+      }
+    },
+    "start-extension-dev": {
+      "command": "node ./dev-server",
+      "env": {
+        "DEV_SERVER_PORT": 1234,
+        "DEV_SERVER_HOST": "localhost",
+        "BABEL_ENV": "development",
+        "LANG": "fr",
+        "APP_LAUNCHED": "extension",
+        "ENV": "development"
       }
     },
     "test": {

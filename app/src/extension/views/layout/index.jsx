@@ -14,7 +14,7 @@ export default class Layout extends Component {
         actions: PropTypes.object
     };
 
-    state = {open: false};
+    state = { open: false };
 
     checkActions = () => {
         const {actions} = this.props;
@@ -23,25 +23,16 @@ export default class Layout extends Component {
         }
     };
 
-    togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
+    togglePopover = (e) => this.setState({ open: !this.state.open, anchorEl: e.currentTarget });
 
     render() {
         const {children, BarMiddle, Content, actions} = this.props;
         return (
             <div className='layout'>
                 <header>
-                        <div className='left'>
-
-                        </div>
-                        <div className='middle'>
-                            {BarMiddle}
-                        </div>
-                        <div className='right' style={{textAlign: 'right'}}>
-                            <FlatButton
-                                icon={<i className='material-icons'>open_in_new</i>}
-                                onClick={() => window.open('http://localhost:9999')}
-                            />
-                        </div>
+                    <div className='middle'>
+                        {BarMiddle}
+                    </div>
                     {Content}
                     <div className='actions'>
                         {actions && actions.primary.map(({clickHandler, icon, action}, i) => (
@@ -49,39 +40,39 @@ export default class Layout extends Component {
                                 secondary={true}
                                 key={i}
                                 onClick={action ? () => this.props.dispatch(action) : clickHandler}
-                                style={{margin: '0 3px'}}
-                            >
+                                style={{ margin: '0 3px' }}
+                                >
                                 <i className="material-icons">{icon}</i>
                             </FloatingActionButton>
-                        ))}
+                        )) }
                         {actions && actions.secondary !== undefined ?
                             <FloatingActionButton
                                 secondary={true}
                                 onClick={this.togglePopover}
-                                style={{margin: '0 3px'}}
-                            >
+                                style={{ margin: '0 3px' }}
+                                >
                                 <i className="material-icons">more_vert</i>
                             </FloatingActionButton>
-                        : null}
+                            : null}
                         {this.checkActions() ?
                             <Popover
                                 open={this.state.open}
                                 anchorEl={this.state.anchorEl}
-                                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                                 onRequestClose={this.togglePopover}
-                            >
+                                >
                                 <Menu>
                                     {actions.secondary.map(({action, clickHandler, label}, i) => (
                                         <MenuItem
                                             key={i}
                                             primaryText={label}
                                             onClick={action ? () => this.props.dispatch(action) : clickHandler}
-                                        />
-                                    ))}
+                                            />
+                                    )) }
                                 </Menu>
                             </Popover>
-                        : null}
+                            : null}
                     </div>
                 </header>
                 <div className='content'>
