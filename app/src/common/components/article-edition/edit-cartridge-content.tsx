@@ -87,7 +87,7 @@ class EditCartridgeContent extends Component<any, any> {
                                 fullWidth={true}
                             />
                         :
-                            <div>{this.props.article.title}</div>
+                            <div onClick={this.props.clickEditTitle}>{this.props.article.title}</div>
                         }
                         {isEditTitle ?
                             <IconButton onClick={() => this.saveArticle('title')}>
@@ -103,13 +103,14 @@ class EditCartridgeContent extends Component<any, any> {
                             <TextField
                                 name='description'
                                 ref='description'
+                                rowsMax={3}
                                 multiLine={true}
                                 fullWidth={true}
                                 hintText={i18n.t('edit-cartridge.input.description')}
                                 defaultValue={this.props.article.description}
                             />
                         :
-                            <div>{this.props.article.description}</div>
+                            <div onClick={this.props.clickEditDescription}>{this.props.article.description}</div>
                         }
                         {isEditDescription ?
                             <IconButton onClick={() => this.saveArticle('description')}>
