@@ -41,14 +41,8 @@ export const en = {
                     confirm: 'yes',
                     cancel: 'no'
                 },
-                label: {
-                    modifiedSince: 'Modified',
-                    oneDay: 'Modified today',
-                    days: 'days age',
-                    months: 'months ago',
-                    oneYear: 'year ago',
-                    years: 'years ago',
-                }
+                updatedAt: 'Last updated',
+                publishedAt: 'Published'
             }
         },
         'content-area': {
@@ -65,6 +59,9 @@ export const en = {
             save: 'Save',
             edit: 'Edit',
             add: 'Add'
+        },
+        date: {
+            to: 'et'
         },
         password: {
             password: 'Password',

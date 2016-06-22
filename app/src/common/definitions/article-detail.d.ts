@@ -6,6 +6,7 @@ export interface SnackbarAction {
     message: string;
     actionText?: string;
     actionHandler?: () => void;
+    isError: boolean;
 }
 
 /** Spec for the snackbar state object. */

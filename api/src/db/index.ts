@@ -15,7 +15,8 @@ const article =
         title: Sequelize.STRING,
         description: Sequelize.STRING,
         content: Sequelize.STRING,
-        published: Sequelize.BOOLEAN
+        published: Sequelize.BOOLEAN,
+        publishedAt: Sequelize.DATE
     });
 
 /** ORM instance. */

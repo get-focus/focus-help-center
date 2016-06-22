@@ -1,9 +1,26 @@
 .edit-cartridge {
     display: flex;
+    justify-content: center;
     margin: 10px 75px 35px;
 
     > .left {
         flex: 1;
+        max-width: 900px;
+
+        > div:not(.editing) {
+            button {
+                opacity: 0;
+            }
+
+            &:hover {
+                background: #DDD;
+                cursor: pointer;
+
+                button {
+                    opacity: 1;
+                }
+            }
+        }
 
         > .title {
             font-size: 20px;
@@ -73,6 +90,10 @@
             font-size: 250%;
             color: #8BC34A;
             text-transform: uppercase;
+        }
+
+        > .time {
+            margin-right: 22px;
         }
 
         > p {
