@@ -1,6 +1,8 @@
 import express from 'express';
 import {Article} from '../db';
+import {IArticle} from '../db/article';
 import {or, and, fn, col} from 'sequelize';
+
 /**
  * @swagger
  * definition:
@@ -19,6 +21,8 @@ import {or, and, fn, col} from 'sequelize';
  *       createdAt:
  *         type: string
  *       updatedAt:
+ *         type: string
+ *       publishedAt:
  *         type: string
  */
 
@@ -174,12 +178,19 @@ export function articleService(app: express.Application) {
             res.status(403);
             res.json({error: 'Cannot save an article when not connected'});
         } else {
-            let article;
-            if (!req.body.id) {
+            let article: IArticle = req.body;
+            if (!article.id) {
                 article = (await Article.create(req.body)).get();
             } else {
-                (await Article.update(req.body, {where: {id: req.body.id}}));
-                article = req.body;
+                const time = new Date().toISOString();
+                const dbArticle = (await Article.findById(article.id)).get();
+                if (!dbArticle.published && article.published) {
+                    article.publishedAt = time;
+                } else if (!article.published) {
+                    article.publishedAt = undefined;
+                }
+                await Article.update(article, {where: {id: req.body.id}});
+                article.updatedAt = time;
             }
             res.json(article);
         }

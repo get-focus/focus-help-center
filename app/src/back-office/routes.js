@@ -1,5 +1,5 @@
 import {HomeView} from './views/home';
-import {EditArticle} from './views/edit-article';
+import EditArticle from './views/edit-article';
 
 export default {
     path: '/',

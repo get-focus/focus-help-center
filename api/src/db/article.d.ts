@@ -9,6 +9,7 @@ interface IArticle {
     published: boolean;
     createdAt?: string;
     updatedAt?: string;
+    publishedAt?: string;
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */

@@ -62,7 +62,7 @@ describe('Article', () => {
             chai.expect(response).to.deep.equal({error: 'Cannot save an article when not connected'});
         }));
 
-        it('Should create a new article', mochaAsync(async () => {
+        it('should create a new article', mochaAsync(async () => {
             const article = {
                 title: 'Hello',
                 description: 'description',
@@ -81,6 +81,68 @@ describe('Article', () => {
             chai.expect(returnedObject.description).to.equal('description');
             chai.expect(returnedObject.content).to.equal('Hey, the content will be there, you know ?');
             chai.expect(returnedObject.published).to.equal(false);
+            chai.expect(returnedObject.publishedAt).to.be.undefined;
+        }));
+
+        it('should update an existing article and publish it', mochaAsync(async () => {
+            const article = {
+                id: 3,
+                title: 'Hello',
+                description: 'description',
+                content: 'Hey, the content will be there, you know ?',
+                published: true
+            };
+            const response = await fetchWithLogin('http://localhost:1337/api/article', {
+                method: 'POST',
+                body: JSON.stringify(article),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const returnedObject = await response.json<IArticle>();
+            chai.expect(returnedObject.id).to.equal(3);
+            chai.expect(returnedObject.title).to.equal('Hello');
+            chai.expect(returnedObject.description).to.equal('description');
+            chai.expect(returnedObject.content).to.equal('Hey, the content will be there, you know ?');
+            chai.expect(returnedObject.published).to.equal(true);
+            chai.expect(returnedObject.publishedAt).not.to.be.undefined;
+        }));
+
+        it('should update an existing article and unpublish it', mochaAsync(async () => {
+            const article = {
+                id: 1,
+                title: 'Hello',
+                description: 'description',
+                content: 'Hey, the content will be there, you know ?',
+                published: false
+            };
+            const response = await fetchWithLogin('http://localhost:1337/api/article', {
+                method: 'POST',
+                body: JSON.stringify(article),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const returnedObject = await response.json<IArticle>();
+            chai.expect(returnedObject.id).to.equal(1);
+            chai.expect(returnedObject.title).to.equal('Hello');
+            chai.expect(returnedObject.description).to.equal('description');
+            chai.expect(returnedObject.content).to.equal('Hey, the content will be there, you know ?');
+            chai.expect(returnedObject.published).to.equal(false);
+            chai.expect(returnedObject.publishedAt).to.be.undefined;
+        }));
+
+        it('should update an existing article and dont modify the publish date', mochaAsync(async () => {
+            const article = Object.assign({}, article1, {content: 'yolo test'});
+            const response = await fetchWithLogin('http://localhost:1337/api/article', {
+                method: 'POST',
+                body: JSON.stringify(article),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const savedArticle = await response.json<IArticle>();
+            chai.expect(savedArticle.publishedAt).to.equal(article.publishedAt);
         }));
     });
 

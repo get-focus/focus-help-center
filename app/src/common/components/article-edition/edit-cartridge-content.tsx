@@ -44,29 +44,9 @@ class EditCartridgeContent extends Component<any, any> {
         this.props.updateArticle(attribute, this.refs[attribute]['getValue'](), this.goHome);
     }
 
-    dateChecker = () => {
-        const {updatedAt} = this.props.article;
-        const date = new Date(updatedAt);
-        const today = new Date();
-        const diff = new Date(today.getTime() - date.getTime()).getUTCDate() - 1;
-        const month = Math.ceil(diff / 30);
-        const year = Math.ceil(month / 12);
-
-        if (updatedAt !== undefined) {
-            if (diff === 0) {
-                return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
-            } else if (diff > 0) {
-                return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} ${i18n.t('edit-cartridge.content.label.days')}`}</p>;
-            } else if (diff > 29) {
-                return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} ${i18n.t('edit-cartridge.content.label.months')}`}</p>;
-            } else if (month => 12) {
-                if (year === 1) {
-                    return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} ${i18n.t('edit-cartridge.content.label.year')}`}</p>;
-                } else {
-                    return <p>{`${i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} ${i18n.t('edit-cartridge.content.label.years')}`}</p>;
-                }
-            }
-        }
+    formatDate(isoString, text) {
+        const date = new Date(isoString);
+        return `${i18n.t(text)} ${date.toLocaleDateString()} ${i18n.t('date.to')} ${date.toLocaleTimeString()}`;
     }
 
     render() {
@@ -136,7 +116,8 @@ class EditCartridgeContent extends Component<any, any> {
                             />
                         </IconMenu>
                     </div>
-                    {this.dateChecker()}
+                    {this.props.article.updatedAt ? <div className='time'>{this.formatDate(this.props.article.updatedAt, 'edit-cartridge.content.updatedAt')}</div> : null}
+                    {this.props.article.publishedAt ? <div className='time'>{this.formatDate(this.props.article.publishedAt, 'edit-cartridge.content.publishedAt')}</div> : null}
                 </div>
                 <Dialog
                     open={this.props.showPopup}

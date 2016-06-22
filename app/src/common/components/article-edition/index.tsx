@@ -4,6 +4,7 @@ import ContentArea from './content-area';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, showSnackBar} from '../../actions/article-detail';
 import {TextField, Snackbar, FlatButton, IconButton} from 'material-ui';
+import {green500, red500} from 'material-ui/styles/colors';
 import {State} from '../../store/default-state';
 
 export class EditPage extends Component<any, any> {
@@ -24,7 +25,7 @@ export class EditPage extends Component<any, any> {
         }
 
         const {isVisible} = this.state;
-        const {message, timeout, actionHandler, actionText} = this.props.snackbarData || {message: '', timeout: 0, actionHandler: undefined, actionText: undefined};
+        const {message = '', timeout = 0, actionHandler = () => null, actionText = '', isError = false} = this.props.snackbarData || {};
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
@@ -66,6 +67,7 @@ export class EditPage extends Component<any, any> {
                     action={actionText}
                     onActionTouchTap={actionHandler}
                     onRequestClose={() => this.props.showSnackBar()}
+                    bodyStyle={{backgroundColor: isError ? red500 : green500}}
                 />
             </div>
         );

@@ -23,7 +23,8 @@ function successSaveArticle(article: Article, successHandler?: () => void, attri
             dispatch(showSnackBar({
                 actionHandler: successHandler,
                 message: `edit-cartridge.content.snackBar.saveSuccessMessage${unpublished ? 'Un' : ''}${attribute ? capitalize(attribute) : ''}`,
-                actionText: 'edit-cartridge.content.snackBar.saveActionText'
+                actionText: 'edit-cartridge.content.snackBar.saveActionText',
+                isError: false
             }));
         }
     };
@@ -39,7 +40,7 @@ function errorActionArticle(error: string, dispatchSnackbar?: boolean): any {
      return dispatch => {
         dispatch({type: Action.ERROR_ACTION_ARTICLE, error});
         if (dispatchSnackbar) {
-            dispatch(showSnackBar({message: 'edit-cartridge.content.snackBar.saveFailedMessage'}));
+            dispatch(showSnackBar({message: 'edit-cartridge.content.snackBar.saveFailedMessage', isError: true}));
         }
     };
 }
@@ -118,13 +119,13 @@ export function showEditPopup(): ArticleDetailAction {
 
 /** Toggles the snackbar. */
 export function showSnackBar(snackbarData?: SnackbarAction): ArticleDetailAction {
-    console.log(snackbarData);
     return {
         type: Action.SHOW_EDIT_SNACKBAR,
         snackbarData: snackbarData ? {
             message: i18n.t(snackbarData.message),
             actionText: i18n.t(snackbarData.actionText),
-            actionHandler: snackbarData.actionHandler
+            actionHandler: snackbarData.actionHandler,
+            isError: snackbarData.isError
         } : undefined
     };
 }

@@ -26,6 +26,9 @@ export function HelpCenterBase({children}) {
                 floatingActionButton: {
                     secondaryColor: white,
                     secondaryIconColor: grey900
+                },
+                snackbar: {
+                    actionColor: white
                 }
             })}>
                 <div className='app'>
