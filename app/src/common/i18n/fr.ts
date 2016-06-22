@@ -78,7 +78,7 @@ export const fr = {
 
         // Extension specific labels.
         extension: {
-
+            title: 'centre d\'aide'
         }
     }
 };

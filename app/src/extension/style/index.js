@@ -1,2 +1,2 @@
 import './index.scss';
-import './layout.scss';
+import './home.scss';

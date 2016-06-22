@@ -1,4 +1,5 @@
 import {Home} from './views/home';
+import {Consult} from './views/consult';
 
 export default {
     path: '/',
@@ -10,7 +11,7 @@ export default {
         },
         {
             path: 'article/:id',
-            component: Home
+            component: Consult
         }
     ]
 };
