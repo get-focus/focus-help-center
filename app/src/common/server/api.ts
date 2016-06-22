@@ -52,7 +52,7 @@ export const api: Api = {
             }
         });
         const data = await response.json<Article | {error: string}>();
-        if ((data as Article).content) {
+        if ((data as Article).title) {
             return data;
         } else {
             throw new Error((data as {error}).error);
@@ -72,7 +72,7 @@ export const api: Api = {
     async getArticle(id) {
         const response = await fetchWithLogin(`http://localhost:1337/api/article/${id}`, {method: 'GET'});
         const data = await response.json<Article | {error: string}>();
-        if ((data as Article).content) {
+        if ((data as Article).title) {
             return data;
         } else {
             throw new Error((data as {error}).error);

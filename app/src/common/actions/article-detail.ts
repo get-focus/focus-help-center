@@ -1,8 +1,8 @@
 import {Action} from './';
 import {Article} from '../definitions/article';
-import {ArticleDetailAction, SnackbarAction} from '../definitions/article-detail';
+import {ArticleDetailAction} from '../definitions/article-detail';
 import {Api} from '../server/index';
-import i18n from 'i18next';
+import {showSnackBar} from './snack-bar';
 import {capitalize} from 'lodash';
 
 /** Action creator called on any article request. */
@@ -83,8 +83,9 @@ export function saveArticle(article: Article): any {
         try {
             const response = await api.saveArticle(article);
             dispatch(successSaveArticle(response));
+            return response.id;
         } catch (e) {
-            dispatch(errorActionArticle(e.message));
+            dispatch(errorActionArticle(e.message, true));
         }
     };
 }
@@ -115,19 +116,6 @@ export function updateArticle(attribute: string, value: string | boolean, succes
 /** Toggles the dialog. */
 export function showEditPopup(): ArticleDetailAction {
     return {type: Action.SHOW_POPUP_EDITION};
-}
-
-/** Toggles the snackbar. */
-export function showSnackBar(snackbarData?: SnackbarAction): ArticleDetailAction {
-    return {
-        type: Action.SHOW_EDIT_SNACKBAR,
-        snackbarData: snackbarData ? {
-            message: i18n.t(snackbarData.message),
-            actionText: i18n.t(snackbarData.actionText),
-            actionHandler: snackbarData.actionHandler,
-            isError: snackbarData.isError
-        } : undefined
-    };
 }
 
 /** Toggles the edit title state. */

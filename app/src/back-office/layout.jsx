@@ -2,10 +2,12 @@ import {Component, PropTypes} from 'react';
 import i18n from 'i18next';
 import {PasswordComponent} from '../common/components/password';
 import {connect} from 'react-redux';
-import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem} from 'material-ui';
+import {showSnackBar} from '../common/actions/snack-bar';
+import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem, Snackbar} from 'material-ui';
+import {green500, red500} from 'material-ui/styles/colors';
 
 /** Layout component. */
-@connect()
+@connect(state => ({snackBar: state.snackBar}))
 export default class Layout extends Component {
 
     static propTypes = {
@@ -26,7 +28,7 @@ export default class Layout extends Component {
     togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
 
     render() {
-        const {children, BarMiddle, Content, actions} = this.props;
+        const {children, BarMiddle, Content, actions, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
         return (
             <div className='layout'>
                 <header>
@@ -89,6 +91,15 @@ export default class Layout extends Component {
                 <div className='content'>
                     {children}
                 </div>
+                <Snackbar
+                    open={show}
+                    message={message}
+                    autoHideDuration={timeout}
+                    action={actionText}
+                    onActionTouchTap={actionHandler}
+                    onRequestClose={() => this.props.dispatch(showSnackBar())}
+                    bodyStyle={{backgroundColor: isError ? red500 : green500}}
+                />
             </div>
         );
     }

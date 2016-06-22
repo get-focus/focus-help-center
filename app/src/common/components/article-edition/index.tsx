@@ -2,9 +2,8 @@ import {connect} from 'react-redux';
 import {Component, PropTypes} from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
-import {loadArticle, clearArticle, showSnackBar} from '../../actions/article-detail';
-import {TextField, Snackbar, FlatButton, IconButton} from 'material-ui';
-import {green500, red500} from 'material-ui/styles/colors';
+import {loadArticle, clearArticle} from '../../actions/article-detail';
+import {TextField, FlatButton, IconButton} from 'material-ui';
 import {State} from '../../store/default-state';
 
 export class EditPage extends Component<any, any> {
@@ -25,7 +24,6 @@ export class EditPage extends Component<any, any> {
         }
 
         const {isVisible} = this.state;
-        const {message = '', timeout = 0, actionHandler = () => null, actionText = '', isError = false} = this.props.snackbarData || {};
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
@@ -57,18 +55,7 @@ export class EditPage extends Component<any, any> {
                     <br />
                     <div className={`text ${isVisible ? 'hidden' : ''}`}>PARAMÉTRAGE</div>
                 </div>
-
                 <ContentArea />
-
-                <Snackbar
-                    open={this.props.showEditSnackbar}
-                    message={message}
-                    autoHideDuration={timeout}
-                    action={actionText}
-                    onActionTouchTap={actionHandler}
-                    onRequestClose={() => this.props.showSnackBar()}
-                    bodyStyle={{backgroundColor: isError ? red500 : green500}}
-                />
             </div>
         );
     }
@@ -78,12 +65,9 @@ export default connect(
     (state: State) => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected,
-        snackbarData: state.articleDetail.snackbarData,
-        showEditSnackbar: state.articleDetail.showEditSnackbar,
     }),
     dispatch => ({
         getArticle: id => dispatch(loadArticle(id)),
         clearArticle: () => dispatch(clearArticle()),
-        showSnackBar: () => dispatch(showSnackBar())
     })
 )(EditPage);

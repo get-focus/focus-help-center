@@ -1,10 +1,9 @@
 import {ArticleListState} from '../../definitions/article-list';
 import {ArticleLine} from './line';
-import {Link} from 'react-router';
 import {CircularProgress, FloatingActionButton} from 'material-ui';
 
 /** Component that displays the list of all articles */
-export function ArticleList({articleList: {isLoading, list, error}, connected}: {articleList: ArticleListState, connected: boolean}) {
+export function ArticleList({articleList: {isLoading, list, error}, connected, openCreate}: {articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
     const loading = isLoading && (!list || list && list.length === 0);
     return (
         <div className='article-list'>
@@ -20,11 +19,9 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
                 />
             )}
             {connected ?
-                <Link to='/create-article' className='add-button'>
-                    <FloatingActionButton>
-                        <i className='material-icons'>add</i>
-                    </FloatingActionButton>
-                </Link>
+                <FloatingActionButton onClick={openCreate} className='add-button'>
+                    <i className='material-icons'>add</i>
+                </FloatingActionButton>
             : null}
         </div>
     );

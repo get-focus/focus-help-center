@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {updateArticle, saveArticle, deleteArticle, showEditPopup, clickEditDescription, clickEditTitle} from '../../actions/article-detail';
+import {updateArticle, deleteArticle, showEditPopup, clickEditDescription, clickEditTitle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
 import {TextField, IconMenu, IconButton, MenuItem, Dialog, FlatButton} from 'material-ui';
 import {State} from '../../store/default-state';
@@ -13,26 +13,24 @@ import {capitalize} from 'lodash';
         connected: state.login.isConnected,
         isEditDescription: state.articleDetail.isEditDescription,
         isEditTitle: state.articleDetail.isEditTitle,
-        showPopup: state.articleDetail.showPopup,
-        snackbarData: state.articleDetail.snackbarData
+        showPopup: state.articleDetail.showPopup
     }),
     dispatch => ({
         clickEditDescription: () => dispatch(clickEditDescription()),
         clickEditTitle: () => dispatch(clickEditTitle()),
         deleteArticle: id => dispatch(deleteArticle(id)),
-        saveArticle: article => dispatch(saveArticle(article)),
         showEditPopup: () => dispatch(showEditPopup()),
         updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
 )
 class EditCartridgeContent extends Component<any, any> {
 
-    goHome = () => this.props.router.push({path: 'home'});
+    goHome = () => this.props.router.push('');
 
     deleteArticle = () => {
         this.props.showEditPopup();
         this.props.deleteArticle(this.props.article.id);
-        this.props.router.push({path: 'home'});
+        this.goHome();
     };
 
     publishArticle() {

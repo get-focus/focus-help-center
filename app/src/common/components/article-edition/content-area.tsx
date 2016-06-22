@@ -55,7 +55,7 @@ class ContentArea extends Component<any, any> {
                         <RaisedButton
                             primary={true}
                             className='save-button'
-                            onClick={() => this.props.updateArticle(this.state.content, () => this.props.router.push({path: ''}))}
+                            onClick={() => this.props.updateArticle(this.state.content, () => this.props.router.push(''))}
                             label={i18n.t('button.save')}
                         />
                     </div>

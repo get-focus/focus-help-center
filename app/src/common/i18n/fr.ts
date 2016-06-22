@@ -12,6 +12,14 @@ export const fr = {
                 placeholder: 'Saississez un article...'
             }
         },
+        article: {
+            title: 'Titre',
+            description: 'Description',
+            create: {
+                dialog: 'Création d\'un nouvel article',
+                confirm: 'Créer'
+            }
+        },
         'edit-cartridge': {
             input: {
                 title: 'Titre...',
