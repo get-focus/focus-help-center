@@ -12,7 +12,6 @@ describe('rootReducer', () => {
                 chai.expect(newState.articleDetail).to.deep.equal({
                     isLoading: true,
                     article: defaultState.articleDetail.article,
-                    showEditSnackbar: false,
                     showPopup: false,
                     isEditDescription: false,
                     isEditTitle: false
@@ -26,7 +25,6 @@ describe('rootReducer', () => {
                 chai.expect(newState.articleDetail).to.deep.equal({
                     isLoading: false,
                     article: apiMockData.getArticle,
-                    showEditSnackbar: false,
                     showPopup: false,
                     isEditDescription: false,
                     isEditTitle: false
@@ -40,7 +38,6 @@ describe('rootReducer', () => {
                 chai.expect(newState.articleDetail).to.deep.equal({
                     isLoading: false,
                     article: defaultState.articleDetail.article,
-                    showEditSnackbar: false,
                     showPopup: false,
                     isEditDescription: false,
                     isEditTitle: false
@@ -55,7 +52,6 @@ describe('rootReducer', () => {
                     isLoading: false,
                     error: 'error',
                     article: defaultState.articleDetail.article,
-                    showEditSnackbar: false,
                     showPopup: false,
                     isEditDescription: false,
                     isEditTitle: false
@@ -115,6 +111,43 @@ describe('rootReducer', () => {
 
             it('should update correctly the state with a FAILURE_LOGIN action', () => {
                 chai.expect(newState.login).to.deep.equal({isLoading: false, isConnected: false, error: 'error'});
+            });
+        });
+    });
+
+    describe('snackBar', () => {
+        describe('SHOW_EDIT_SNACKBAR: empty', () => {
+            const newState = rootReducer(defaultState, {type: Action.SHOW_EDIT_SNACKBAR});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'snackBar')).to.deep.equal(omit(defaultState, 'snackBar'));
+            });
+
+            it('should update correctly the state with a SHOW_EDIT_SNACKBAR action', () => {
+                chai.expect(newState.snackBar).to.deep.equal({
+                    show: true,
+                    message: '',
+                    isError: false,
+                    timeout: 3000
+                });
+            });
+        });
+
+        describe('SHOW_EDIT_SNACKBAR: data', () => {
+            const newState = rootReducer(defaultState, {type: Action.SHOW_EDIT_SNACKBAR, data: {message: 'test', actionText: 'action', isError: true}});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'snackBar')).to.deep.equal(omit(defaultState, 'snackBar'));
+            });
+
+            it('should update correctly the state with a SHOW_EDIT_SNACKBAR action', () => {
+                chai.expect(newState.snackBar).to.deep.equal({
+                    show: true,
+                    message: 'test',
+                    actionText: 'action',
+                    isError: true,
+                    timeout: 3000
+                });
             });
         });
     });
