@@ -102,7 +102,6 @@ function updateArticleAttribute(attribute: string, value: string | boolean): Art
 /** Updates an attribute of the article in the store and saves it on the server. */
 export function updateArticle(attribute: string, value: string | boolean, successHandler: () => void): any {
     return async (dispatch, getState, api: Api) => {
-        dispatch(requestActionArticle());
         dispatch(updateArticleAttribute(attribute, value));
         try {
             const response = await api.saveArticle(Object.assign({}, getState().articleDetail.article, {[attribute]: value}));

@@ -45,6 +45,7 @@ export const fr = {
                 toPublish: 'à publier',
                 publish: 'publier',
                 unpublish: 'dépublier',
+                upToDate: 'Contenu à jour.',
                 popup: {
                     confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
                     confirm: 'oui',

@@ -40,7 +40,6 @@ describe('Article Detail Actions', () => {
     describe('updateArticle', () => {
         it('should dispatch request then receive actions', done => {
             chai.expect(updateArticle('title', 'title', () => null)).with.state({articleDetail}).to.dispatch.actions([
-                {type: Action.REQUEST_ACTION_ARTICLE},
                 {
                     type: Action.UPDATE_ARTICLE,
                     attribute: 'title',

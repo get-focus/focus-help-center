@@ -186,6 +186,39 @@
                 > .save-button {
                     float: right;
                 }
+
+                > .save-text {
+                    float: right;
+                    color: #CCC;
+                    padding: 8px;
+                }
+
+                > .error {
+                    color: #F44336;
+                    padding: 3px;
+                }
+
+                > .buttons > div > div {
+                    .material-icons {
+                        margin-top: 8px;
+                    }
+
+                    i:not(.material-icons) {
+                        position: relative;
+                        left: -4px;
+                        font-style: normal;
+                    }
+
+                    i {
+                        transition: color 0.1s ease-out;
+                    }
+
+                    &:hover {
+                        i {
+                            color: lighten(rgb(0, 121, 107), 10%)
+                        }
+                    }
+                }
             }
 
             > .preview {
@@ -216,8 +249,13 @@
                 display: flex;
                 overflow: hidden;
 
-                hr[style] {
-                    bottom: -22px!important;
+                textarea {
+                    width: 100%;
+                    font-family: Roboto;
+                    font-size: 16px;
+                    resize: none;
+                    border: none;
+                    outline: none;
                 }
             }
 
