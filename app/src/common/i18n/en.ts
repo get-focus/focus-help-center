@@ -36,6 +36,7 @@ export const en = {
                     saveSuccessMessagePublished: 'Article published.',
                     saveSuccessMessageUnPublished: 'Article unpublished.',
                     saveFailedMessage: 'Error while saving.',
+                    saveFailedContentMessage: 'Title and description are mandatory',
                     saveActionText: 'Home',
                     unpublishMessage: 'The article will be unpublished after you save it.',
                     publishMessage: 'The article will be published after you save it.'

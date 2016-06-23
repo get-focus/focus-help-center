@@ -45,18 +45,25 @@ export class ArticleList extends Component {
         const title = this.refs.title.getValue();
         const description = this.refs.description.getValue();
         if (title && description) {
-            const id = await this.props.saveArticle(title, description);
-            this.props.showSnackBar({
-                message: 'Article créé',
-                actionText: 'éditer',
-                actionHandler: () => this.props.router.push(`edit-article/${id}`),
-                isError: false
-            });
-            this.props.loadArticleList();
-            this.toggleModal();
+            try {
+                const id = await this.props.saveArticle(title, description);
+                this.props.showSnackBar({
+                    message: 'edit-cartridge.content.snackBar.saveSuccessMessage',
+                    actionText: 'article-list.item.edit',
+                    actionHandler: () => this.props.router.push(`edit-article/${id}`),
+                    isError: false
+                });
+                this.props.loadArticleList();
+                this.toggleModal();
+            } catch (e) {
+                this.props.showSnackBar({
+                    message: 'edit-cartridge.content.snackBar.saveFailedMessage',
+                    isError: true
+                });
+            }
         } else {
             this.props.showSnackBar({
-                message: 'Le titre et la description doivent être remplis.',
+                message: 'edit-cartridge.content.snackBar.saveFailedContentMessage',
                 isError: true
             });
         }
