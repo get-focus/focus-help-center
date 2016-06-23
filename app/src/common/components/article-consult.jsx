@@ -31,21 +31,22 @@ export class ArticleConsult extends React.Component {
         return (
             <div className='article-consult'>
                 <div className='card'>
-                    <div className='left-content'>
-                        {leftContent? leftContent : <div><h2 id='title-extension'>{article.title}</h2></div>}
-                    </div>
-                    <div className='right-content'>
-                        {rightContent? rightContent : null}
-                    </div>
+                    <header>
+                        <div className='left-content'>
+                            {leftContent? leftContent : <div/>}
+                        </div>
+                        <div className='right-content'>
+                            {rightContent? rightContent : <div/>}
+                        </div>
+                    </header>
                     {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
                     : null}
                     {!isLoading ?
-                        <div>
-                            {leftContent && rightContent ? <h2 id='title'>{article.title}</h2> : null}
-
-                            <div id='content' dangerouslySetInnerHTML={this.rawMarkup()} />
+                        <div id='article'>
+                            <h2>{article.title}</h2>
+                            <div dangerouslySetInnerHTML={this.rawMarkup()} />
                         </div>
                     : null}
                 </div>

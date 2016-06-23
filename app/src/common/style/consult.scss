@@ -17,40 +17,36 @@
         overflow: auto;
         box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
 
-        h2 {
-            color: rgb(96,125,139);
-        }
+        header {
 
-        #title {
-            padding-top: 40px;
-        }
-
-        #title-extension {
-            margin-top: 10px;
-            float: left
-        }
-
-         #content {
-            float: left;
-        }
-
-        .left-content {
-            float: left;
-            display: block;
-        }
-
-         .right-content {
-            float: right;
-            margin-left: 10px;
-
-             .close {
-                margin-right: 10px;
+            .left-content {
+                float: left;
                 display: block;
-                position: fixed;
-                color: black;
-                width: 32px;
-                height: 32px;
-                font-size: 32px;
+            }
+
+            .right-content {
+                float: right;
+                margin-left: 10px;
+
+                    .close {
+                    margin-right: 10px;
+                    display: block;
+                    position: fixed;
+                    color: black;
+                    width: 32px;
+                    height: 32px;
+                    font-size: 32px;
+                }
+            }
+        }
+
+        #article {
+            left: 0px;
+            display: block;
+
+            h2 {
+                margin-top: 50px;
+                color: rgb(96,125,139);
             }
         }
     }
