@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Markdown from 'remarkable';
 import {loadArticle} from '../actions/article-detail';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
 import {CircularProgress} from 'material-ui';
 
 @connect(
@@ -15,6 +14,11 @@ import {CircularProgress} from 'material-ui';
 )
 export class ArticleConsult extends React.Component {
 
+    static propTypes = {
+        leftContent: PropTypes.object,
+        rightContent: PropTypes.object
+    };
+
     md = new Markdown();
     rawMarkup = () => ({__html: this.md.render(this.props.article.content)});
 
@@ -23,12 +27,15 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        const {article, isLoading, error} = this.props;
+        const {article, isLoading, error, leftContent, rightContent} = this.props;
         return (
             <div className='article-consult'>
                 <div className='card'>
-                    <div className='close'>
-                        <Link to='/'><i className='material-icons'>close</i></Link>
+                    <div className='left-content'>
+                        {leftContent? leftContent : <div><h2 id='title-extension'>{article.title}</h2></div>}
+                    </div>
+                    <div className='right-content'>
+                        {rightContent? rightContent : null}
                     </div>
                     {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
                     {error ?
@@ -36,8 +43,9 @@ export class ArticleConsult extends React.Component {
                     : null}
                     {!isLoading ?
                         <div>
-                            <h3>{article.title}</h3>
-                            <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                            {leftContent && rightContent ? <h2 id='title'>{article.title}</h2> : null}
+
+                            <div id='content' dangerouslySetInnerHTML={this.rawMarkup()} />
                         </div>
                     : null}
                 </div>
