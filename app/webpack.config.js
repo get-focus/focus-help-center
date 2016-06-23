@@ -16,7 +16,8 @@ module.exports = (app, isDev) => ({
             filename: app === 'back-office' ? 'index.html' : `${app}.html`
         }),
         new webpack.DefinePlugin({
-            'process.env.LANG': `"${process.env.LANG}"`
+            'process.env.LANG': `"${process.env.LANG}"`,
+            'process.env.ENV': `"${process.env.ENV}"`
         })
     ].concat(isDev ? [
         new webpack.HotModuleReplacementPlugin()

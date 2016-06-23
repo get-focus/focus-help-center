@@ -35,6 +35,7 @@ export default class Layout extends Component {
                             <FlatButton
                                 icon={<i className='material-icons'>exit_to_app</i>}
                                 label={i18n.t('back-office.layout.back-to-app')}
+                                onClick={() => window.open(process.env.ENV === 'development' ? 'http://localhost:3000' : 'https://github.com/get-focus/focus-help-center')}
                             />
                         </div>
                         <div className='middle'>
