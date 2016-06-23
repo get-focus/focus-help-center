@@ -32,7 +32,9 @@ class ContentArea extends Component<any, any> {
     rawMarkup = () => ({__html: this.md.render(this.state.content)});
     save = () => {
         clearTimeout(this.timer);
-        this.props.updateArticle(this.state.content, () => this.props.router.push(''));
+        if (this.props.content !== this.state.content) {
+            this.props.updateArticle(this.state.content, () => this.props.router.push(''));
+        }
     };
 
     componentWillMount() {
