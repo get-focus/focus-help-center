@@ -2,12 +2,13 @@ import '../../style';
 import ArticleListTitle from '../../../common/components/article-list/title';
 import {ArticleList} from '../../../common/components/article-list';
 import {FlatButton} from 'material-ui';
+import i18n from 'i18next';
 
 export function Home() {
     return (
         <div className='layout'>
             <header>
-                <ArticleListTitle textFieldUnderline={false} hintText={'Rechercher dans le centre d\'aide'}/>
+                <ArticleListTitle textFieldUnderline={false}/>
             </header>
             <div className='content'>
                 <ArticleList />
@@ -15,7 +16,7 @@ export function Home() {
             <footer>
                 <FlatButton
                     icon={<i className='material-icons'>exit_to_app</i>}
-                    label='voir tous les articles'
+                    label={i18n.t('extension.footer.button')}
                     onClick={() => window.open('http://localhost:9999')}
                     primary={true}
                     rippleColor='transparent'

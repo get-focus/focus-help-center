@@ -67,6 +67,9 @@ export const fr = {
             password: 'Mot de passe',
             connected: 'Connecté'
         },
+        search: {
+            placeholder: 'Rechercher dans le centre d\'aide'
+        },
 
         // Back office specific labels.
         'back-office': {
@@ -78,7 +81,10 @@ export const fr = {
 
         // Extension specific labels.
         extension: {
-            title: 'centre d\'aide'
+            title: 'centre d\'aide',
+            footer: {
+                button: 'voir tous les articles'
+            }
         }
     }
 };

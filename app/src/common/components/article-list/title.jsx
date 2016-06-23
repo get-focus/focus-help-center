@@ -10,7 +10,7 @@ export default connect(
         error: state.articleList.error
     }),
     dispatch => ({search: filter => dispatch(searchArticleList(filter))})
-)(function ArticleListTitle({loading, filter, search, error, textFieldUnderline, hintText}) {
+)(function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) {
     return (
         <div className='article-list-header'>
             <h3>{i18n.t('article-list.title')}</h3>
@@ -23,7 +23,7 @@ export default connect(
                         errorStyle={{color: 'indianred'}}
                         value={filter}
                         onChange={e => search(e.target.value)}
-                        hintText={hintText}
+                        hintText={i18n.t('search.placeholder')}
                     />
                     {textFieldUnderline ? (loading && filter ? <LinearProgress style={{position: 'absolute', bottom: '8px', height: '2px'}} /> : null) : null}
                 </div>
