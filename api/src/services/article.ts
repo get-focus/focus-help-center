@@ -180,6 +180,7 @@ export function articleService(app: express.Application) {
         } else {
             let article: IArticle = req.body;
             if (!article.id) {
+                article.published = article.published !== undefined ? article.published : false;
                 article = (await Article.create(req.body)).get();
             } else {
                 const time = new Date().toISOString();

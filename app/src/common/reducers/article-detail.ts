@@ -7,8 +7,7 @@ export const defaultValue: ArticleDetailState = {
     isEditDescription: false,
     isEditTitle: false,
     isLoading: false,
-    showPopup: false,
-    showEditSnackbar: false
+    showPopup: false
 };
 
 /** Reducer that handles the `articleDetail` store node. */
@@ -44,8 +43,6 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             return defaultValue;
         case Action.SHOW_POPUP_EDITION:
             return a({}, state, {showPopup: !state.showPopup});
-        case Action.SHOW_EDIT_SNACKBAR:
-            return a({}, state, {showEditSnackbar: !state.showEditSnackbar, snackbarData: a({}, action.snackbarData, {timeout: 3000}) || state.snackbarData});
         case Action.CLICK_EDIT_DESCRIPTION:
             return a({}, state, {isEditDescription: !state.isEditDescription});
         case Action.CLICK_EDIT_TITLE:

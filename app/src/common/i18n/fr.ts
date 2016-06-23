@@ -12,6 +12,14 @@ export const fr = {
                 placeholder: 'Saississez un article...'
             }
         },
+        article: {
+            title: 'Titre',
+            description: 'Description',
+            create: {
+                dialog: 'Création d\'un nouvel article',
+                confirm: 'Créer'
+            }
+        },
         'edit-cartridge': {
             input: {
                 title: 'Titre...',
@@ -21,13 +29,14 @@ export const fr = {
                 title: 'Titre',
                 description: 'Description',
                 snackBar: {
-                    saveSuccessMessage: 'Article sauvegardé.',
+                    saveSuccessMessage: 'Article créé.',
                     saveSuccessMessageTitle: 'Titre sauvegardé.',
                     saveSuccessMessageDescription: 'Description sauvegardée.',
                     saveSuccessMessageContent: 'Contenu sauvegardé.',
                     saveSuccessMessagePublished: 'Article publié.',
                     saveSuccessMessageUnPublished: 'Article dépublié.',
                     saveFailedMessage: 'Erreur lors de la sauvegarde.',
+                    saveFailedContentMessage: 'Le titre et la description doivent être remplis.',
                     saveActionText: 'Accueil',
                     unpublishMessage: 'L\'article sera dépublié après la sauvegarde.',
                     publishMessage: 'L\'article sera publié après la sauvegarde.'
