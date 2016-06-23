@@ -1,13 +1,4 @@
-$header-top-row-menu-size: 60px;
-$header-top-row-padding: 10px;
-$header-top-cell-padding: 15px;
-$header-top-row-element-height: ($header-top-row-menu-size) - ($header-top-row-padding * 2);
 $header-scrolling-shadow-color: rgba(0,0,0,0.3);
-$header-actions-height: 56px;
-$header-top-row-height: 60px;
-$header-top-row-zindex: 1001;
-$media-tablet-breakpoint: 480px !default;
-$media-desktop-breakpoint: 840px !default;
 
 .layout {
     display: flex;
