@@ -4,11 +4,11 @@ import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {updateArticle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
-import {RaisedButton, TextField, LinearProgress} from 'material-ui';
-import {State} from '../../store/default-state';
+import {RaisedButton, LinearProgress} from 'material-ui';
+import {SimpleMarkdownEditor} from 'react-simple-markdown-editor';
 
 @connect(
-    (state: State) => ({
+    (state) => ({
         content: state.articleDetail.article.content,
         connected: state.login.isConnected,
         loading: state.articleDetail.isLoading,
@@ -22,17 +22,8 @@ class ContentArea extends Component<any, any> {
     md = new Markdown({linkTarget: '_blank'});
     timer: number;
 
-    getRowNumber = () => {
-        const textField = this.refs['content-area-textarea'] as Element;
-        if (textField) {
-            return Math.round(textField.clientHeight / 25) - 2;
-        } else {
-            return 10;
-        }
-    }
-
     handleChange = () => {
-        const content = this.refs['textarea']['getValue']();
+        const content = this.refs['textarea']['value'];
         this.setState({content});
         clearTimeout(this.timer);
         this.timer = setTimeout(this.save, 5000);
@@ -61,8 +52,27 @@ class ContentArea extends Component<any, any> {
             <div className='content'>
                 <div className='header'>
                     <div className='edit'>
+                        <div className='buttons' onClick={this.handleChange}>
+                            <SimpleMarkdownEditor
+                                textAreaID='textarea'
+                                enabledButtons={{code: false}}
+                                styles={{button: {width: '40px', height: '40px', fontFamily: 'Roboto', background: 'none'}}}
+                                buttonHtmlText={{
+                                    bold: '<i class="material-icons">format_bold</i>',
+                                    italic: '<i class="material-icons">format_italic</i>',
+                                    strike: '<i class="material-icons">strikethrough_s</i>',
+                                    quote: '<i class="material-icons">format_quote</i>',
+                                    h1: '<i class="material-icons">title</i><i>1</i>',
+                                    h2: '<i class="material-icons">title</i><i>2</i>',
+                                    h3: '<i class="material-icons">title</i><i>3</i>',
+                                    bullet: '<i class="material-icons">format_list_bulleted</i>',
+                                    link: '<i class="material-icons">insert_link</i>',
+                                    image: '<i class="material-icons">insert_photo</i>'
+                                }}
+                            />
+                        </div>
                         {this.props.loading ?
-                            <LinearProgress style={{marginTop: '18px', height: '2px'}} />
+                            <LinearProgress style={{marginTop: '18px', height: '2px', width: '150px', float: 'right'}} />
                         : this.props.error ?
                             <div className='error save-text'><i className='material-icons'>error</i><div>{this.props.error}</div></div>
                         : this.state.content !== this.props.content ?
@@ -80,16 +90,12 @@ class ContentArea extends Component<any, any> {
                     </div>
                 </div>
                 <div className='workspace'>
-                    <div className='textarea' ref='content-area-textarea'>
-                        <TextField
+                    <div className='textarea'>
+                        <textarea
                             ref='textarea'
-                            multiLine={true}
-                            fullWidth={true}
-                            hintText={i18n.t('article-edit.content.placeholder')}
+                            id='textarea'
                             value={this.state.content}
                             onChange={this.handleChange}
-                            rowsMax={this.getRowNumber()}
-                            rows={this.getRowNumber()}
                         />
                     </div>
                     <div
