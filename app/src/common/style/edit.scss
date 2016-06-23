@@ -186,6 +186,17 @@
                 > .save-button {
                     float: right;
                 }
+
+                > .save-text {
+                    float: right;
+                    color: #CCC;
+                    padding: 8px;
+                }
+
+                > .error {
+                    color: #F44336;
+                    padding: 3px;
+                }
             }
 
             > .preview {

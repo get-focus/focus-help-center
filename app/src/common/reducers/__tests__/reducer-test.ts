@@ -62,7 +62,7 @@ describe('rootReducer', () => {
         describe('UPDATE_ARTICLE', () => {
             const newState = rootReducer(defaultState, {type: Action.UPDATE_ARTICLE, attribute: 'title', value: 'TITLE'});
             it('should correctly set the state with a ERROR_ACTION_ARTICLE action', () => {
-                chai.expect(newState.articleDetail.isLoading).to.equal(false);
+                chai.expect(newState.articleDetail.isLoading).to.equal(true);
                 chai.expect(newState.articleDetail.article.title).to.equal('TITLE');
                 chai.expect(newState.articleDetail.article.description).to.equal(defaultState.articleDetail.article.description);
                 chai.expect(newState.articleDetail.article.content).to.equal(defaultState.articleDetail.article.content);

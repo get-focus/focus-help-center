@@ -37,7 +37,7 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
         case Action.UPDATE_ARTICLE:
             return a({}, state, {
                 article: a({}, state.article, {[action.attribute]: action.value}),
-                isLoading: false
+                isLoading: true
             });
         case Action.CLEAR_ARTICLE:
             return defaultValue;
