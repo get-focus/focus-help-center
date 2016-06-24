@@ -49,12 +49,10 @@ export class ArticleList extends React.Component {
                 const id = await this.props.saveArticle(title, description);
                 this.props.showSnackBar({
                     message: 'edit-cartridge.content.snackBar.saveSuccessMessage',
-                    actionText: 'article-list.item.edit',
-                    actionHandler: () => this.props.router.push(`edit-article/${id}`),
                     isError: false
                 });
-                this.props.loadArticleList();
                 this.toggleModal();
+                setTimeout(() => this.props.router.push(`edit-article/${id}`), 500);
             } catch (e) {
                 this.props.showSnackBar({
                     message: 'edit-cartridge.content.snackBar.saveFailedMessage',
