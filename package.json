@@ -5,8 +5,8 @@
   "author": "KleeGroup",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "6.0.5",
-    "envify": "3.4.0",
+    "babel-eslint": "6.1.0",
+    "envify": "3.4.1",
     "eslint": "2.13.1",
     "eslint-plugin-react": "5.2.2",
     "tslint": "3.11.0",

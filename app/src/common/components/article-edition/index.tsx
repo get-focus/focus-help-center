@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
-import {Component, PropTypes} from 'react';
+import * as React from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
 import {loadArticle, clearArticle} from '../../actions/article-detail';
 import {TextField, FlatButton, IconButton} from 'material-ui';
 import {State} from '../../store/default-state';
 
-export class EditPage extends Component<any, any> {
-    static propTypes = {id: PropTypes.number};
+export class EditPage extends React.Component<any, any> {
+    static propTypes = {id: React.PropTypes.number};
 
     state = {isVisible: false};
 

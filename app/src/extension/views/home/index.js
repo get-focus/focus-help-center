@@ -1,3 +1,4 @@
+import React from 'react';
 import '../../style';
 import ArticleListTitle from '../../../common/components/article-list/title';
 import {ArticleList} from '../../../common/components/article-list';

@@ -1,5 +1,5 @@
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Component, PropTypes} from 'react';
 
 import {loadArticleList} from '../../actions/article-list';
 import {saveArticle} from '../../actions/article-detail';
@@ -22,7 +22,7 @@ import {withRouter} from 'react-router';
         showSnackBar: data => dispatch(showSnackBar(data))
     })
 )
-export class ArticleList extends Component {
+export class ArticleList extends React.Component {
     static propTypes = {
         articleList: PropTypes.object,
         loadArticleList: PropTypes.func,
@@ -49,12 +49,10 @@ export class ArticleList extends Component {
                 const id = await this.props.saveArticle(title, description);
                 this.props.showSnackBar({
                     message: 'edit-cartridge.content.snackBar.saveSuccessMessage',
-                    actionText: 'article-list.item.edit',
-                    actionHandler: () => this.props.router.push(`edit-article/${id}`),
                     isError: false
                 });
-                this.props.loadArticleList();
                 this.toggleModal();
+                setTimeout(() => this.props.router.push(`edit-article/${id}`), 500);
             } catch (e) {
                 this.props.showSnackBar({
                     message: 'edit-cartridge.content.snackBar.saveFailedMessage',

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {shallow} from 'enzyme';
 import {EditPage} from '../';
 import {IconButton} from 'material-ui';

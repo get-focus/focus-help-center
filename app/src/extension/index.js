@@ -1,4 +1,5 @@
-import ReactDOM from 'react-dom';
+import React from 'react';
+import {render} from 'react-dom';
 import {HelpCenterBase} from '../common/components';
 import './style';
 import {Router, hashHistory} from 'react-router';
@@ -12,4 +13,4 @@ function Extension() {
     );
 }
 
-ReactDOM.render(<Extension />, document.getElementById('root'));
+render(<Extension />, document.getElementById('root'));

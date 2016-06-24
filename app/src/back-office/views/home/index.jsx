@@ -1,3 +1,4 @@
+import React from 'react';
 import Layout from '../../layout';
 import {ArticleList} from '../../../common/components/article-list';
 import ArticleListTitle from '../../../common/components/article-list/title';
