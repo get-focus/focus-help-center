@@ -105,8 +105,8 @@ class EditCartridgeContent extends React.Component<any, any> {
                         {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish')}
                         <IconMenu
                             iconButtonElement={<IconButton><i className='material-icons'>keyboard_arrow_down</i></IconButton>}
-                            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
                         >
                             <MenuItem
                                 primaryText={this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish')}

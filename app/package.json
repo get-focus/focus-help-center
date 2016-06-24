@@ -42,7 +42,8 @@
         "APP_LAUNCHED": "back-office",
         "ENV": "development",
         "ROOT_BACK_URL": "http://localhost:9999",
-        "ROOT_EXTENSION_URL": "http://localhost:1234"
+        "ROOT_EXTENSION_URL": "http://localhost:1234",
+        "ROOT_APP_URL": "http://localhost:3000"
       }
     },
     "start-extension": {
@@ -66,7 +67,8 @@
         "APP_LAUNCHED": "extension",
         "ENV": "development",
         "ROOT_BACK_URL": "http://localhost:9999",
-        "ROOT_EXTENSION_URL": "http://localhost:1234"
+        "ROOT_EXTENSION_URL": "http://localhost:1234",
+        "ROOT_APP_URL": "http://localhost:3000"
       }
     },
     "test": {
