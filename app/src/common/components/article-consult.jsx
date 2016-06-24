@@ -16,8 +16,13 @@ export class ArticleConsult extends React.Component {
 
     static propTypes = {
         leftContent: PropTypes.object,
-        rightContent: PropTypes.object
+        rightContent: PropTypes.object,
+        isExtension: PropTypes.bool
     };
+
+    static defaultProps = {
+        isExtension: false
+    }
 
     md = new Markdown();
     rawMarkup = () => ({__html: this.md.render(this.props.article.content)});
@@ -27,10 +32,10 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        const {article, isLoading, error, leftContent, rightContent} = this.props;
+        const {article, isLoading, error, leftContent, rightContent, isExtension} = this.props;
         return (
             <div className='article-consult'>
-                <div className='card'>
+                {isExtension?
                     <header>
                         <div className='left-content'>
                             {leftContent? leftContent : <div/>}
@@ -39,6 +44,20 @@ export class ArticleConsult extends React.Component {
                             {rightContent? rightContent : <div/>}
                         </div>
                     </header>
+                    : null
+                }
+                <div className='card'>
+                    {!isExtension?
+                        <div className='top-header'>
+                            <div className='left-content'>
+                                {leftContent? leftContent : <div/>}
+                            </div>
+                            <div className='right-content'>
+                                {rightContent? rightContent : <div/>}
+                            </div>
+                        </div>
+                        :null
+                    }
                     {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>

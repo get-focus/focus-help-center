@@ -9,8 +9,8 @@ import {FlatButton} from 'material-ui';
 function renderLeftContent() {
     return (
         <div>
-            <FlatButton label='imprimer' icon={<i className="material-icons">print</i>} secondary={true}/>
-            <FlatButton label='envoyer' icon={<i className="material-icons">send</i>} secondary={true}/>
+            <FlatButton label='imprimer' icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print()} />
+            <FlatButton label='envoyer' icon={<i className="material-icons">send</i>} secondary={true} />
         </div>
     );
 }
