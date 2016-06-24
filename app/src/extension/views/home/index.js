@@ -18,7 +18,7 @@ export function Home() {
                 <FlatButton
                     icon={<i className='material-icons'>exit_to_app</i>}
                     label={i18n.t('extension.footer.button')}
-                    onClick={() => window.open(process.env.ENV === 'development' ? 'http://localhost:9999' : 'https://github.com/get-focus/focus-help-center')}
+                    onClick={() => window.open(process.env.ENV === 'development' ? `${process.env.ROOT_BACK_URL}` : 'https://github.com/get-focus/focus-help-center')}
                     primary={true}
                     rippleColor='transparent'
                     style={{width: '100%', textAlign: 'left'}}

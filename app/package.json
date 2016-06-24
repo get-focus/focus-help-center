@@ -40,7 +40,10 @@
         "BABEL_ENV": "development",
         "LANG": "fr",
         "APP_LAUNCHED": "back-office",
-        "ENV": "development"
+        "ENV": "development",
+        "ROOT_BACK_URL": "http://localhost:9999",
+        "ROOT_EXTENSION_URL": "http://localhost:1234",
+        "ROOT_APP_URL": "http://localhost:3000"
       }
     },
     "start-extension": {
@@ -62,7 +65,10 @@
         "BABEL_ENV": "development",
         "LANG": "fr",
         "APP_LAUNCHED": "extension",
-        "ENV": "development"
+        "ENV": "development",
+        "ROOT_BACK_URL": "http://localhost:9999",
+        "ROOT_EXTENSION_URL": "http://localhost:1234",
+        "ROOT_APP_URL": "http://localhost:3000"
       }
     },
     "test": {
