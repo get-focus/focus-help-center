@@ -7,13 +7,13 @@
     "build": "gulp build",
     "build:watch": "gulp watch",
     "db-init": "better-npm-run db-init",
-    "postinstall": "sh postinstall.sh",
     "start": "better-npm-run start",
     "start:watch": "better-npm-run start-watch",
     "start:test": "better-npm-run start-test",
     "start:test-watch": "better-npm-run start-watch-test",
     "diagnostic": "mocha src/db/__tests__/**/*.ts",
     "test": "mocha src/services/__tests__/**/*.ts",
+    "swagger-ui": "sh postinstall.sh",
     "typings": "typings install"
   },
   "betterScripts": {
