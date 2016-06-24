@@ -14,7 +14,7 @@ const propTypes = {
     textFieldUnderline: PropTypes.bool
 };
 
-const ArticleListTitle = ({loading, filter, search, error, textFieldUnderline}) => {
+function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) {
     return (
         <div className='article-list-header'>
             <h3>{i18n.t('article-list.title')}</h3>
@@ -34,7 +34,7 @@ const ArticleListTitle = ({loading, filter, search, error, textFieldUnderline}) 
             </div>
         </div>
     );
-};
+}
 
 ArticleListTitle.defaultProps = defaultProps;
 ArticleListTitle.propTypes = propTypes;
