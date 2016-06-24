@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import * as React from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
 import {updateArticle, deleteArticle, showEditPopup, clickEditDescription, clickEditTitle} from '../../actions/article-detail';
@@ -23,7 +23,7 @@ import {capitalize} from 'lodash';
         updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
 )
-class EditCartridgeContent extends Component<any, any> {
+class EditCartridgeContent extends React.Component<any, any> {
 
     goHome = () => this.props.router.push('');
 

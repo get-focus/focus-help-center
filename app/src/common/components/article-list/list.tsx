@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {ArticleListState} from '../../definitions/article-list';
 import {ArticleLine} from './line';
 import {CircularProgress, FloatingActionButton} from 'material-ui';

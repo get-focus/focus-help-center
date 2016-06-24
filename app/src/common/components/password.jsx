@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
 import i18n from 'i18next';
@@ -17,7 +17,7 @@ import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
         clearError: () => dispatch(clearError())
     })
 )
-export class PasswordComponent extends Component {
+export class PasswordComponent extends React.Component {
 
     login = () => {
         if (this.props.connected) {

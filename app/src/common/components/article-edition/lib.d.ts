@@ -4,5 +4,6 @@ declare module 'remarkable' {
 }
 
 declare module 'react-simple-markdown-editor' {
-    export class SimpleMarkdownEditor extends React.Component<any, any> {}
+    import {Component} from 'react';
+    export class SimpleMarkdownEditor extends Component<any, any> {}
 }

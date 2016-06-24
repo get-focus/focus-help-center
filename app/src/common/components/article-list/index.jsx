@@ -1,5 +1,5 @@
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Component, PropTypes} from 'react';
 
 import {loadArticleList} from '../../actions/article-list';
 import {saveArticle} from '../../actions/article-detail';
@@ -22,7 +22,7 @@ import {withRouter} from 'react-router';
         showSnackBar: data => dispatch(showSnackBar(data))
     })
 )
-export class ArticleList extends Component {
+export class ArticleList extends React.Component {
     static propTypes = {
         articleList: PropTypes.object,
         loadArticleList: PropTypes.func,

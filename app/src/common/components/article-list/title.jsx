@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {connect} from 'react-redux';
 import {searchArticleList} from '../../actions/article-list';
 import i18n from 'i18next';

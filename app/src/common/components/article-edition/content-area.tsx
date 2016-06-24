@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import * as React from 'react';
 import Markdown from 'remarkable';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
@@ -16,7 +16,7 @@ import {SimpleMarkdownEditor} from 'react-simple-markdown-editor';
     }),
     dispatch => ({updateArticle: (content, successHandler) => dispatch(updateArticle('content', content, successHandler))})
 )
-class ContentArea extends Component<any, any> {
+class ContentArea extends React.Component<any, any> {
     state = {content: this.props.content};
 
     md = new Markdown({linkTarget: '_blank'});

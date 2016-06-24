@@ -1,4 +1,5 @@
-import ReactDOM from 'react-dom';
+import React from 'react';
+import {render} from 'react-dom';
 import './style';
 
 import {HelpCenterBase} from '../common/components';
@@ -14,4 +15,4 @@ function HelpCenter() {
     );
 }
 
-ReactDOM.render(<HelpCenter />, document.getElementById('root'));
+render(<HelpCenter />, document.getElementById('root'));

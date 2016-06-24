@@ -1,15 +1,12 @@
 import 'babel-polyfill';
 import '../style';
 import React from 'react';
-window.React = React;
-
 import {Provider} from 'react-redux';
 import {configureStore} from '../store';
 import {i18nInit} from '../i18n';
 i18nInit();
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {MuiThemeProvider, getMuiTheme} from 'material-ui/styles';
 import {teal700, blue400, white, grey900} from 'material-ui/styles/colors';
 import touch from 'react-tap-event-plugin';
 touch();

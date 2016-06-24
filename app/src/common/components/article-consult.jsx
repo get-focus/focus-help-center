@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React from 'react';
 import Markdown from 'remarkable';
 import {loadArticle} from '../actions/article-detail';
 import {connect} from 'react-redux';
@@ -13,7 +13,7 @@ import {CircularProgress} from 'material-ui';
     }),
     dispatch => ({loadArticle: id => dispatch(loadArticle(id))})
 )
-export class ArticleConsult extends Component {
+export class ArticleConsult extends React.Component {
 
     md = new Markdown();
     rawMarkup = () => ({__html: this.md.render(this.props.article.content)});
