@@ -4,6 +4,15 @@ import {connect} from 'react-redux';
 import {searchArticleList} from '../../actions/article-list';
 import i18n from 'i18next';
 import {TextField, LinearProgress} from 'material-ui';
+import {PropTypes} from 'react';
+
+const defaultProps = {
+    textFieldUnderline: true
+};
+
+const propTypes = {
+    textFieldUnderline: PropTypes.bool
+};
 
 const ArticleListTitle = ({loading, filter, search, error, textFieldUnderline}) => {
     return (
@@ -27,9 +36,8 @@ const ArticleListTitle = ({loading, filter, search, error, textFieldUnderline}) 
     );
 };
 
-ArticleListTitle.defaultProps = {
-    textFieldUnderline: true
-};
+ArticleListTitle.defaultProps = defaultProps;
+ArticleListTitle.propTypes = propTypes;
 
 export default connect(
     state => ({
