@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "Focus help center",
   "author": "KleeGroup",
+  "main": "./dist/index.js",
   "license": "MIT",
+  "scripts": {
+    "postinstall": "sh packaging.sh",
+    "start": "cd dist && node default.js"
+  },
   "devDependencies": {
     "babel-eslint": "6.1.0",
     "envify": "3.4.1",

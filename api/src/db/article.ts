@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 /** Represents an article. */
-interface IArticle {
+export interface IArticle {
     id?: number;
     title: string;
     description: string;
@@ -13,4 +13,4 @@ interface IArticle {
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */
-interface IArticleInstance extends Sequelize.Instance<{}, IArticle> { }
+export interface IArticleInstance extends Sequelize.Instance<{}, IArticle> { }

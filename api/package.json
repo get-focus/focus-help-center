@@ -7,6 +7,7 @@
     "build": "gulp build",
     "build:watch": "gulp watch",
     "db-init": "better-npm-run db-init",
+    "db-init:prod": "better-npm-run db-init-prod",
     "start": "better-npm-run start",
     "start:watch": "better-npm-run start-watch",
     "start:test": "better-npm-run start-test",
@@ -20,29 +21,35 @@
     "db-init": {
       "command": "cd dist && node ./db/init.js",
       "env": {
-        "DB_ENV": "production"
+        "DB_ENV": "dev"
+      }
+    },
+    "db-init-prod": {
+      "command": "cd dist && node ./db/init.js",
+      "env": {
+        "DB_ENV": "prod"
       }
     },
     "start": {
-      "command": "cd dist && node index.js",
+      "command": "cd dist && node default.js",
       "env": {
-        "DB_ENV": "production"
+        "DB_ENV": "dev"
       }
     },
     "start-watch": {
-      "command": "cd dist && nodemon index.js",
+      "command": "cd dist && nodemon default.js",
       "env": {
-        "DB_ENV": "production"
+        "DB_ENV": "dev"
       }
     },
     "start-test": {
-      "command": "cd dist && node index.js",
+      "command": "cd dist && node default.js",
       "env": {
         "DB_ENV": "test"
       }
     },
     "start-watch-test": {
-      "command": "cd dist && nodemon index.js",
+      "command": "cd dist && nodemon default.js",
       "env": {
         "DB_ENV": "test"
       }
@@ -68,8 +75,10 @@
     "faker": "3.1.0",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
+    "gulp-clip-empty-files": "0.1.2",
     "gulp-typescript": "2.13.6",
     "isomorphic-fetch": "2.2.1",
+    "merge2": "1.0.2",
     "mocha": "2.5.3",
     "nodemon": "1.9.2",
     "ts-node": "0.9.3",
