@@ -65,10 +65,6 @@ export function sectionService(app: express.Application) {
      *         description: A single section.
      *         schema:
      *           $ref: '#/definitions/Section-Get'
-     *       403:
-     *         description: Section not published and no rights
-     *         schema:
-     *           $ref: '#/definitions/Error'
      *       404:
      *         description: Section not found
      *         schema:
