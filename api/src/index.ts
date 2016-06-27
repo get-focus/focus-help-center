@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 
 const app: Express = express();
-app.use(express.static(path.resolve(process.cwd(), process.env.IS_BUNDLE ? './app' : './docs')));
+app.use(express.static(path.resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
