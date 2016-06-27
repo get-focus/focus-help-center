@@ -20,7 +20,8 @@ module.exports = (app, isDev) => ({
             'process.env.ENV': `"${process.env.ENV}"`,
             'process.env.ROOT_BACK_URL': `"${process.env.ROOT_BACK_URL}"`,
             'process.env.ROOT_EXTENSION_URL': `"${process.env.ROOT_EXTENSION_URL}"`,
-            'process.env.ROOT_APP_URL': `"${process.env.ROOT_APP_URL}"`
+            'process.env.ROOT_APP_URL': `"${process.env.ROOT_APP_URL}"`,
+            'process.env.IS_BUNDLE': `"${process.env.IS_BUNDLE}"`
         })
     ].concat(isDev ? [
         new webpack.HotModuleReplacementPlugin()
