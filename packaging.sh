@@ -1,3 +1,4 @@
+export IS_BUNDLE=true
 cd api
 npm run build
 npm run db-init:prod
@@ -14,7 +15,6 @@ cd dist
 npm install --only=prod
 cd ..
 rm dist/package.json
-export IS_BUNDLE=true
 "./node_modules/.bin/envify" dist/index.js > dist/index2.js
 rm dist/index.js
 mv dist/index2.js dist/index.js

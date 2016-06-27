@@ -2,6 +2,9 @@ import fetch from 'isomorphic-fetch';
 import {Article} from '../definitions/article';
 import {Api} from './index';
 
+declare const process: any;
+const apiRoot = process.env.IS_BUNDLE === 'true' ? '.' : 'http://localhost:1337';
+
 async function fetchWithLogin(url: string, options?) {
     try {
         const token = localStorage.getItem('token');
@@ -18,12 +21,12 @@ async function fetchWithLogin(url: string, options?) {
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList(filter?: string) {
-        const response = await fetchWithLogin(`http://localhost:1337/api/article${filter ? `?filter=${filter}` : ''}`);
+        const response = await fetchWithLogin(`${apiRoot}/api/article${filter ? `?filter=${filter}` : ''}`);
         return response.json<Article[]>();
     },
 
     async login(password) {
-        const response = await fetchWithLogin('http://localhost:1337/signin', {
+        const response = await fetchWithLogin(`${apiRoot}/signin`, {
             method: 'POST',
             body: password
         });
@@ -38,13 +41,13 @@ export const api: Api = {
     },
 
     async isConnected() {
-        const response = await fetchWithLogin('http://localhost:1337/signin');
+        const response = await fetchWithLogin(`${apiRoot}/signin`);
         const data = await response.json<{success: boolean}>();
         return !!data.success;
     },
 
     async saveArticle(article) {
-        const response = await fetchWithLogin('http://localhost:1337/api/article', {
+        const response = await fetchWithLogin(`${apiRoot}/api/article`, {
             method: 'POST',
             body: JSON.stringify(article),
             headers: {
@@ -60,7 +63,7 @@ export const api: Api = {
     },
 
     async deleteArticle(id) {
-        const response = await fetchWithLogin(`http://localhost:1337/api/article/${id}`, {method: 'DELETE'});
+        const response = await fetchWithLogin(`${apiRoot}/api/article/${id}`, {method: 'DELETE'});
         const data = await response.json<{success: boolean, error: string}>();
         if (data.success) {
             return true;
@@ -70,7 +73,7 @@ export const api: Api = {
     },
 
     async getArticle(id) {
-        const response = await fetchWithLogin(`http://localhost:1337/api/article/${id}`, {method: 'GET'});
+        const response = await fetchWithLogin(`${apiRoot}/api/article/${id}`, {method: 'GET'});
         const data = await response.json<Article | {error: string}>();
         if ((data as Article).title) {
             return data;

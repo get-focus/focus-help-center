@@ -18,6 +18,7 @@
       "command": "webpack --config ./webpack.back.js && webpack --config ./webpack.ext.js",
       "env": {
         "BABEL_ENV": "production",
+        "NODE_ENV": "production",
         "LANG": "fr"
       }
     },
