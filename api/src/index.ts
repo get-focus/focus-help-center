@@ -1,17 +1,9 @@
-import express from 'express';
-import expressJwt from 'express-jwt';
+import express, {Express} from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 
-import {articleService} from './services/article';
-import {signinService} from './services/signin';
-import {swaggerService} from './swagger/index';
-
-import {initDb} from './db/init-test-data';
-
-const app = express();
+const app: Express = express();
 app.use(express.static(path.resolve(process.cwd(), process.env.IS_BUNDLE ? './app' : './docs')));
-app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
@@ -23,19 +15,4 @@ app.use((req, res, next) => {
     next();
 });
 
-// When testing, we recreate the db for each request.
-if (process.env.DB_ENV === 'test') {
-    app.use(async (req, res, next) => {
-        await initDb();
-        next();
-    });
-}
-
-// Registers the services.
-articleService(app);
-signinService(app);
-swaggerService(app);
-
-app.listen(1337, () => {
-    console.log('Lauching app on port 1337');
-});
+export default app;
