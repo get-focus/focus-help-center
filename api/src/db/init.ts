@@ -1,5 +1,6 @@
-import {sequelize, Article} from './';
+import {sequelize, Article, Section} from './';
 import {IArticle} from '../db/article';
+import {ISection} from '../db/section';
 import faker from 'faker';
 
 /** Create the database. */
@@ -39,6 +40,13 @@ async function initDb() {
         } catch (error) {
             console.log(`Error while trying to insert an article in the database : ${error}`);
         }
+    }
+
+    // Populate the Section Table
+    try {
+        await Section.create({name: 'Testing'});
+    } catch (error) {
+        console.log(`Error while trying to insert an article in the database : ${error}`);
     }
 }
 

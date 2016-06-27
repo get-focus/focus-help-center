@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import {IArticle, IArticleInstance} from './article';
 import {dbPath} from '../config';
+import {ISection, ISectionInstance} from './section';
 
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
@@ -19,8 +20,15 @@ const article =
         publishedAt: Sequelize.DATE
     });
 
+const section = sequelizeInstance.define<ISectionInstance, ISection>('Section', {
+    name: Sequelize.STRING
+});
+
 /** ORM instance. */
 export const sequelize = sequelizeInstance;
 
 /** Article definition, used to query the database. */
 export const Article = article;
+
+/** Section definition, used to query the database. */
+export const Section = section;
