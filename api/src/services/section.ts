@@ -1,7 +1,7 @@
 import express from 'express';
 import {Section} from '../db';
 import {ISection} from '../db/section';
-import {or, and, fn, col} from 'sequelize';
+import {or, fn, col} from 'sequelize';
 
 /**
  * @swagger
@@ -72,10 +72,13 @@ export function sectionService(app: express.Application) {
      */
     app.get('/api/section/:id', async (req, res) => {
         const section = await Section.findById(req.params.id);
-        if (!section) {
+        if (!req.user.signedIn) {
+            res.status(403);
+            res.json({error: 'You have to be connected'});
+        } else if (!section && req.user.signedIn) {
             res.status(404);
             res.json({ error: 'This section doesn\'t exists' });
-        } else {
+        } else if (req.user && req.user.signedIn) {
             res.json(section);
         }
     });

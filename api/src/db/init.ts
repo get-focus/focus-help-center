@@ -39,24 +39,14 @@ async function initDb() {
         } catch (error) {
             console.log(`Error while trying to insert an article in the database : ${error}`);
         }
-    }
 
-    // Populate the Section Table
-    try {
-        await Section.create({ name: 'Testing' });
-        console.log('Section successfully inserted.');
-    } catch (error) {
-        console.log(`Error while trying to insert an SECTION in the database : ${error}`);
-    }
-
-    // Populate the ArticleSection Table
-    try {
-        let article = (await Article.findById(1)).get();
-        let section = (await Section.findById(1)).get();
-        await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
-        console.log('ArticleSection successfully inserted.');
-    } catch (error) {
-        console.log(`Error while trying to insert an ArticleSection in the database : ${error}`);
+        // Populate the Section Table
+        try {
+            await Section.create({ name: 'Testing' });
+            console.log('Section successfully inserted.');
+        } catch (error) {
+            console.log(`Error while trying to insert an SECTION in the database : ${error}`);
+        }
     }
 }
 
