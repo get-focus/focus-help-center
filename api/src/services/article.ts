@@ -238,7 +238,7 @@ export function articleService(prefix: string, app: express.Application) {
      *   post:
      *     tags:
      *       - Article
-     *     description: Saves an article.
+     *     description: Manage the article-section associations.
      *     produces:
      *       - application/json
      *     parameters:
