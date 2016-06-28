@@ -29,6 +29,56 @@ import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
+ *   ArticleUnit-Get:
+ *     properties:
+ *       id:
+ *         type: integer
+ *       title:
+ *         type: string
+ *       description:
+ *         type: string
+ *       content:
+ *         type: string
+ *       published:
+ *         type: boolean
+ *       createdAt:
+ *         type: string
+ *       updatedAt:
+ *         type: string
+ *       publishedAt:
+ *         type: string
+ *       sectionlist:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definition:
+ *   ArticleList-Get:
+ *     properties:
+ *       id:
+ *         type: integer
+ *       title:
+ *         type: string
+ *       description:
+ *         type: string
+ *       content:
+ *         type: string
+ *       published:
+ *         type: boolean
+ *       createdAt:
+ *         type: string
+ *       updatedAt:
+ *         type: string
+ *       publishedAt:
+ *         type: string
+ *       sectionlist:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definition:
  *   Article-Post:
  *     properties:
  *       id:
@@ -129,22 +179,7 @@ export function articleService(prefix: string, app: express.Application) {
      *             $ref: '#/definitions/Article-Get'
      */
     app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
-        let {filter} = req.query;
-        const order = [fn('lower', col('title')), fn('lower', col('description'))];
-        if (filter) {
-            const like = or({title: {like: `%${filter}%`}}, {description: {like: `%${filter}%`}});
-            if (req.user && req.user.signedIn) {
-                res.json(await Article.findAll({where: [like], order}));
-            } else {
-                res.json(await Article.findAll({where: [and({published: true}, like)], order}));
-            }
-        } else {
-            if (req.user && req.user.signedIn) {
-                res.json(await Article.findAll({order}));
-            } else {
-                res.json(await Article.findAll({where: {published: true}, order}));
-            }
-        }
+        res.json({'Yello': 'Unicorn Style'});
     });
 
     /**
@@ -195,6 +230,42 @@ export function articleService(prefix: string, app: express.Application) {
             }
             res.json(article);
         }
+    });
+
+    /**
+     * @swagger
+     * /api/article:
+     *   post:
+     *     tags:
+     *       - Article
+     *     description: Saves an article.
+     *     produces:
+     *       - application/json
+     *     parameters:
+     *       - name: article
+     *         description: The article to save.
+     *         in: body
+     *         required: true
+     *         schema:
+     *           $ref: '#/definitions/Article-Post'
+     *     responses:
+     *       200:
+     *         description: The saved article with its id.
+     *         schema:
+     *           $ref: '#/definitions/Article-Get'
+     *       403:
+     *         description: No rights to save
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     */
+    app.post('/api/article', async (req, res) => {
+        /**
+         * This will recieve a section list
+         * It will delete the ArticleSection table where there is the associations of the article-section
+         * It will look at the list and will add all the associations article-section
+         */
+        let article;
+        res.json(article);
     });
 
     /**
