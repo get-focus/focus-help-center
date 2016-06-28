@@ -3,6 +3,7 @@ import {initDb} from './db/init-test-data';
 import expressJwt from 'express-jwt';
 
 import {articleService} from './services/article';
+import {sectionService} from './services/section';
 import {signinService} from './services/signin';
 import {swaggerService} from './swagger/index';
 

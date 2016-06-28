@@ -65,6 +65,14 @@ export function sectionService(app: express.Application) {
      *         description: A single section.
      *         schema:
      *           $ref: '#/definitions/Section-Get'
+     *       400:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     *       403:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
      *       404:
      *         description: Section not found
      *         schema:
@@ -72,14 +80,19 @@ export function sectionService(app: express.Application) {
      */
     app.get('/api/section/:id', async (req, res) => {
         const section = await Section.findById(req.params.id);
-        if (!req.user.signedIn) {
+
+        if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({error: 'You have to be connected'});
-        } else if (!section && req.user.signedIn) {
+            res.json({ error: 'You have to be connected' });
+        }
+        if (!section && req.user.signedIn) {
             res.status(404);
             res.json({ error: 'This section doesn\'t exists' });
         } else if (req.user && req.user.signedIn) {
             res.json(section);
+        } else {
+            res.status(400);
+            res.json({ error: 'Unexpected error' });
         }
     });
 
@@ -105,21 +118,31 @@ export function sectionService(app: express.Application) {
      *         type: array
      *         items:
      *             $ref: '#/definitions/Section-Get'
+     *       400:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
+     *       403:
+     *         description: No rights to search
+     *         schema:
+     *           $ref: '#/definitions/Error'
      */
     app.get(/\/api\/section(\?filter=:filter)?/, async (req, res) => {
         let {filter} = req.query;
         const order = [fn('lower', col('name'))];
-        if (filter) {
-            const like = or({ name: { like: `%${filter}%` } });
-            if (req.user && req.user.signedIn) {
+        if (req.user && req.user.signedIn) {
+            if (filter) {
+                const like = or({ name: { like: `%${filter}%` } });
                 res.json(await Section.findAll({ where: [like], order }));
-            }
-        } else {
-            console.log('Right here');
-            if (req.user && req.user.signedIn) {
-                console.log('Right there');
+            } else {
                 res.json(await Section.findAll({ order }));
             }
+        } else if (!(req.user && req.user.signedIn)) {
+            res.status(403);
+            res.json({ error: 'Cannot search a section when not connected' });
+        } else {
+            res.status(400);
+            res.json({ error: 'Unexpected error' });
         }
     });
 
@@ -129,7 +152,7 @@ export function sectionService(app: express.Application) {
      *   post:
      *     tags:
      *       - Section
-     *     description: Saves a section.
+     *     description: Saves or update a section.
      *     produces:
      *       - application/json
      *     parameters:
@@ -144,6 +167,10 @@ export function sectionService(app: express.Application) {
      *         description: The saved section with its id.
      *         schema:
      *           $ref: '#/definitions/Section-Get'
+     *       400:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
      *       403:
      *         description: No rights to save
      *         schema:
@@ -153,12 +180,17 @@ export function sectionService(app: express.Application) {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot save a section when not connected' });
-        } else {
+        } else if (req.user && req.user.signedIn) {
             let section: ISection = req.body;
             if (!section.id) {
                 section = (await Section.create(req.body)).get();
+            } else {
+                await Section.update(section, { where: { id: req.body.id } });
             }
             res.json(section);
+        } else {
+            res.status(400);
+            res.json({ error: 'Unexpected error' });
         }
     });
 
@@ -182,6 +214,10 @@ export function sectionService(app: express.Application) {
      *         description: Success message
      *         schema:
      *           $ref: '#/definitions/Success'
+     *       400:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
      *       403:
      *         description: No rights to delete
      *         schema:
@@ -195,7 +231,7 @@ export function sectionService(app: express.Application) {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot delete a section when not connected' });
-        } else {
+        } else if (req.user && req.user.signedIn) {
             const deletedRows = await Section.destroy({ where: { id: req.params.id } });
             if (deletedRows === 1) {
                 res.json({ success: true });
@@ -203,6 +239,9 @@ export function sectionService(app: express.Application) {
                 res.status(404);
                 res.json({ error: `No section deleted` });
             }
+        } else {
+            res.status(404);
+            res.json({ error: `Unexpected error` });
         }
     });
 }
