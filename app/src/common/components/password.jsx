@@ -53,9 +53,17 @@ export class PasswordComponent extends React.Component {
                             <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
                         </div>
                     }
-                    <IconButton onClick={this.login} iconClassName='material-icons'>
-                        {connected || userName ? 'close' : !userName ? 'arrow_forward' : ''}
-                    </IconButton>
+                    {userName ?
+                        <a href='./signout'>
+                            <IconButton iconClassName='material-icons'>
+                                close
+                            </IconButton>
+                        </a>
+                    :
+                        <IconButton onClick={this.login} iconClassName='material-icons'>
+                            {connected ? 'close' : 'arrow_forward'}
+                        </IconButton>
+                    }
                 </div>
                 }
             </div>
