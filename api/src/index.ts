@@ -5,6 +5,7 @@ import {resolve} from 'path';
 const app: Express = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Allow CORS.
 app.use((req, res, next) => {
