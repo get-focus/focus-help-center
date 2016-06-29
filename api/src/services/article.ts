@@ -41,36 +41,9 @@ import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
- *   SectionList-Get:
+ *   Sections-Get:
  *     properties:
  *       Sections:
- *         type: array
- *         items:
- *           $ref: '#/definitions/Section-Get'
- */
-
-/**
- * @swagger
- * definition:
- *   ArticleUnit-Get:
- *     properties:
- *       id:
- *         type: integer
- *       title:
- *         type: string
- *       description:
- *         type: string
- *       content:
- *         type: string
- *       published:
- *         type: boolean
- *       createdAt:
- *         type: string
- *       updatedAt:
- *         type: string
- *       publishedAt:
- *         type: string
- *       sectionList:
  *         type: array
  *         items:
  *           $ref: '#/definitions/Section-Get'
@@ -97,8 +70,10 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
- *       sectionList:
- *         type: integer
+ *       sections:
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/Section-Get'
  */
 
 /**
@@ -292,7 +267,7 @@ export function articleService(prefix: string, app: express.Application) {
      *         in: body
      *         required: true
      *         schema:
-     *           $ref: '#/definitions/SectionList-Get'
+     *           $ref: '#/definitions/Sections-Get'
      *     responses:
      *       200:
      *         description: The managed article's id.
