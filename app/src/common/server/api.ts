@@ -11,7 +11,7 @@ async function fetchWithLogin(url: string, options?) {
         if (token) {
             return await fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
         } else {
-            return await fetch(url, options);
+            return await fetch(url, Object.assign({}, options, {credentials: 'include'}));
         }
     } catch (e) {
         throw new Error(e.message);
