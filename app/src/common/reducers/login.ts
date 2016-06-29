@@ -14,7 +14,8 @@ export function login(state: LoginState = defaultValue, action: LoginAction) {
         case Action.RECEIVE_LOGIN:
             return {
                 isLoading: false,
-                isConnected: action.isConnected
+                isConnected: action.isConnected,
+                userName: action.userName
             };
         case Action.FAILURE_LOGIN:
             return {

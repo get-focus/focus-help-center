@@ -10,10 +10,11 @@ function requestLogin(): LoginAction {
 }
 
 /** Action creator called on successful request. */
-function receiveLogin(isConnected: boolean): LoginAction {
+function receiveLogin({connected, userName}: {connected: boolean, userName?: string}): LoginAction {
     return {
         type: Action.RECEIVE_LOGIN,
-        isConnected
+        isConnected: connected,
+        userName
     };
 }
 
@@ -31,7 +32,7 @@ export function login(password: string) {
         dispatch(requestLogin());
         try {
             await api.login(password);
-            dispatch(receiveLogin(true));
+            dispatch(receiveLogin({connected: true}));
         } catch (e) {
             dispatch(failureLogin(e.message));
         }
@@ -47,7 +48,7 @@ export function logout() {
         } catch (e) {
             // We ignore errors.
         }
-        dispatch(receiveLogin(false));
+        dispatch(receiveLogin({connected: false}));
     };
 }
 

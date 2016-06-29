@@ -42,8 +42,7 @@ export const api: Api = {
 
     async isConnected() {
         const response = await fetchWithLogin(`${apiRoot}/signin`);
-        const data = await response.json<{success: boolean}>();
-        return !!data.success;
+        return await response.json<{connected: boolean, userName?: string}>();
     },
 
     async saveArticle(article) {

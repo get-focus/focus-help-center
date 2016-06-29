@@ -10,7 +10,7 @@ export interface Api {
     login: (password: string) => Promise<boolean>;
 
     /** Queries the server to know if the user is connected or not. */
-    isConnected: () => Promise<boolean>;
+    isConnected: () => Promise<{connected: boolean, userName?: string}>;
 
     /** Saves an article. */
     saveArticle: (article: Article) => Promise<Article>;
