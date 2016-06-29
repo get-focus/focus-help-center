@@ -41,6 +41,17 @@ import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
+ *   SectionList-Get:
+ *     properties:
+ *       Sections:
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/Section-Get'
+ */
+
+/**
+ * @swagger
+ * definition:
  *   ArticleUnit-Get:
  *     properties:
  *       id:
@@ -240,7 +251,7 @@ export function articleService(prefix: string, app: express.Application) {
     app.post(`${prefix}/api/article`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({error: 'Cannot save an article when not connected'});
+            res.json({ error: 'Cannot save an article when not connected' });
         } else {
             let article: IArticle = req.body;
             if (!article.id) {
@@ -254,7 +265,7 @@ export function articleService(prefix: string, app: express.Application) {
                 } else if (!article.published) {
                     article.publishedAt = undefined;
                 }
-                await Article.update(article, {where: {id: req.body.id}});
+                await Article.update(article, { where: { id: req.body.id } });
                 article.updatedAt = time;
             }
             res.json(article);
@@ -263,47 +274,63 @@ export function articleService(prefix: string, app: express.Application) {
 
     /**
      * @swagger
-     * /api/article:
+     * /api/article/{id}/sections:
      *   post:
      *     tags:
      *       - Article
      *     description: Manage the article-section associations.
      *     produces:
      *       - application/json
-     *     parameters:
-     *       - name: article
-     *         description: The article to manage.
+      *     parameters:
+     *       - name: id
+     *         description: Article's id.
+     *         in: path
+     *         required: true
+     *         type: integer
+     *       - name: section
+     *         description: The section list.
      *         in: body
      *         required: true
      *         schema:
-     *           $ref: '#/definitions/Article-Post'
+     *           $ref: '#/definitions/SectionList-Get'
      *     responses:
      *       200:
      *         description: The managed article's id.
+     *         type: integer
+     *       400:
+     *         description: Bad request
      *         schema:
-     *           $ref: '#/definitions/ArticleUnit-Get'
+     *           $ref: '#/definitions/Error'
      *       403:
      *         description: No rights to save
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.post('/api/article', async (req, res) => {
-        let getArticle: IArticle = req.body;
-        let article = (await Article.findById(getArticle.id)).get();
-        ArticleSection.destroy({ where: { ArticleId: article.id } });
-        if (getArticle.sectionList.length > 0) {
-            for (let i = 0; i < getArticle.sectionList.length; i++) {
-                let section: ISection = getArticle.sectionList[i];
-                if (section.id === undefined) {
-                    section = (await Section.create({ name: getArticle.sectionList[i].name })).get();
-                } else {
-                    await Section.update(section, { where: { id: section.id } });
+    app.post('/api/article/:id/sections', async (req, res) => {
+        if (!(req.user && req.user.signedIn)) {
+            res.status(403);
+            res.json({ error: 'Cannot manage article-sections associations when not connected' });
+        } else if (req.user && req.user.signedIn) {
+            let sections = req.body.Sections;
+            let article = (await Article.findById(req.params.id)).get();
+            ArticleSection.destroy({ where: { ArticleId: article.id } });
+            if (sections.length > 0) {
+                for (let i = 0; i < sections.length; i++) {
+                    let section: ISection = sections[i];
+                    if (section.id === undefined) {
+                        section = (await Section.create({ name: sections[i].name })).get();
+                    } else {
+                        await Section.update(section, { where: { id: section.id } });
+                    }
+                    await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
                 }
-                await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
             }
+            sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
+            res.json({ articleId: article.id });
+        } else {
+            res.status(400);
+            res.json({ error: 'Bad request : Unexpected error' });
         }
-        sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
-        res.json({ articleId: article.id });
     });
 
     /**
