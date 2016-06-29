@@ -43,7 +43,7 @@ import {or, and, fn, col} from 'sequelize';
  * definition:
  *   Sections-Get:
  *     properties:
- *       Sections:
+ *       List:
  *         type: array
  *         items:
  *           $ref: '#/definitions/Section-Get'
@@ -286,7 +286,7 @@ export function articleService(prefix: string, app: express.Application) {
             res.status(403);
             res.json({ error: 'Cannot manage article-sections associations when not connected' });
         } else if (req.user && req.user.signedIn) {
-            let sections = req.body.Sections;
+            let sections = req.body.List;
             let article = (await Article.findById(req.params.id)).get();
             ArticleSection.destroy({ where: { ArticleId: article.id } });
             if (sections.length > 0) {
@@ -301,7 +301,7 @@ export function articleService(prefix: string, app: express.Application) {
                 }
             }
             sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
-            res.json({ articleId: article.id });
+            res.json(article.id);
         } else {
             res.status(400);
             res.json({ error: 'Bad request : Unexpected error' });
