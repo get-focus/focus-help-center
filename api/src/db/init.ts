@@ -46,26 +46,27 @@ async function initDb() {
         try {
             let data: ISection[] = [
                 { name: 'Tutorial' },
-                { name: 'Drawing' }
+                { name: 'Drawing' },
+                { name: 'Sport' }
             ];
             await Section.bulkCreate(data);
-            console.log('2 Sections successfully inserted.');
+            console.log('3 Sections successfully inserted.');
         } catch (error) {
             console.log(`Error while trying to insert an SECTION in the database : ${error}`);
         }
     }
 
-    // Populate the ArticleSection Table
-    try {
-        let data: IArticleSection[] = [
-            { ArticleId: 1, SectionId: 1 },
-            { ArticleId: 1, SectionId: 2 }
-        ];
-        await ArticleSection.bulkCreate(data);
-        console.log('An ArticleSection successfully inserted.');
-    } catch (error) {
-        console.log(`Error while trying to insert an SECTION in the database : ${error}`);
-    }
+    // // Populate the ArticleSection Table
+    // try {
+    //     let data: IArticleSection[] = [
+    //         { ArticleId: 1, SectionId: 1 },
+    //         { ArticleId: 1, SectionId: 2 }
+    //     ];
+    //     await ArticleSection.bulkCreate(data);
+    //     console.log('An ArticleSection successfully inserted.');
+    // } catch (error) {
+    //     console.log(`Error while trying to insert an SECTION in the database : ${error}`);
+    // }
 }
 
 initDb();

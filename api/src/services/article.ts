@@ -1,6 +1,7 @@
 import express from 'express';
-import {Article} from '../db';
+import {sequelize, Article, ArticleSection, Section} from '../db';
 import {IArticle} from '../db/article';
+import {ISection} from '../db/section';
 import {or, and, fn, col} from 'sequelize';
 
 /**
@@ -29,6 +30,17 @@ import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
+ *   Section-Get:
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definition:
  *   ArticleUnit-Get:
  *     properties:
  *       id:
@@ -47,8 +59,10 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
- *       sectionlist:
- *         type: string
+ *       sectionList:
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/Section-Get'
  */
 
 /**
@@ -72,8 +86,8 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
- *       sectionlist:
- *         type: string
+ *       sectionList:
+ *         type: integer
  */
 
 /**
@@ -146,12 +160,12 @@ export function articleService(prefix: string, app: express.Application) {
         const article = await Article.findById(req.params.id);
         if (!article) {
             res.status(404);
-            res.json({error: 'No article found'});
+            res.json({ error: 'No article found' });
         } else if (req.user && req.user.signedIn || article.get().published === true) {
             res.json(article);
         } else {
             res.status(403);
-            res.json({error: 'This article isn\'t published'});
+            res.json({ error: 'This article isn\'t published' });
         }
     });
 
@@ -179,7 +193,22 @@ export function articleService(prefix: string, app: express.Application) {
      *             $ref: '#/definitions/Article-Get'
      */
     app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
-        res.json({'Yello': 'Unicorn Style'});
+        let {filter} = req.query;
+        const order = [fn('lower', col('title')), fn('lower', col('description'))];
+        if (filter) {
+            const like = or({ title: { like: `%${filter}%` } }, { description: { like: `%${filter}%` } });
+            if (req.user && req.user.signedIn) {
+                res.json(await Article.findAll({ where: [like], order }));
+            } else {
+                res.json(await Article.findAll({ where: [and({ published: true }, like)], order }));
+            }
+        } else {
+            if (req.user && req.user.signedIn) {
+                res.json(await Article.findAll({ order }));
+            } else {
+                res.json(await Article.findAll({ where: { published: true }, order }));
+            }
+        }
     });
 
     /**
@@ -243,29 +272,38 @@ export function articleService(prefix: string, app: express.Application) {
      *       - application/json
      *     parameters:
      *       - name: article
-     *         description: The article to save.
+     *         description: The article to manage.
      *         in: body
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Article-Post'
      *     responses:
      *       200:
-     *         description: The saved article with its id.
+     *         description: The managed article's id.
      *         schema:
-     *           $ref: '#/definitions/Article-Get'
+     *           $ref: '#/definitions/ArticleUnit-Get'
      *       403:
      *         description: No rights to save
      *         schema:
      *           $ref: '#/definitions/Error'
      */
     app.post('/api/article', async (req, res) => {
-        /**
-         * This will recieve a section list
-         * It will delete the ArticleSection table where there is the associations of the article-section
-         * It will look at the list and will add all the associations article-section
-         */
-        let article;
-        res.json(article);
+        let getArticle: IArticle = req.body;
+        let article = (await Article.findById(getArticle.id)).get();
+        ArticleSection.destroy({ where: { ArticleId: article.id } });
+        if (getArticle.sectionList.length > 0) {
+            for (let i = 0; i < getArticle.sectionList.length; i++) {
+                let section: ISection = getArticle.sectionList[i];
+                if (section.id === undefined) {
+                    section = (await Section.create({ name: getArticle.sectionList[i].name })).get();
+                } else {
+                    await Section.update(section, { where: { id: section.id } });
+                }
+                await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
+            }
+        }
+        sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
+        res.json({ articleId: article.id });
     });
 
     /**
@@ -304,10 +342,10 @@ export function articleService(prefix: string, app: express.Application) {
         } else {
             const deletedRows = await Article.destroy({ where: { id: req.params.id } });
             if (deletedRows === 1) {
-                res.json({success: true});
+                res.json({ success: true });
             } else {
                 res.status(404);
-                res.json({error: `No article deleted`});
+                res.json({ error: `No article deleted` });
             }
         }
     });
