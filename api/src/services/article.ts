@@ -297,6 +297,10 @@ export function articleService(prefix: string, app: express.Application) {
      *         description: Internal Server Error
      *         schema:
      *           $ref: '#/definitions/Error'
+     *       400:
+     *         description: Bad Request
+     *         schema:
+     *           $ref: '#/definitions/Error'
      *       403:
      *         description: No rights to save
      *         schema:
@@ -304,33 +308,25 @@ export function articleService(prefix: string, app: express.Application) {
      */
     app.post('/api/article/:id/sections', async (req, res) => {
         try {
-            if (!(req.user && req.user.signedIn)) {
-                res.status(403);
-                res.json({ error: 'Cannot manage article-sections associations when not connected' });
-            } else if (req.user && req.user.signedIn) {
-                let sections = req.body.List;
-                let article = (await Article.findById(req.params.id)).get();
-                ArticleSection.destroy({ where: { ArticleId: article.id } });
-                if (sections.length > 0) {
-                    for (let i = 0; i < sections.length; i++) {
-                        let section: ISection = sections[i];
-                        if (section.id === undefined) {
-                            section = (await Section.create({ name: sections[i].name })).get();
-                        } else {
-                            await Section.update(section, { where: { id: section.id } });
-                        }
-                        await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
+            let sections: ISection[] = req.body.List;
+            let article = (await Article.findById(req.params.id)).get();
+            ArticleSection.destroy({ where: { ArticleId: article.id } });
+            if (sections && sections.length > 0) {
+                for (let i = 0; i < sections.length; i++) {
+                    if (sections[i].id === undefined) {
+                        sections[i] = (await Section.create({ name: sections[i].name })).get();
+                    }
+                    try {
+                        await ArticleSection.create({ ArticleId: article.id, SectionId: sections[i].id });
+                    } catch (e) {
+                        res.status(400);
+                        res.json({ error: `Bad request : ${e}` });
+                        console.log(e);
                     }
                 }
-                sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
-                const requestArticleSectionArray = await sequelize.query(`select * from ArticleSections where ArticleId = ${article.id}`);
-                const articleSectionArray = requestArticleSectionArray[0];
-                let sectionList: ISection[] = [];
-                for (let i = 0; i < articleSectionArray.length; i++) {
-                    sectionList.push((await Section.findById(articleSectionArray[i].SectionId)).get());
-                }
-                res.json({ articleId: article.id, sections: sectionList });
             }
+            sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
+            res.json({ articleId: article.id, sections });
         } catch (e) {
             res.status(500);
             res.json({ error: `Internal Server Error : ${e}` });
