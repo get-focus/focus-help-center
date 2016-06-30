@@ -272,8 +272,8 @@ export function articleService(prefix: string, app: express.Application) {
      *       200:
      *         description: The managed article's id.
      *         type: integer
-     *       400:
-     *         description: Bad request
+     *       500:
+     *         description: Internal Server Error
      *         schema:
      *           $ref: '#/definitions/Error'
      *       403:
@@ -282,29 +282,31 @@ export function articleService(prefix: string, app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.post('/api/article/:id/sections', async (req, res) => {
-        if (!(req.user && req.user.signedIn)) {
-            res.status(403);
-            res.json({ error: 'Cannot manage article-sections associations when not connected' });
-        } else if (req.user && req.user.signedIn) {
-            let sections = req.body.List;
-            let article = (await Article.findById(req.params.id)).get();
-            ArticleSection.destroy({ where: { ArticleId: article.id } });
-            if (sections.length > 0) {
-                for (let i = 0; i < sections.length; i++) {
-                    let section: ISection = sections[i];
-                    if (section.id === undefined) {
-                        section = (await Section.create({ name: sections[i].name })).get();
-                    } else {
-                        await Section.update(section, { where: { id: section.id } });
+        try {
+            if (!(req.user && req.user.signedIn)) {
+                res.status(403);
+                res.json({ error: 'Cannot manage article-sections associations when not connected' });
+            } else if (req.user && req.user.signedIn) {
+                let sections = req.body.List;
+                let article = (await Article.findById(req.params.id)).get();
+                ArticleSection.destroy({ where: { ArticleId: article.id } });
+                if (sections.length > 0) {
+                    for (let i = 0; i < sections.length; i++) {
+                        let section: ISection = sections[i];
+                        if (section.id === undefined) {
+                            section = (await Section.create({ name: sections[i].name })).get();
+                        } else {
+                            await Section.update(section, { where: { id: section.id } });
+                        }
+                        await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
                     }
-                    await ArticleSection.create({ ArticleId: article.id, SectionId: section.id });
                 }
+                sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
+                res.json(article.id);
             }
-            sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
-            res.json(article.id);
-        } else {
-            res.status(400);
-            res.json({ error: 'Bad request : Unexpected error' });
+        } catch (e) {
+            res.status(500);
+            res.json({ error: 'Internal Server Error :', e });
         }
     });
 
