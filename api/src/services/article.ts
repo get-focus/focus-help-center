@@ -168,7 +168,6 @@ export function articleService(prefix: string, app: express.Application) {
                 sectionList.push((await Section.findById(articleSectionArray[i].SectionId)).get());
             }
             article.sections = sectionList;
-            console.log(article);
             res.json(article);
         } else {
             res.status(403);
