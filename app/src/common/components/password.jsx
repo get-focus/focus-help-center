@@ -8,7 +8,8 @@ import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
     state => ({
         loading: state.login.isLoading,
         connected: state.login.isConnected,
-        error: state.login.error
+        error: state.login.error,
+        userName: state.login.userName
     }),
     dispatch => ({
         isConnected: () => dispatch(isConnected()),
@@ -35,14 +36,16 @@ export class PasswordComponent extends React.Component {
     }
 
     render() {
-        const {loading, connected, error, clearError} = this.props;
+        const {loading, connected, error, clearError, userName} = this.props;
         return (
             <div className='password-bar'>
                 {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0px'}} /> : null}
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
                 : <div className='ok'>
-                    {connected ?
+                    {userName ?
+                        <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
+                    : connected ?
                         <strong>{i18n.t('password.connected')}</strong>
                         :
                         <div>
@@ -50,9 +53,17 @@ export class PasswordComponent extends React.Component {
                             <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
                         </div>
                     }
-                    <IconButton onClick={this.login} iconClassName='material-icons'>
-                        {connected ? 'close' : 'arrow_forward'}
-                    </IconButton>
+                    {userName ?
+                        <a href='./signout'>
+                            <IconButton iconClassName='material-icons'>
+                                close
+                            </IconButton>
+                        </a>
+                    :
+                        <IconButton onClick={this.login} iconClassName='material-icons'>
+                            {connected ? 'close' : 'arrow_forward'}
+                        </IconButton>
+                    }
                 </div>
                 }
             </div>

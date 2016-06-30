@@ -1,4 +1,4 @@
-import app from './';
+import app, {serveStatic} from './';
 import {initDb} from './db/init-test-data';
 import expressJwt from 'express-jwt';
 
@@ -6,6 +6,7 @@ import {articleService} from './services/article';
 import {signinService} from './services/signin';
 import {swaggerService} from './swagger/index';
 
+serveStatic(app);
 app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
 
 // When testing, we recreate the db for each request.

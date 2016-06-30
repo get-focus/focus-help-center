@@ -1,11 +1,11 @@
 import express, {Express} from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
+import {resolve} from 'path';
 
 const app: Express = express();
-app.use(express.static(path.resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Allow CORS.
 app.use((req, res, next) => {
@@ -14,5 +14,9 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     next();
 });
+
+export function serveStatic(app: Express) {
+    app.use(express.static(resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
+}
 
 export default app;

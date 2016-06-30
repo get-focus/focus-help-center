@@ -14,6 +14,6 @@ export function signinService(app: express.Application) {
             }
         })
         .get((req, res) => {
-            res.json({success: !!(req.user && req.user.signedIn)});
+            res.json({connected: !!(req.user && req.user.signedIn)});
         });
 }

@@ -3,7 +3,8 @@ import {Article} from '../definitions/article';
 import {Api} from './index';
 
 declare const process: any;
-const apiRoot = process.env.IS_BUNDLE === 'true' ? '.' : 'http://localhost:1337';
+const isBundle = process.env.IS_BUNDLE === 'true';
+const apiRoot = isBundle ? '.' : 'http://localhost:1337';
 
 async function fetchWithLogin(url: string, options?) {
     try {
@@ -11,7 +12,7 @@ async function fetchWithLogin(url: string, options?) {
         if (token) {
             return await fetch(url, Object.assign({}, options, {headers: Object.assign({}, options && options.headers || {}, {Authorization: `Bearer ${token}`})}));
         } else {
-            return await fetch(url, options);
+            return await fetch(url, Object.assign({}, options, isBundle ? {credentials: 'include'} : {}));
         }
     } catch (e) {
         throw new Error(e.message);
@@ -42,8 +43,7 @@ export const api: Api = {
 
     async isConnected() {
         const response = await fetchWithLogin(`${apiRoot}/signin`);
-        const data = await response.json<{success: boolean}>();
-        return !!data.success;
+        return await response.json<{connected: boolean, userName?: string}>();
     },
 
     async saveArticle(article) {
