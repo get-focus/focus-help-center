@@ -6,7 +6,7 @@ import {articleService} from './services/article';
 import {signinService} from './services/signin';
 import {swaggerService} from './swagger/index';
 
-serveStatic(app);
+serveStatic('', app);
 app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
 
 // When testing, we recreate the db for each request.
@@ -17,8 +17,8 @@ if (process.env.DB_ENV === 'test') {
     });
 }
 
-articleService(app);
-signinService(app);
-swaggerService(app);
+articleService('', app);
+signinService('', app);
+swaggerService('', app);
 
 app.listen(1337, () => console.log('Launching app on port 1337.'));

@@ -61,7 +61,7 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  */
 
-export function articleService(app: express.Application) {
+export function articleService(prefix: string, app: express.Application) {
 
     /**
      * @swagger
@@ -92,7 +92,7 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.get('/api/article/:id', async (req, res) => {
+    app.get(`${prefix}/api/article/:id`, async (req, res) => {
         const article = await Article.findById(req.params.id);
         if (!article) {
             res.status(404);
@@ -173,7 +173,7 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.post('/api/article', async (req, res) => {
+    app.post(`${prefix}/api/article`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({error: 'Cannot save an article when not connected'});
@@ -226,7 +226,7 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.delete('/api/article/:id', async (req, res) => {
+    app.delete(`${prefix}/api/article/:id`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot delete an article when not connected' });
