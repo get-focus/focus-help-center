@@ -15,8 +15,8 @@ app.use((req, res, next) => {
     next();
 });
 
-export function serveStatic(app: Express) {
-    app.use(express.static(resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
+export function serveStatic(prefix: string, app: Express) {
+    app.use(prefix, express.static(resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
 }
 
 export default app;

@@ -15,10 +15,10 @@ const swaggerSpec = swaggerJSDoc({
     apis: ['./services/*.js'],
 });
 
-export function swaggerService(app: express.Application) {
+export function swaggerService(prefix: string, app: express.Application) {
 
     /** Serves the swagger.json file. */
-    app.get('/swagger.json', (req, res) => {
+    app.get(`${prefix}/swagger.json`, (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(swaggerSpec);
     });
