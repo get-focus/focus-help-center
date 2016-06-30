@@ -52,7 +52,7 @@ import {or, and, fn, col} from 'sequelize';
 /**
  * @swagger
  * definition:
- *   ArticleList-Get:
+ *   ArticleWithSections-Get:
  *     properties:
  *       id:
  *         type: integer
@@ -70,6 +70,19 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
+ *       sections:
+ *         type: array
+ *         items:
+ *           $ref: '#/definitions/Section-Get'
+ */
+
+/**
+ * @swagger
+ * definition:
+ *   ArticleIdSectionList-Get:
+ *     properties:
+ *       articleId:
+ *         type: integer
  *       sections:
  *         type: array
  *         items:
@@ -132,7 +145,7 @@ export function articleService(prefix: string, app: express.Application) {
      *       200:
      *         description: A single article.
      *         schema:
-     *           $ref: '#/definitions/Article-Get'
+     *           $ref: '#/definitions/ArticleWithSections-Get'
      *       403:
      *         description: Article not published and no rights
      *         schema:
@@ -143,11 +156,19 @@ export function articleService(prefix: string, app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.get(`${prefix}/api/article/:id`, async (req, res) => {
-        const article = await Article.findById(req.params.id);
+        const article = (await Article.findById(req.params.id)).get();
         if (!article) {
             res.status(404);
             res.json({ error: 'No article found' });
-        } else if (req.user && req.user.signedIn || article.get().published === true) {
+        } else if (req.user && req.user.signedIn || article.published === true) {
+            const requestArticleSectionArray = await sequelize.query(`select * from ArticleSections where ArticleId = ${article.id}`);
+            const articleSectionArray = requestArticleSectionArray[0];
+            let sectionList: ISection[] = [];
+            for (let i = 0; i < articleSectionArray.length; i++) {
+                sectionList.push((await Section.findById(articleSectionArray[i].SectionId)).get());
+            }
+            article.sections = sectionList;
+            console.log(article);
             res.json(article);
         } else {
             res.status(403);
@@ -271,7 +292,8 @@ export function articleService(prefix: string, app: express.Application) {
      *     responses:
      *       200:
      *         description: The managed article's id.
-     *         type: integer
+     *         schema:
+     *           $ref: '#/definitions/ArticleIdSectionList-Get'
      *       500:
      *         description: Internal Server Error
      *         schema:
@@ -302,11 +324,17 @@ export function articleService(prefix: string, app: express.Application) {
                     }
                 }
                 sequelize.query('delete from Sections where id not in (select distinct SectionId from ArticleSections)');
-                res.json(article.id);
+                const requestArticleSectionArray = await sequelize.query(`select * from ArticleSections where ArticleId = ${article.id}`);
+                const articleSectionArray = requestArticleSectionArray[0];
+                let sectionList: ISection[] = [];
+                for (let i = 0; i < articleSectionArray.length; i++) {
+                    sectionList.push((await Section.findById(articleSectionArray[i].SectionId)).get());
+                }
+                res.json({ articleId: article.id, sections: sectionList });
             }
         } catch (e) {
             res.status(500);
-            res.json({ error: 'Internal Server Error :', e });
+            res.json({ error: `Internal Server Error : ${e}` });
         }
     });
 

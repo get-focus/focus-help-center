@@ -1,5 +1,6 @@
 import {Action} from './';
 import {Article} from '../definitions/article';
+import {Section} from '../definitions/section';
 import {ArticleDetailAction} from '../definitions/article-detail';
 import {Api} from '../server/index';
 import {showSnackBar} from './snack-bar';
@@ -76,6 +77,20 @@ export function loadArticle(id: number): any {
     };
 }
 
+/** Manages the article-sections' associations. */
+export function manageArticleSection(attribute, articleId, sections: Section[]): any {
+    return async (dispatch, getState, api: Api) => {
+        dispatch(requestActionArticle());
+        try {
+            const response = await api.manageArticleSection(articleId, sections);
+            dispatch(updateArticleAttribute(attribute, response.sections));
+            return response;
+        } catch (e) {
+            dispatch(errorActionArticle(e.message, true));
+        }
+    };
+}
+
 /** Saves an article. */
 export function saveArticle(article: Article): any {
     return async (dispatch, getState, api: Api) => {
@@ -91,7 +106,7 @@ export function saveArticle(article: Article): any {
 }
 
 /** Updates an attribute of the article in the store. */
-function updateArticleAttribute(attribute: string, value: string | boolean): ArticleDetailAction {
+function updateArticleAttribute(attribute: string, value: string | boolean | Section[]): ArticleDetailAction {
     return {
         type: Action.UPDATE_ARTICLE,
         attribute,
@@ -100,7 +115,7 @@ function updateArticleAttribute(attribute: string, value: string | boolean): Art
 }
 
 /** Updates an attribute of the article in the store and saves it on the server. */
-export function updateArticle(attribute: string, value: string | boolean, successHandler: () => void): any {
+export function updateArticle(attribute: string, value: string | boolean | Section[], successHandler: () => void): any {
     return async (dispatch, getState, api: Api) => {
         dispatch(updateArticleAttribute(attribute, value));
         try {

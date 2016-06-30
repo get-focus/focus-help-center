@@ -1,4 +1,5 @@
 import {Article} from '../definitions/article';
+import {Section} from '../definitions/section';
 
 /** Api interface, to abstract away the actual implementation in actions. */
 export interface Api {
@@ -14,6 +15,9 @@ export interface Api {
 
     /** Saves an article. */
     saveArticle: (article: Article) => Promise<Article>;
+
+    /** Manages an article-sections' associations. */
+    manageArticleSection: (articleId, sections: Section[]) => Promise<{articleId: number, sections: Section[]}>;
 
     /** Deletes an article. */
     deleteArticle: (id: number) => Promise<boolean>;

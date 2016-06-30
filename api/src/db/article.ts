@@ -11,7 +11,7 @@ export interface IArticle {
     createdAt?: string;
     updatedAt?: string;
     publishedAt?: string;
-    sectionList?: ISection[];
+    sections?: ISection[];
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */

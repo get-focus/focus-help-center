@@ -1,5 +1,6 @@
 import {Action} from '../actions';
 import {Article} from './article';
+import {Section} from './section';
 
 
 /** State spec for the `articleDetail` store node. */
@@ -18,5 +19,5 @@ export interface ArticleDetailAction {
     article?: Article;
     error?: string;
     attribute?: string;
-    value?: string | boolean;
+    value?: string | boolean | Section[]
 }
