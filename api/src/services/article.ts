@@ -2,7 +2,6 @@ import express from 'express';
 import {sequelize, Article, ArticleSection, Section} from '../db';
 import {IArticle} from '../db/article';
 import {ISection} from '../db/section';
-import {IArticleSection} from '../db/article-section';
 import {or, and, fn, col} from 'sequelize';
 
 /**
