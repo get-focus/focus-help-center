@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import mochaAsync from '../../../test/mocha-async';
 import {IArticle} from '../../db/article';
+import {ISection} from '../../db/section';
 import {article1, article2, article3} from '../../db/init-test-data';
 import {fetchWithLogin} from './login';
 
@@ -15,8 +16,8 @@ describe('Article', () => {
             chai.expect(response).to.deep.equal({ error: 'This article isn\'t published' });
         }));
         it('should return the correct unpublished article when connected', mochaAsync(async () => {
-            const article = await (await fetchWithLogin('http://localhost:1337/api/article/3')).json<IArticle>();
-            chai.expect(article.description).to.equal(article3.description);
+            const article = await (await fetchWithLogin('http://localhost:1337/api/article/1')).json<IArticle>();
+            chai.expect(article.description).to.equal(article1.description);
         }));
         it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
             const response = await (await fetch('http://localhost:1337/api/article/5')).json();
@@ -146,7 +147,7 @@ describe('Article', () => {
         }));
 
         describe('When getting sections', () => {
-            it('should returns the article\'s ID', mochaAsync(async () => {
+            it('should returns the article\'s ID and its sections', mochaAsync(async () => {
                 const sections = {
                     List: [
                         { name: 'Marketing' },
@@ -160,8 +161,29 @@ describe('Article', () => {
                         'Content-Type': 'application/json'
                     }
                 });
-                const returnedId = await response.json<number>();
-                chai.expect(returnedId).to.equal(2);
+                const returnedObject = await response.json<{articleId: number, sections: ISection[]}>();
+                chai.expect(returnedObject.articleId).to.equal(2);
+                chai.expect(returnedObject.sections[1]).to.deep.equal(sections.List[1]);
+                chai.expect(returnedObject.sections.length).to.equal(2);
+            }));
+        });
+        describe('When giving an non existing section', () => {
+            it('should returns a sql error', mochaAsync(async () => {
+                const sections = {
+                    List: [
+                        { name: 'Marketing' },
+                        { id: 15, name: 'Tutorial' }
+                    ]
+                };
+                const response = await fetchWithLogin('http://localhost:1337/api/article/2/sections', {
+                    method: 'POST',
+                    body: JSON.stringify(sections),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const returnedObject = await response.json<{error: string}>();
+                chai.expect(returnedObject.error).to.equal('Bad request : SequelizeForeignKeyConstraintError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed');
             }));
         });
     });

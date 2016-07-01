@@ -2,6 +2,7 @@ import express from 'express';
 import {sequelize, Article, ArticleSection, Section} from '../db';
 import {IArticle} from '../db/article';
 import {ISection} from '../db/section';
+import {IArticleSection} from '../db/article-section';
 import {or, and, fn, col} from 'sequelize';
 
 /**
@@ -156,18 +157,17 @@ export function articleService(prefix: string, app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.get(`${prefix}/api/article/:id`, async (req, res) => {
-        const article = (await Article.findById(req.params.id)).get();
+        const article = (await Article.findById(req.params.id));
         if (!article) {
             res.status(404);
             res.json({ error: 'No article found' });
-        } else if (req.user && req.user.signedIn || article.published === true) {
-            const requestArticleSectionArray = await sequelize.query(`select * from ArticleSections where ArticleId = ${article.id}`);
-            const articleSectionArray = requestArticleSectionArray[0];
+        } else if (req.user && req.user.signedIn || article.get().published === true) {
+            const articleSection = (await ArticleSection.findAll({where: {ArticleId: article.get().id}})).map(article => article.get());
             let sectionList: ISection[] = [];
-            for (let i = 0; i < articleSectionArray.length; i++) {
-                sectionList.push((await Section.findById(articleSectionArray[i].SectionId)).get());
+            for (let i = 0; i < articleSection.length; i++) {
+                sectionList.push((await Section.findById(articleSection[i].SectionId)).get());
             }
-            article.sections = sectionList;
+            article.get().sections = sectionList;
             res.json(article);
         } else {
             res.status(403);
@@ -321,7 +321,6 @@ export function articleService(prefix: string, app: express.Application) {
                     } catch (e) {
                         res.status(400);
                         res.json({ error: `Bad request : ${e}` });
-                        console.log(e);
                     }
                 }
             }
