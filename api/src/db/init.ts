@@ -55,18 +55,6 @@ async function initDb() {
             console.log(`Error while trying to insert an SECTION in the database : ${error}`);
         }
     }
-
-    // // Populate the ArticleSection Table
-    // try {
-    //     let data: IArticleSection[] = [
-    //         { ArticleId: 1, SectionId: 1 },
-    //         { ArticleId: 1, SectionId: 2 }
-    //     ];
-    //     await ArticleSection.bulkCreate(data);
-    //     console.log('An ArticleSection successfully inserted.');
-    // } catch (error) {
-    //     console.log(`Error while trying to insert an SECTION in the database : ${error}`);
-    // }
 }
 
 initDb();
