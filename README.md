@@ -28,6 +28,11 @@ The `config.js` file exports a `setConfig` method you can use to specify the loc
 for navigation between apps (Back Office -> App and Extension -> Back Office). The server must publish a service that gives the URLs to the client,
 which is the `configService` method of the `index.js` file.
 
+### Database
+
+You have to build the database by calling `db/init.js` either directly or requiring it into your own script if you want to specify another path for the
+database with `setConfig`.
+
 ### Login
 
 The Help Center only manages one login information: a `connected` boolean that represents the right of a user to access the edition module. It
