@@ -3,6 +3,7 @@ import '../../style';
 import {ArticleConsult} from '../../../common/components/article-consult';
 import {IconButton} from 'material-ui';
 import {browserHistory} from 'react-router';
+import {backOfficeUrl} from '../../../common/server/config';
 
 function renderLeftContent() {
     return (
@@ -15,9 +16,11 @@ function renderLeftContent() {
 function renderRightContent(params) {
     return (
         <div>
-            <IconButton onClick={() => window.open(process.env.ENV === 'development' ? `${process.env.ROOT_BACK_URL}/#/article/${params.id}` : 'https://github.com/get-focus/focus-help-center')} iconStyle={{color: '#29B6F6'}}>
-                <i className="material-icons">open_in_new</i>
-            </IconButton>
+            <a href={`${backOfficeUrl}#/article/${params.id}`} target='_blank'>
+                <IconButton iconStyle={{color: '#29B6F6'}}>
+                    <i className="material-icons">open_in_new</i>
+                </IconButton>
+            </a>
             <IconButton iconStyle={{color: '#29B6F6'}} onClick={() => window.print()}>
                 <i className="material-icons">print</i>
             </IconButton>

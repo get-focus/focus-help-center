@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {showSnackBar} from '../common/actions/snack-bar';
 import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem, Snackbar} from 'material-ui';
 import {green500, red500} from 'material-ui/styles/colors';
+import {appUrl} from '../common/server/config';
 
 /** Layout component. */
 @connect(state => ({snackBar: state.snackBar}))
@@ -33,13 +34,12 @@ export default class Layout extends Component {
             <div className='layout'>
                 <header>
                     <div className='top'>
-                        <div className='left'>
+                        <a className='left' href={appUrl} target='_blank'>
                             <FlatButton
                                 icon={<i className='material-icons'>exit_to_app</i>}
                                 label={i18n.t('back-office.layout.back-to-app')}
-                                onClick={() => window.open(process.env.ENV === 'development' ? `${process.env.ROOT_EXTENSION_URL}` : 'https://github.com/get-focus/focus-help-center')}
                             />
-                        </div>
+                        </a>
                         <div className='middle'>
                             {BarMiddle}
                         </div>
