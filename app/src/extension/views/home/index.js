@@ -4,6 +4,7 @@ import ArticleListTitle from '../../../common/components/article-list/title';
 import {ArticleList} from '../../../common/components/article-list';
 import {FlatButton} from 'material-ui';
 import i18n from 'i18next';
+import {backOfficeUrl} from '../../../common/server/config';
 
 export function Home() {
     return (
@@ -15,14 +16,15 @@ export function Home() {
                 <ArticleList />
             </div>
             <footer>
-                <FlatButton
-                    icon={<i className='material-icons'>exit_to_app</i>}
-                    label={i18n.t('extension.footer.button')}
-                    onClick={() => window.open(process.env.ENV === 'development' ? `${process.env.ROOT_BACK_URL}` : 'https://github.com/get-focus/focus-help-center')}
-                    primary={true}
-                    rippleColor='transparent'
-                    style={{width: '100%', textAlign: 'left'}}
-                />
+                <a href={backOfficeUrl} target='_blank'>
+                    <FlatButton
+                        icon={<i className='material-icons'>exit_to_app</i>}
+                        label={i18n.t('extension.footer.button')}
+                        primary={true}
+                        rippleColor='transparent'
+                        style={{width: '100%', textAlign: 'left'}}
+                    />
+                </a>
             </footer>
         </div>
     );

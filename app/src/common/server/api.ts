@@ -4,7 +4,7 @@ import {Api} from './index';
 
 declare const process: any;
 const isBundle = process.env.IS_BUNDLE === 'true';
-const apiRoot = isBundle ? '.' : 'http://localhost:1337';
+export const apiRoot = isBundle ? '.' : 'http://localhost:1337';
 
 async function fetchWithLogin(url: string, options?) {
     try {
