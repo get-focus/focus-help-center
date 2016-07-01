@@ -1,4 +1,4 @@
-import app, {serveStatic} from './';
+import app, {serveStatic, configService} from './';
 import {initDb} from './db/init-test-data';
 import expressJwt from 'express-jwt';
 
@@ -18,6 +18,7 @@ if (process.env.DB_ENV === 'test') {
 }
 
 articleService('', app);
+configService('', app);
 signinService('', app);
 swaggerService('', app);
 
