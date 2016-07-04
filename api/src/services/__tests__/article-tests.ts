@@ -180,27 +180,27 @@ describe('Article', () => {
                 // Check if the section length is different from the basic one
                 // Maybe we gotta update it
                 chai.expect(returnedSections.length).to.not.equal(2);
-            }))
+            }));
 
             it('should have the right sections', mochaAsync(async () => {
                 const unitSectionResponse = await fetchWithLogin('http://localhost:1337/api/section/1');
                 returnedSection = await unitSectionResponse.json<ISection>();
                 chai.expect(returnedSection).to.deep.equal(sections.List[2]);
 
-            }))
+            }));
 
             it('should update the associations', mochaAsync(async () => {
                 const associationsResponse = await fetchWithLogin('http://localhost:1337/api/association');
                 const returnedAssociations = await associationsResponse.json<IArticleSection[]>();
                 chai.expect(returnedAssociations.length).to.equal(3);
-            }))
+            }));
 
             it('should have the right associations', mochaAsync(async () => {
                 const unitAssociationResponse = await fetchWithLogin('http://localhost:1337/api/association/2/1');
                 const returnedAssociation = await unitAssociationResponse.json<IArticleSection>();
                 chai.expect(returnedAssociation.ArticleId).to.equal(returnedObject.articleId);
                 chai.expect(returnedAssociation.SectionId).to.equal(returnedSection.id);
-            }))
+            }));
         });
 
         describe('When giving an non existing section', () => {

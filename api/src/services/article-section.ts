@@ -8,7 +8,7 @@ export function articleSectionService(prefix: string, app: express.Application) 
 
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({ error: 'Cannot search an association\'s list when not connected' })
+            res.json({ error: 'Cannot search an association\'s list when not connected' });
         } else {
             if (!association) {
                 res.status(404);
@@ -25,7 +25,7 @@ export function articleSectionService(prefix: string, app: express.Application) 
 
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
-            res.json({ error: 'Cannot search an association\'s list when not connected' })
+            res.json({ error: 'Cannot search an association\'s list when not connected' });
         } else {
             if (associations.length) {
                 res.json(associations);
