@@ -1,15 +1,15 @@
-import app, {serveStatic} from './';
+import app, {serveStatic, configService} from './';
 import {initDb} from './db/init-test-data';
 import expressJwt from 'express-jwt';
 
 import {articleService} from './services/article';
-import {sectionService} from './services/section';
 import {articleSectionService} from './services/article-section';
 import {signinService} from './services/signin';
 import {swaggerService} from './swagger/index';
+import {sectionService} from './services/section';
 
 serveStatic('', app);
-app.use(expressJwt({ secret: 'secret', credentialsRequired: false }));
+app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
 
 articleSectionService('', app);
 sectionService('', app);
@@ -24,6 +24,7 @@ if (process.env.DB_ENV === 'test') {
 }
 
 articleService('', app);
+configService('', app);
 swaggerService('', app);
 
 app.listen(1337, () => console.log('Launching app on port 1337.'));

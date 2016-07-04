@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import {IArticle, IArticleInstance} from './article';
+import {join} from 'path';
 import {dbPath} from '../config';
 import {ISection, ISectionInstance} from './section';
 import {IArticleSection, IArticleSectionInstance} from './article-section';
@@ -7,7 +8,7 @@ import {IArticleSection, IArticleSectionInstance} from './article-section';
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
-        storage: process.env.DB_ENV !== 'test' ? join(__dirname, './db.sqlite') : join(__dirname, './db-tests.sqlite'),
+        storage: process.env.DB_ENV !== 'test' ? dbPath : join(__dirname, './db-tests.sqlite'),
         port: 3306,
         logging: false
     });
