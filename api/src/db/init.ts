@@ -1,5 +1,6 @@
-import {sequelize, Article} from './';
+import {sequelize, Article, Section} from './';
 import {IArticle} from '../db/article';
+import {ISection} from '../db/section';
 import faker from 'faker';
 
 /** Create the database. */
@@ -15,7 +16,7 @@ async function initDb() {
 
     // Syncs the model
     try {
-        await sequelize.sync({force: true});
+        await sequelize.sync({ force: true });
         console.log('Database sync sucessful');
     } catch (error) {
         console.log(`Error while trying to sync the model with the database : ${error}`);
@@ -38,6 +39,19 @@ async function initDb() {
             console.log('10 articles successfully inserted.');
         } catch (error) {
             console.log(`Error while trying to insert an article in the database : ${error}`);
+        }
+
+        // Populate the Section Table
+        try {
+            let data: ISection[] = [
+                { name: 'Tutorial' },
+                { name: 'Drawing' },
+                { name: 'Sport' }
+            ];
+            await Section.bulkCreate(data);
+            console.log('3 Sections successfully inserted.');
+        } catch (error) {
+            console.log(`Error while trying to insert an SECTION in the database : ${error}`);
         }
     }
 }

@@ -33,7 +33,7 @@ export class EditPage extends React.Component<any, any> {
                         <div>{i18n.t('edit-page.content.section')}</div>
                         <FlatButton label={i18n.t('button.add')} />
                     </div>
-                    <TextField hintText='Rubriques' />
+                    <TextField hintText='Rubriques' name='sections' />
 
                     <div className='label'>
                         <div>{i18n.t('edit-page.content.context-url')}</div>

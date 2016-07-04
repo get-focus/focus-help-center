@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import {ISection} from './section';
 
 /** Represents an article. */
 export interface IArticle {
@@ -10,6 +11,7 @@ export interface IArticle {
     createdAt?: string;
     updatedAt?: string;
     publishedAt?: string;
+    sections?: ISection[];
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */
