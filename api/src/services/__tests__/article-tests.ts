@@ -162,9 +162,14 @@ describe('Article', () => {
                     }
                 });
                 const returnedObject = await response.json<{articleId: number, sections: ISection[]}>();
+
+                // Check the sections
+                const secs = await fetchWithLogin('http://localhost:1337/api/section');
+                console.log(await secs.json<ISection[]>());
                 chai.expect(returnedObject.articleId).to.equal(2);
                 chai.expect(returnedObject.sections[1]).to.deep.equal(sections.List[1]);
                 chai.expect(returnedObject.sections.length).to.equal(2);
+                // console.log(returnedObject.sections);
             }));
         });
         describe('When giving an non existing section', () => {

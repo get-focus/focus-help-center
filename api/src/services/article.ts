@@ -161,7 +161,7 @@ export function articleService(prefix: string, app: express.Application) {
             res.status(404);
             res.json({ error: 'No article found' });
         } else if (req.user && req.user.signedIn || article.get().published === true) {
-            const articleSection = (await ArticleSection.findAll({where: {ArticleId: article.get().id}})).map(article => article.get());
+            const articleSection = (await ArticleSection.findAll({ where: { ArticleId: article.get().id } })).map(article => article.get());
             let sectionList: ISection[] = [];
             for (let i = 0; i < articleSection.length; i++) {
                 sectionList.push((await Section.findById(articleSection[i].SectionId)).get());

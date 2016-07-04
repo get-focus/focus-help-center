@@ -7,7 +7,7 @@ import {IArticleSection, IArticleSectionInstance} from './article-section';
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
-        storage: process.env.DB_ENV !== 'test' ? dbPath : ':memory:',
+        storage: process.env.DB_ENV !== 'test' ? join(__dirname, './db.sqlite') : ':memory:',
         port: 3306,
         logging: false
     });
