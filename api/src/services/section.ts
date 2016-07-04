@@ -15,7 +15,6 @@ export function sectionService(prefix: string, app: express.Application) {
                 res.json({ error: 'No section found' });
             } else {
                 res.json(section.get());
-                console.log(section.get());
             }
         }
     });

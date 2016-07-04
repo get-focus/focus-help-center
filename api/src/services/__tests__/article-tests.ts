@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import mochaAsync from '../../../test/mocha-async';
 import {IArticle} from '../../db/article';
 import {ISection} from '../../db/section';
+import {IArticleSection} from '../../db/article-section';
 import {article1, article2, article3} from '../../db/init-test-data';
 import {fetchWithLogin} from './login';
 
@@ -147,13 +148,16 @@ describe('Article', () => {
         }));
 
         describe('When getting sections', () => {
+            let returnedObject, returnedSection;
+            const sections = {
+                List: [
+                    { name: 'Marketing' },
+                    { name: 'Social' },
+                    { id: 1, name: 'Tutorial' }
+                ]
+            };
+
             it('should returns the article\'s ID and its sections', mochaAsync(async () => {
-                const sections = {
-                    List: [
-                        { name: 'Marketing' },
-                        { id: 1, name: 'Tutorial' }
-                    ]
-                };
                 const response = await fetchWithLogin('http://localhost:1337/api/article/2/sections', {
                     method: 'POST',
                     body: JSON.stringify(sections),
@@ -161,17 +165,44 @@ describe('Article', () => {
                         'Content-Type': 'application/json'
                     }
                 });
-                const returnedObject = await response.json<{articleId: number, sections: ISection[]}>();
-
-                // Check the sections
-                const secs = await fetchWithLogin('http://localhost:1337/api/section');
-                console.log(await secs.json<ISection[]>());
+                returnedObject = await response.json<{ articleId: number, sections: ISection[] }>();
                 chai.expect(returnedObject.articleId).to.equal(2);
-                chai.expect(returnedObject.sections[1]).to.deep.equal(sections.List[1]);
-                chai.expect(returnedObject.sections.length).to.equal(2);
-                // console.log(returnedObject.sections);
+                chai.expect(returnedObject.sections[2]).to.deep.equal(sections.List[2]);
+                chai.expect(returnedObject.sections.length).to.equal(3);
             }));
+
+            it('should update the section length', mochaAsync(async () => {
+                // Check the sections
+                const sectionsResponse = await fetchWithLogin('http://localhost:1337/api/section');
+                const returnedSections = await sectionsResponse.json<ISection[]>();
+                chai.expect(returnedSections.length).to.equal(3);
+
+                // Check if the section length is different from the basic one
+                // Maybe we gotta update it
+                chai.expect(returnedSections.length).to.not.equal(2);
+            }))
+
+            it('should have the right sections', mochaAsync(async () => {
+                const unitSectionResponse = await fetchWithLogin('http://localhost:1337/api/section/1');
+                returnedSection = await unitSectionResponse.json<ISection>();
+                chai.expect(returnedSection).to.deep.equal(sections.List[2]);
+
+            }))
+
+            it('should update the associations', mochaAsync(async () => {
+                const associationsResponse = await fetchWithLogin('http://localhost:1337/api/association');
+                const returnedAssociations = await associationsResponse.json<IArticleSection[]>();
+                chai.expect(returnedAssociations.length).to.equal(3);
+            }))
+
+            it('should have the right associations', mochaAsync(async () => {
+                const unitAssociationResponse = await fetchWithLogin('http://localhost:1337/api/association/2/1');
+                const returnedAssociation = await unitAssociationResponse.json<IArticleSection>();
+                chai.expect(returnedAssociation.ArticleId).to.equal(returnedObject.articleId);
+                chai.expect(returnedAssociation.SectionId).to.equal(returnedSection.id);
+            }))
         });
+
         describe('When giving an non existing section', () => {
             it('should returns a sql error', mochaAsync(async () => {
                 const sections = {
@@ -187,7 +218,7 @@ describe('Article', () => {
                         'Content-Type': 'application/json'
                     }
                 });
-                const returnedObject = await response.json<{error: string}>();
+                const returnedObject = await response.json<{ error: string }>();
                 chai.expect(returnedObject.error).to.equal('Bad request : SequelizeForeignKeyConstraintError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed');
             }));
         });

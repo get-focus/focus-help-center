@@ -15,7 +15,6 @@ export function articleSectionService(prefix: string, app: express.Application) 
                 res.json({ error: 'No association found' });
             } else if (req.user && req.user.signedIn) {
                 res.json(association);
-                console.log(association);
             }
         }
 
