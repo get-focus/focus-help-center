@@ -3,15 +3,15 @@ import * as React from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
-import {TextField, FlatButton, IconButton, AutoComplete} from 'material-ui';
-import Chip from 'material-ui/chip';
+import {TextField, FlatButton, IconButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox, Divider} from 'material-ui';
+import {NavigationClose} from 'material-ui/svg-icons';
 
 import {State} from '../../store/default-state';
 
 export class EditPage extends React.Component<any, any> {
     static propTypes = { id: React.PropTypes.number };
 
-    state = { isVisible: false, searchText: '' };
+    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, primaryNestedText: 'Show more' };
 
     componentWillMount() {
         this.props.clearArticle();
@@ -28,11 +28,12 @@ export class EditPage extends React.Component<any, any> {
         article.sections.map(section => { sections.push(section); });
         searchText.split(',').map((value, index) => { sections.push({ name: value }); });
         this.props.manageArticleSection('sections', this.props.article.id, sections);
-        this.setState({searchText: ''});
+        this.setState({ searchText: '' });
     };
 
-    removeSectionClickHandler(sectionToDelete) {
+    removeSectionClickHandler = () => {
         const {sections} = this.props.article;
+        const {sectionToDelete} = this.state;
         let list = [];
         sections.map(section => {
             if (section.id !== sectionToDelete && section.name !== sectionToDelete.name) {
@@ -40,21 +41,53 @@ export class EditPage extends React.Component<any, any> {
             }
         });
         this.props.manageArticleSection('sections', this.props.article.id, list);
-    }
-
-    showSections() {
-        const {sections} = this.props.article;
-        return sections.map(section => {
-            return (
-                <Chip onRequestDelete={() => this.removeSectionClickHandler(section) } style={{ margin: 4 }} >
-                    {section.name}
-                </Chip>
-            );
-        });
+        this.showDeleteAlert(null);
     }
 
     onChangeHandler = (value) => {
-        this.setState({searchText: value});
+        this.setState({ searchText: value });
+    };
+
+    showDialog = () => {
+        this.setState({ dialogOpen: !this.state.dialogOpen });
+    }
+
+    showDeleteAlert = (section) => {
+        if (this.state.alertOpen) {
+            this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section });
+        } else {
+            this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section });
+        }
+    }
+
+    showPrimarySectionList = () => {
+        const {sections} = this.props.article;
+        if (this.props.article.sections) {
+            return sections.map((section, index) => {
+                if (index <= 1) {
+                    return <ListItem key={index} primaryText={section.name} rightIcon={<NavigationClose onClick={() => this.showDeleteAlert(section) }/>} />;
+                }
+            });
+        }
+    };
+
+    onNestedListToggle = () => {
+        this.state.primaryNestedText === 'Show more' ?
+            this.setState({ primaryNestedText: 'Show less' }) : this.setState({ primaryNestedText: 'Show more' });
+    }
+
+    showSecondarySectionList = () => {
+        const {sections} = this.props.article;
+        if (this.props.article.sections && this.props.article.sections.length > 2) {
+            let sectionList = sections.map((section, index) => {
+                if (index > 1) {
+                    return <ListItem key={index} primaryText={section.name} rightIcon={<NavigationClose onClick={() => this.showDeleteAlert(section) }/>} />;
+                }
+            });
+            return (
+                <ListItem primaryText={this.state.primaryNestedText} primaryTogglesNestedList={true} nestedItems={sectionList} onNestedListToggle={this.onNestedListToggle} ref='primaryNested' />
+            );
+        }
     };
 
     checkSections() {
@@ -65,33 +98,80 @@ export class EditPage extends React.Component<any, any> {
         }
     }
 
+    onCheckHandler = (key) => {
+        const itemList = this.refs.dialogList.props.children[1];
+        let searchedItem;
+        for (let i = 0; i < itemList.length; i++) {
+            if (itemList[i].key === key.toString()) {
+                searchedItem = itemList[i];
+            }
+        }
+    }
+
+    // HERE, WE HAVE TO DISPLAY ALL THE SECTIONS
+    // BY THE MOMENT, IT DISPLAYS ONLY THE ARTICLE'S SECTIONS
+    showAllSection = () => {
+        const {sections} = this.props.article;
+        if (this.props.article.sections) {
+            return sections.map((section, index) => {
+                return (
+                    <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={() => this.onCheckHandler(index) } />} />
+                );
+            });
+        }
+    };
+
     render() {
         if (!this.props.connected) {
             return <div />;
         }
 
-        const {isVisible, searchText} = this.state;
+        const {isVisible, searchText, dialogOpen, alertOpen} = this.state;
 
         return (
             <div className='edit-page'>
+                <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} >
+                    <header style={{ position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'white' }} >
+                        <Subheader style={{ marginTop: 24 }} ><em>Entre une nouvelle rubrique ou cochez celle à ajouter</em></Subheader>
+                        <AutoComplete
+                            hintText='Ajoutez ou recherchez une rubrique'
+                            dataSource={this.checkSections() }
+                            ref='sectionList'
+                            onUpdateInput={this.onChangeHandler}
+                            searchText={searchText}
+                            />
+                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle}/>
+                    </header>
+                    <List style={{ position: 'relative', top: 100 }} ref='dialogList' >
+                        <Subheader>Toutes les rubriques</Subheader>
+                        {this.showAllSection() }
+                    </List>
+                </Dialog>
+
+                <Dialog open={alertOpen} onRequestClose={this.showDeleteAlert} actions={[
+                    <FlatButton
+                        label='Annuler'
+                        primary={true}
+                        onClick={this.showDeleteAlert}
+                        />,
+                    <FlatButton
+                        label='Confirmer'
+                        primary={true}
+                        onClick={this.removeSectionClickHandler}
+                        />
+                ]}>
+                    Voulez-vous vraiment supprimer cette rubriques?
+                </Dialog>
+
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
                     <h5>PARAMÉTRAGE</h5>
 
-                    <div className='chips-zone' style={{ display: 'flex', flexWrap: 'wrap' }}>
-                        {this.props.article.sections ? this.showSections() : null}
-                    </div>
-
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.section') }</div>
-                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle}/>
-                    </div>
-                    <AutoComplete
-                        hintText='Rubriques...'
-                        dataSource={this.checkSections()}
-                        ref='sectionList'
-                        onUpdateInput={this.onChangeHandler}
-                        searchText={searchText}
-                    />
+                    <List>
+                        <Subheader>Rubriques <FlatButton label={i18n.t('button.add') } onClick={this.showDialog}/></Subheader>
+                        {this.showPrimarySectionList() }
+                        <Divider />
+                        {this.showSecondarySectionList() }
+                    </List>
 
                     <div className='label'>
                         <div>{i18n.t('edit-page.content.context-url') }</div>

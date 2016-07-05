@@ -14,6 +14,7 @@
     "start:test-watch": "better-npm-run start-watch-test",
     "diagnostic": "mocha src/db/__tests__/**/*.ts",
     "test": "mocha src/services/__tests__/**/*.ts",
+    "test:watch": "mocha src/services/__tests__/**/*.ts --watch",
     "swagger-ui": "sh postinstall.sh",
     "typings": "typings install"
   },

@@ -49,7 +49,7 @@
       }
     },
     "test-watch": {
-      "command": "mocha src/**/__tests__/**/*.ts* -w",
+      "command": "mocha src/**/__tests__/**/*.ts* --watch",
       "env": {
         "BABEL_ENV": "production"
       }
