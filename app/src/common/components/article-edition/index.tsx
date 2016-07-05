@@ -3,7 +3,7 @@ import * as React from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
-import {TextField, FlatButton, IconButton} from 'material-ui';
+import {TextField, FlatButton, IconButton, AutoComplete} from 'material-ui';
 import Chip from 'material-ui/chip';
 
 import {State} from '../../store/default-state';
@@ -11,7 +11,7 @@ import {State} from '../../store/default-state';
 export class EditPage extends React.Component<any, any> {
     static propTypes = { id: React.PropTypes.number };
 
-    state = { isVisible: false };
+    state = { isVisible: false, searchText: '' };
 
     componentWillMount() {
         this.props.clearArticle();
@@ -20,14 +20,16 @@ export class EditPage extends React.Component<any, any> {
         }
     }
 
-    updateArticle() {
-        const {sectionList} = this.refs;
+    updateArticle = () => {
         const {article} = this.props;
+        const {searchText} = this.state;
+
         let sections = [];
         article.sections.map(section => { sections.push(section); });
-        (sectionList.getValue()).split(',').map((value, index) => { sections.push({ name: value }); });
+        searchText.split(',').map((value, index) => { sections.push({ name: value }); });
         this.props.manageArticleSection('sections', this.props.article.id, sections);
-    }
+        this.setState({searchText: ''});
+    };
 
     removeSectionClickHandler(sectionToDelete) {
         const {sections} = this.props.article;
@@ -41,7 +43,6 @@ export class EditPage extends React.Component<any, any> {
     }
 
     showSections() {
-        console.log('Hello');
         const {sections} = this.props.article;
         return sections.map(section => {
             return (
@@ -52,28 +53,45 @@ export class EditPage extends React.Component<any, any> {
         });
     }
 
+    onChangeHandler = (value) => {
+        this.setState({searchText: value});
+    };
+
+    checkSections() {
+        if (this.props.article.sections) {
+            return this.props.article.sections.map(section => section.name);
+        } else {
+            return [];
+        }
+    }
+
     render() {
         if (!this.props.connected) {
             return <div />;
         }
 
-        const {isVisible} = this.state;
+        const {isVisible, searchText} = this.state;
 
-        console.log(this.props);
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
                     <h5>PARAMÉTRAGE</h5>
 
-                    <div className='chips-zone' style={{display: 'flex', flexWrap: 'wrap'}}>
+                    <div className='chips-zone' style={{ display: 'flex', flexWrap: 'wrap' }}>
                         {this.props.article.sections ? this.showSections() : null}
                     </div>
 
                     <div className='label'>
                         <div>{i18n.t('edit-page.content.section') }</div>
-                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle.bind(this) }/>
+                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle}/>
                     </div>
-                    <TextField hintText='Rubriques' ref='sectionList'/>
+                    <AutoComplete
+                        hintText='Rubriques...'
+                        dataSource={this.checkSections()}
+                        ref='sectionList'
+                        onUpdateInput={this.onChangeHandler}
+                        searchText={searchText}
+                    />
 
                     <div className='label'>
                         <div>{i18n.t('edit-page.content.context-url') }</div>
