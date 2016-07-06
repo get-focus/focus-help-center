@@ -11,13 +11,17 @@ import {State} from '../../store/default-state';
 export class EditPage extends React.Component<any, any> {
     static propTypes = { id: React.PropTypes.number };
 
-    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: 'Show more' };
+    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: 'Afficher plus', nestedListIsLoaded: false };
 
     componentWillMount() {
         this.props.clearArticle();
         if (this.props.id) {
             this.props.getArticle(this.props.id);
         }
+    }
+
+    componentDidUpdate() {
+        this.setPrimaryNested();
     }
 
     updateArticle = () => {
@@ -30,7 +34,7 @@ export class EditPage extends React.Component<any, any> {
         if (sectionToAdd !== null) {
             sections.push(sectionToAdd);
         }
-        this.props.manageArticleSection('sections', this.props.article.id, sections);
+        this.props.manageArticleSection(article, 'sections', sections);
         this.setState({ searchText: '', sectionToAdd: null });
     };
 
@@ -43,7 +47,7 @@ export class EditPage extends React.Component<any, any> {
                 list.push(section);
             }
         });
-        this.props.manageArticleSection('sections', this.props.article.id, list);
+        this.props.manageArticleSection(this.props.article, 'sections', list);
         this.showDeleteAlert(null);
     }
 
@@ -75,8 +79,8 @@ export class EditPage extends React.Component<any, any> {
     };
 
     onNestedListToggle = () => {
-        this.state.primaryNestedText === 'Show more' ?
-            this.setState({ primaryNestedText: 'Show less' }) : this.setState({ primaryNestedText: 'Show more' });
+        this.state.primaryNestedText === 'Afficher plus' ?
+            this.setState({ primaryNestedText: 'Afficher moins' }) : this.setState({ primaryNestedText: 'Afficher plus' });
     }
 
     showSecondarySectionList = () => {
@@ -90,6 +94,14 @@ export class EditPage extends React.Component<any, any> {
             return (
                 <ListItem primaryText={this.state.primaryNestedText} primaryTogglesNestedList={true} nestedItems={sectionList} onNestedListToggle={this.onNestedListToggle} ref='primaryNested' />
             );
+        }
+    };
+
+    setPrimaryNested = () => {
+        if (this.refs.primaryNested) {
+            if (!this.refs.primaryNested.state.isKeyboardFocused) {
+                this.refs.primaryNested.setState({ isKeyboardFocused: true });
+            }
         }
     };
 
@@ -138,9 +150,7 @@ export class EditPage extends React.Component<any, any> {
         }
 
         const {isVisible, searchText, dialogOpen, alertOpen} = this.state;
-        if (this.refs.primaryNested) {
-            this.refs.primaryNested.setState({ isKeyboardFocused: true });
-        }
+
         return (
             <div className='edit-page'>
                 <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} >
@@ -220,6 +230,6 @@ export default connect(
     dispatch => ({
         getArticle: id => dispatch(loadArticle(id)),
         clearArticle: () => dispatch(clearArticle()),
-        manageArticleSection: (attribute, article, sections) => dispatch(manageArticleSection(attribute, article, sections))
+        manageArticleSection: (article, attribute, sections) => dispatch(manageArticleSection(article, attribute, sections))
     })
 )(EditPage);
