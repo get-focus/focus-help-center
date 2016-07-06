@@ -11,7 +11,7 @@ import {State} from '../../store/default-state';
 export class EditPage extends React.Component<any, any> {
     static propTypes = { id: React.PropTypes.number };
 
-    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, primaryNestedText: 'Show more' };
+    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: 'Show more' };
 
     componentWillMount() {
         this.props.clearArticle();
@@ -22,13 +22,16 @@ export class EditPage extends React.Component<any, any> {
 
     updateArticle = () => {
         const {article} = this.props;
-        const {searchText} = this.state;
+        const {searchText, sectionToAdd} = this.state;
 
         let sections = [];
         article.sections.map(section => { sections.push(section); });
         searchText.split(',').map((value, index) => { sections.push({ name: value }); });
+        if (sectionToAdd !== null) {
+            sections.push(sectionToAdd);
+        }
         this.props.manageArticleSection('sections', this.props.article.id, sections);
-        this.setState({ searchText: '' });
+        this.setState({ searchText: '', sectionToAdd: null });
     };
 
     removeSectionClickHandler = () => {
@@ -98,12 +101,20 @@ export class EditPage extends React.Component<any, any> {
         }
     }
 
-    onCheckHandler = (key) => {
-        const itemList = this.refs.dialogList.props.children[1];
+    onCheckHandler = (key, event, checked) => {
+        const {sections} = this.props.article;
+        const itemList = this.refs['dialogList']['props'].children[1];
         let searchedItem;
+
         for (let i = 0; i < itemList.length; i++) {
             if (itemList[i].key === key.toString()) {
                 searchedItem = itemList[i];
+                if (checked === false) {
+                    this.showDeleteAlert(sections[i]);
+                } else if (checked === true) {
+                    this.setState({ sectionToAdd: sections[i] });
+                    this.updateArticle();
+                }
             }
         }
     }
@@ -115,7 +126,7 @@ export class EditPage extends React.Component<any, any> {
         if (this.props.article.sections) {
             return sections.map((section, index) => {
                 return (
-                    <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={() => this.onCheckHandler(index) } />} />
+                    <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={this.onCheckHandler.bind(null, index) } />} />
                 );
             });
         }
@@ -127,7 +138,9 @@ export class EditPage extends React.Component<any, any> {
         }
 
         const {isVisible, searchText, dialogOpen, alertOpen} = this.state;
-
+        if (this.refs.primaryNested) {
+            this.refs.primaryNested.setState({ isKeyboardFocused: true });
+        }
         return (
             <div className='edit-page'>
                 <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} >
@@ -140,7 +153,7 @@ export class EditPage extends React.Component<any, any> {
                             onUpdateInput={this.onChangeHandler}
                             searchText={searchText}
                             />
-                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle}/>
+                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
                     </header>
                     <List style={{ position: 'relative', top: 100 }} ref='dialogList' >
                         <Subheader>Toutes les rubriques</Subheader>
@@ -167,7 +180,7 @@ export class EditPage extends React.Component<any, any> {
                     <h5>PARAMÉTRAGE</h5>
 
                     <List>
-                        <Subheader>Rubriques <FlatButton label={i18n.t('button.add') } onClick={this.showDialog}/></Subheader>
+                        <Subheader>Rubriques <FlatButton label={i18n.t('button.add') } onClick={this.showDialog} style={{ float: 'right' }} /></Subheader>
                         {this.showPrimarySectionList() }
                         <Divider />
                         {this.showSecondarySectionList() }
