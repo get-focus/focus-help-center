@@ -3,7 +3,7 @@ import * as React from 'react';
 import ContentArea from './content-area';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
-import {TextField, FlatButton, IconButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox, Divider} from 'material-ui';
+import {TextField, FlatButton, IconButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox} from 'material-ui';
 import {NavigationClose} from 'material-ui/svg-icons';
 
 import {State} from '../../store/default-state';
@@ -192,7 +192,6 @@ export class EditPage extends React.Component<any, any> {
                     <List>
                         <Subheader>Rubriques <FlatButton label={i18n.t('button.add') } onClick={this.showDialog} style={{ float: 'right' }} /></Subheader>
                         {this.showPrimarySectionList() }
-                        <Divider />
                         {this.showSecondarySectionList() }
                     </List>
 
