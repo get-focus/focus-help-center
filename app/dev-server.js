@@ -1,4 +1,6 @@
 const webpackConfig = require('./webpack.config');
 const serverLauncher = require('webpack-focus').serverLauncher;
 
-serverLauncher(webpackConfig('back-office', true), {proxy: null});
+console.log(process.env.APP_LAUNCHED);
+
+serverLauncher(webpackConfig(process.env.APP_LAUNCHED, true), {proxy: null});

@@ -1,11 +1,11 @@
 import Sequelize from 'sequelize';
 import {IArticle, IArticleInstance} from './article';
-import path from 'path';
+import {dbPath} from '../config';
 
 const sequelizeInstance =
     new Sequelize('articles', null, null, {
         dialect: 'sqlite',
-        storage: process.env.IS_BUNDLE ? './db/db.sqlite' : process.env.DB_ENV === 'production' ? path.join(__dirname, '../../dist/db/db.sqlite') : ':memory:',
+        storage: process.env.DB_ENV !== 'test' ? dbPath : ':memory:',
         port: 3306,
         logging: false
     });
@@ -15,7 +15,8 @@ const article =
         title: Sequelize.STRING,
         description: Sequelize.STRING,
         content: Sequelize.STRING,
-        published: Sequelize.BOOLEAN
+        published: Sequelize.BOOLEAN,
+        publishedAt: Sequelize.DATE
     });
 
 /** ORM instance. */

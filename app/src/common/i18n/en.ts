@@ -12,6 +12,14 @@ export const en = {
                 placeholder: 'Type an article...'
             }
         },
+        article: {
+            title: 'Title',
+            description: 'Description',
+            create: {
+                dialog: 'Create a new article',
+                confirm: 'Create'
+            }
+        },
         'edit-cartridge': {
             input: {
                 title: 'Title...',
@@ -21,8 +29,14 @@ export const en = {
                 title: 'Title',
                 description: 'Description',
                 snackBar: {
-                    saveSuccessMessage: 'Saved article.',
-                    saveFailedMessage: 'Fail to save. Fields are empty.',
+                    saveSuccessMessage: 'Article saved.',
+                    saveSuccessMessageTitle: 'Title saved.',
+                    saveSuccessMessageDescription: 'Description saved.',
+                    saveSuccessMessageContent: 'Content saved.',
+                    saveSuccessMessagePublished: 'Article published.',
+                    saveSuccessMessageUnPublished: 'Article unpublished.',
+                    saveFailedMessage: 'Error while saving.',
+                    saveFailedContentMessage: 'Title and description are mandatory',
                     saveActionText: 'Home',
                     unpublishMessage: 'The article will be unpublished after you save it.',
                     publishMessage: 'The article will be published after you save it.'
@@ -31,20 +45,18 @@ export const en = {
                 toPublish: 'to publish',
                 publish: 'publish',
                 unpublish: 'unpublish',
+                upToDate: 'Content up to date.',
                 popup: {
                     confirmMessage: 'Do you to delete this article ?',
                     confirm: 'yes',
                     cancel: 'no'
                 },
-                label: {
-                    modifiedSince: 'Modified',
-                    oneDay: 'Modified today',
-                    days: 'days age',
-                    months: 'months ago',
-                    oneYear: 'year ago',
-                    years: 'years ago',
-                }
+                updatedAt: 'Last updated',
+                publishedAt: 'Published'
             }
+        },
+        'content-area': {
+            'preview' : 'preview'
         },
         'edit-page': {
             content: {
@@ -58,9 +70,15 @@ export const en = {
             edit: 'Edit',
             add: 'Add'
         },
+        date: {
+            to: 'et'
+        },
         password: {
             password: 'Password',
             connected: 'Connected'
+        },
+        search: {
+            placeholder: 'Search in the help center'
         },
 
         // Back office specific labels.
@@ -73,7 +91,10 @@ export const en = {
 
         // Extension specific labels.
         extension: {
-
+            title: 'help center',
+            footer: {
+                button: 'see all articles'
+            }
         }
     }
 };

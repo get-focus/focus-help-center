@@ -1,6 +1,8 @@
 import express from 'express';
 import {Article} from '../db';
+import {IArticle} from '../db/article';
 import {or, and, fn, col} from 'sequelize';
+
 /**
  * @swagger
  * definition:
@@ -19,6 +21,8 @@ import {or, and, fn, col} from 'sequelize';
  *       createdAt:
  *         type: string
  *       updatedAt:
+ *         type: string
+ *       publishedAt:
  *         type: string
  */
 
@@ -57,7 +61,7 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  */
 
-export function articleService(app: express.Application) {
+export function articleService(prefix: string, app: express.Application) {
 
     /**
      * @swagger
@@ -88,7 +92,7 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.get('/api/article/:id', async (req, res) => {
+    app.get(`${prefix}/api/article/:id`, async (req, res) => {
         const article = await Article.findById(req.params.id);
         if (!article) {
             res.status(404);
@@ -169,17 +173,25 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.post('/api/article', async (req, res) => {
+    app.post(`${prefix}/api/article`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({error: 'Cannot save an article when not connected'});
         } else {
-            let article;
-            if (!req.body.id) {
+            let article: IArticle = req.body;
+            if (!article.id) {
+                article.published = article.published !== undefined ? article.published : false;
                 article = (await Article.create(req.body)).get();
             } else {
-                (await Article.update(req.body, {where: {id: req.body.id}}));
-                article = req.body;
+                const time = new Date().toISOString();
+                const dbArticle = (await Article.findById(article.id)).get();
+                if (!dbArticle.published && article.published) {
+                    article.publishedAt = time;
+                } else if (!article.published) {
+                    article.publishedAt = undefined;
+                }
+                await Article.update(article, {where: {id: req.body.id}});
+                article.updatedAt = time;
             }
             res.json(article);
         }
@@ -214,7 +226,7 @@ export function articleService(app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.delete('/api/article/:id', async (req, res) => {
+    app.delete(`${prefix}/api/article/:id`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot delete an article when not connected' });

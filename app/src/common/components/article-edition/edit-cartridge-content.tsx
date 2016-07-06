@@ -1,214 +1,131 @@
-import {Component} from 'react';
+import * as React from 'react';
 import i18n from 'i18next';
 import {connect} from 'react-redux';
-import {updateArticle, saveArticle, deleteArticle} from '../../actions/article-detail';
+import {updateArticle, deleteArticle, showEditPopup, clickEditDescription, clickEditTitle} from '../../actions/article-detail';
 import {withRouter} from 'react-router';
-import {Link} from 'react-router';
+import {TextField, IconMenu, IconButton, MenuItem, Dialog, FlatButton} from 'material-ui';
+import {State} from '../../store/default-state';
+import {capitalize} from 'lodash';
 
 @connect(
-    state => ({
+    (state: State) => ({
         article: state.articleDetail.article,
-        connected: state.login.isConnected
+        connected: state.login.isConnected,
+        isEditDescription: state.articleDetail.isEditDescription,
+        isEditTitle: state.articleDetail.isEditTitle,
+        showPopup: state.articleDetail.showPopup
     }),
     dispatch => ({
-        updateArticle: (attribute, value) => dispatch(updateArticle(attribute, value)),
-        saveArticle: article => dispatch(saveArticle(article)),
-        deleteArticle: id => dispatch(deleteArticle(id))
+        clickEditDescription: () => dispatch(clickEditDescription()),
+        clickEditTitle: () => dispatch(clickEditTitle()),
+        deleteArticle: id => dispatch(deleteArticle(id)),
+        showEditPopup: () => dispatch(showEditPopup()),
+        updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
 )
-class EditCartridgeContent extends Component<any, any> {
+class EditCartridgeContent extends React.Component<any, any> {
+
+    goHome = () => this.props.router.push('');
 
     deleteArticle = () => {
+        this.props.showEditPopup();
         this.props.deleteArticle(this.props.article.id);
-        this.props.router.push({ path: 'home' });
+        this.goHome();
     };
 
-    showPopup = () => {
-        const {modal} = this.refs;
-        modal['style'].display = 'block';
+    publishArticle() {
+        this.props.updateArticle('published', !this.props.article.published, this.goHome);
     }
 
-    componentDidMount() {
-        componentHandler.upgradeDom();
+    saveArticle(attribute) {
+        this.props[`clickEdit${capitalize(attribute)}`]();
+        this.props.updateArticle(attribute, this.refs[attribute]['getValue'](), this.goHome);
     }
 
-    componentDidUpdate() {
-        componentHandler.upgradeDom();
-        const {inputTitle, inputDescription} = this.refs;
-        inputTitle['MaterialTextfield'].change(this.props.article.title);
-        inputDescription['MaterialTextfield'].change(this.props.article.description);
-    }
-
-    /**
-     * Saves the article
-     * Checks if the attributes are given to save the article
-     */
-    saveArticle() {
-        const {title, content, description} = this.props.article;
-        let data;
-        if (title.trim() === '' || content.trim() === '' || description.trim() === '') {
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveFailedMessage'),
-                timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        } else {
-            this.props.saveArticle(this.props.article);
-            data = {
-                message: i18n.t('edit-cartridge.content.snackBar.saveSuccessMessage'),
-                timeout: 3000,
-                actionHandler: () => {this.props.router.push({ path: 'home' }); },
-                actionText: i18n.t('edit-cartridge.content.snackBar.saveActionText')
-            };
-        }
-        this.showSnackBar(data);
-    }
-
-    onChangeHandler(changeEvent) {
-        this.props.updateArticle(changeEvent.target.name, changeEvent.target.value);
-    }
-
-    /**
-     * Shows the snackbar with the given information
-     */
-    showSnackBar = (data) => {
-        const {snackBarContainer} = this.refs;
-        snackBarContainer['MaterialSnackbar'].showSnackbar(data);
-    }
-
-    /**
-     * Updates the article 'published' attribute
-     * Gives the data for the snackbar
-     */
-    clickPublishHandler = () => {
-        if (this.props.article.published) {
-            this.props.updateArticle('published', false);
-            this.showSnackBar({
-                message: i18n.t('edit-cartridge.content.snackBar.unpublishMessage'),
-                timeout: 1500,
-                actionHandler: () => {this.saveArticle(); },
-                actionText: i18n.t('button.save')
-            });
-        } else {
-            this.props.updateArticle('published', true);
-            this.showSnackBar({
-                message: i18n.t('edit-cartridge.content.snackBar.publishMessage'),
-                timeout: 1500,
-                actionHandler: () => {this.saveArticle(); },
-                actionText: i18n.t('button.save')
-            });
-        }
-    }
-
-    /**
-     * Sets the information data to display
-     */
-    dateChecker = () => {
-        const {updatedAt} = this.props.article;
-        const date = new Date(updatedAt);
-        const today = new Date();
-        const diff = new Date(today.getTime() - date.getTime()).getUTCDate() - 1;
-        const month = Math.ceil(diff / 30);
-        const year = Math.ceil(month / 12);
-
-        if (updatedAt !== undefined) {
-            if (diff === 0) {
-                return <p>{i18n.t('edit-cartridge.content.label.oneDay')}</p>;
-            } else if (diff > 0) {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${diff} {i18n.t('edit-cartridge.content.label.days')}`</p>;
-            } else if (diff > 29) {
-                return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${month} {i18n.t('edit-cartridge.content.label.months')}`</p>;
-            } else if (month => 12) {
-                if (year === 1) {
-                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.year')}`</p>;
-                } else {
-                    return <p>`{i18n.t('edit-cartridge.content.label.modifiedSince')} ${year} {i18n.t('edit-cartridge.content.label.years')}`</p>;
-                }
-            }
-        }
-
+    formatDate(isoString, text) {
+        const date = new Date(isoString);
+        return `${i18n.t(text)} ${date.toLocaleDateString()} ${i18n.t('date.to')} ${date.toLocaleTimeString()}`;
     }
 
     render() {
-        const {connected} = this.props;
+        const {connected, isEditDescription, isEditTitle} = this.props;
         if (!connected) {
             return <div />;
         }
         return (
-            <div>
-                <div className='content-flex-cartridge'>
-                    <div className='mdl-textfield mdl-js-textfield input-div' ref='inputTitle'>
-                        <input className='mdl-textfield__input' type='text' id='titleInput' name='title' onChange={this.onChangeHandler.bind(this) } value={this.props.article.title} />
-                        <label className='mdl-textfield__label' htmlFor='titleInput'>{i18n.t('edit-cartridge.input.title') }</label>
+            <div className='edit-cartridge'>
+                <div className='left'>
+                    <div className={`title ${isEditTitle ? 'editing' : ''}`}>
+                        {isEditTitle ?
+                            <TextField
+                                name='title'
+                                ref='title'
+                                hintText={i18n.t('edit-cartridge.input.title')}
+                                defaultValue={this.props.article.title}
+                                fullWidth={true}
+                            />
+                        :
+                            <div onClick={this.props.clickEditTitle}>{this.props.article.title}</div>
+                        }
+                        {isEditTitle ?
+                            <IconButton onClick={() => this.saveArticle('title')}>
+                                <i className='material-icons'>save</i>
+                            </IconButton>
+                        : null}
+                        <IconButton onClick={this.props.clickEditTitle}>
+                            <i className='material-icons'>{isEditTitle ? 'undo' : 'edit'}</i>
+                        </IconButton>
+                    </div>
+                    <div className={`description ${isEditDescription ? 'editing' : ''}`}>
+                        {isEditDescription ?
+                            <TextField
+                                name='description'
+                                ref='description'
+                                rowsMax={3}
+                                multiLine={true}
+                                fullWidth={true}
+                                hintText={i18n.t('edit-cartridge.input.description')}
+                                defaultValue={this.props.article.description}
+                            />
+                        :
+                            <div onClick={this.props.clickEditDescription}>{this.props.article.description}</div>
+                        }
+                        {isEditDescription ?
+                            <IconButton onClick={() => this.saveArticle('description')}>
+                                <i className='material-icons'>save</i>
+                            </IconButton>
+                        : null}
+                        <IconButton onClick={this.props.clickEditDescription}>
+                            <i className='material-icons'>{isEditDescription ? 'undo' : 'edit'}</i>
+                        </IconButton>
                     </div>
                 </div>
-
-                <div className='content-flex-cartridge'>
-                    <div className='input-div-parent'>
-                        <div className='mdl-textfield mdl-js-textfield input-div-area' ref='inputDescription'>
-                            <textarea
-                                className='mdl-textfield__input'
-                                id='textarea'
-                                name = 'description'
-                                onChange={this.onChangeHandler.bind(this) }
-                                value={this.props.article.description}
-                                />
-                            <label
-                                className='mdl-textfield__label'
-                                htmlFor='textarea'
-                                >
-                                {i18n.t('edit-cartridge.input.description') }
-                            </label>
-                        </div>
+                <div className='publish'>
+                    <div className='label'>
+                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish')}
+                        <IconMenu
+                            iconButtonElement={<IconButton><i className='material-icons'>keyboard_arrow_down</i></IconButton>}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        >
+                            <MenuItem
+                                primaryText={this.props.article.published ? i18n.t('edit-cartridge.content.unpublish') : i18n.t('edit-cartridge.content.publish')}
+                                onClick={() => this.publishArticle()}
+                            />
+                        </IconMenu>
                     </div>
-
-                    <span className='publish-label'>
-                        {this.props.article.published ? i18n.t('edit-cartridge.content.published') : i18n.t('edit-cartridge.content.toPublish') }
-                        {this.dateChecker() }
-                    </span>
-                    <div id='demo-menu-lower-right'
-                        className='mdl-button mdl-js-button mdl-button--icon publish-article'>
-                        <i className='material-icons'>keyboard_arrow_down</i>
-                    </div>
-
-                    <ul className='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect'
-                        htmlFor='demo-menu-lower-right'>
-                        <li className='mdl-menu__item dropdown-item' onClick={this.clickPublishHandler}>
-                            {this.props.article.published ? i18n.t('edit-cartridge.content.publish') : i18n.t('edit-cartridge.content.unpublish') }
-                        </li>
-                    </ul>
-
-
-                    <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored save-article' onClick={this.saveArticle.bind(this) }>
-                        {i18n.t('button.save') }
-                    </div>
-                    <div className='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete-article' onClick={this.showPopup}>
-                        <i className='material-icons'>delete </i>
-                    </div>
+                    {this.props.article.updatedAt ? <div className='time'>{this.formatDate(this.props.article.updatedAt, 'edit-cartridge.content.updatedAt')}</div> : null}
+                    {this.props.article.publishedAt ? <div className='time'>{this.formatDate(this.props.article.publishedAt, 'edit-cartridge.content.publishedAt')}</div> : null}
                 </div>
-
-                <div id='demo-snackbar-example' className='mdl-js-snackbar mdl-snackbar' ref='snackBarContainer'>
-                    <div className='mdl-snackbar__text'></div>
-                    <div className='mdl-snackbar__action' to='/'></div>
-                </div>
-
-                <div id='myModal' className='modal' ref='modal'>
-                    <div className='modal-content'>
-                        <span className='close' onClick={() => this.refs['modal']['style'].display = 'none'}>×</span>
-                        <div className='confirm-popup'>
-                            <div className='popup-content'>
-                                <p>{i18n.t('edit-cartridge.content.popup.confirmMessage') }</p>
-                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => this.deleteArticle() }>
-                                    {i18n.t('edit-cartridge.content.popup.confirm') }
-                                </div>
-                                <div className='mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored' onClick={() => this.refs['modal']['style'].display = 'none' }>
-                                    {i18n.t('edit-cartridge.content.popup.cancel') }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Dialog
+                    open={this.props.showPopup}
+                    title={i18n.t('edit-cartridge.content.popup.confirmMessage')}
+                    modal={true}
+                    actions={[
+                        <FlatButton label={i18n.t('edit-cartridge.content.popup.cancel')} onClick={this.props.showEditPopup} />,
+                        <FlatButton primary={true} label={i18n.t('edit-cartridge.content.popup.confirm')} onClick={() => this.deleteArticle()} />
+                    ]}
+                />
             </div>
         );
     }

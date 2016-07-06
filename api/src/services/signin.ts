@@ -1,10 +1,10 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 
-export function signinService(app: express.Application) {
+export function signinService(prefix: string, app: express.Application) {
 
     /** Sign in service. */
-    app.route('/signin')
+    app.route(`${prefix}/signin`)
         .post((req, res) => {
             if (req.body === 'password') {
                 const token = jwt.sign({signedIn: true}, 'secret', {expiresIn: '10h'});
@@ -14,6 +14,6 @@ export function signinService(app: express.Application) {
             }
         })
         .get((req, res) => {
-            res.json({success: !!(req.user && req.user.signedIn)});
+            res.json({connected: !!(req.user && req.user.signedIn)});
         });
 }

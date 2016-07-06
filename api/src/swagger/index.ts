@@ -9,16 +9,16 @@ const swaggerSpec = swaggerJSDoc({
         version: '1.0.0',
         description: 'API for the Focus help center',
     },
-    host: 'localhost:3000',
+    host: 'localhost:1337',
     basePath: '/',
 },
     apis: ['./services/*.js'],
 });
 
-export function swaggerService(app: express.Application) {
+export function swaggerService(prefix: string, app: express.Application) {
 
     /** Serves the swagger.json file. */
-    app.get('/swagger.json', (req, res) => {
+    app.get(`${prefix}/swagger.json`, (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(swaggerSpec);
     });

@@ -1,18 +1,18 @@
+import * as React from 'react';
+
 import {ArticleListState} from '../../definitions/article-list';
 import {ArticleLine} from './line';
-import {Link} from 'react-router';
+import {CircularProgress, FloatingActionButton} from 'material-ui';
 
 /** Component that displays the list of all articles */
-export function ArticleList({articleList: {isLoading, list, error}, connected}: {articleList: ArticleListState, connected: boolean}) {
+export function ArticleList({articleList: {isLoading, list, error}, connected, openCreate}: {articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
+    const loading = isLoading && (!list || list && list.length === 0);
     return (
         <div className='article-list'>
-            <div
-                style={!isLoading ? { display: 'none' } : {}}
-                className={`mdl-spinner mdl-spinner--single-color mdl-js-spinner ${isLoading ? 'is-active' : ''}`}
-            />
+            {loading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
             {error ?
                 <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
-            : ''}
+            : null}
             {list && list.map(article =>
                 <ArticleLine
                     key={article.id}
@@ -21,10 +21,10 @@ export function ArticleList({articleList: {isLoading, list, error}, connected}: 
                 />
             )}
             {connected ?
-                <Link to='/create-article' className='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored'>
+                <FloatingActionButton onClick={openCreate} className='add-button'>
                     <i className='material-icons'>add</i>
-                </Link>
-            : ''}
+                </FloatingActionButton>
+            : null}
         </div>
     );
 }

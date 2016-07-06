@@ -7,5 +7,6 @@ declare namespace Chai {
 
     interface Assertion {
         actions(actions: {} | {}[], callback: MochaDone): void
+        state(state: {}): Assertion;
     }
 }

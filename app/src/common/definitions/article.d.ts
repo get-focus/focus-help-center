@@ -3,8 +3,9 @@ export interface Article {
     id?: number;
     title: string;
     description: string;
-    content: string;
+    content?: string;
     createdAt?: string;
     updatedAt?: string;
     published: boolean;
+    publishedAt?: string;
 }

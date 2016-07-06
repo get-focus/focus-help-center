@@ -1,19 +1,12 @@
-import express from 'express';
-import expressJwt from 'express-jwt';
+import express, {Express} from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
+import {resolve} from 'path';
+import * as config from './config';
 
-import {articleService} from './services/article';
-import {signinService} from './services/signin';
-import {swaggerService} from './swagger/index';
-
-import {initDb} from './db/init-test-data';
-
-const app = express();
-app.use(express.static(path.resolve(process.cwd(), process.env.IS_BUNDLE ? './app' : '../docs')));
-app.use(expressJwt({secret: 'secret', credentialsRequired: false}));
+const app: Express = express();
 app.use(bodyParser.text());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Allow CORS.
 app.use((req, res, next) => {
@@ -23,19 +16,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// When testing, we recreate the db for each request.
-if (process.env.DB_ENV === 'test') {
-    app.use(async (req, res, next) => {
-        await initDb();
-        next();
-    });
+export function serveStatic(prefix: string, app: Express) {
+    app.use(prefix, express.static(resolve(__dirname, process.env.IS_BUNDLE ? './app' : './docs')));
 }
 
-// Registers the services.
-articleService(app);
-signinService(app);
-swaggerService(app);
+export function configService(prefix: string, app: Express) {
+    app.get(`${prefix}/config`, (req, res) => res.json(config));
+}
 
-app.listen(3000, () => {
-    console.log('Lauching app on port 3000');
-});
+export default app;

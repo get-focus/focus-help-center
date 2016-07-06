@@ -12,6 +12,14 @@ export const fr = {
                 placeholder: 'Saississez un article...'
             }
         },
+        article: {
+            title: 'Titre',
+            description: 'Description',
+            create: {
+                dialog: 'Création d\'un nouvel article',
+                confirm: 'Créer'
+            }
+        },
         'edit-cartridge': {
             input: {
                 title: 'Titre...',
@@ -21,8 +29,14 @@ export const fr = {
                 title: 'Titre',
                 description: 'Description',
                 snackBar: {
-                    saveSuccessMessage: 'Article sauvegardé.',
-                    saveFailedMessage: 'Sauvegarde échouée. Les champs doivent être remplis',
+                    saveSuccessMessage: 'Article créé.',
+                    saveSuccessMessageTitle: 'Titre sauvegardé.',
+                    saveSuccessMessageDescription: 'Description sauvegardée.',
+                    saveSuccessMessageContent: 'Contenu sauvegardé.',
+                    saveSuccessMessagePublished: 'Article publié.',
+                    saveSuccessMessageUnPublished: 'Article dépublié.',
+                    saveFailedMessage: 'Erreur lors de la sauvegarde.',
+                    saveFailedContentMessage: 'Le titre et la description doivent être remplis.',
                     saveActionText: 'Accueil',
                     unpublishMessage: 'L\'article sera dépublié après la sauvegarde.',
                     publishMessage: 'L\'article sera publié après la sauvegarde.'
@@ -31,20 +45,18 @@ export const fr = {
                 toPublish: 'à publier',
                 publish: 'publier',
                 unpublish: 'dépublier',
+                upToDate: 'Contenu à jour.',
                 popup: {
                     confirmMessage: 'Voulez-vous vraiment supprimer cet article ?',
                     confirm: 'oui',
                     cancel: 'non'
                 },
-                label: {
-                    modifiedSince: 'Modifié il y a',
-                    oneDay: 'Modifié aujourd\'hui',
-                    days: 'jours',
-                    months: 'mois',
-                    oneYear: 'an',
-                    years: 'ans',
-                }
+                updatedAt: 'Mis à jour le',
+                publishedAt: 'Publié le'
             }
+        },
+        'content-area': {
+            'preview' : 'prévisualisation'
         },
         'edit-page': {
             content: {
@@ -58,9 +70,15 @@ export const fr = {
             edit: 'Éditer',
             add: 'Ajouter'
         },
+        date: {
+            to: 'à'
+        },
         password: {
             password: 'Mot de passe',
             connected: 'Connecté'
+        },
+        search: {
+            placeholder: 'Rechercher dans le centre d\'aide'
         },
 
         // Back office specific labels.
@@ -73,7 +91,10 @@ export const fr = {
 
         // Extension specific labels.
         extension: {
-
+            title: 'centre d\'aide',
+            footer: {
+                button: 'voir tous les articles'
+            }
         }
     }
 };

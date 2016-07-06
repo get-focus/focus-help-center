@@ -6,16 +6,49 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 2000;
+    display: flex;
+    flex-direction: column;
 
-    .mdl-spinner {
-        margin-left: calc(50% - 25px);
-        width: 50px;
-        height: 50px;
+    header {
+        background-color: white;
+        z-index: 999;
+        box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
+
+        .left-content {
+            float: left;
+            display: block;
+        }
+
+        .right-content {
+            float: right;
+            margin-left: 10px;
+
+                .close {
+                margin-right: 10px;
+                display: block;
+                position: fixed;
+                color: black;
+                width: 32px;
+                height: 32px;
+                font-size: 32px;
+            }
+        }
     }
 
-    .article-consult-card {
+    @media screen and (min-width: 1440px) {
+        .card {
+            width: 75%
+        }
+    }
+
+    @media screen and (max-width: 1339px) {
+        .card {
+            max-width: 1440px;
+        }
+    }
+
+    .card {
         position: relative;
-        max-width: 1400px;
         height: 100%;
         margin: auto;
         background: white;
@@ -23,24 +56,37 @@
         overflow: auto;
         box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
 
-        > h3 {
-            color: rgb(96,125,139);
-        }
+        .top-header {
+            margin-bottom: 50px;
 
-        .article-consult-card-close {
-            float: right;
-            margin-right: 10px;
-
-            a {
+            .left-content {
+                float: left;
                 display: block;
-                position: fixed;
-                color: black;
-                width: 32px;
-                height: 32px;
+            }
 
-                .material-icons {
+            .right-content {
+                float: right;
+                margin-left: 10px;
+                display: block;
+
+                    .close {
+                    margin-right: 10px;
+                    display: block;
+                    position: fixed;
+                    color: black;
+                    width: 32px;
+                    height: 32px;
                     font-size: 32px;
                 }
+            }
+        }
+
+        #article {
+            left: 0px;
+            display: block;
+
+            h2 {
+                color: #29B6F6;
             }
         }
     }
