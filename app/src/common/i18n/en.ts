@@ -69,7 +69,8 @@ export const en = {
                     'confirm-delete': 'confirm',
                     'cancel-delete': 'cancel',
                     'show-more': 'Show more',
-                    'show-less': 'Show less'
+                    'show-less': 'Show less',
+                    'close': 'close'
                 },
                 'context-url': 'CONTEXTUAL URL',
                 'bloc-information': 'CONTEXTUAL INFORMATION BLOC'

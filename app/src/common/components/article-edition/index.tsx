@@ -159,7 +159,12 @@ export class EditPage extends React.Component<any, any> {
 
         return (
             <div className='edit-page'>
-                <Dialog className='hello' open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} style={{ height: '1550px', maxHeight: '1550px' }} >
+                <Dialog
+                    actions={[<FlatButton label={i18n.t('edit-page.content.sections.close') } primary={true} onClick={this.showDialog} />]}
+                    open={dialogOpen}
+                    onRequestClose={this.showDialog}
+                    autoScrollBodyContent={true}
+                    style={{ height: '1550px', maxHeight: '1550px' }} >
                     <Subheader><em>{i18n.t('edit-page.content.sections.new-section') }</em></Subheader>
                     <AutoComplete
                         hintText={i18n.t('edit-page.content.sections.placeholder') }
@@ -192,7 +197,11 @@ export class EditPage extends React.Component<any, any> {
                     <h5>PARAMÉTRAGE</h5>
 
                     <List>
-                        <Subheader><div className='section-title'>{i18n.t('edit-page.content.sections.title') }<FlatButton label={i18n.t('button.add') } onClick={this.showDialog} style={{ float: 'right' }} /></div></Subheader>
+                        <Subheader>
+                            <div className='section-title'>{i18n.t('edit-page.content.sections.title') }
+                                <FlatButton label={i18n.t('button.add') } onClick={this.showDialog} primary={true} style={{ float: 'right' }} />
+                            </div>
+                        </Subheader>
                         {this.showPrimarySectionList() }
                         {this.showSecondarySectionList() }
                     </List>
