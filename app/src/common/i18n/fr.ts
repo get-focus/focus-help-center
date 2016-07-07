@@ -69,7 +69,7 @@ export const fr = {
                     'confirm-delete': 'confirmer',
                     'cancel-delete': 'annuler',
                     'show-more': 'Afficher plus',
-                    'show-less': 'Afficher moins';
+                    'show-less': 'Afficher moins',
                     'close': 'fermer'
                 },
                 'context-url': 'URL CONTEXTUELLE',
