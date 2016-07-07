@@ -72,8 +72,8 @@ export const fr = {
                     'show-less': 'Afficher moins',
                     'close': 'fermer'
                 },
-                'context-url': 'URL CONTEXTUELLE',
-                'bloc-information': 'BLOC D\'INFORMATION CONTEXTUEL',
+                'context-url': 'url contextuelle',
+                'bloc-information': 'information contextuelle',
 
             }
         },

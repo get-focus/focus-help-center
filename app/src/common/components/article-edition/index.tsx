@@ -206,17 +206,19 @@ export class EditPage extends React.Component<any, any> {
                         {this.showSecondarySectionList() }
                     </List>
 
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.context-url') }</div>
-                        <FlatButton label={i18n.t('button.edit') } />
-                    </div>
-                    <TextField hintText='URL...' />
+                    <Subheader>
+                        <div className='section-title'>{i18n.t('edit-page.content.context-url') }
+                            <FlatButton label={i18n.t('button.edit') } primary={true} style={{ float: 'right' }} />
+                        </div>
+                    </Subheader>
+                    <TextField hintText='URL...' style={{ paddingLeft: '16px' }} />
 
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.bloc-information') }</div>
-                        <FlatButton label={i18n.t('button.edit') } />
-                    </div>
-                    <TextField hintText={`Bloc d'information...`} />
+                    <Subheader>
+                        <div className='section-title' style={{display: 'flex'}}>{i18n.t('edit-page.content.bloc-information') }
+                            <FlatButton label={i18n.t('button.edit') } primary={true} style={{ float: 'right' }} />
+                        </div>
+                    </Subheader>
+                    <TextField hintText={`Bloc d'information...`} style={{ paddingLeft: '16px' }} />
                 </div>
 
                 <div className='parameter-drawer'>
