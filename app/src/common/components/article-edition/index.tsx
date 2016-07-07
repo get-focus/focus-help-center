@@ -11,7 +11,7 @@ import {State} from '../../store/default-state';
 export class EditPage extends React.Component<any, any> {
     static propTypes = { id: React.PropTypes.number };
 
-    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: 'Afficher plus', nestedListIsLoaded: false };
+    state = { isVisible: false, searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: i18n.t('edit-page.content.sections.show-more'), nestedListIsLoaded: false };
 
     componentWillMount() {
         this.props.clearArticle();
@@ -79,8 +79,8 @@ export class EditPage extends React.Component<any, any> {
     };
 
     onNestedListToggle = () => {
-        this.state.primaryNestedText === 'Afficher plus' ?
-            this.setState({ primaryNestedText: 'Afficher moins' }) : this.setState({ primaryNestedText: 'Afficher plus' });
+        this.state.primaryNestedText === i18n.t('edit-page.content.sections.show-more') ?
+            this.setState({ primaryNestedText: i18n.t('edit-page.content.sections.show-less') }) : this.setState({ primaryNestedText: i18n.t('edit-page.content.sections.show-more') });
     }
 
     showSecondarySectionList = () => {
@@ -98,9 +98,9 @@ export class EditPage extends React.Component<any, any> {
     };
 
     setPrimaryNested = () => {
-        if (this.refs.primaryNested) {
-            if (!this.refs.primaryNested.state.isKeyboardFocused) {
-                this.refs.primaryNested.setState({ isKeyboardFocused: true });
+        if (this.refs['primaryNested']) {
+            if (!this.refs['primaryNested']['state'].isKeyboardFocused) {
+                this.refs['primaryNested']['setState']({ isKeyboardFocused: true });
             }
         }
     };
@@ -135,12 +135,18 @@ export class EditPage extends React.Component<any, any> {
     // BY THE MOMENT, IT DISPLAYS ONLY THE ARTICLE'S SECTIONS
     showAllSection = () => {
         const {sections} = this.props.article;
-        if (this.props.article.sections) {
-            return sections.map((section, index) => {
-                return (
-                    <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={this.onCheckHandler.bind(null, index) } />} />
-                );
-            });
+        if (this.props.article.sections && this.props.article.sections.length > 0) {
+            return (
+                <List style={{ position: 'relative', top: 75 }} ref='dialogList' >
+                    {sections.map((section, index) => {
+                        return (
+                            <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={this.onCheckHandler.bind(null, index) } />} />
+                        );
+                    }) }
+                </List>
+            );
+        } else {
+            return <div><br/><br/><br/></div>;
         }
     };
 
@@ -153,44 +159,42 @@ export class EditPage extends React.Component<any, any> {
 
         return (
             <div className='edit-page'>
-                <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} >
-                    <header style={{ position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'white' }} >
-                        <Subheader style={{ marginTop: 24 }} ><em>Entre une nouvelle rubrique ou cochez celle à ajouter</em></Subheader>
+                <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} style={{height: '50%'}} >
+                    <header className='dialog-list-header' style={{ position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'white' }} >
+                        <Subheader><em>{i18n.t('edit-page.content.sections.new-section') }</em></Subheader>
                         <AutoComplete
-                            hintText='Ajoutez ou recherchez une rubrique'
+                            hintText={i18n.t('edit-page.content.sections.placeholder') }
                             dataSource={this.checkSections() }
                             ref='sectionList'
                             onUpdateInput={this.onChangeHandler}
                             searchText={searchText}
+                            style={{ paddingLeft: '16px' }}
                             />
                         <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
                     </header>
-                    <List style={{ position: 'relative', top: 100 }} ref='dialogList' >
-                        <Subheader>Toutes les rubriques</Subheader>
-                        {this.showAllSection() }
-                    </List>
+                    {this.showAllSection() }
                 </Dialog>
 
                 <Dialog open={alertOpen} onRequestClose={this.showDeleteAlert} actions={[
                     <FlatButton
-                        label='Annuler'
+                        label={i18n.t('edit-page.content.sections.cancel-delete') }
                         primary={true}
                         onClick={this.showDeleteAlert}
                         />,
                     <FlatButton
-                        label='Confirmer'
+                        label={i18n.t('edit-page.content.sections.confirm-delete') }
                         primary={true}
                         onClick={this.removeSectionClickHandler}
                         />
                 ]}>
-                    Voulez-vous vraiment supprimer cette rubriques?
+                    {i18n.t('edit-page.content.sections.alert-delete') }
                 </Dialog>
 
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
                     <h5>PARAMÉTRAGE</h5>
 
                     <List>
-                        <Subheader>Rubriques <FlatButton label={i18n.t('button.add') } onClick={this.showDialog} style={{ float: 'right' }} /></Subheader>
+                        <Subheader><div className='section-title'>{i18n.t('edit-page.content.sections.title') }<FlatButton label={i18n.t('button.add') } onClick={this.showDialog} style={{ float: 'right' }} /></div></Subheader>
                         {this.showPrimarySectionList() }
                         {this.showSecondarySectionList() }
                     </List>
@@ -229,6 +233,6 @@ export default connect(
     dispatch => ({
         getArticle: id => dispatch(loadArticle(id)),
         clearArticle: () => dispatch(clearArticle()),
-        manageArticleSection: (article, attribute, sections) => dispatch(manageArticleSection(article, attribute, sections))
+        manageArticleSection: (article, attribute, sections, successHandler) => dispatch(manageArticleSection(article, attribute, sections, successHandler))
     })
 )(EditPage);

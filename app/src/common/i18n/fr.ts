@@ -60,9 +60,20 @@ export const fr = {
         },
         'edit-page': {
             content: {
-                section: 'RUBRIQUE',
+                sections: {
+                    'title': 'rubriques',
+                    'all-sections': 'Toutes les rubriques',
+                    'new-section': 'Entrez une nouvelle rubriques ou cochez celle à ajouter',
+                    'placeholder': 'Ajoutez ou recherchez une rubrique',
+                    'alert-delete': 'Voulez-vous vraiment supprimer cette rubrique ?',
+                    'confirm-delete': 'confirmer',
+                    'cancel-delete': 'annuler',
+                    'show-more': 'Afficher plus',
+                    'show-less': 'Afficher moins'
+                },
                 'context-url': 'URL CONTEXTUELLE',
-                'bloc-information': 'BLOC D\'INFORMATION CONTEXTUEL'
+                'bloc-information': 'BLOC D\'INFORMATION CONTEXTUEL',
+
             }
         },
         button: {
