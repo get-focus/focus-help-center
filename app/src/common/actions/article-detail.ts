@@ -114,12 +114,11 @@ export function updateArticle(attribute: string, value: string | boolean | Secti
 }
 
 /** Manages the article-sections' associations. */
-export function manageArticleSection(article: Article, attribute, sections: Section[]): any {
-    console.log(article);
+export function manageArticleSection(article: Article, attribute, sections: Section[], successHandler: () => void): any {
     return async (dispatch, getState, api: Api) => {
         try {
             const response = await api.manageArticleSection(article.id, sections);
-            dispatch(updateArticleAttribute(attribute, response.sections));
+            dispatch(updateArticle(attribute, response.sections, successHandler));
         } catch (e) {
             dispatch(errorActionArticle(e.message, true));
         }
