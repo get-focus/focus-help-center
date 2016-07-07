@@ -116,7 +116,6 @@ export class EditPage extends React.Component<any, any> {
     onCheckHandler = (key, event, checked) => {
         const {sections} = this.props.article;
         const itemList = this.refs['dialogList']['props'].children;
-        console.log(this.refs);
         let searchedItem;
 
         for (let i = 0; i < itemList.length; i++) {
