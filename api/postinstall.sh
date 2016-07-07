@@ -1,6 +1,10 @@
 # Gets the Swagger-UI files
 
 mkdir -p dist
+
+npm run typings
+npm run build
+
 cd dist
 git clone http://www.github.com/swagger-api/swagger-ui.git
 mv swagger-ui/dist/ docs/
