@@ -1,3 +1,0 @@
---require test/mocha-init
---reporter spec
---ui bdd
