@@ -115,7 +115,8 @@ export class EditPage extends React.Component<any, any> {
 
     onCheckHandler = (key, event, checked) => {
         const {sections} = this.props.article;
-        const itemList = this.refs['dialogList']['props'].children[1];
+        const itemList = this.refs['dialogList']['props'].children;
+        console.log(this.refs);
         let searchedItem;
 
         for (let i = 0; i < itemList.length; i++) {
@@ -137,7 +138,7 @@ export class EditPage extends React.Component<any, any> {
         const {sections} = this.props.article;
         if (this.props.article.sections && this.props.article.sections.length > 0) {
             return (
-                <List style={{ position: 'relative', top: 75 }} ref='dialogList' >
+                <List ref='dialogList' >
                     {sections.map((section, index) => {
                         return (
                             <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={true} onCheck={this.onCheckHandler.bind(null, index) } />} />
@@ -159,19 +160,17 @@ export class EditPage extends React.Component<any, any> {
 
         return (
             <div className='edit-page'>
-                <Dialog open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} style={{height: '50%'}} >
-                    <header className='dialog-list-header' style={{ position: 'fixed', top: 0, zIndex: 1000, backgroundColor: 'white' }} >
-                        <Subheader><em>{i18n.t('edit-page.content.sections.new-section') }</em></Subheader>
-                        <AutoComplete
-                            hintText={i18n.t('edit-page.content.sections.placeholder') }
-                            dataSource={this.checkSections() }
-                            ref='sectionList'
-                            onUpdateInput={this.onChangeHandler}
-                            searchText={searchText}
-                            style={{ paddingLeft: '16px' }}
-                            />
-                        <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
-                    </header>
+                <Dialog className='hello' open={dialogOpen} onRequestClose={this.showDialog} autoScrollBodyContent={true} style={{ height: '1550px', maxHeight: '1550px' }} >
+                    <Subheader><em>{i18n.t('edit-page.content.sections.new-section') }</em></Subheader>
+                    <AutoComplete
+                        hintText={i18n.t('edit-page.content.sections.placeholder') }
+                        dataSource={this.checkSections() }
+                        ref='sectionList'
+                        onUpdateInput={this.onChangeHandler}
+                        searchText={searchText}
+                        style={{ paddingLeft: '16px' }}
+                        />
+                    <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
                     {this.showAllSection() }
                 </Dialog>
 
