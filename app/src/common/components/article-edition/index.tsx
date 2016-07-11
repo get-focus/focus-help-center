@@ -1,15 +1,17 @@
 import {connect} from 'react-redux';
 import * as React from 'react';
 import ContentArea from './content-area';
+import Sections from './sections';
 import i18n from 'i18next';
-import {loadArticle, clearArticle} from '../../actions/article-detail';
-import {TextField, FlatButton, IconButton} from 'material-ui';
+import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
+import {TextField, FlatButton, IconButton, List, Subheader} from 'material-ui';
+
 import {State} from '../../store/default-state';
 
 export class EditPage extends React.Component<any, any> {
-    static propTypes = {id: React.PropTypes.number};
+    static propTypes = { id: React.PropTypes.number };
 
-    state = {isVisible: false};
+    state = { isVisible: false, dialogOpen: false};
 
     componentWillMount() {
         this.props.clearArticle();
@@ -18,38 +20,48 @@ export class EditPage extends React.Component<any, any> {
         }
     }
 
+    showAddSectionDialog = () => {
+        this.setState({dialogOpen: !this.state.dialogOpen});
+    }
+
     render() {
         if (!this.props.connected) {
             return <div />;
         }
 
-        const {isVisible} = this.state;
+        const {isVisible, dialogOpen} = this.state;
+
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
                     <h5>PARAMÉTRAGE</h5>
 
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.section')}</div>
-                        <FlatButton label={i18n.t('button.add')} />
-                    </div>
-                    <TextField hintText='Rubriques' name='sections' />
+                    <List>
+                        <Subheader>
+                            <div className='section-title'>{i18n.t('edit-page.content.sections.title') }
+                                <FlatButton label={i18n.t('button.add') } onClick={this.showAddSectionDialog} primary={true} style={{ float: 'right' }} />
+                            </div>
+                        </Subheader>
+                        <Sections callAddSectionDialog={dialogOpen} />
+                    </List>
 
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.context-url')}</div>
-                        <FlatButton label={i18n.t('button.edit')} />
-                    </div>
-                    <TextField hintText='URL...' />
+                    <Subheader>
+                        <div className='section-title'>{i18n.t('edit-page.content.context-url') }
+                            <FlatButton label={i18n.t('button.edit') } primary={true} style={{ float: 'right' }} />
+                        </div>
+                    </Subheader>
+                    <TextField hintText='URL...' style={{ paddingLeft: '16px' }} />
 
-                    <div className='label'>
-                        <div>{i18n.t('edit-page.content.bloc-information')}</div>
-                        <FlatButton label={i18n.t('button.edit')} />
-                    </div>
-                    <TextField hintText={`Bloc d'information...`} />
+                    <Subheader>
+                        <div className='section-title' style={{display: 'flex'}}>{i18n.t('edit-page.content.bloc-information') }
+                            <FlatButton label={i18n.t('button.edit') } primary={true} style={{ float: 'right' }} />
+                        </div>
+                    </Subheader>
+                    <TextField hintText={`Bloc d'information...`} style={{ paddingLeft: '16px' }} />
                 </div>
 
                 <div className='parameter-drawer'>
-                    <IconButton onClick={() => this.setState({isVisible: !this.state.isVisible})}>
+                    <IconButton onClick={() => this.setState({ isVisible: !this.state.isVisible }) }>
                         <i className='material-icons'>settings</i>
                     </IconButton>
                     <br />
@@ -68,6 +80,6 @@ export default connect(
     }),
     dispatch => ({
         getArticle: id => dispatch(loadArticle(id)),
-        clearArticle: () => dispatch(clearArticle()),
+        clearArticle: () => dispatch(clearArticle())
     })
 )(EditPage);

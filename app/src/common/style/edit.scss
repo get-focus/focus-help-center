@@ -138,10 +138,15 @@
             display: flex;
             align-items: center;
             width: calc(100% + 50px);
+            padding-left: 16px;
 
             > div {
                 flex: 1;
             }
+        }
+
+        .section-title {
+            text-transform: uppercase;
         }
     }
 

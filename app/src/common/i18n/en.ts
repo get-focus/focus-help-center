@@ -56,14 +56,25 @@ export const en = {
             }
         },
         'content-area': {
-            'preview' : 'preview'
+            'preview': 'preview'
         },
         'edit-page': {
             content: {
-                section: 'SECTION',
+                sections: {
+                    'title': 'sections',
+                    'all-sections': 'All the sections',
+                    'new-section': 'Enter a new section or check one to add it',
+                    'placeholder': 'Add or search a section...',
+                    'alert-delete': 'Do you really want to delete this section ?',
+                    'confirm-delete': 'confirm',
+                    'cancel-delete': 'cancel',
+                    'show-more': 'Show more',
+                    'show-less': 'Show less',
+                    'close': 'close'
+                },
                 'context-url': 'CONTEXTUAL URL',
                 'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
-            }
+            },
         },
         button: {
             save: 'Save',

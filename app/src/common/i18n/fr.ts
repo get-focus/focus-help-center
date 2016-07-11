@@ -60,9 +60,21 @@ export const fr = {
         },
         'edit-page': {
             content: {
-                section: 'RUBRIQUE',
-                'context-url': 'URL CONTEXTUELLE',
-                'bloc-information': 'BLOC D\'INFORMATION CONTEXTUEL'
+                sections: {
+                    'title': 'rubriques',
+                    'all-sections': 'Toutes les rubriques',
+                    'new-section': 'Entrez une nouvelle rubriques ou cochez celle à ajouter',
+                    'placeholder': 'Ajoutez ou recherchez une rubrique',
+                    'alert-delete': 'Voulez-vous vraiment supprimer cette rubrique ?',
+                    'confirm-delete': 'confirmer',
+                    'cancel-delete': 'annuler',
+                    'show-more': 'Afficher plus',
+                    'show-less': 'Afficher moins',
+                    'close': 'fermer'
+                },
+                'context-url': 'url contextuelle',
+                'bloc-information': 'information contextuelle',
+
             }
         },
         button: {
