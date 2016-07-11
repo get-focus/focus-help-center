@@ -1,5 +1,6 @@
 import {HomeView} from './views/home';
 import EditArticle from './views/edit-article';
+import {HomeBis} from './views/home-bis';
 
 export default {
     path: '/',
@@ -20,6 +21,10 @@ export default {
         {
             path: 'create-article',
             component: EditArticle
+        },
+        {
+            path: 'home-bis',
+            component: HomeBis
         }
     ]
 };

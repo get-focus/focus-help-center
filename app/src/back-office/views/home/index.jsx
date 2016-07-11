@@ -9,7 +9,7 @@ import {FlatButton} from 'material-ui';
 function renderLeftContent() {
     return (
         <div>
-            <FlatButton label='imprimer' icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print()} />
+            <FlatButton label='imprimer' icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
             <FlatButton label='envoyer' icon={<i className="material-icons">send</i>} secondary={true} />
         </div>
     );
@@ -21,12 +21,18 @@ function renderRightContent() {
     );
 }
 
+const actions = {
+    primary: [
+        {icon: 'home', route: '/home-bis'}
+    ]
+};
+
 /** Root component of the back-office app. */
 export function HomeView({params}) {
     return (
-        <Layout Content={<ArticleListTitle />}>
+        <Layout Content={<ArticleListTitle />} actions={actions}>
             <ArticleList />
-            {params.id ? <ArticleConsult id={params.id} leftContent={renderLeftContent()} rightContent={renderRightContent()} /> : null}
+            {params.id ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent() } /> : null}
         </Layout>
     );
 }

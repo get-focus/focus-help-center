@@ -1,13 +1,26 @@
 import {connect} from 'react-redux';
 import * as React from 'react';
 import i18n from 'i18next';
-import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
+import {manageArticleSection} from '../../actions/article-detail';
 import {FlatButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox} from 'material-ui';
 import {NavigationClose} from 'material-ui/svg-icons';
 import {State} from '../../store/default-state';
 
 export class Sections extends React.Component<any, any> {
-    state = { searchText: '', dialogOpen: false, alertOpen: false, sectionToDelete: null, sectionToAdd: null, primaryNestedText: i18n.t('edit-page.content.sections.show-more'), nestedListIsLoaded: false };
+
+    static propTypes = {
+        callAddSectionDialog: React.PropTypes.bool,
+    };
+
+    state = {
+        searchText: '',
+        dialogOpen: false,
+        alertOpen: false,
+        sectionToDelete: null,
+        sectionToAdd: null,
+        primaryNestedText: i18n.t('edit-page.content.sections.show-more'),
+        nestedListIsLoaded: false
+    };
 
     componentDidUpdate() {
         this.setPrimaryNested();
