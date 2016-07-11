@@ -7,6 +7,9 @@ export interface Api {
     /** Loads all the articles. */
     loadArticleList: (filter?: string) => Promise<Article[]>;
 
+    /** Loads all the articles. */
+    loadSectionList: () => Promise<Section[]>;
+
     /** Logs in on the server. */
     login: (password: string) => Promise<boolean>;
 

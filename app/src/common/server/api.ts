@@ -27,6 +27,11 @@ export const api: Api = {
         return response.json<Article[]>();
     },
 
+    async loadSectionList() {
+        const response = await fetchWithLogin(`${apiRoot}/api/section`);
+        return response.json<Section[]>();
+    },
+
     async login(password) {
         const response = await fetchWithLogin(`${apiRoot}/signin`, {
             method: 'POST',
