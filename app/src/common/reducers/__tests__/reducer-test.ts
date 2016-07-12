@@ -77,6 +77,46 @@ describe('rootReducer', () => {
         });
     });
 
+    describe('sectionDetail', () => {
+        describe('REQUEST_ACTION_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_ACTION_SECTION});
+            it('should correctly set the state with a REQUEST_ACTION_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: true,
+                    section: defaultState.sectionDetail.section
+                });
+            });
+        });
+
+        describe('SUCCESS_LOAD_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.SUCCESS_LOAD_SECTION, section: apiMockData.getSection});
+            it('should correctly set the state with a SUCCESS_LOAD_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: false,
+                    section: apiMockData.getSection
+                });
+            });
+        });
+
+        describe('ERROR_ACTION_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.ERROR_ACTION_SECTION, error: 'error'});
+            it('should correctly set the state with a ERROR_ACTION_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: false,
+                    error: 'error',
+                    section: defaultState.sectionDetail.section
+                });
+            });
+        });
+
+        describe('CLEAR_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.CLEAR_SECTION});
+            it('should correctly set the state with a CLEAR_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal(defaultState.sectionDetail);
+            });
+        });
+    });
+
     describe('login', () => {
         describe('REQUEST_LOGIN', () => {
             const newState = rootReducer(defaultState, {type: Action.REQUEST_LOGIN});
