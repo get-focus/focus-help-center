@@ -2,6 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
 import {getArticles, loadArticleList} from '../../actions/article-list';
+import {loadSection, clearSection} from '../../actions/section-detail';
 import {List, ListItem, Subheader} from 'material-ui';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
@@ -10,11 +11,14 @@ import {ArticleList} from '../article-list';
 @connect(
     state => ({
         sectionList: state.sectionList,
+        sectionDetail: state.sectionDetail,
         connected: state.login.isConnected
     }),
     dispatch => ({
+        clearSection: () => dispatch(clearSection()),
         loadSectionList: () => dispatch(loadSectionList()),
         loadArticleList: () => dispatch(loadArticleList()),
+        loadSection: (id) => dispatch(loadSection(id)),
         getArticles: (sectionId) => dispatch(getArticles(sectionId))
     })
 )
@@ -22,6 +26,7 @@ export class SectionList extends React.Component {
 
     componentWillMount() {
         this.props.loadSectionList();
+        this.props.clearSection();
     }
 
     componentDidUpdate() {
@@ -35,6 +40,7 @@ export class SectionList extends React.Component {
     sectionClickHandler = (sectionID) => {
         this.props.getArticles(sectionID);
         this.props.router.push(`/section/${sectionID}/articles`);
+        this.props.loadSection(sectionID);
     }
 
     renderSectionList = () => {
@@ -49,12 +55,12 @@ export class SectionList extends React.Component {
     render() {
         return (
             <div className='section-list'>
-                <List className='list' style={{paddingTop: '15px'}}>
+                <List className='list' style={{ paddingTop: '15px' }}>
                     <Subheader>Rubriques</Subheader>
                     {this.renderSectionList() }
                 </List>
                 <div className='article-list-area'>
-                    <Subheader style={{paddingTop: '15px'}}>Liste des rubriques</Subheader>
+                    <Subheader style={{ paddingTop: '15px' }}>Liste des rubriques</Subheader>
                     <ArticleList />
                 </div>
             </div>

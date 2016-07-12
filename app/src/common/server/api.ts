@@ -110,5 +110,15 @@ export const api: Api = {
     async getSectionArticles(id) {
         const response = await fetchWithLogin(`${apiRoot}/api/section/${id}/articles`);
         return response.json<Article[]>();
+    },
+
+    async getSection(id) {
+        const response = await fetchWithLogin(`${apiRoot}/api/section/${id}`, { method: 'GET' });
+        const data = await response.json<Section | { error: string }>();
+        if ((data as Section).name) {
+            return data;
+        } else {
+            throw new Error((data as { error }).error);
+        }
     }
 };

@@ -16,10 +16,9 @@ function renderLeftContent() {
     );
 }
 
-// HERE we will give the section's article to do : /section/id/articles at close
-function renderRightContent() {
+function renderRightContent(sectionId) {
     return (
-        <Link to='/home-bis'><i className='material-icons close'>close</i></Link>
+        <Link to={sectionId ? `/section/${sectionId}/articles` : '/home-bis'}> <i className='material-icons close'>close</i></Link>
     );
 }
 
@@ -30,14 +29,13 @@ const actions = {
 };
 
 export default connect(
-    state => ({article: state.articleDetail.article})
-)(function HomeBis({params, article, ...props}) {
+    state => ({section: state.sectionDetail.section})
+)(function HomeBis({params, section, ...props}) {
     let pathSplit = props.route.path.split('/');
-    console.log(article);
     return (
         <Layout Content={<ArticleListTitle />} actions={actions}>
-            <SectionList sectionID={pathSplit[0] === 'article' ? null : params.id}/>
-            {pathSplit[0] === 'article' ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent() } /> : null}
+            <SectionList sectionID={section.id}/>
+            {pathSplit[0] === 'article' ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent(section.id) } /> : null}
         </Layout>
     );
 });
