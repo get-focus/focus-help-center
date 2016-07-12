@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
+import {getArticles, loadArticleList} from '../../actions/article-list';
 import {List, ListItem, Subheader} from 'material-ui';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
@@ -12,7 +13,9 @@ import {ArticleList} from '../article-list';
         connected: state.login.isConnected
     }),
     dispatch => ({
-        loadSectionList: () => dispatch(loadSectionList())
+        loadSectionList: () => dispatch(loadSectionList()),
+        loadArticleList: () => dispatch(loadArticleList()),
+        getArticles: (sectionId) => dispatch(getArticles(sectionId))
     })
 )
 export class SectionList extends React.Component {
@@ -21,23 +24,27 @@ export class SectionList extends React.Component {
         this.props.loadSectionList();
     }
 
+    componentDidUpdate() {
+        if (this.props.sectionID) {
+            this.props.getArticles(+this.props.sectionID);
+        } else {
+            this.props.loadArticleList();
+        }
+    }
+
+    sectionClickHandler = (sectionID) => {
+        this.props.getArticles(sectionID);
+        this.props.router.push(`/section/${sectionID}/articles`);
+    }
+
     renderSectionList = () => {
         const {sectionList} = this.props;
         if (sectionList.list.length > 0) {
             return (sectionList.list.map((section, index) =>
-                <ListItem primaryText={section.name} key={index} onClick={() => this.props.router.push('/home') } />
+                <ListItem primaryText={section.name} key={index} onClick={() => this.sectionClickHandler(section.id) } />
             ));
         }
     };
-
-    renderArticleList = () => {
-        const {articleList} = this.props;
-        if (articleList.list.length > 0) {
-            return (articleList.list.map((article, index) =>
-                <ListItem primaryText={article.title} key={index} onClick={() => this.props.router.push('/home') } />
-            ));
-        }
-    }
 
     render() {
         return (
@@ -47,6 +54,7 @@ export class SectionList extends React.Component {
                     {this.renderSectionList() }
                 </List>
                 <div className='article-list-area'>
+                    <Subheader style={{paddingTop: '15px'}}>Liste des rubriques</Subheader>
                     <ArticleList />
                 </div>
             </div>

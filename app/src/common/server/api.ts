@@ -105,5 +105,10 @@ export const api: Api = {
         } else {
             throw new Error((data as { error }).error);
         }
+    },
+
+    async getSectionArticles(id) {
+        const response = await fetchWithLogin(`${apiRoot}/api/section/${id}/articles`);
+        return response.json<Article[]>();
     }
 };

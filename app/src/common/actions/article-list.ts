@@ -51,3 +51,16 @@ export function searchArticleList(filter: string) {
         dispatch(loadArticleList(filter));
     };
 }
+
+/** Loads the article list. Dispatches the request immediately and the result when it's loaded. */
+export function getArticles(sectionId) {
+    return async (dispatch, getState, api: Api) => {
+        dispatch(requestArticleList());
+        try {
+            const articleList = await api.getSectionArticles(sectionId);
+            dispatch(successArticleList(articleList));
+        } catch (err) {
+            dispatch(failureArticleList(err.message));
+        }
+    };
+}

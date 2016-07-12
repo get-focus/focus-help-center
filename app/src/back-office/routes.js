@@ -1,6 +1,6 @@
 import {HomeView} from './views/home';
 import EditArticle from './views/edit-article';
-import {HomeBis} from './views/home-bis';
+import HomeBis from './views/home-bis';
 
 export default {
     path: '/',
@@ -12,7 +12,7 @@ export default {
         },
         {
             path: 'article/:id',
-            component: HomeView
+            component: HomeBis
         },
         {
             path: 'edit-article/:id',
@@ -24,6 +24,10 @@ export default {
         },
         {
             path: 'home-bis',
+            component: HomeBis
+        },
+        {
+            path: '/section/:id/articles',
             component: HomeBis
         }
     ]

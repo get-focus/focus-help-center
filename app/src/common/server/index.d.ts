@@ -27,4 +27,6 @@ export interface Api {
 
     /** Loads an article. */
     getArticle: (id: number) => Promise<Article>;
+
+    getSectionArticles: (id: number) => Promise<Article[]>;
 }
