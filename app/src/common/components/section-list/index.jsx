@@ -6,6 +6,7 @@ import {loadSection, clearSection} from '../../actions/section-detail';
 import {List, ListItem, Subheader} from 'material-ui';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
+import i18n from 'i18next';
 
 @withRouter
 @connect(
@@ -30,6 +31,7 @@ export class SectionList extends React.Component {
     }
 
     componentDidUpdate() {
+        this.setAllSectionListRender();
         if (this.props.sectionID) {
             this.props.getArticles(+this.props.sectionID);
         } else {
@@ -38,9 +40,15 @@ export class SectionList extends React.Component {
     }
 
     sectionClickHandler = (sectionID) => {
-        this.props.getArticles(sectionID);
-        this.props.router.push(`/section/${sectionID}/articles`);
-        this.props.loadSection(sectionID);
+        if (sectionID) {
+            this.props.getArticles(sectionID);
+            this.props.router.push(`/section/${sectionID}/articles`);
+            this.props.loadSection(sectionID);
+        } else {
+            this.props.router.push('/home');
+            this.props.loadSectionList();
+            this.props.clearSection();
+        }
     }
 
     renderSectionList = () => {
@@ -52,15 +60,21 @@ export class SectionList extends React.Component {
         }
     };
 
+    setAllSectionListRender = () => {
+        this.refs.allSection.setState({isKeyboardFocused: true});
+    }
+
     render() {
+        console.log(this.props);
         return (
             <div className='section-list'>
-                <List className='list' style={{ paddingTop: '15px' }}>
-                    <Subheader>Rubriques</Subheader>
+                <List className='list' style={{paddingTop: '15px'}}>
+                    <Subheader>{i18n.t('section-list-page.title') }</Subheader>
+                    <ListItem primaryText={`${i18n.t('section-list-page.all-sections')}`} onClick={() => this.sectionClickHandler()} ref='allSection' />
                     {this.renderSectionList() }
                 </List>
                 <div className='article-list-area'>
-                    <Subheader style={{ paddingTop: '15px' }}>Liste des rubriques</Subheader>
+                    <Subheader style={{paddingTop: '15px'}}>{this.props.sectionID ? `${i18n.t('section-list-page.one-section-list')} ${this.props.sectionDetail.section.name}` : `${i18n.t('section-list-page.all-sections')}`}</Subheader>
                     <ArticleList />
                 </div>
             </div>

@@ -18,23 +18,17 @@ function renderLeftContent() {
 
 function renderRightContent(sectionId) {
     return (
-        <Link to={sectionId ? `/section/${sectionId}/articles` : '/home-bis'}> <i className='material-icons close'>close</i></Link>
+        <Link to={sectionId ? `/section/${sectionId}/articles` : '/home'}> <i className='material-icons close'>close</i></Link>
     );
 }
-
-const actions = {
-    primary: [
-        {icon: 'home', route: '/home'}
-    ]
-};
 
 export default connect(
     state => ({section: state.sectionDetail.section})
 )(function HomeBis({params, section, ...props}) {
     let pathSplit = props.route.path.split('/');
     return (
-        <Layout Content={<ArticleListTitle />} actions={actions}>
-            <SectionList sectionID={section.id}/>
+        <Layout Content={<ArticleListTitle />}>
+            <SectionList sectionID={pathSplit[0] !== 'article' && params.id ? params.id : section.id ? section.id : null}/>
             {pathSplit[0] === 'article' ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent(section.id) } /> : null}
         </Layout>
     );

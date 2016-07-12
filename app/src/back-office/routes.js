@@ -1,4 +1,3 @@
-import {HomeView} from './views/home';
 import EditArticle from './views/edit-article';
 import HomeBis from './views/home-bis';
 
@@ -8,7 +7,7 @@ export default {
     childRoutes: [
         {
             path: 'home',
-            component: HomeView
+            component: HomeBis
         },
         {
             path: 'article/:id',
@@ -21,10 +20,6 @@ export default {
         {
             path: 'create-article',
             component: EditArticle
-        },
-        {
-            path: 'home-bis',
-            component: HomeBis
         },
         {
             path: '/section/:id/articles',

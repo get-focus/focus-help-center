@@ -76,6 +76,11 @@ export const en = {
                 'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
             },
         },
+        'section-list-page': {
+            'title': 'Rubriques',
+            'all-sections': 'Toutes les rubriques',
+            'one-section-list': 'Rubrique : '
+        },
         button: {
             save: 'Save',
             edit: 'Edit',
