@@ -54,6 +54,7 @@ export default class Sections extends React.Component<any, any> {
             sections.push(section);
         }
         this.props.manageArticleSection(article, 'sections', sections);
+        this.props.loadSectionList(); this.props.loadSectionList(); this.props.loadSectionList();
         this.setState({ searchText: '' });
     };
 
