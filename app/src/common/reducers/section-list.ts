@@ -18,11 +18,6 @@ export function sectionList(state: SectionListState = defaultValue, action: Sect
                 isLoading: false,
                 error: action.error
             };
-        case Action.UPDATE_SECTION_LIST_FILTER:
-            return {
-                isLoading: false,
-                list: state.list
-            };
         default:
             return state;
     }
