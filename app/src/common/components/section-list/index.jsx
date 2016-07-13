@@ -11,7 +11,7 @@ import i18n from 'i18next';
 @withRouter
 @connect(
     state => ({
-        sectionList: state.sectionList,
+        sections: state.sectionList.list,
         sectionDetail: state.sectionDetail,
         connected: state.login.isConnected
     }),
@@ -52,9 +52,9 @@ export class SectionList extends React.Component {
     }
 
     renderSectionList = () => {
-        const {sectionList} = this.props;
-        if (sectionList.list.length > 0) {
-            return (sectionList.list.map((section, index) =>
+        const {sections} = this.props;
+        if (sections.length > 0) {
+            return (sections.map((section, index) =>
                 <ListItem primaryText={section.name} key={index} onClick={() => this.sectionClickHandler(section.id) } />
             ));
         }
@@ -65,7 +65,6 @@ export class SectionList extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className='section-list'>
                 <List className='list' style={{paddingTop: '15px'}}>

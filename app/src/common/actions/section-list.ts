@@ -27,7 +27,7 @@ function failureSectionList(error: string): SectionListAction {
 }
 
 /** Loads the section list. Dispatches the request immediately and the result when it's loaded. */
-export function loadSectionList() {
+export function loadSectionList(): any {
     return async (dispatch, getState, api: Api) => {
         dispatch(requestSectionList());
         try {

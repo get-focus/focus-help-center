@@ -2,14 +2,24 @@ import {connect} from 'react-redux';
 import * as React from 'react';
 import i18n from 'i18next';
 import {manageArticleSection} from '../../actions/article-detail';
+import {loadSectionList} from '../../actions/section-list';
 import {FlatButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox} from 'material-ui';
 import {NavigationClose} from 'material-ui/svg-icons';
-import {State} from '../../store/default-state';
 
-export class Sections extends React.Component<any, any> {
+@connect(
+    state => ({
+        article: state.articleDetail.article,
+        sections: state.sectionList.list
+    }),
+    dispatch => ({
+        manageArticleSection: (article, attribute, sections, successHandler) => dispatch(manageArticleSection(article, attribute, sections, successHandler)),
+        loadSectionList: () => dispatch(loadSectionList())
+    })
+)
+export default class Sections extends React.Component<any, any> {
 
     static propTypes = {
-        callAddSectionDialog: React.PropTypes.bool,
+        callAddSectionDialog: React.PropTypes.bool
     };
 
     state = {
@@ -17,32 +27,38 @@ export class Sections extends React.Component<any, any> {
         dialogOpen: false,
         alertOpen: false,
         sectionToDelete: null,
-        sectionToAdd: null,
         primaryNestedText: i18n.t('edit-page.content.sections.show-more'),
         nestedListIsLoaded: false
     };
 
-    componentDidUpdate() {
-        this.setPrimaryNested();
+    componentWillMount() {
+        this.props.loadSectionList();
     }
 
-    updateArticle = () => {
-        const {article} = this.props;
-        const {searchText, sectionToAdd} = this.state;
+    componentDidUpdate() {
+        this.setPrimaryNested();
+        this.showAllSections();
+    }
 
+    updateArticle = (section) => {
+        const {article} = this.props, {searchText} = this.state;
         let sections = [];
+
         article.sections.map(section => { sections.push(section); });
-        searchText.split(',').map((value, index) => { sections.push({ name: value }); });
-        if (sectionToAdd !== null) {
-            sections.push(sectionToAdd);
+
+        if (searchText.trim() !== '') {
+            searchText.split(',').map((value) => { sections.push({ name: value }); });
+        }
+
+        if (section.name) {
+            sections.push(section);
         }
         this.props.manageArticleSection(article, 'sections', sections);
-        this.setState({ searchText: '', sectionToAdd: null });
+        this.setState({ searchText: '' });
     };
 
     removeSectionClickHandler = () => {
-        const {sections} = this.props.article;
-        const {sectionToDelete} = this.state;
+        const {sections} = this.props.article, {sectionToDelete} = this.state;
         let list = [];
         sections.map(section => {
             if (section.id !== sectionToDelete && section.name !== sectionToDelete.name) {
@@ -62,11 +78,8 @@ export class Sections extends React.Component<any, any> {
     }
 
     showDeleteAlert = (section) => {
-        if (this.state.alertOpen) {
+        this.state.alertOpen ? this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section }) :
             this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section });
-        } else {
-            this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section });
-        }
     }
 
     showPrimarySectionList = () => {
@@ -108,34 +121,26 @@ export class Sections extends React.Component<any, any> {
     };
 
     checkSections() {
-        if (this.props.article.sections) {
-            return this.props.article.sections.map(section => section.name);
-        } else {
-            return [];
-        }
+        return this.props.article.sections ? this.props.article.sections.map(section => section.name) : [];
     }
 
     onCheckHandler = (key, event, checked) => {
-        const {sections} = this.props.article;
-        const itemList = this.refs['dialogList']['props'].children;
+        const {sections} = this.props, itemList = this.refs['dialogList']['props'].children;
         let searchedItem;
 
-        for (let i = 0; i < itemList.length; i++) {
-            if (itemList[i].key === key.toString()) {
-                searchedItem = itemList[i];
+        itemList.map((item, index) => {
+            if (item.key === key.toString()) {
+                searchedItem = item;
                 if (checked === false) {
-                    this.showDeleteAlert(sections[i]);
+                    this.showDeleteAlert(sections[index]);
                 } else if (checked === true) {
-                    this.setState({ sectionToAdd: sections[i] });
-                    this.updateArticle();
+                    this.updateArticle(sections[index]);
                 }
             }
-        }
+        });
     }
 
-    // HERE, WE HAVE TO DISPLAY ALL THE SECTIONS
-    // BY THE MOMENT, IT DISPLAYS ONLY THE ARTICLE'S SECTIONS
-    showAllSection = () => {
+    showArticleSections = () => {
         const {sections} = this.props.article;
         if (this.props.article.sections && this.props.article.sections.length > 0) {
             return (
@@ -152,14 +157,30 @@ export class Sections extends React.Component<any, any> {
         }
     };
 
-    showAddSectionDialog = () => {
-        if (this.props.callAddSectionDialog === true && this.state.dialogOpen === false) {
-            return true;
-        } else if (this.props.callAddSectionDialog === false && this.state.dialogOpen === true) {
-            return true;
+    showAllSections = () => {
+        const {sections} = this.props;
+        if (sections && sections.length > 0) {
+            return (
+                <List ref='dialogList' >
+                    {sections.map((section, index) => {
+                        let checked = false;
+                        if (this.props.article.sections && this.props.article.sections.length > 0) {
+                            this.props.article.sections.map(articleSection => articleSection.id === section.id && articleSection.name === section.name ? checked = true : checked);
+                        }
+                        return (
+                            <ListItem key={index} primaryText={section.name} leftCheckbox={<Checkbox defaultChecked={checked} onCheck={this.onCheckHandler.bind(null, index) } />} />
+                        );
+                    }) }
+                </List>
+            );
         } else {
-            return false;
+            return <div><br/><br/><br/></div>;
         }
+    };
+
+    showAddSectionDialog = () => {
+        return (this.props.callAddSectionDialog === true && this.state.dialogOpen === false) ? true :
+            (this.props.callAddSectionDialog === false && this.state.dialogOpen) ? true : false;
     }
 
     render() {
@@ -169,7 +190,7 @@ export class Sections extends React.Component<any, any> {
             <div>
                 <Dialog
                     actions={[<FlatButton label={i18n.t('edit-page.content.sections.close') } primary={true} onClick={this.showDialog} />]}
-                    open={this.showAddSectionDialog()}
+                    open={this.showAddSectionDialog() }
                     onRequestClose={this.showDialog}
                     autoScrollBodyContent={true}
                     style={{ height: '1550px', maxHeight: '1550px' }} >
@@ -183,20 +204,12 @@ export class Sections extends React.Component<any, any> {
                         style={{ paddingLeft: '16px' }}
                         />
                     <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
-                    {this.showAllSection() }
+                    {this.showAllSections() }
                 </Dialog>
 
                 <Dialog open={alertOpen} onRequestClose={this.showDeleteAlert} actions={[
-                    <FlatButton
-                        label={i18n.t('edit-page.content.sections.cancel-delete') }
-                        primary={true}
-                        onClick={this.showDeleteAlert}
-                        />,
-                    <FlatButton
-                        label={i18n.t('edit-page.content.sections.confirm-delete') }
-                        primary={true}
-                        onClick={this.removeSectionClickHandler}
-                        />
+                    <FlatButton label={i18n.t('edit-page.content.sections.cancel-delete') } primary={true} onClick={this.showDeleteAlert} />,
+                    <FlatButton label={i18n.t('edit-page.content.sections.confirm-delete') } primary={true} onClick={this.removeSectionClickHandler} />
                 ]}>
                     {i18n.t('edit-page.content.sections.alert-delete') }
                 </Dialog>
@@ -206,12 +219,3 @@ export class Sections extends React.Component<any, any> {
         );
     }
 }
-
-export default connect(
-    (state: State) => ({
-        article: state.articleDetail.article,
-    }),
-    dispatch => ({
-        manageArticleSection: (article, attribute, sections, successHandler) => dispatch(manageArticleSection(article, attribute, sections, successHandler))
-    })
-)(Sections);

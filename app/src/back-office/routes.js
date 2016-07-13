@@ -1,5 +1,5 @@
 import EditArticle from './views/edit-article';
-import HomeBis from './views/home-bis';
+import HomeView from './views/home';
 
 export default {
     path: '/',
@@ -7,11 +7,11 @@ export default {
     childRoutes: [
         {
             path: 'home',
-            component: HomeBis
+            component: HomeView
         },
         {
             path: 'article/:id',
-            component: HomeBis
+            component: HomeView
         },
         {
             path: 'edit-article/:id',
@@ -23,7 +23,7 @@ export default {
         },
         {
             path: '/section/:id/articles',
-            component: HomeBis
+            component: HomeView
         }
     ]
 };
