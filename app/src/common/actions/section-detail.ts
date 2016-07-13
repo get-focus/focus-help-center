@@ -14,7 +14,7 @@ function successLoadSection(section: Section): SectionDetailAction {
     return { type: Action.SUCCESS_LOAD_SECTION, section };
 }
 
-/** Clears the article store. */
+/** Clears the section store. */
 export function clearSection() {
     return { type: Action.CLEAR_SECTION };
 }
@@ -29,7 +29,7 @@ function errorActionSection(error: string, dispatchSnackbar?: boolean): any {
     };
 }
 
-/** Load an article. */
+/** Load a section. */
 export function loadSection(id: number): any {
     return async (dispatch, getState, api: Api) => {
         dispatch(requestActionSection());

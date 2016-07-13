@@ -20,7 +20,7 @@ export interface Api {
     saveArticle: (article: Article) => Promise<Article>;
 
     /** Manages an article-sections' associations. */
-    manageArticleSection: (articleId, sections: Section[]) => Promise<{articleId: number, sections: Section[]}>;
+    manageArticleSection: (articleId: number, sections: Section[]) => Promise<{articleId: number, sections: Section[]}>;
 
     /** Deletes an article. */
     deleteArticle: (id: number) => Promise<boolean>;
@@ -28,7 +28,9 @@ export interface Api {
     /** Loads an article. */
     getArticle: (id: number) => Promise<Article>;
 
+    /** Loads a section article list. */
     getSectionArticles: (id: number) => Promise<Article[]>;
 
+    /** Loads a section. */
     getSection: (id: number) => Promise<Section>;
 }
