@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
 import i18n from 'i18next';
@@ -20,6 +20,14 @@ import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
 )
 export class PasswordComponent extends React.Component {
 
+    static defaultProps = {
+        generalColor: 'black'
+    }
+
+    static propTypes = {
+        generalColor: PropTypes.string
+    }
+
     login = () => {
         if (this.props.connected) {
             this.props.logout();
@@ -36,7 +44,7 @@ export class PasswordComponent extends React.Component {
     }
 
     render() {
-        const {loading, connected, error, clearError, userName} = this.props;
+        const {loading, connected, error, clearError, userName, generalColor} = this.props;
         return (
             <div className='password-bar'>
                 {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0px'}} /> : null}
@@ -50,7 +58,7 @@ export class PasswordComponent extends React.Component {
                         :
                         <div>
                             <span className='ok-text'>{i18n.t('password.password') + ' : '}</span>
-                            <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
+                            <TextField name='password' inputStyle={{color: generalColor}} style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
                         </div>
                     }
                     {userName ?
@@ -60,7 +68,7 @@ export class PasswordComponent extends React.Component {
                             </IconButton>
                         </a>
                     :
-                        <IconButton onClick={this.login} iconClassName='material-icons'>
+                        <IconButton onClick={this.login} iconClassName='material-icons' iconStyle={{color: generalColor}}>
                             {connected ? 'close' : 'arrow_forward'}
                         </IconButton>
                     }

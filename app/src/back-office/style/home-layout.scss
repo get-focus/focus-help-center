@@ -1,10 +1,53 @@
 .ribbon {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 45vh;
-  background-color: #3F51B5;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  padding-top: 15px;
+  background-color: #009688;
+
+  .top {
+    display: flex;
+    z-index: 1001;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: center;
+
+    .middle, .right {
+      overflow: hidden;
+      white-space: nowrap;
+      color: white;
+    }
+
+    .left {
+      order: 1;
+      color: white;
+      flex-grow: 0;
+      margin-left: 15px;
+    }
+
+    .middle {
+      order: 2;
+      flex-grow: 4;
+    }
+
+    .right {
+      z-index: 999;
+      order: 3;
+      flex-grow: 0;
+      float: right;
+
+      .password-bar {
+        float: right;
+      }
+
+      .button-link {
+        display: table-caption;
+      }
+    }
+  }
 }
 
 .main {

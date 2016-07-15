@@ -1,6 +1,5 @@
 import EditArticle from './views/edit-article';
 import HomeView from './views/home';
-import TestPage from './views/test';
 
 export default {
     path: '/',
@@ -8,11 +7,11 @@ export default {
     childRoutes: [
         {
             path: 'home',
-            component: TestPage
+            component: HomeView
         },
         {
             path: 'article/:id',
-            component: TestPage
+            component: HomeView
         },
         {
             path: 'edit-article/:id',
@@ -24,7 +23,7 @@ export default {
         },
         {
             path: '/section/:id/articles',
-            component: TestPage
+            component: HomeView
         }
     ]
 };
