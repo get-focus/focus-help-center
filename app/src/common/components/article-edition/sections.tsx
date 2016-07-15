@@ -28,7 +28,8 @@ export default class Sections extends React.Component<any, any> {
         alertOpen: false,
         sectionToDelete: null,
         primaryNestedText: i18n.t('edit-page.content.sections.show-more'),
-        nestedListIsLoaded: false
+        nestedListIsLoaded: false,
+        articleSections: null
     };
 
     componentWillMount() {
@@ -36,8 +37,16 @@ export default class Sections extends React.Component<any, any> {
     }
 
     componentDidUpdate() {
-        this.setPrimaryNested();
-        this.showAllSections();
+        const {sections} = this.props.article, {articleSections} = this.state;
+        this.setPrimaryNested(); this.showAllSections();
+
+        if (sections && articleSections === null) {
+            this.setState({articleSections: this.props.article.sections});
+        }
+        if (articleSections !== null && (sections.length !== articleSections.length)) {
+            this.setState({articleSections: sections});
+            this.props.loadSectionList();
+        }
     }
 
     updateArticle = (section) => {
@@ -45,17 +54,14 @@ export default class Sections extends React.Component<any, any> {
         let sections = [];
 
         article.sections.map(section => { sections.push(section); });
-
         if (searchText.trim() !== '') {
             searchText.split(',').map((value) => { sections.push({ name: value }); });
         }
-
         if (section.name) {
             sections.push(section);
         }
         this.props.manageArticleSection(article, 'sections', sections);
-        this.props.loadSectionList(); this.props.loadSectionList(); this.props.loadSectionList();
-        this.setState({ searchText: '' });
+        this.setState({ searchText: '', articleSections: this.props.article.sections });
     };
 
     removeSectionClickHandler = () => {
