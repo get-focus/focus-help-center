@@ -3,7 +3,7 @@ import * as React from 'react';
 import ContentArea from './content-area';
 import Sections from './sections';
 import i18n from 'i18next';
-import {loadArticle, clearArticle, manageArticleSection} from '../../actions/article-detail';
+import {loadArticle, clearArticle} from '../../actions/article-detail';
 import {TextField, FlatButton, IconButton, List, Subheader} from 'material-ui';
 
 import {State} from '../../store/default-state';

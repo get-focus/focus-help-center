@@ -4,11 +4,13 @@
   "description": "Help Center extension for focus",
   "scripts": {
     "build": "better-npm-run build",
+    "build:watch": "better-npm-run build --watch",
     "postinstall": "typings install",
     "start": "better-npm-run start",
+    "start:watch": "better-npm-run start --watch",
     "start:extension": "better-npm-run start-extension",
     "test": "better-npm-run test",
-    "test:watch": "better-npm-run test-watch",
+    "test:watch": "better-npm-run test --watch",
     "watch": "webpack --watch"
   },
   "betterScripts": {
@@ -44,12 +46,6 @@
     },
     "test": {
       "command": "mocha src/**/__tests__/**/*.ts*",
-      "env": {
-        "BABEL_ENV": "production"
-      }
-    },
-    "test-watch": {
-      "command": "mocha src/**/__tests__/**/*.ts* --watch",
       "env": {
         "BABEL_ENV": "production"
       }

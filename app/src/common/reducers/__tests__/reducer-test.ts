@@ -77,6 +77,80 @@ describe('rootReducer', () => {
         });
     });
 
+    describe('sectionDetail', () => {
+        describe('REQUEST_ACTION_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_ACTION_SECTION});
+            it('should correctly set the state with a REQUEST_ACTION_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: true,
+                    section: defaultState.sectionDetail.section
+                });
+            });
+        });
+
+        describe('SUCCESS_LOAD_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.SUCCESS_LOAD_SECTION, section: apiMockData.getSection});
+            it('should correctly set the state with a SUCCESS_LOAD_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: false,
+                    section: apiMockData.getSection
+                });
+            });
+        });
+
+        describe('ERROR_ACTION_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.ERROR_ACTION_SECTION, error: 'error'});
+            it('should correctly set the state with a ERROR_ACTION_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal({
+                    isLoading: false,
+                    error: 'error',
+                    section: defaultState.sectionDetail.section
+                });
+            });
+        });
+
+        describe('CLEAR_SECTION', () => {
+            const newState = rootReducer(defaultState, {type: Action.CLEAR_SECTION});
+            it('should correctly set the state with a CLEAR_SECTION action', () => {
+                chai.expect(newState.sectionDetail).to.deep.equal(defaultState.sectionDetail);
+            });
+        });
+    });
+
+    describe('sectionList', () => {
+        describe('REQUEST_SECTION_LIST', () => {
+            const newState = rootReducer(defaultState, {type: Action.REQUEST_SECTION_LIST});
+            it('should correctly set the state with a REQUEST_SECTION_LIST action', () => {
+                chai.expect(newState.sectionList).to.deep.equal({
+                    isLoading: true,
+                    list: defaultState.sectionList.list
+                });
+            });
+        });
+
+        describe('SUCCESS_SECTION_LIST', () => {
+            const newState = rootReducer(defaultState, {type: Action.SUCCESS_SECTION_LIST, list: [{test: 'ok'}]});
+
+            it('shouldn\'t alter the remaining state nodes', () => {
+                chai.expect(omit(newState, 'sectionList')).to.deep.equal(omit(defaultState, 'sectionList'));
+            });
+
+            it('should update correctly the state with a SUCCESS_SECTION_LIST action', () => {
+                chai.expect(newState.sectionList).to.deep.equal({list: [{test: 'ok'}], isLoading: false});
+            });
+        });
+
+        describe('FAILURE_SECTION_LIST', () => {
+            const newState = rootReducer(defaultState, {type: Action.FAILURE_SECTION_LIST, error: 'error'});
+            it('should correctly set the state with a FAILURE_SECTION_LIST action', () => {
+                chai.expect(newState.sectionList).to.deep.equal({
+                    isLoading: false,
+                    error: 'error'
+                });
+            });
+        });
+    });
+
     describe('login', () => {
         describe('REQUEST_LOGIN', () => {
             const newState = rootReducer(defaultState, {type: Action.REQUEST_LOGIN});

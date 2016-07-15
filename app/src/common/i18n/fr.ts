@@ -56,7 +56,7 @@ export const fr = {
             }
         },
         'content-area': {
-            'preview' : 'prévisualisation'
+            'preview': 'prévisualisation'
         },
         'edit-page': {
             content: {
@@ -76,6 +76,11 @@ export const fr = {
                 'bloc-information': 'information contextuelle',
 
             }
+        },
+        'section-list-page': {
+            'title': 'Rubriques',
+            'all-sections': 'Toutes les rubriques',
+            'one-section-list': 'Rubrique : '
         },
         button: {
             save: 'Sauvegarder',

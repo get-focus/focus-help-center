@@ -1,5 +1,5 @@
 import express from 'express';
-import {Section} from '../db';
+import {Article, Section, ArticleSection} from '../db';
 
 export function sectionService(prefix: string, app: express.Application) {
 
@@ -15,6 +15,24 @@ export function sectionService(prefix: string, app: express.Application) {
                 res.json({ error: 'No section found' });
             } else {
                 res.json(section.get());
+            }
+        }
+    });
+
+    app.get(`${prefix}/api/section/:id/articles`, async (req, res) => {
+        if (!(req.user && req.user.signedIn)) {
+            res.status(403);
+            res.json({ error: 'Cannot search sections when not connected' });
+        } else {
+            try {
+                const articleIDs = (await ArticleSection.findAll({ where: { SectionId: +req.params.id } })).map(association => association.get().ArticleId);
+                let articleList = [];
+                for (let i = 0; i < articleIDs.length; i++) {
+                    articleList.push(await Article.findById(articleIDs[i]));
+                }
+                res.json(articleList);
+            } catch (e) {
+                res.json({ error: e });
             }
         }
     });

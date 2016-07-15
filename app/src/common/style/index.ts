@@ -3,3 +3,4 @@ import './list.scss';
 import './edit.scss';
 import './password.scss';
 import './consult.scss';
+import './section-list.scss';

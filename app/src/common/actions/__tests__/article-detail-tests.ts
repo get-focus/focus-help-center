@@ -1,5 +1,5 @@
-import {saveArticle, deleteArticle, loadArticle, updateArticle} from '../article-detail';
-import {apiMockData} from '../../server/api-mock';
+import {saveArticle, deleteArticle, loadArticle, updateArticle, manageArticleSection} from '../article-detail';
+import {apiMockData, article1, section1, section2} from '../../server/api-mock';
 import {Action} from '../../actions';
 import {defaultValue as articleDetail} from '../../reducers/article-detail';
 
@@ -48,6 +48,25 @@ describe('Article Detail Actions', () => {
                 {
                     type: Action.SUCCESS_SAVE_ARTICLE,
                     article: {title: 'title', description: '', content: '', published: false}
+                },
+                {type: Action.SHOW_EDIT_SNACKBAR}
+            ], done);
+        });
+    });
+
+    describe('manageArticleSection', () => {
+        it('should dispatch request then receive actions', done => {
+            const sections = [section1, section2], attribute = 'sections';
+
+            chai.expect(manageArticleSection(article1, attribute, sections, () => null)).with.state({articleDetail}).to.dispatch.actions([
+                {
+                    type: Action.UPDATE_ARTICLE,
+                    attribute: attribute,
+                    value: sections
+                },
+                {
+                    type: Action.SUCCESS_SAVE_ARTICLE,
+                    article: {title: '', description: '', content: '', sections: sections, published: false }
                 },
                 {type: Action.SHOW_EDIT_SNACKBAR}
             ], done);

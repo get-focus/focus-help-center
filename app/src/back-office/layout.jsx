@@ -6,8 +6,10 @@ import {showSnackBar} from '../common/actions/snack-bar';
 import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem, Snackbar} from 'material-ui';
 import {green500, red500} from 'material-ui/styles/colors';
 import {appUrl} from '../common/server/config';
+import {withRouter} from 'react-router';
 
 /** Layout component. */
+@withRouter
 @connect(state => ({snackBar: state.snackBar}))
 export default class Layout extends Component {
 
@@ -49,11 +51,11 @@ export default class Layout extends Component {
                     </div>
                     {Content}
                     <div className='actions'>
-                        {actions && actions.primary.map(({clickHandler, icon, action}, i) => (
+                        {actions && actions.primary.map(({clickHandler, icon, action, route}, i) => (
                             <FloatingActionButton
                                 secondary={true}
                                 key={i}
-                                onClick={action ? () => this.props.dispatch(action) : clickHandler}
+                                onClick={route ? () => this.props.router.push(route) : action ? () => this.props.dispatch(action) : clickHandler}
                                 style={{margin: '0 3px'}}
                             >
                                 <i className="material-icons">{icon}</i>

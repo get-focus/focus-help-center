@@ -27,6 +27,11 @@ export const api: Api = {
         return response.json<Article[]>();
     },
 
+    async loadSectionList() {
+        const response = await fetchWithLogin(`${apiRoot}/api/section`);
+        return response.json<Section[]>();
+    },
+
     async login(password) {
         const response = await fetchWithLogin(`${apiRoot}/signin`, {
             method: 'POST',
@@ -96,6 +101,21 @@ export const api: Api = {
         const response = await fetchWithLogin(`${apiRoot}/api/article/${id}`, { method: 'GET' });
         const data = await response.json<Article | { error: string }>();
         if ((data as Article).title) {
+            return data;
+        } else {
+            throw new Error((data as { error }).error);
+        }
+    },
+
+    async getSectionArticles(id) {
+        const response = await fetchWithLogin(`${apiRoot}/api/section/${id}/articles`);
+        return response.json<Article[]>();
+    },
+
+    async getSection(id) {
+        const response = await fetchWithLogin(`${apiRoot}/api/section/${id}`, { method: 'GET' });
+        const data = await response.json<Section | { error: string }>();
+        if ((data as Section).name) {
             return data;
         } else {
             throw new Error((data as { error }).error);

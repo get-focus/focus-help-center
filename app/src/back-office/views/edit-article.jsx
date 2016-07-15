@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../layout';
 import EditPage from '../../common/components/article-edition';
 import EditCartridgeContent from '../../common/components/article-edition/edit-cartridge-content';
-import {TitleComponent} from './home/title-component';
+import {TitleComponent} from './legacy/home/title-component';
 import {Action} from '../../common/actions/';
 import {connect} from 'react-redux';
 
