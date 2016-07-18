@@ -1,6 +1,5 @@
-import {sequelize, Article, Section} from './';
+import {sequelize, Article} from './';
 import {IArticle} from '../db/article';
-import {ISection} from '../db/section';
 import faker from 'faker';
 
 /** Create the database. */

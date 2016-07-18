@@ -1,18 +1,13 @@
 .article-consult {
-    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2000;
     display: flex;
     flex-direction: column;
 
     header {
-        background-color: white;
         z-index: 999;
-        box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        width: 100%;
 
         .left-content {
             float: left;
@@ -36,25 +31,22 @@
     }
 
     @media screen and (min-width: 1440px) {
-        .card {
+        .article-card {
             width: 75%
         }
     }
 
     @media screen and (max-width: 1339px) {
-        .card {
+        .article-card {
             max-width: 1440px;
         }
     }
 
-    .card {
-        position: relative;
-        height: 100%;
-        margin: auto;
+    .article-card {
         background: white;
         padding: 20px 40px;
-        overflow: auto;
         box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
+        width: auto;
 
         .top-header {
             margin-bottom: 50px;
@@ -69,10 +61,13 @@
                 margin-left: 10px;
                 display: block;
 
-                    .close {
+                a {
+                    color: #FFFFFF;
+                }
+
+                .close {
                     margin-right: 10px;
                     display: block;
-                    position: fixed;
                     color: black;
                     width: 32px;
                     height: 32px;
@@ -81,9 +76,19 @@
             }
         }
 
+        .extension-article-card {
+            height: 100%;
+       	    overflow: auto;
+        }
+
+        .article-extension {
+            padding-top: 25px;
+        }
+
         #article {
             left: 0px;
             display: block;
+            padding-bottom: 25px;
 
             h2 {
                 color: #29B6F6;

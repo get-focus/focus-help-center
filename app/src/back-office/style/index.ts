@@ -1,3 +1,4 @@
 import './index.scss';
-import './layout.scss';
+import './edit-layout.scss';
 import './home-layout.scss';
+import './consult-layout.scss';
