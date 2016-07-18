@@ -139,3 +139,13 @@ export function clickEditTitle(): ArticleDetailAction {
 export function clickEditDescription(): ArticleDetailAction {
     return { type: Action.CLICK_EDIT_DESCRIPTION };
 }
+
+/** Toggles the edit description state. */
+export function clickEditUrl(): ArticleDetailAction {
+    return { type: Action.CLICK_EDIT_URL };
+}
+
+/** Toggles the edit description state. */
+export function clickEditInformations(): ArticleDetailAction {
+    return { type: Action.CLICK_EDIT_INFORMATIONS };
+}

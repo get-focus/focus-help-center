@@ -3,9 +3,11 @@ import {ArticleDetailAction, ArticleDetailState} from '../definitions/article-de
 const a = Object.assign;
 
 export const defaultValue: ArticleDetailState = {
-    article: {title: '', description: '', content: '', published: false},
+    article: {title: '', description: '', content: '', informations: '', url: '', published: false},
     isEditDescription: false,
     isEditTitle: false,
+    isEditUrl: false,
+    isEditInformations: false,
     isLoading: false,
     showPopup: false
 };
@@ -47,6 +49,10 @@ export function articleDetail(state = defaultValue, action: ArticleDetailAction)
             return a({}, state, {isEditDescription: !state.isEditDescription});
         case Action.CLICK_EDIT_TITLE:
             return a({}, state, {isEditTitle: !state.isEditTitle});
+        case Action.CLICK_EDIT_URL:
+            return a({}, state, {isEditUrl: !state.isEditUrl});
+        case Action.CLICK_EDIT_INFORMATIONS:
+            return a({}, state, {isEditInformations: !state.isEditInformations});
         default:
             return state;
     }

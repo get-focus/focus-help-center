@@ -61,6 +61,7 @@ export const api: Api = {
             }
         });
         const data = await response.json<Article | { error: string }>();
+        console.log('DATA', data);
         if ((data as Article).title) {
             return data;
         } else {

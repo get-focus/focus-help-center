@@ -25,6 +25,10 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
+ *       url:
+ *         type: string
+ *       informations:
+ *         type: string
  */
 
 /**
@@ -69,6 +73,10 @@ import {or, and, fn, col} from 'sequelize';
  *       updatedAt:
  *         type: string
  *       publishedAt:
+ *         type: string
+ *       url:
+ *         type: string
+ *       informations:
  *         type: string
  *       sections:
  *         type: array
@@ -243,6 +251,7 @@ export function articleService(prefix: string, app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.post(`${prefix}/api/article`, async (req, res) => {
+        console.log('here');
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot save an article when not connected' });

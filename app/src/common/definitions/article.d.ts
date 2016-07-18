@@ -11,4 +11,6 @@ export interface Article {
     published: boolean;
     publishedAt?: string;
     sections?: Section[];
+    url?: string;
+    informations?: string;
 }
