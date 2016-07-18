@@ -46,7 +46,7 @@ export class ArticleConsult extends React.Component {
                     </header>
                     : null
                 }
-                <div className={`article-card${isExtension ? ' extension-article-card' : ''}`}>
+                <div className='article-card'>
                     {!isExtension?
                         <div className='top-header'>
                             <div className='left-content'>

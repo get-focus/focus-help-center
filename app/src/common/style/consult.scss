@@ -34,13 +34,16 @@
 
     @media screen and (min-width: 1440px) {
         .article-card {
-            width: 75%
+            width: 75%;
         }
     }
 
     @media screen and (max-width: 1339px) {
         .article-card {
             max-width: 1440px;
+            height: 100%;
+       	    overflow: auto;
+            background: white;
         }
     }
 
@@ -74,11 +77,6 @@
                     font-size: 32px;
                 }
             }
-        }
-
-        .extension-article-card {
-            height: 100%;
-       	    overflow: auto;
         }
 
         .article-extension {
