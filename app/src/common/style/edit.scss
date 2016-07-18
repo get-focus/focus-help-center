@@ -148,6 +148,66 @@
         .section-title {
             text-transform: uppercase;
         }
+
+        .left {
+        flex: 1;
+        max-width: 900px;
+        padding-left: 16px;
+
+        > div:not(.editing) {
+            button {
+                opacity: 0;
+            }
+
+            &:hover {
+                background: #DDD;
+                cursor: pointer;
+
+                button {
+                    opacity: 1;
+                }
+            }
+        }
+
+        > .url, > .informations {
+            display: flex;
+            align-items: center;
+            transition: background 0.2s ease-out;
+            padding: 0 10px;
+            margin: 0 -10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #616161;
+
+            label {
+                font-size: 18px!important;
+            }
+
+            input[style] {
+                font-size: 20px!important;
+                font-weight: bold!important;
+                color: #616161!important;
+            }
+
+            > div {
+                flex: 1;
+                white-space: pre;
+            }
+
+            &.editing {
+                transition: background 0.2s ease-out;
+                background: lighten(rgb(0, 121, 107), 10%);
+
+                input[style], textarea[style] {
+                    color: white!important;
+                }
+
+                i {
+                    color: #E2E2E2;
+                }
+            }
+        }
+    }
     }
 
     > .parameter-drawer {
