@@ -24,7 +24,7 @@ export default class ConsultLayout extends Component {
     render() {
         const {children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
         return (
-            <div className='home-layout'>
+            <div className='consult-layout'>
                 <div className='ribbon'>
                     <div className='top'>
                         <div className='left'>
