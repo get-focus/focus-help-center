@@ -25,6 +25,10 @@ import {or, and, fn, col} from 'sequelize';
  *         type: string
  *       publishedAt:
  *         type: string
+ *       url:
+ *         type: string
+ *       informations:
+ *         type: string
  */
 
 /**
@@ -69,6 +73,10 @@ import {or, and, fn, col} from 'sequelize';
  *       updatedAt:
  *         type: string
  *       publishedAt:
+ *         type: string
+ *       url:
+ *         type: string
+ *       informations:
  *         type: string
  *       sections:
  *         type: array

@@ -33,6 +33,8 @@ export const fr = {
                     saveSuccessMessageTitle: 'Titre sauvegardé.',
                     saveSuccessMessageDescription: 'Description sauvegardée.',
                     saveSuccessMessageContent: 'Contenu sauvegardé.',
+                    saveSuccessMessageUrl: 'Url contextuel sauvegardé.',
+                    saveSuccessMessageInformations: 'Bloc d\'informations sauvegardé.',
                     saveSuccessMessagePublished: 'Article publié.',
                     saveSuccessMessageUnPublished: 'Article dépublié.',
                     saveFailedMessage: 'Erreur lors de la sauvegarde.',

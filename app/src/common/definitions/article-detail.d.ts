@@ -9,6 +9,8 @@ export interface ArticleDetailState {
     error?: string;
     isEditDescription: boolean;
     isEditTitle: boolean;
+    isEditUrl: boolean;
+    isEditInformations: boolean;
     isLoading: boolean;
     showPopup: boolean;
 }

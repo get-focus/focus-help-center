@@ -21,7 +21,9 @@ const article = sequelizeInstance.define<IArticleInstance, IArticle>('Article',
         description: Sequelize.STRING,
         content: Sequelize.STRING,
         published: Sequelize.BOOLEAN,
-        publishedAt: Sequelize.DATE
+        publishedAt: Sequelize.DATE,
+        url: Sequelize.STRING,
+        informations: Sequelize.STRING
     }
 );
 
