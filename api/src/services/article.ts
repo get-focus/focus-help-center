@@ -251,7 +251,6 @@ export function articleService(prefix: string, app: express.Application) {
      *           $ref: '#/definitions/Error'
      */
     app.post(`${prefix}/api/article`, async (req, res) => {
-        console.log('here');
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot save an article when not connected' });

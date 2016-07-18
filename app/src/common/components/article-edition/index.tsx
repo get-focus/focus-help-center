@@ -39,8 +39,6 @@ export class EditPage extends React.Component<any, any> {
 
         const {isVisible, dialogOpen} = this.state;
 
-        console.log(this.props.article);
-
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
