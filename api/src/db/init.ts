@@ -40,19 +40,6 @@ async function initDb() {
         } catch (error) {
             console.log(`Error while trying to insert an article in the database : ${error}`);
         }
-
-        // Populate the Section Table
-        try {
-            let data: ISection[] = [
-                { name: 'Tutorial' },
-                { name: 'Drawing' },
-                { name: 'Sport' }
-            ];
-            await Section.bulkCreate(data);
-            console.log('3 Sections successfully inserted.');
-        } catch (error) {
-            console.log(`Error while trying to insert an SECTION in the database : ${error}`);
-        }
     }
 }
 
