@@ -17,7 +17,6 @@ const propTypes = {
 function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) {
     return (
         <div className='article-list-header'>
-            <h3>{i18n.t('article-list.title')}</h3>
             <div className='search'>
                 <i className='material-icons'>search</i>
                 <div className='search-bar'>
@@ -28,6 +27,8 @@ function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) 
                         value={filter}
                         onChange={e => search(e.target.value)}
                         hintText={i18n.t('search.placeholder')}
+                        hintStyle={{color: 'white'}}
+                        inputStyle={{color: 'white'}}
                     />
                     {textFieldUnderline && loading && filter ? <LinearProgress style={{position: 'absolute', bottom: '8px', height: '2px'}} /> : null}
                 </div>

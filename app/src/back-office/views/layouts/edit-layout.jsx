@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import i18n from 'i18next';
-import {PasswordComponent} from '../common/components/password';
+import {PasswordComponent} from '../../../common/components/password';
 import {connect} from 'react-redux';
-import {showSnackBar} from '../common/actions/snack-bar';
+import {showSnackBar} from '../../../common/actions/snack-bar';
 import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem, Snackbar} from 'material-ui';
 import {green500, red500} from 'material-ui/styles/colors';
-import {appUrl} from '../common/server/config';
+import {appUrl} from '../../../common/server/config';
 import {withRouter} from 'react-router';
 
 /** Layout component. */
