@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
 import {getArticles, loadArticleList} from '../../actions/article-list';
 import {loadSection, clearSection} from '../../actions/section-detail';
-import {List, ListItem, Subheader} from 'material-ui';
+import {Divider} from 'material-ui';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
 import i18n from 'i18next';
@@ -30,15 +30,6 @@ export class SectionList extends React.Component {
         this.props.clearSection();
     }
 
-    componentDidUpdate() {
-        this.setAllSectionListRender();
-        if (this.props.sectionID) {
-            this.props.getArticles(+this.props.sectionID);
-        } else {
-            this.props.loadArticleList();
-        }
-    }
-
     sectionClickHandler = (sectionID) => {
         if (sectionID) {
             this.props.getArticles(sectionID);
@@ -55,27 +46,36 @@ export class SectionList extends React.Component {
         const {sections} = this.props;
         if (sections.length > 0) {
             return (sections.map((section, index) =>
-                <ListItem primaryText={section.name} key={index} onClick={() => this.sectionClickHandler(section.id) } />
+                <div>
+                    <button className="accordion" onClick={() => this.onClickHandler(section.id, index) } ref={`button${index}`}>{section.name}</button>
+                    <div className="panel">
+                        <ArticleList />
+                    </div>
+                </div>
             ));
         }
     };
 
-    setAllSectionListRender = () => {
-        this.refs.allSection.setState({isKeyboardFocused: true});
+    onClickHandler = (sectionID, index) => {
+        const buttonElement = this.refs[`button${index}`];
+
+        if (buttonElement.className === 'accordion') {
+            buttonElement.className += ' active';
+            this.props.getArticles(sectionID);
+            this.props.router.push(`/section/${sectionID}/articles`);
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else {
+            buttonElement.className = 'accordion';
+            buttonElement.nextElementSibling.classList.toggle('show');
+            this.props.router.push('/home');
+        }
     }
 
     render() {
         return (
             <div className='section-list'>
-                <List className='list' style={{paddingTop: '15px'}}>
-                    <Subheader>{i18n.t('section-list-page.title') }</Subheader>
-                    <ListItem primaryText={`${i18n.t('section-list-page.all-sections')}`} onClick={() => this.sectionClickHandler()} ref='allSection' />
-                    {this.renderSectionList() }
-                </List>
-                <div className='article-list-area'>
-                    <Subheader style={{paddingTop: '15px'}}>{this.props.sectionID ? `${i18n.t('section-list-page.one-section-list')} ${this.props.sectionDetail.section.name}` : `${i18n.t('section-list-page.all-sections')}`}</Subheader>
-                    <ArticleList />
-                </div>
+                <div className='section-list-title'>Bienvenue dans le Centre d'aide</div>
+                {this.renderSectionList() }
             </div>
         );
     }
