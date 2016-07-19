@@ -72,7 +72,10 @@ export const fr = {
                     'cancel-delete': 'annuler',
                     'show-more': 'Afficher plus',
                     'show-less': 'Afficher moins',
-                    'close': 'fermer'
+                    'close': 'fermer',
+                    'newSection': 'nouvelle rubrique',
+                    'existingSections': 'Rubriques existantes',
+                    'addSection': 'Ajout d\'une rubrique'
                 },
                 'context-url': 'url contextuelle',
                 'bloc-information': 'bloc d\'information',
@@ -87,7 +90,12 @@ export const fr = {
         button: {
             save: 'Sauvegarder',
             edit: 'Éditer',
-            add: 'Ajouter'
+            add: 'Ajouter',
+            share: 'partager',
+            cancel: 'annuler',
+            print: 'imprimer',
+            close: 'fermer',
+            send: 'envoyer'
         },
         date: {
             to: 'à'

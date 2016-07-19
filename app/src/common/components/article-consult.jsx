@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react';
 import Markdown from 'remarkable';
 import {loadArticle} from '../actions/article-detail';
 import {connect} from 'react-redux';
-import {CircularProgress} from 'material-ui';
+import {CircularProgress, FlatButton} from 'material-ui';
+import i18n from 'i18next';
+import {Link} from 'react-router';
 
 @connect(
     state => ({
@@ -15,14 +17,12 @@ import {CircularProgress} from 'material-ui';
 export class ArticleConsult extends React.Component {
 
     static propTypes = {
-        leftContent: PropTypes.object,
-        rightContent: PropTypes.object,
         isExtension: PropTypes.bool
     };
 
     static defaultProps = {
         isExtension: false
-    }
+    };
 
     md = new Markdown();
     rawMarkup = () => ({__html: this.md.render(this.props.article.content)});
@@ -32,42 +32,52 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        const {article, isLoading, error, leftContent, rightContent, isExtension} = this.props;
+        console.log();
+        const {article, isLoading, error, isExtension} = this.props;
         return (
             <div className='article-consult'>
-                {isExtension?
+                {isExtension ?
                     <header>
                         <div className='left-content'>
-                            {leftContent? leftContent : <div/>}
+                            <FlatButton label={i18n.t('button.print')} icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
+                            <FlatButton label={i18n.t('button.share')} icon={<i className="material-icons">share</i>} secondary={true} onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Remarque / Question&body=${window.location.href}`} />
+
                         </div>
                         <div className='right-content'>
-                            {rightContent? rightContent : <div/>}
+                            <Link to='/home'> <i className='material-icons close'>close</i></Link>
                         </div>
                     </header>
                     : null
                 }
                 <div className='article-card'>
-                    {!isExtension?
+                    {!isExtension ?
                         <div className='top-header'>
                             <div className='left-content'>
-                                {leftContent? leftContent : <div/>}
+                                <FlatButton label={i18n.t('button.print')} icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
+                                <FlatButton
+                                    label={i18n.t('button.share')}
+                                    icon={<i className="material-icons">share</i>}
+                                    secondary={true}
+                                    onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
+                                    />
+
                             </div>
                             <div className='right-content'>
-                                {rightContent? rightContent : <div/>}
+                                <Link to='/home'> <i className='material-icons close'>close</i></Link>
                             </div>
                         </div>
-                        :null
+                        : null
                     }
                     {isLoading ? <CircularProgress style={{marginLeft: 'calc(50% - 25px)'}} /> : null}
                     {error ?
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
-                    : null}
+                        : null}
                     {!isLoading ?
                         <div id='article' className={`${isExtension ? 'article-extension' : ''}`}>
                             <h2>{article.title}</h2>
-                            <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                            <div dangerouslySetInnerHTML={this.rawMarkup() } />
                         </div>
-                    : null}
+                        : null}
                 </div>
             </div>
         );
