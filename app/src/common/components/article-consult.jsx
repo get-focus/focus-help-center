@@ -46,7 +46,7 @@ export class ArticleConsult extends React.Component {
                     </header>
                     : null
                 }
-                <div className='card'>
+                <div className='article-card'>
                     {!isExtension?
                         <div className='top-header'>
                             <div className='left-content'>
@@ -63,7 +63,7 @@ export class ArticleConsult extends React.Component {
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
                     : null}
                     {!isLoading ?
-                        <div id='article'>
+                        <div id='article' className={`${isExtension ? 'article-extension' : ''}`}>
                             <h2>{article.title}</h2>
                             <div dangerouslySetInnerHTML={this.rawMarkup()} />
                         </div>

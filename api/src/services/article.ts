@@ -174,6 +174,7 @@ export function articleService(prefix: string, app: express.Application) {
             for (let i = 0; i < articleSection.length; i++) {
                 sectionList.push((await Section.findById(articleSection[i].SectionId)).get());
             }
+            sectionList.sort((a, b) => {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0); });
             article.get().sections = sectionList;
             res.json(article);
         } else {
