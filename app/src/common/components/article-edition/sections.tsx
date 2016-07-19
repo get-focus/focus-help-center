@@ -196,12 +196,14 @@ export default class Sections extends React.Component<any, any> {
         return (
             <div>
                 <Dialog
+                    title={i18n.t('edit-page.content.sections.addSection')}
                     actions={[<FlatButton label={i18n.t('edit-page.content.sections.close') } primary={true} onClick={this.showDialog} />]}
                     open={this.showAddSectionDialog() }
                     onRequestClose={this.showDialog}
                     autoScrollBodyContent={true}
-                    style={{ height: '1550px', maxHeight: '1550px' }} >
-                    <Subheader><em>{i18n.t('edit-page.content.sections.new-section') }</em></Subheader>
+                    style={{ height: '1550px', maxHeight: '1550px' }} ><br/>
+
+                    <span className='new-section' style={{paddingLeft: 16}}>{i18n.t('edit-page.content.sections.newSection') }</span>
                     <AutoComplete
                         hintText={i18n.t('edit-page.content.sections.placeholder') }
                         dataSource={this.checkSections() }
@@ -210,7 +212,8 @@ export default class Sections extends React.Component<any, any> {
                         searchText={searchText}
                         style={{ paddingLeft: '16px' }}
                         />
-                    <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} />
+                    <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} /><br/><br/>
+                    <Subheader><em>{i18n.t('edit-page.content.sections.existingSections') }</em></Subheader>
                     {this.showAllSections() }
                 </Dialog>
 

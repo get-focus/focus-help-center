@@ -72,7 +72,10 @@ export const en = {
                     'cancel-delete': 'cancel',
                     'show-more': 'Show more',
                     'show-less': 'Show less',
-                    'close': 'close'
+                    'close': 'close',
+                    'newSection': 'new section',
+                    'existingSections': 'Existing sections',
+                    'addSection': 'Adding a section'
                 },
                 'context-url': 'CONTEXTUAL URL',
                 'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
@@ -86,7 +89,12 @@ export const en = {
         button: {
             save: 'Save',
             edit: 'Edit',
-            add: 'Add'
+            add: 'Add',
+            share: 'share',
+            cancel: 'cancel',
+            print: 'print',
+            close: 'close',
+            send: 'send'
         },
         date: {
             to: 'et'
