@@ -75,7 +75,7 @@ export const fr = {
                     'close': 'fermer'
                 },
                 'context-url': 'url contextuelle',
-                'bloc-information': 'informations contextuelle',
+                'bloc-information': 'bloc d\'information',
 
             }
         },
