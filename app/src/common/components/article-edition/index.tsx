@@ -5,7 +5,7 @@ import Sections from './sections';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, updateArticle, clickEditInformations, clickEditUrl} from '../../actions/article-detail';
 import {TextField, FlatButton, IconButton, List, Subheader} from 'material-ui';
-import {capitalize} from 'lodash';
+import {capitalize, upperCase } from 'lodash';
 
 import {State} from '../../store/default-state';
 
@@ -72,12 +72,13 @@ export class EditPage extends React.Component<any, any> {
                                 <TextField
                                     name='url'
                                     ref='url'
-                                    hintText={i18n.t('edit-page.content.context-url') }
+                                    hintText={upperCase(i18n.t('edit-page.content.context-url'))}
                                     defaultValue={this.props.article.url}
                                     fullWidth={true}
                                     />
-                                :
-                                <div onClick={() => this.props.clickEditUrl() }>{this.props.article.url}</div>
+                                : !this.props.article.url || this.props.article.url.trim() === '' ?
+                                    <div onClick={() => this.props.clickEditUrl() }><em>Ajoutez une URL</em></div>
+                                    : <div onClick={() => this.props.clickEditUrl() }>{this.props.article.url}</div>
                             }
                             {isEditUrl ?
                                 <IconButton onClick={() => this.saveArticle('url') }>
@@ -99,12 +100,13 @@ export class EditPage extends React.Component<any, any> {
                                 <TextField
                                     name='informations'
                                     ref='informations'
-                                    hintText={i18n.t('edit-page.content.context-informations') }
+                                    hintText={upperCase('informations')}
                                     defaultValue={this.props.article.informations}
                                     fullWidth={true}
                                     />
-                                :
-                                <div onClick={() => this.props.clickEditInformations() }>{this.props.article.informations}</div>
+                                : !this.props.article.informations || this.props.article.informations.trim() === '' ?
+                                    <div onClick={() => this.props.clickEditInformations() }><em>Ajoutez des informations</em></div>
+                                    : <div onClick={() => this.props.clickEditInformations() }>{this.props.article.informations}</div>
                             }
                             {isEditInformations ?
                                 <IconButton onClick={() => this.saveArticle('informations') }>

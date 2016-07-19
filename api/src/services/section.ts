@@ -1,5 +1,6 @@
 import express from 'express';
 import {Article, Section, ArticleSection} from '../db';
+import {fn, col} from 'sequelize';
 
 export function sectionService(prefix: string, app: express.Application) {
 
@@ -25,7 +26,7 @@ export function sectionService(prefix: string, app: express.Application) {
             res.json({ error: 'Cannot search sections when not connected' });
         } else {
             try {
-                const articleIDs = (await ArticleSection.findAll({ where: { SectionId: +req.params.id } })).map(association => association.get().ArticleId);
+                const articleIDs = (await ArticleSection.findAll({ where: { SectionId: +req.params.id }})).map(association => association.get().ArticleId);
                 let articleList = [];
                 for (let i = 0; i < articleIDs.length; i++) {
                     articleList.push(await Article.findById(articleIDs[i]));
@@ -38,7 +39,8 @@ export function sectionService(prefix: string, app: express.Application) {
     });
 
     app.get(`${prefix}/api/section`, async (req, res) => {
-        const sections = ((await Section.findAll()).map(section => section.get()));
+        const order = [fn('lower', col('name'))];
+        const sections = ((await Section.findAll({order})).map(section => section.get()));
 
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
