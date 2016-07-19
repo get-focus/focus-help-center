@@ -3,10 +3,8 @@ import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
 import {getArticles, loadArticleList} from '../../actions/article-list';
 import {loadSection, clearSection} from '../../actions/section-detail';
-import {Divider} from 'material-ui';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
-import i18n from 'i18next';
 
 @withRouter
 @connect(
