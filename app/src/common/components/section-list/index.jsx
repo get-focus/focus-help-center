@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {loadSectionList, clearSectionList} from '../../actions/section-list';
-import {getArticles, loadArticleList, searchArticleList} from '../../actions/article-list';
-import {loadSection, clearSection} from '../../actions/section-detail';
+import {loadSectionList} from '../../actions/section-list';
+import {getArticles, searchArticleList} from '../../actions/article-list';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
 
@@ -14,11 +13,7 @@ import {ArticleList} from '../article-list';
         connected: state.login.isConnected
     }),
     dispatch => ({
-        clearSection: () => dispatch(clearSection()),
         loadSectionList: () => dispatch(loadSectionList()),
-        clearSectionList: () => dispatch(clearSectionList()),
-        loadArticleList: () => dispatch(loadArticleList()),
-        loadSection: (id) => dispatch(loadSection(id)),
         getArticles: (sectionId) => dispatch(getArticles(sectionId)),
         search: () => dispatch(searchArticleList())
     })

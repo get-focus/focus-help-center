@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
+import {loadSectionList} from '../actions/section-list';
 import i18n from 'i18next';
 import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
 
@@ -13,6 +14,7 @@ import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
     }),
     dispatch => ({
         isConnected: () => dispatch(isConnected()),
+        loadSectionList: () => dispatch(loadSectionList()),
         login: password => dispatch(login(password)),
         logout: () => dispatch(logout()),
         clearError: () => dispatch(clearError())
@@ -41,6 +43,10 @@ export class PasswordComponent extends React.Component {
         if (!connected) {
             isConnected();
         }
+    }
+
+    componentDidUpdate() {
+        this.props.loadSectionList();
     }
 
     render() {
