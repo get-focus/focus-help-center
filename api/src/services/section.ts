@@ -5,9 +5,8 @@ import {fn, col} from 'sequelize';
 export function sectionService(prefix: string, app: express.Application) {
 
     app.get(`${prefix}/api/section/:id`, async (req, res) => {
-        const section = (await Section.findById(req.params.id));
-
         try {
+            const section = (await Section.findById(req.params.id));
             if (!(req.user && req.user.signedIn)) {
                 res.status(403);
                 res.json({ error: 'Cannot search a section when not connected' });
@@ -23,7 +22,6 @@ export function sectionService(prefix: string, app: express.Application) {
             res.status(403);
             res.json({error: e});
         }
-
     });
 
     app.get(`${prefix}/api/section/:id/articles`, async (req, res) => {

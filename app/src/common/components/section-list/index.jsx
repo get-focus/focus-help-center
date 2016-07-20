@@ -25,16 +25,8 @@ import {ArticleList} from '../article-list';
 )
 export class SectionList extends React.Component {
 
-    state = {
-        sectionList: []
-    }
-
     componentWillMount() {
         this.props.loadSectionList();
-    }
-
-    setSectionsList() {
-        this.setState({sectionList: this.props.sections});
     }
 
     renderSectionList = () => {
