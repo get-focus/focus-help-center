@@ -31,7 +31,14 @@ export function sectionService(prefix: string, app: express.Application) {
             const articleIDs = (await ArticleSection.findAll({ where: { SectionId: +req.params.id }})).map(association => association.get().ArticleId);
             let articleList = [];
             for (let i = 0; i < articleIDs.length; i++) {
-                articleList.push(await Article.findById(articleIDs[i]));
+                const article = (await Article.findById(articleIDs[i]));
+                if (req.user && req.user.signedIn) {
+                    articleList.push(article);
+                } else {
+                    if (article.get().published) {
+                        articleList.push(article);
+                    }
+                }
             }
             res.json(articleList);
         } catch (e) {
@@ -50,19 +57,20 @@ export function sectionService(prefix: string, app: express.Application) {
                 const sections = ((await Section.findAll({order})).map(section => section.get()));
 
                 const sectionAssociations = ((await ArticleSection.findAll()).map(association => association.get()));
-                let sectionsToShow = [];
+                let sectionsArray = [];
                 sectionAssociations.map(association =>
                     articles.map(article => {
                             if (article.id === association.ArticleId) {
                                 sections.map(section => {
                                     if (section.id === association.SectionId) {
-                                        sectionsToShow.push(section);
+                                        sectionsArray.push(section);
                                     }
                                 });
                             }
                         }
                     )
                 );
+                let sectionsToShow = Array.from(new Set(sectionsArray));
                 res.json(sectionsToShow.sort((a, b) => {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0); }));
             }
         } catch (e) {
