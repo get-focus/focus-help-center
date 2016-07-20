@@ -44,18 +44,19 @@ export function sectionService(prefix: string, app: express.Application) {
 
             const sectionAssociations = ((await ArticleSection.findAll()).map(association => association.get()));
             let sectionsToShow = [];
-            for (let i = 0; i < sectionAssociations.length; i++) {
-                for (let j = 0; j < articles.length; j++) {
-                    if (sectionAssociations[i].ArticleId === articles[j].id) {
-                        for (let k = 0; k < sections.length; k++) {
-                            if (sections[k].id === sectionAssociations[i].SectionId) {
-                                sectionsToShow.push(sections[k]);
-                            }
+            sectionAssociations.map(association =>
+                articles.map(article => {
+                        if (article.id === association.ArticleId) {
+                            sections.map(section => {
+                                if (section.id === association.SectionId) {
+                                    sectionsToShow.push(section);
+                                }
+                            });
                         }
                     }
-                }
-            }
-            res.json(sectionsToShow.sort((a, b) => {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0); }););
+                )
+            );
+            res.json(sectionsToShow.sort((a, b) => {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0); }));
         }
     });
 }
