@@ -13,6 +13,7 @@ import {appUrl} from '../../../common/server/config';
 @withRouter
 @connect(
     state => ({
+        snackBar: state.snackBar,
         connected: state.login.isConnected
     }),
     dispatch => ({
@@ -20,7 +21,6 @@ import {appUrl} from '../../../common/server/config';
         showSnackBar: data => dispatch(showSnackBar(data))
     })
 )
-@connect(state => ({snackBar: state.snackBar, connected: state.login.isConnected}))
 export default class HomeLayout extends Component {
 
     static propTypes = {
@@ -73,7 +73,7 @@ export default class HomeLayout extends Component {
                         <div className='middle'>
                         </div>
                         <div className='right'>
-                        <a className='button-link' href={appUrl} target='_blank'>
+                            <a className='button-link' href={appUrl} target='_blank'>
                                 <FlatButton
                                     icon={<i className='material-icons'>exit_to_app</i>}
                                     label={i18n.t('back-office.layout.back-to-app') }
@@ -98,23 +98,24 @@ export default class HomeLayout extends Component {
                     onActionTouchTap={actionHandler}
                     onRequestClose={() => this.props.dispatch(showSnackBar()) }
                     bodyStyle={{backgroundColor: isError ? red500 : green500}}
-                    />
-                    {this.props.connected ?
-                <FloatingActionButton onClick={() => this.toggleModal()} className='add-button'>
-                    <i className='material-icons'>add</i>
-                </FloatingActionButton>
-            : null}
+                />
+                {this.props.connected ?
+                    <FloatingActionButton onClick={() => this.toggleModal() } className='add-button'>
+                        <i className='material-icons'>add</i>
+                    </FloatingActionButton>
+                    : null
+                }
 
                 <Dialog
-                        title={i18n.t('article.create.dialog')}
-                        actions={[<FlatButton label={i18n.t('article.create.confirm')} primary={true} onClick={() => this.saveArticle()} />]}
-                        open={this.state.open}
-                        onRequestClose={() => this.toggleModal()}
+                    title={i18n.t('article.create.dialog') }
+                    actions={[<FlatButton label={i18n.t('article.create.confirm') } primary={true} onClick={() => this.saveArticle() } />]}
+                    open={this.state.open}
+                    onRequestClose={() => this.toggleModal() }
                     >
                     <div>
-                        <TextField ref='title' hintText={i18n.t('article.title')} />
+                        <TextField ref='title' hintText={i18n.t('article.title') } />
                         <br />
-                        <TextField ref='description' hintText={i18n.t('article.description')} />
+                        <TextField ref='description' hintText={i18n.t('article.description') } />
                     </div>
                 </Dialog>
             </div>
