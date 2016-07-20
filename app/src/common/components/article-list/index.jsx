@@ -27,16 +27,6 @@ export class ArticleList extends React.Component {
 
     state = {open: false};
 
-    componentWillMount() {
-        this.props.loadArticleList();
-    }
-
-    componentWillReceiveProps({connected}) {
-        if (this.props.connected !== connected) {
-            this.componentWillMount();
-        }
-    }
-
     render() {
         const {connected, articleList} = this.props;
         return (

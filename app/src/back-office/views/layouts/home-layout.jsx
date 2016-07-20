@@ -86,7 +86,7 @@ export default class HomeLayout extends Component {
                     </div>
                 </div>
                 <div className='main'>
-                    <Paper style={{minHeight: '55%', maxHeight: '75%', width: '43%', display: 'flex'}} zDepth={1}>
+                    <Paper style={{minHeight: '55%', maxHeight: '250%', width: '43%', display: 'flex'}} zDepth={1}>
                         {children}
                     </Paper>
                 </div>

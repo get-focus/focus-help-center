@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {loadSectionList, clearSectionList} from '../../actions/section-list';
-import {getArticles, loadArticleList} from '../../actions/article-list';
+import {getArticles, loadArticleList, searchArticleList} from '../../actions/article-list';
 import {loadSection, clearSection} from '../../actions/section-detail';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
@@ -19,7 +19,8 @@ import {ArticleList} from '../article-list';
         clearSectionList: () => dispatch(clearSectionList()),
         loadArticleList: () => dispatch(loadArticleList()),
         loadSection: (id) => dispatch(loadSection(id)),
-        getArticles: (sectionId) => dispatch(getArticles(sectionId))
+        getArticles: (sectionId) => dispatch(getArticles(sectionId)),
+        search: () => dispatch(searchArticleList())
     })
 )
 export class SectionList extends React.Component {
@@ -38,16 +39,26 @@ export class SectionList extends React.Component {
 
     renderSectionList = () => {
         const {sections} = this.props;
-        if (sections && sections.length > 0) {
-            return (sections.map((section, index) =>
-                <div>
-                    <button className="accordion" onClick={() => this.onClickHandler(section.id, index) } ref={`button${index}`}>{section.name}</button>
-                    <div className="panel">
-                        <ArticleList />
-                    </div>
+        return (
+            <div>
+                <button className="accordion" onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
+                <div className="panel">
+                    <ArticleList />
                 </div>
-            ));
-        }
+                {sections && sections.length > 0 ?
+                    sections.map((section, index) => {
+                        return (
+                            <div>
+                                <button className="accordion" onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
+                                <div className="panel">
+                                    <ArticleList />
+                                </div>
+                            </div>
+                        );
+                    }) : null
+                }
+            </div>
+        );
     };
 
     onClickHandler = (sectionID, index) => {
@@ -62,7 +73,15 @@ export class SectionList extends React.Component {
             }
         }
 
-        if (buttonElement.className === 'accordion') {
+        if (sectionID === null && buttonElement.className === 'accordion') {
+            this.props.search('');
+            buttonElement.className += ' active';
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else if (sectionID === null && buttonElement.className === 'accordion active') {
+            this.props.search('');
+            buttonElement.className = 'accordion';
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else if (buttonElement.className === 'accordion') {
             buttonElement.className += ' active';
             this.props.getArticles(sectionID);
             this.props.router.push(`/section/${sectionID}/articles`);
