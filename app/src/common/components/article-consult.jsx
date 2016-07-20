@@ -32,7 +32,6 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        console.log();
         const {article, isLoading, error, isExtension} = this.props;
         return (
             <div className='article-consult'>

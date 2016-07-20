@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
+import {loadSectionList} from '../actions/section-list';
 import i18n from 'i18next';
 import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
 
@@ -13,6 +14,7 @@ import {CircularProgress, IconButton, FlatButton, TextField} from 'material-ui';
     }),
     dispatch => ({
         isConnected: () => dispatch(isConnected()),
+        loadSectionList: () => dispatch(loadSectionList()),
         login: password => dispatch(login(password)),
         logout: () => dispatch(logout()),
         clearError: () => dispatch(clearError())
@@ -43,6 +45,10 @@ export class PasswordComponent extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        this.props.loadSectionList();
+    }
+
     render() {
         const {loading, connected, error, clearError, userName, generalColor} = this.props;
         return (
@@ -54,7 +60,7 @@ export class PasswordComponent extends React.Component {
                     {userName ?
                         <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
                     : connected ?
-                        <strong>{i18n.t('password.connected')}</strong>
+                        <FlatButton style={{color: 'white'}} label={i18n.t('password.connected')} labelPosition='before' onClick={this.login} icon={<i className="material-icons">close</i>} />
                         :
                         <div>
                             <span className='ok-text'>{i18n.t('password.password') + ' : '}</span>
@@ -68,9 +74,11 @@ export class PasswordComponent extends React.Component {
                             </IconButton>
                         </a>
                     :
+                    !connected ?
                         <IconButton onClick={this.login} iconClassName='material-icons' iconStyle={{color: generalColor}}>
-                            {connected ? 'close' : 'arrow_forward'}
+                            arrow_forward
                         </IconButton>
+                        : null
                     }
                 </div>
                 }

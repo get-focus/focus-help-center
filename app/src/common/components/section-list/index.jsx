@@ -1,12 +1,9 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
-import {getArticles, loadArticleList} from '../../actions/article-list';
-import {loadSection, clearSection} from '../../actions/section-detail';
-import {List, ListItem, Subheader} from 'material-ui';
+import {getArticles, searchArticleList} from '../../actions/article-list';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
-import i18n from 'i18next';
 
 @withRouter
 @connect(
@@ -16,66 +13,78 @@ import i18n from 'i18next';
         connected: state.login.isConnected
     }),
     dispatch => ({
-        clearSection: () => dispatch(clearSection()),
         loadSectionList: () => dispatch(loadSectionList()),
-        loadArticleList: () => dispatch(loadArticleList()),
-        loadSection: (id) => dispatch(loadSection(id)),
-        getArticles: (sectionId) => dispatch(getArticles(sectionId))
+        getArticles: (sectionId) => dispatch(getArticles(sectionId)),
+        search: () => dispatch(searchArticleList())
     })
 )
 export class SectionList extends React.Component {
 
     componentWillMount() {
         this.props.loadSectionList();
-        this.props.clearSection();
-    }
-
-    componentDidUpdate() {
-        this.setAllSectionListRender();
-        if (this.props.sectionID) {
-            this.props.getArticles(+this.props.sectionID);
-        } else {
-            this.props.loadArticleList();
-        }
-    }
-
-    sectionClickHandler = (sectionID) => {
-        if (sectionID) {
-            this.props.getArticles(sectionID);
-            this.props.router.push(`/section/${sectionID}/articles`);
-            this.props.loadSection(sectionID);
-        } else {
-            this.props.router.push('/home');
-            this.props.loadSectionList();
-            this.props.clearSection();
-        }
     }
 
     renderSectionList = () => {
         const {sections} = this.props;
-        if (sections.length > 0) {
-            return (sections.map((section, index) =>
-                <ListItem primaryText={section.name} key={index} onClick={() => this.sectionClickHandler(section.id) } />
-            ));
-        }
+        return (
+            <div>
+                <button className="accordion" onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
+                <div className="panel">
+                    <ArticleList />
+                </div>
+                {sections && sections.length > 0 ?
+                    sections.map((section, index) => {
+                        return (
+                            <div>
+                                <button className="accordion" onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
+                                <div className="panel">
+                                    <ArticleList />
+                                </div>
+                            </div>
+                        );
+                    }) : null
+                }
+            </div>
+        );
     };
 
-    setAllSectionListRender = () => {
-        this.refs.allSection.setState({isKeyboardFocused: true});
+    onClickHandler = (sectionID, index) => {
+        const buttonElement = this.refs[`button${index}`];
+
+        // Here i'm closing all the other sections
+        const buttonsElements = document.getElementsByClassName('accordion');
+        for (let i = 0; i < buttonsElements.length; i++) {
+            if (buttonsElements[i].className === 'accordion active' && i !== index) {
+                this.refs[`button${i}`].className = 'accordion';
+                this.refs[`button${i}`].nextElementSibling.classList.toggle('show');
+            }
+        }
+
+        if (sectionID === null && buttonElement.className === 'accordion') {
+            this.props.search('');
+            buttonElement.className += ' active';
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else if (sectionID === null && buttonElement.className === 'accordion active') {
+            this.props.search('');
+            buttonElement.className = 'accordion';
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else if (buttonElement.className === 'accordion') {
+            buttonElement.className += ' active';
+            this.props.getArticles(sectionID);
+            this.props.router.push(`/section/${sectionID}/articles`);
+            buttonElement.nextElementSibling.classList.toggle('show');
+        } else {
+            buttonElement.className = 'accordion';
+            buttonElement.nextElementSibling.classList.toggle('show');
+            this.props.router.push('/home');
+        }
     }
 
     render() {
         return (
             <div className='section-list'>
-                <List className='list' style={{paddingTop: '15px'}}>
-                    <Subheader>{i18n.t('section-list-page.title') }</Subheader>
-                    <ListItem primaryText={`${i18n.t('section-list-page.all-sections')}`} onClick={() => this.sectionClickHandler()} ref='allSection' />
-                    {this.renderSectionList() }
-                </List>
-                <div className='article-list-area'>
-                    <Subheader style={{paddingTop: '15px'}}>{this.props.sectionID ? `${i18n.t('section-list-page.one-section-list')} ${this.props.sectionDetail.section.name}` : `${i18n.t('section-list-page.all-sections')}`}</Subheader>
-                    <ArticleList />
-                </div>
+                <div className='section-list-title'>Bienvenue dans le Centre d'aide</div>
+                {this.renderSectionList() }
             </div>
         );
     }

@@ -33,7 +33,6 @@ export default class ConsultLayout extends Component {
                         <div className='middle'>
                         </div>
                         <div className='right'>
-                            <PasswordComponent generalColor='white'/>
                             <a className='button-link' href={appUrl} target='_blank'>
                                 <FlatButton
                                     icon={<i className='material-icons'>exit_to_app</i>}
@@ -42,6 +41,7 @@ export default class ConsultLayout extends Component {
                                     style={{color: 'white'}}
                                     />
                             </a>
+                            <PasswordComponent generalColor='white'/>
                         </div>
                     </div>
                 </div>
