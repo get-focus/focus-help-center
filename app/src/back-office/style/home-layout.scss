@@ -38,13 +38,17 @@
       order: 3;
       flex-grow: 0;
       float: right;
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
 
       .password-bar {
         float: right;
       }
 
       .button-link {
-        display: table-caption;
+        display: inline-block;
+        margin-right: 20px;
       }
     }
   }

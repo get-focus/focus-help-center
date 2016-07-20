@@ -38,7 +38,7 @@ export class SectionList extends React.Component {
             this.props.loadSectionList();
             this.props.clearSection();
         }
-    }
+    };
 
     renderSectionList = () => {
         const {sections} = this.props;
