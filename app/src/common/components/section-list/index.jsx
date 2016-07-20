@@ -28,18 +28,6 @@ export class SectionList extends React.Component {
         this.props.clearSection();
     }
 
-    sectionClickHandler = (sectionID) => {
-        if (sectionID) {
-            this.props.getArticles(sectionID);
-            this.props.router.push(`/section/${sectionID}/articles`);
-            this.props.loadSection(sectionID);
-        } else {
-            this.props.router.push('/home');
-            this.props.loadSectionList();
-            this.props.clearSection();
-        }
-    };
-
     renderSectionList = () => {
         const {sections} = this.props;
         if (sections.length > 0) {
@@ -56,6 +44,15 @@ export class SectionList extends React.Component {
 
     onClickHandler = (sectionID, index) => {
         const buttonElement = this.refs[`button${index}`];
+
+        // Here i'm closing all the other sections
+        const buttonsElements = document.getElementsByClassName('accordion');
+        for (let i = 0; i < buttonsElements.length; i++) {
+            if (buttonsElements[i].className === 'accordion active' && i !== index) {
+                this.refs[`button${i}`].className = 'accordion';
+                this.refs[`button${i}`].nextElementSibling.classList.toggle('show');
+            }
+        }
 
         if (buttonElement.className === 'accordion') {
             buttonElement.className += ' active';
