@@ -29,7 +29,6 @@
 }
 
 .article-list {
-    padding-left: 10px;
     flex: 1;
 
     .add-button {
@@ -44,7 +43,6 @@
         cursor: pointer;
         background: white;
         padding: 15px;
-        margin: 10px;
         display: flex;
         align-content: center;
         transition: background 0.1s ease-out;
