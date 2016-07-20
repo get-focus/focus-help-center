@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import {ArticleListState} from '../../definitions/article-list';
 import {ArticleLine} from './line';
-import {CircularProgress, FloatingActionButton} from 'material-ui';
+import {CircularProgress} from 'material-ui';
 
 /** Component that displays the list of all articles */
-export function ArticleList({articleList: {isLoading, list, error}, connected, openCreate}: {articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
+export function ArticleList({articleList: {isLoading, list, error}, connected}: {articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
     const loading = isLoading && (!list || list && list.length === 0);
     return (
         <div className='article-list'>
@@ -20,11 +20,6 @@ export function ArticleList({articleList: {isLoading, list, error}, connected, o
                     canEdit={connected}
                 />
             )}
-            {connected ?
-                <FloatingActionButton onClick={openCreate} className='add-button'>
-                    <i className='material-icons'>add</i>
-                </FloatingActionButton>
-            : null}
         </div>
     );
 }
