@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {loadSectionList} from '../../actions/section-list';
+import {loadSectionList, clearSectionList} from '../../actions/section-list';
 import {getArticles, loadArticleList} from '../../actions/article-list';
 import {loadSection, clearSection} from '../../actions/section-detail';
 import {withRouter} from 'react-router';
@@ -16,6 +16,7 @@ import {ArticleList} from '../article-list';
     dispatch => ({
         clearSection: () => dispatch(clearSection()),
         loadSectionList: () => dispatch(loadSectionList()),
+        clearSectionList: () => dispatch(clearSectionList()),
         loadArticleList: () => dispatch(loadArticleList()),
         loadSection: (id) => dispatch(loadSection(id)),
         getArticles: (sectionId) => dispatch(getArticles(sectionId))
@@ -23,14 +24,21 @@ import {ArticleList} from '../article-list';
 )
 export class SectionList extends React.Component {
 
+    state = {
+        sectionList: []
+    }
+
     componentWillMount() {
         this.props.loadSectionList();
-        this.props.clearSection();
+    }
+
+    setSectionsList() {
+        this.setState({sectionList: this.props.sections});
     }
 
     renderSectionList = () => {
         const {sections} = this.props;
-        if (sections.length > 0) {
+        if (sections && sections.length > 0) {
             return (sections.map((section, index) =>
                 <div>
                     <button className="accordion" onClick={() => this.onClickHandler(section.id, index) } ref={`button${index}`}>{section.name}</button>

@@ -18,6 +18,8 @@ export function sectionList(state: SectionListState = defaultValue, action: Sect
                 isLoading: false,
                 error: action.error
             };
+        case Action.CLEAR_SECTION_LIST:
+            return defaultValue;
         default:
             return state;
     }

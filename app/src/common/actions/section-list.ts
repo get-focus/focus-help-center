@@ -39,3 +39,10 @@ export function loadSectionList(): any {
     };
 }
 
+/** Loads the section list. Dispatches the request immediately and the result when it's loaded. */
+export function clearSectionList(): any {
+    return {
+        type: Action.CLEAR_SECTION_LIST
+    };
+}
+
