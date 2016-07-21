@@ -52,7 +52,7 @@ export default class Sections extends React.Component<any, any> {
         this.setState({ searchText: '', articleSections: this.props.article.sections });
     };
 
-    manageSections = (section, fromDelete?) => {
+    manageSections = (section) => {
         const {article} = this.props, {searchText, sectionToDelete} = this.state;
         let sections = [];
 
@@ -64,6 +64,7 @@ export default class Sections extends React.Component<any, any> {
             sections.push(section);
         }
 
+        console.log(sectionToDelete);
         if (sectionToDelete) {
             for (let i = 0; i < sections.length; i++) {
                 if (sections[i].id === sectionToDelete.id && sections[i].name === sectionToDelete.name) {
@@ -89,8 +90,7 @@ export default class Sections extends React.Component<any, any> {
     }
 
     showDeleteAlert = (section) => {
-        this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section ? section : null });
-        this.manageSections(null);
+        this.setState({ alertOpen: !this.state.alertOpen, sectionToDelete: section}, () => this.manageSections(null));
     };
 
     removeSectionClickHandler = () => {
