@@ -33,6 +33,15 @@ class EditCartridgeContent extends React.Component<any, any> {
         this.goHome();
     };
 
+    componentDidUpdate() {
+        if (this.props.isEditDescription) {
+            this.refs.description.focus();
+        }
+        if (this.props.isEditTitle) {
+            this.refs.title.focus();
+        }
+    }
+
     publishArticle() {
         this.props.updateArticle('published', !this.props.article.published, this.goHome);
     }
@@ -86,6 +95,7 @@ class EditCartridgeContent extends React.Component<any, any> {
                                 fullWidth={true}
                                 hintText={i18n.t('edit-cartridge.input.description')}
                                 defaultValue={this.props.article.description}
+                                style={{height: 115}}
                             />
                         :
                             <div onClick={this.props.clickEditDescription}>{this.props.article.description}</div>

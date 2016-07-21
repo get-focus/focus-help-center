@@ -66,6 +66,9 @@
             > div {
                 flex: 1;
                 white-space: pre-line;
+                overflow-y: auto;
+                overflow-x: hidden;
+                max-height: 115px;
             }
 
             &.editing {
