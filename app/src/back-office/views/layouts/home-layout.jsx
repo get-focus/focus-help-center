@@ -125,7 +125,7 @@ export default class HomeLayout extends Component {
                     <div>
                         <TextField ref='title' hintText={i18n.t('article.title') } />
                         <br />
-                        <TextField ref='description' hintText={i18n.t('article.description') } />
+                        <TextField ref='description' hintText={i18n.t('article.description') } multiLine={true} rows={2} rowsMax={5} />
                     </div>
                 </Dialog>
             </div>
