@@ -29,6 +29,8 @@ function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) 
                         hintText={i18n.t('search.placeholder')}
                         hintStyle={{color: 'white'}}
                         inputStyle={{color: 'white'}}
+                        onFocus={(e) => e.target.parentNode.parentNode.parentNode.className += ' focused'}
+                        onBlur={(e) => e.target.parentNode.parentNode.parentNode.className = 'search'}
                     />
                     {textFieldUnderline && loading && filter ? <LinearProgress style={{position: 'absolute', bottom: '8px', height: '2px'}} /> : null}
                 </div>
