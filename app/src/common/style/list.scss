@@ -60,7 +60,6 @@
         background: white;
         padding: 15px;
         display: flex;
-        align-content: center;
         transition: background 0.1s ease-out;
 
         > .material-icons {
@@ -78,6 +77,14 @@
                 color: black;
                 font-size: 14pt;
                 line-height: 28px;
+                display: flex;
+
+                span {
+                    font-size: 15pt;
+                    margin-left: 8px;
+                    align-self: center;
+                    color: #A6A6A6;
+                }
             }
 
             .description {
@@ -91,6 +98,8 @@
             display: none;
             flex: 0 0 auto;
             margin-top: 6px;
+            align-self: center;
+            padding-left: 15px;
         }
 
         &:hover {
@@ -99,6 +108,11 @@
             .button {
                 display: block;
             }
+        }
+
+        .view {
+            font-size: 25pt;
+            align-self: center;
         }
     }
 }

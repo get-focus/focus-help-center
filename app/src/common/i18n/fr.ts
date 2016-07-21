@@ -4,7 +4,8 @@ export const fr = {
         'article-list': {
             title: 'Liste des articles d\'aide',
             item: {
-                edit: 'éditer'
+                edit: 'éditer',
+                consult: 'voir'
             }
         },
         'article-edit': {
