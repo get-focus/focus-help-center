@@ -90,12 +90,12 @@ class EditCartridgeContent extends React.Component<any, any> {
                             <TextField
                                 name='description'
                                 ref='description'
-                                rowsMax={3}
+                                rowsMax={5}
                                 multiLine={true}
                                 fullWidth={true}
                                 hintText={i18n.t('edit-cartridge.input.description')}
                                 defaultValue={this.props.article.description}
-                                style={{height: 115}}
+                                style={{maxHeight: 115}}
                             />
                         :
                             <div onClick={this.props.clickEditDescription}>{this.props.article.description}</div>
