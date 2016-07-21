@@ -1,11 +1,12 @@
 .edit-cartridge {
     display: flex;
-    justify-content: center;
-    margin: 10px 75px 35px;
+    margin-top: 10px;
+    margin-bottom: 35px;
 
     > .left {
-        flex: 1;
+        flex: 1 1;
         max-width: 900px;
+        margin-left: 36px;
 
         > div:not(.editing) {
             button {
@@ -64,7 +65,7 @@
 
             > div {
                 flex: 1;
-                white-space: pre;
+                white-space: pre-line;
             }
 
             &.editing {
@@ -85,6 +86,8 @@
     > .publish {
         width: 300px;
         text-align: right;
+        flex: 1 1;
+        margin-right: 115px;
 
         > .label {
             font-size: 250%;
