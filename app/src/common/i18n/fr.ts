@@ -73,9 +73,10 @@ export const fr = {
                     'cancel-delete': 'annuler',
                     'show-more': 'Afficher plus',
                     'show-less': 'Afficher moins',
-                    'close': 'fermer',
+                    'save-close': 'sauvegarder et fermer',
+                    'createNew': 'Créer une nouvelle rubrique',
                     'newSection': 'nouvelle rubrique',
-                    'existingSections': 'Rubriques existantes',
+                    'existingSections': 'Ou choisir parmi les rubriques existantes',
                     'addSection': 'Ajout d\'une rubrique'
                 },
                 'context-url': 'url contextuelle',

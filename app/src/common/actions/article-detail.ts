@@ -125,6 +125,17 @@ export function manageArticleSection(article: Article, attribute, sections: Sect
     };
 }
 
+/** Manages the article-sections' associations. */
+export function updateArticleSections(article: Article, attribute, sections: Section[], successHandler: () => void): any {
+    return async (dispatch, getState, api: Api) => {
+        try {
+            dispatch(updateArticle(attribute, sections, successHandler));
+        } catch (e) {
+            dispatch(errorActionArticle(e.message, true));
+        }
+    };
+}
+
 /** Toggles the dialog. */
 export function showEditPopup(): ArticleDetailAction {
     return { type: Action.SHOW_POPUP_EDITION };
