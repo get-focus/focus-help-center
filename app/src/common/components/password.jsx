@@ -92,7 +92,7 @@ export class PasswordComponent extends React.Component {
                 </div>
                 }
                 <Dialog
-                    title='Connectez-vous'
+                    title={'Connectez-vous en tant qu\'administrateur'}
                     actions={[<RaisedButton label='connexion' primary={true} onClick={this.login} />]}
                     open={this.state.dialogOpen}
                     onRequestClose={this.connectClickHandler}
