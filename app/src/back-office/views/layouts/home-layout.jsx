@@ -112,9 +112,7 @@ export default class HomeLayout extends Component {
                 <FloatingActionButton onClick={() => this.toggleModal() } className='add-button' ref='createFAB' style={this.props.connected ? showStyle : notShowStyle}>
                         <i className='material-icons'>add</i>
                     </FloatingActionButton>
-                {this.props.connected ?
-                    this.showFAB : null
-                }
+                {this.props.connected ? this.showFAB : null}
 
                 <Dialog
                     title={i18n.t('article.create.dialog') }
