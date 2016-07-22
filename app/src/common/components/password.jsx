@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
 import {loadSectionList} from '../actions/section-list';
 import i18n from 'i18next';
-import {CircularProgress, IconButton, FlatButton, TextField, Dialog, RaisedButton} from 'material-ui';
-import Avatar from 'material-ui/Avatar';
+import {CircularProgress, IconButton, FlatButton, TextField, Dialog, RaisedButton, IconMenu, MenuItem, FontIcon} from 'material-ui';
 
 @connect(
     state => ({
@@ -73,7 +72,13 @@ export class PasswordComponent extends React.Component {
                     {userName ?
                         <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
                     : connected ?
-                        <FlatButton style={{color: 'white'}} label={i18n.t('password.connected')} labelPosition='before' onClick={this.login} icon={<i className="material-icons">close</i>} />
+                    <IconMenu
+      iconButtonElement={<FontIcon style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
+      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    >
+      <MenuItem primaryText="Déconnexion" onClick={this.login} />
+    </IconMenu>
                         :
                         <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} />
                     }
