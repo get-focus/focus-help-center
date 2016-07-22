@@ -70,7 +70,7 @@ export default class HomeLayout extends Component {
     }
 
     render() {
-        const {children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
+        const {children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError, applicationName}} = this.props;
         const notShowStyle = {transform: 'scale(0)'};
         const showStyle = {transform: 'scale(1)', transition: '0.6 ease-in-out'};
         return (
@@ -78,25 +78,32 @@ export default class HomeLayout extends Component {
                 <div className='ribbon'>
                     <div className='top'>
                         <div className='left'>
-                            {Content}
+                            <div className='left-top'>
+                                <FlatButton hoverColor='transparent' label={'Centre d\'aide'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} /> {Content}
+                            </div>
+                            <div className='app-name'>
+                                <FlatButton onClick={() => this.props.router.push('/home')} hoverColor='transparent' label={`Aide${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
+                            </div>
                         </div>
                         <div className='middle'>
                         </div>
                         <div className='right'>
-                            <a className='button-link' href={appUrl} target='_blank'>
-                                <FlatButton
-                                    icon={<i className='material-icons'>exit_to_app</i>}
-                                    label={i18n.t('back-office.layout.back-to-app') }
-                                    labelPosition='before'
-                                    style={{color: 'white'}}
-                                    />
-                            </a>
-                            <PasswordComponent generalColor='white'/>
+                            <div className='right-container'>
+                                <a className='button-link' href={appUrl} target='_blank'>
+                                    <FlatButton
+                                        icon={<i className='material-icons'>exit_to_app</i>}
+                                        label={i18n.t('back-office.layout.back-to-app') }
+                                        labelPosition='before'
+                                        style={{color: 'white'}}
+                                        />
+                                </a>
+                                <PasswordComponent generalColor='white'/>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className='main'>
-                    <Paper style={{minHeight: '55%', maxHeight: '250%', width: '43%', display: 'flex'}} zDepth={1}>
+                    <Paper style={{minHeight: '55%', width: '43%', maxHeight: '250%', display: 'flex'}} zDepth={1}>
                         {children}
                     </Paper>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ConsultLayout from '../layouts/consult-layout';
+import ConsultLayout from './consult-layout';
 import ArticleListTitle from '../../../common/components/article-list/title';
 import {ArticleConsult} from '../../../common/components/article-consult';
 

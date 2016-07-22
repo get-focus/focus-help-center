@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeLayout from '../layouts/home-layout';
+import HomeLayout from './home-layout';
 import {SectionList} from '../../../common/components/section-list';
 import ArticleListTitle from '../../../common/components/article-list/title';
 import {ArticleConsult} from '../../../common/components/article-consult';

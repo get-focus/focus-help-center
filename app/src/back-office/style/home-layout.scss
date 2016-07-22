@@ -26,6 +26,17 @@
       color: white;
       flex-grow: 0;
       margin-left: 15px;
+
+      .left-top {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .app-name {
+      position: relative;
+      left: 110px;
+      top: 20px;
     }
 
     .middle {
@@ -39,16 +50,22 @@
       flex-grow: 0;
       float: right;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       margin-right: 15px;
 
-      .password-bar {
-        float: right;
-      }
+      .right-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
 
-      .button-link {
-        display: inline-block;
-        margin-right: 10px;
+        .password-bar {
+          float: right;
+        }
+
+        .button-link {
+          display: inline-block;
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -57,8 +74,10 @@
 .main {
   margin-top: -27vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   padding-bottom: 100px;
+  flex-direction: column;
+  align-items: center;
 }
 
 .add-button {
