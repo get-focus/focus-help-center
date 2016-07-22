@@ -4,7 +4,8 @@ export const fr = {
         'article-list': {
             title: 'Liste des articles d\'aide',
             item: {
-                edit: 'éditer'
+                edit: 'éditer',
+                consult: 'voir'
             }
         },
         'article-edit': {
@@ -53,6 +54,14 @@ export const fr = {
                     confirm: 'oui',
                     cancel: 'non'
                 },
+                updated: 'Mis à jour',
+                todayAt: 'aujourd\'hui à',
+                yesterdayAt: 'aujourd\'hui à',
+                since: 'il y a',
+                days: 'jours',
+                months: 'mois',
+                year: 'an',
+                years: 'ans',
                 updatedAt: 'Mis à jour le',
                 publishedAt: 'Publié le'
             }
@@ -72,9 +81,10 @@ export const fr = {
                     'cancel-delete': 'annuler',
                     'show-more': 'Afficher plus',
                     'show-less': 'Afficher moins',
-                    'close': 'fermer',
+                    'save-close': 'sauvegarder et fermer',
+                    'createNew': 'Créer une nouvelle rubrique',
                     'newSection': 'nouvelle rubrique',
-                    'existingSections': 'Rubriques existantes',
+                    'existingSections': 'Ou choisir parmi les rubriques existantes',
                     'addSection': 'Ajout d\'une rubrique'
                 },
                 'context-url': 'url contextuelle',

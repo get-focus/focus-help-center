@@ -4,7 +4,8 @@ export const en = {
         'article-list': {
             title: 'List of help articles',
             item: {
-                edit: 'edit'
+                edit: 'edit',
+                consult: 'consult'
             }
         },
         'article-edit': {
@@ -72,9 +73,10 @@ export const en = {
                     'cancel-delete': 'cancel',
                     'show-more': 'Show more',
                     'show-less': 'Show less',
-                    'close': 'close',
+                    'save-close': 'save and close',
                     'newSection': 'new section',
-                    'existingSections': 'Existing sections',
+                    'createNew': 'Create a new section',
+                    'existingSections': 'Or choose among the existing sections',
                     'addSection': 'Adding a section'
                 },
                 'context-url': 'CONTEXTUAL URL',

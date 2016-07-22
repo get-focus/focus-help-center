@@ -61,8 +61,18 @@ export default class HomeLayout extends Component {
         this.setState({open: !this.state.open});
     }
 
+    showFAB() {
+        if (this.refs.createFAB.className === 'add-button') {
+            this.refs.createFAB.className += ' show';
+        } else {
+            this.refs.createFAB.className = 'add-button';
+        }
+    }
+
     render() {
         const {children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
+        const notShowStyle = {transform: 'scale(0)'};
+        const showStyle = {transform: 'scale(1)', transition: '0.6 ease-in-out'};
         return (
             <div className='home-layout'>
                 <div className='ribbon'>
@@ -99,12 +109,10 @@ export default class HomeLayout extends Component {
                     onRequestClose={() => this.props.dispatch(showSnackBar()) }
                     bodyStyle={{backgroundColor: isError ? red500 : green500}}
                 />
-                {this.props.connected ?
-                    <FloatingActionButton onClick={() => this.toggleModal() } className='add-button'>
+                <FloatingActionButton onClick={() => this.toggleModal() } className='add-button' ref='createFAB' style={this.props.connected ? showStyle : notShowStyle}>
                         <i className='material-icons'>add</i>
                     </FloatingActionButton>
-                    : null
-                }
+                {this.props.connected ? this.showFAB : null}
 
                 <Dialog
                     title={i18n.t('article.create.dialog') }
@@ -115,7 +123,7 @@ export default class HomeLayout extends Component {
                     <div>
                         <TextField ref='title' hintText={i18n.t('article.title') } />
                         <br />
-                        <TextField ref='description' hintText={i18n.t('article.description') } />
+                        <TextField ref='description' hintText={i18n.t('article.description') } multiLine={true} rows={2} rowsMax={5} />
                     </div>
                 </Dialog>
             </div>

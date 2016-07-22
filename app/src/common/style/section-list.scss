@@ -31,15 +31,16 @@
         background: #ddd;
     }
 
-    button.accordion:after {
+    button.accordion:before {
         content: '\02795';
         font-size: 13px;
         color: #4285f4;
-        float: right;
+        float: left;
         margin-left: 5px;
+        margin-right: 34px;
     }
 
-    button.accordion.active:after {
+    button.accordion.active:before {
         content: "\2796";
     }
 

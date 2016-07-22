@@ -5,12 +5,15 @@ import {connect} from 'react-redux';
 import {CircularProgress, FlatButton} from 'material-ui';
 import i18n from 'i18next';
 import {Link} from 'react-router';
+import {withRouter} from 'react-router';
 
+@withRouter
 @connect(
     state => ({
         article: state.articleDetail.article,
         isLoading: state.articleDetail.isLoading,
-        error: state.articleDetail.error
+        error: state.articleDetail.error,
+        isConnected: state.login.isConnected
     }),
     dispatch => ({loadArticle: id => dispatch(loadArticle(id))})
 )
@@ -32,7 +35,7 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        const {article, isLoading, error, isExtension} = this.props;
+        const {article, isLoading, error, isExtension, isConnected} = this.props;
         return (
             <div className='article-consult'>
                 {isExtension ?
@@ -40,7 +43,6 @@ export class ArticleConsult extends React.Component {
                         <div className='left-content'>
                             <FlatButton label={i18n.t('button.print')} icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
                             <FlatButton label={i18n.t('button.share')} icon={<i className="material-icons">share</i>} secondary={true} onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Remarque / Question&body=${window.location.href}`} />
-
                         </div>
                         <div className='right-content'>
                             <Link to='/home'> <i className='material-icons close'>close</i></Link>
@@ -59,7 +61,11 @@ export class ArticleConsult extends React.Component {
                                     secondary={true}
                                     onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
                                     />
-
+                                {isConnected ?
+                                    <FlatButton label={i18n.t('button.edit')} icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`)} />
+                                    :
+                                    console.log('bruh')
+                                }
                             </div>
                             <div className='right-content'>
                                 <Link to='/home'> <i className='material-icons close'>close</i></Link>

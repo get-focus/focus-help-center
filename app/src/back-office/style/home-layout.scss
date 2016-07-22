@@ -48,7 +48,7 @@
 
       .button-link {
         display: inline-block;
-        margin-right: 20px;
+        margin-right: 10px;
       }
     }
   }
@@ -62,9 +62,10 @@
 }
 
 .add-button {
-    bottom: 0;
-    right: 0;
-    margin: 25px;
-    position: fixed;
-    padding-left: 0;
-  }
+  bottom: 0;
+  right: 0;
+  margin: 25px;
+  position: fixed;
+  padding-left: 0;
+  display: none;
+}
