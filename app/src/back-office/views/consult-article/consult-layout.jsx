@@ -32,7 +32,7 @@ export default class ConsultLayout extends Component {
                                 <FlatButton hoverColor='transparent' label={'Centre d\'aide'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} /> {Content}
                             </div>
                             <div className='app-name'>
-                                <FlatButton onClick={() => this.props.router.push('/home')} hoverColor='transparent' label={`Aide${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
+                                <FlatButton onClick={() => this.props.router.push('/home') } hoverColor='transparent' label={`Aide${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
                             </div>
                         </div>
                         <div className='middle'>

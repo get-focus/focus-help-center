@@ -69,14 +69,14 @@ class EditCartridgeContent extends React.Component<any, any> {
         } else if (diff === 1) {
             return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {i18n.t('edit-cartridge.content.yesterdayAt')} {`${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`}`</div>;
         } else if (diff > 1) {
-            return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} ${diff} {i18n.t('edit-cartridge.content.days')}`</div>;
+            return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {diff} {i18n.t('edit-cartridge.content.days')}</div>;
         } else if (diff > 29) {
-            return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} ${month} {i18n.t('edit-cartridge.content.months')}`</div>;
+            return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} {month} {i18n.t('edit-cartridge.content.months')}</div>;
         } else if (month => 12) {
             if (year === 1) {
-                return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} ${year} {i18n.t('edit-cartridge.content.year')}`</div>;
+                return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.year')}</div>;
             } else {
-                return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} ${year} {i18n.t('edit-cartridge.content.years')}`</div>;
+                return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.years')}</div>;
             }
         }
     }

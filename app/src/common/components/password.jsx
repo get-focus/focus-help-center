@@ -62,34 +62,34 @@ export class PasswordComponent extends React.Component {
     }
 
     render() {
-        const {loading, connected, error, clearError, userName} = this.props;
+        const {loading, connected, error, clearError, userName, generalColor} = this.props;
         return (
             <div className='password-bar'>
                 {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0px'}} /> : null}
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
-                : <div className='ok'>
-                    {userName ?
-                        <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
-                    : connected ?
-                    <IconMenu
-      iconButtonElement={<FontIcon style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
-      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    >
-      <MenuItem primaryText="Déconnexion" onClick={this.login} />
-    </IconMenu>
-                        :
-                        <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} />
-                    }
-                    {userName ?
-                        <a href='./signout'>
-                            <IconButton iconClassName='material-icons'>
-                                close
-                            </IconButton>
-                        </a> : null
-                    }
-                </div>
+                    : <div className='ok'>
+                        {userName ?
+                            <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
+                            : connected ?
+                                <IconMenu
+                                    iconButtonElement={<FontIcon color={generalColor} style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
+                                    anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                                    >
+                                    <MenuItem primaryText="Déconnexion" onClick={this.login} />
+                                </IconMenu>
+                                :
+                                <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} />
+                        }
+                        {userName ?
+                            <a href='./signout'>
+                                <IconButton iconClassName='material-icons'>
+                                    close
+                                </IconButton>
+                            </a> : null
+                        }
+                    </div>
                 }
                 <Dialog
                     title={'Connectez-vous en tant qu\'administrateur'}
