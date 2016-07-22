@@ -61,7 +61,7 @@ class EditCartridgeContent extends React.Component<any, any> {
         const diff = new Date(today.getTime() - date.getTime()).getUTCDate() - 1;
         const month = Math.ceil(diff / 30), year = Math.ceil(month / 12);
         const publishedText = capitalize(i18n.t('edit-cartridge.content.published'));
-        const updatedText = i18n.t('edit-cartridge.content.updated')
+        const updatedText = i18n.t('edit-cartridge.content.updated');
         const since = i18n.t('edit-cartridge.content.since');
 
         if (diff === 0) {
