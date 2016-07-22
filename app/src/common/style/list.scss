@@ -57,14 +57,13 @@
 
     .item {
         cursor: pointer;
-        background: white;
+        background: #727272;
         padding: 15px;
         display: flex;
         transition: background 0.1s ease-out;
 
         > .material-icons {
-            font-size: 36pt;
-            color: #A6A6A6;
+            color: white;
             margin-right: 12px;
             flex: 0 0 auto;
         }
@@ -74,8 +73,9 @@
             text-decoration: none;
 
             .title {
-                color: black;
+                color: white;
                 font-size: 14pt;
+                font-weight: bold;
                 line-height: 28px;
                 display: flex;
 
@@ -83,13 +83,13 @@
                     font-size: 15pt;
                     margin-left: 8px;
                     align-self: center;
-                    color: #A6A6A6;
+                    color: white;
                 }
             }
 
             .description {
-                color: #A6A6A6;
-                font-size: 11pt;
+                color: white;
+                font-size: 9pt;
                 line-height: 20px;
             }
         }
@@ -103,7 +103,6 @@
         }
 
         &:hover {
-            background: #D8D8D8;
 
             .button {
                 display: block;
