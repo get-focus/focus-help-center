@@ -54,6 +54,14 @@ export const fr = {
                     confirm: 'oui',
                     cancel: 'non'
                 },
+                updated: 'Mis à jour',
+                todayAt: 'aujourd\'hui à',
+                yesterdayAt: 'aujourd\'hui à',
+                since: 'il y a',
+                days: 'jours',
+                months: 'mois',
+                year: 'an',
+                years: 'ans',
                 updatedAt: 'Mis à jour le',
                 publishedAt: 'Publié le'
             }

@@ -92,19 +92,31 @@
         flex: 1 1;
         margin-right: 115px;
 
-        > .label {
-            font-size: 250%;
-            color: #8BC34A;
-            text-transform: uppercase;
-        }
+        .publish-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            float: right;
+            margin-right: 40px;
 
-        > .time {
-            margin-right: 22px;
-        }
+            .label {
+                font-size: 250%;
+                color: #8BC34A;
+                text-transform: uppercase;
+                flex: 1 1 auto;
+                margin-left: 15px;
+            }
 
-        > p {
-            margin-top: 10px;
-            margin-right: 50px;
+            .time {
+                flex: 1 1 auto;
+                margin-right: 22px;
+            }
+
+            p {
+                margin-top: 10px;
+                margin-right: 50px;
+            }
+
         }
     }
 }
