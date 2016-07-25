@@ -28,14 +28,13 @@ export function sectionService(prefix: string, app: express.Application) {
         try {
             const articleIDs = (await ArticleSection.findAll({ where: { SectionId: +req.params.id } })).map(association => association.get().ArticleId);
             let articleList = [];
+
             for (let i = 0; i < articleIDs.length; i++) {
                 const article = (await Article.findById(articleIDs[i]));
                 if (req.user && req.user.signedIn) {
                     articleList.push(article);
-                } else {
-                    if (article.get().published) {
-                        articleList.push(article);
-                    }
+                } else if (!req.user && article.get().published) {
+                    articleList.push(article);
                 }
             }
             res.json(articleList);

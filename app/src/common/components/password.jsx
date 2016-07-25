@@ -35,6 +35,7 @@ export class PasswordComponent extends React.Component {
     }
 
     login = () => {
+
         if (this.props.connected) {
             this.props.logout();
         } else {
@@ -42,6 +43,12 @@ export class PasswordComponent extends React.Component {
         }
         if (this.state.dialogOpen) {
             this.setState({dialogOpen: !this.state.dialogOpen});
+        }
+    }
+
+    keyDownHandler = (e) => {
+        if (e.keyCode === 13 ) {
+            this.login();
         }
     }
 
@@ -58,7 +65,7 @@ export class PasswordComponent extends React.Component {
 
     connectClickHandler = () => {
         const {dialogOpen} = this.state;
-        this.setState({dialogOpen: !dialogOpen});
+        this.setState({dialogOpen: !dialogOpen}, () => { if (this.state.dialogOpen) { this.refs.input.focus(); } });
     }
 
     render() {
@@ -96,10 +103,11 @@ export class PasswordComponent extends React.Component {
                     actions={[<RaisedButton label='connexion' primary={true} onClick={this.login} />]}
                     open={this.state.dialogOpen}
                     onRequestClose={this.connectClickHandler}
+                    ref='dialog'
                     >
                     <div>
                         <span className='ok-text'>{i18n.t('password.password') + ' : '}</span>
-                        <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
+                        <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' onKeyDown={(e) => this.keyDownHandler(e)} />
                     </div>
                 </Dialog>
             </div>

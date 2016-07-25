@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from './edit-layout';
 import EditPage from '../../../common/components/article-edition';
 import EditCartridgeContent from '../../../common/components/article-edition/edit-cartridge-content';
-import {TitleComponent} from '../title-component';
 import {Action} from '../../../common/actions/';
 import {connect} from 'react-redux';
 
@@ -18,7 +17,7 @@ export default connect(
     state => ({connected: state.login.isConnected})
 )(function EditArticle({params, connected}) {
     return (
-        <Layout Content={<EditCartridgeContent />} BarMiddle={<TitleComponent />} actions={connected ? actions : undefined}>
+        <Layout Content={<EditCartridgeContent />} actions={connected ? actions : undefined}>
             <EditPage id={+params.id}/>
         </Layout>
     );
