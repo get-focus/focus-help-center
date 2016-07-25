@@ -75,7 +75,7 @@
 
             &.editing {
                 transition: background 0.2s ease-out;
-                background: lighten(rgb(0, 121, 107), 10%);
+                background: lighten($primary-color, 10%);
 
                 input[style], textarea[style] {
                     color: white!important;
@@ -221,7 +221,7 @@
 
             &.editing {
                 transition: background 0.2s ease-out;
-                background: lighten(rgb(0, 121, 107), 10%);
+                background: lighten($primary-color, 10%);
 
                 input[style], textarea[style] {
                     color: white!important;
@@ -305,7 +305,7 @@
 
                     &:hover {
                         i {
-                            color: lighten(rgb(0, 121, 107), 10%)
+                            color: lighten($primary-color, 10%)
                         }
                     }
                 }

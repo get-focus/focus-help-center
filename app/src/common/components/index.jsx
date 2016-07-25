@@ -8,7 +8,7 @@ import {getConfig} from '../server/config';
 i18nInit();
 
 import {MuiThemeProvider, getMuiTheme} from 'material-ui/styles';
-import {teal700, blue400, white, grey900} from 'material-ui/styles/colors';
+import {blue500, pink400, white} from 'material-ui/styles/colors';
 import touch from 'react-tap-event-plugin';
 touch();
 
@@ -26,12 +26,12 @@ export class HelpCenterBase extends React.Component {
             <Provider store={configureStore()}>
                 <MuiThemeProvider muiTheme={getMuiTheme({
                     palette: {
-                        primary1Color: teal700,
-                        accent1Color: blue400
+                        primary1Color: blue500,
+                        accent1Color: pink400
                     },
                     floatingActionButton: {
-                        secondaryColor: white,
-                        secondaryIconColor: grey900
+                        secondaryColor: pink400,
+                        secondaryIconColor: white
                     },
                     snackbar: {
                         actionColor: white
