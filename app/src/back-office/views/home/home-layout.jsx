@@ -116,7 +116,7 @@ export default class HomeLayout extends Component {
                     onRequestClose={() => this.props.dispatch(showSnackBar()) }
                     bodyStyle={{backgroundColor: isError ? red500 : green500}}
                     />
-                <FloatingActionButton onClick={() => this.toggleModal() } className='add-button' ref='createFAB' style={this.props.connected ? showStyle : notShowStyle}>
+                <FloatingActionButton backgroundColor='#00796B' onClick={() => this.toggleModal() } className='add-button' ref='createFAB' style={this.props.connected ? showStyle : notShowStyle}>
                     <i className='material-icons'>add</i>
                 </FloatingActionButton>
                 {this.props.connected ? this.showFAB : null}

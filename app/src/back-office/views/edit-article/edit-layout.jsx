@@ -60,7 +60,7 @@ export default class Layout extends Component {
                     <div className='actions'>
                         {actions && actions.primary.map(({clickHandler, icon, action, route}, i) => (
                             <FloatingActionButton
-                                backgroundColor='#FFB300'
+                                backgroundColor='#FF9800'
                                 key={i}
                                 onClick={route ? () => this.props.router.push(route) : action ? () => this.props.dispatch(action) : clickHandler}
                                 style={{margin: '0 3px'}}
