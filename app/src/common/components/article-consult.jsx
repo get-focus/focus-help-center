@@ -40,12 +40,18 @@ export class ArticleConsult extends React.Component {
             <div className='article-consult'>
                 {isExtension ?
                     <header>
-                        <div className='left-content'>
-                            <FlatButton label={i18n.t('button.print')} icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
-                            <FlatButton label={i18n.t('button.share')} icon={<i className="material-icons">share</i>} secondary={true} onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Remarque / Question&body=${window.location.href}`} />
-                        </div>
                         <div className='right-content'>
-                            <Link to='/home'> <i className='material-icons close'>close</i></Link>
+                            <FlatButton label={i18n.t('button.print') } icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
+                            <FlatButton
+                                label={i18n.t('button.share') }
+                                icon={<i className="material-icons">share</i>}
+                                secondary={true}
+                                onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
+                                />
+                            {isConnected ?
+                                <FlatButton label={i18n.t('button.edit') } icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`) } />
+                                : null
+                            }
                         </div>
                     </header>
                     : null
@@ -53,22 +59,18 @@ export class ArticleConsult extends React.Component {
                 <div className='article-card'>
                     {!isExtension ?
                         <div className='top-header'>
-                            <div className='left-content'>
-                                <FlatButton label={i18n.t('button.print')} icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
+                            <div className='right-content'>
+                                <FlatButton label={i18n.t('button.print') } icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
                                 <FlatButton
-                                    label={i18n.t('button.share')}
+                                    label={i18n.t('button.share') }
                                     icon={<i className="material-icons">share</i>}
                                     secondary={true}
                                     onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
                                     />
                                 {isConnected ?
-                                    <FlatButton label={i18n.t('button.edit')} icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`)} />
-                                    :
-                                    console.log('bruh')
+                                    <FlatButton label={i18n.t('button.edit') } icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`) } />
+                                    : null
                                 }
-                            </div>
-                            <div className='right-content'>
-                                <Link to='/home'> <i className='material-icons close'>close</i></Link>
                             </div>
                         </div>
                         : null

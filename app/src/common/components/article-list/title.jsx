@@ -21,7 +21,7 @@ function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) 
                 <i className='material-icons'>search</i>
                 <div className='search-bar'>
                     <TextField
-                        underlineShow={textFieldUnderline && !(loading && filter)}
+                        underlineShow={false}
                         errorText={error ? ' ' : null}
                         errorStyle={{color: 'indianred'}}
                         value={filter}
@@ -33,7 +33,6 @@ function ArticleListTitle({loading, filter, search, error, textFieldUnderline}) 
                         onBlur={(e) => e.target.parentNode.parentNode.parentNode.className = 'search'}
                         style={{width: 350}}
                     />
-                    {textFieldUnderline && loading && filter ? <LinearProgress style={{position: 'absolute', bottom: '8px', height: '2px'}} /> : null}
                 </div>
             </div>
         </div>

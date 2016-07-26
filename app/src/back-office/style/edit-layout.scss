@@ -1,3 +1,5 @@
+@import 'variables';
+
 $header-top-row-menu-size: 60px;
 $header-top-row-padding: 10px;
 $header-top-cell-padding: 15px;
@@ -13,13 +15,14 @@ $media-desktop-breakpoint: 840px !default;
     display: flex;
     flex-direction: column;
     height: 100%;
+    background: $primary-color;
 
     > header {
         position: relative;
         box-shadow: 0px 1px 10px 2px $header-scrolling-shadow-color;
         z-index: 1000;
 
-        > .top {
+        > .header-top {
             z-index: $header-top-row-zindex;
             padding: $header-top-row-padding;
             display: flex;
@@ -29,16 +32,16 @@ $media-desktop-breakpoint: 840px !default;
             align-items: stretch;
             align-content: center;
 
-            > .left, > .middle, > .right {
+            > .header-left, > .header-middle, > .header-right {
                 height: $header-top-row-element-height;
                 overflow: hidden;
                 white-space: nowrap;
                 padding: 0 $header-top-cell-padding;
             }
 
-            > .left {
+            > .header-left {
                 order: 1;
-                flex-grow: 0;
+                flex: 1;
 
                 > .material-icons {
                     margin-top: 2px;
@@ -51,15 +54,39 @@ $media-desktop-breakpoint: 840px !default;
                 }
             }
 
-            > .middle {
+            > .header-middle {
                 order: 2;
-                flex-grow: 4;
+                align-self: center;
+                flex: 4;
+
+                .title {
+                    color: $text-icons-color;
+                    font-weight: bold;
+                }
             }
 
-            > .right {
+            > .header-right {
+                z-index: 999;
                 order: 3;
-                flex-grow: 0;
-                text-align: right;
+                float: right;
+                display: flex;
+                align-items: flex-start;
+                margin-right: 15px;
+
+                .right-container {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+
+                    .password-bar {
+                    float: right;
+                    }
+
+                    .button-link {
+                    display: inline-block;
+                    margin-right: 10px;
+                    }
+                }
             }
         }
 
@@ -69,6 +96,10 @@ $media-desktop-breakpoint: 840px !default;
             right: 0;
             bottom: -28px;
             margin-right: 200px;
+
+            .material-icons {
+                color: black;
+            }
         }
     }
 

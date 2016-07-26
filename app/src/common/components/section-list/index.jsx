@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {loadSectionList} from '../../actions/section-list';
-import {getArticles, searchArticleList} from '../../actions/article-list';
+import {getArticles, searchArticleList, loadArticleList} from '../../actions/article-list';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
 
@@ -14,6 +14,7 @@ import {ArticleList} from '../article-list';
     }),
     dispatch => ({
         loadSectionList: () => dispatch(loadSectionList()),
+        loadArticleList: () => dispatch(loadArticleList()),
         getArticles: (sectionId) => dispatch(getArticles(sectionId)),
         search: () => dispatch(searchArticleList())
     })
@@ -61,11 +62,10 @@ export class SectionList extends React.Component {
         }
 
         if (sectionID === null && buttonElement.className === 'accordion') {
-            this.props.search('');
             buttonElement.className += ' active';
             buttonElement.nextElementSibling.classList.toggle('show');
+            this.props.loadArticleList();
         } else if (sectionID === null && buttonElement.className === 'accordion active') {
-            this.props.search('');
             buttonElement.className = 'accordion';
             buttonElement.nextElementSibling.classList.toggle('show');
         } else if (buttonElement.className === 'accordion') {

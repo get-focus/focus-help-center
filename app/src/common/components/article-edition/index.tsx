@@ -57,7 +57,7 @@ export class EditPage extends React.Component<any, any> {
                     <List>
                         <Subheader>
                             <div className='section-title'>{i18n.t('edit-page.content.sections.title') }
-                                <FlatButton label={i18n.t('button.add') } onClick={this.showAddSectionDialog} primary={true} style={{ float: 'right' }} />
+                                <FlatButton label={i18n.t('button.manage') } onClick={this.showAddSectionDialog} primary={true} style={{ float: 'right' }} />
                             </div>
                         </Subheader>
                         <Sections callAddSectionDialog={dialogOpen} />

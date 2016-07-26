@@ -1,3 +1,5 @@
+@import 'variables';
+
 .edit-cartridge {
     display: flex;
     margin-top: 10px;
@@ -14,7 +16,7 @@
             }
 
             &:hover {
-                background: #DDD;
+                background: $dark-primary-color;
                 cursor: pointer;
 
                 button {
@@ -26,7 +28,7 @@
         > .title {
             font-size: 20px;
             font-weight: bold;
-            color: #616161;
+            color: $text-icons-color;
 
             label {
                 font-size: 18px!important;
@@ -43,7 +45,7 @@
             flex: 1 1 auto;
             font-size: 20px;
             font-style: italic;
-            color: #9E9E9E;
+            color: $text-icons-color;
 
             label {
                 font-size: 18px!important;
@@ -73,7 +75,7 @@
 
             &.editing {
                 transition: background 0.2s ease-out;
-                background: lighten(rgb(0, 121, 107), 10%);
+                background: lighten($primary-color, 10%);
 
                 input[style], textarea[style] {
                     color: white!important;
@@ -101,7 +103,7 @@
 
             .label {
                 font-size: 250%;
-                color: #8BC34A;
+                color: $text-icons-color;
                 text-transform: uppercase;
                 flex: 1 1 auto;
                 margin-left: 15px;
@@ -110,6 +112,11 @@
             .time {
                 flex: 1 1 auto;
                 margin-right: 22px;
+                color: $light-primary-color;
+            }
+
+            .material-icons {
+                color: $text-icons-color;
             }
 
             p {
@@ -214,7 +221,7 @@
 
             &.editing {
                 transition: background 0.2s ease-out;
-                background: lighten(rgb(0, 121, 107), 10%);
+                background: lighten($primary-color, 10%);
 
                 input[style], textarea[style] {
                     color: white!important;
@@ -262,7 +269,7 @@
 
             > .edit {
                 flex: 1 1;
-                background-color: #727272;
+                background-color: $dark-primary-color;
                 border-right: 1px solid #888;
                 padding: 15px;
 
@@ -298,7 +305,7 @@
 
                     &:hover {
                         i {
-                            color: lighten(rgb(0, 121, 107), 10%)
+                            color: lighten($primary-color, 10%)
                         }
                     }
                 }
@@ -306,7 +313,7 @@
 
             > .preview {
                 flex: 1 1;
-                background-color: #B6B6B6;
+                background-color: $light-primary-color;
                 padding: 15px;
                 border-left: 1px solid #888;
 

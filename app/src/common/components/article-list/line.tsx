@@ -23,6 +23,7 @@ export function ArticleLine({article: {id, title, description, published}, canEd
                     <RaisedButton
                         primary={true}
                         label={i18n.t('article-list.item.edit') }
+                        style={{borderRadius: '5px'}}
                         icon={<FontIcon color='white' className='material-icons'>edit</FontIcon>}
                         />
                 </Link>

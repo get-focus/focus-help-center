@@ -22,26 +22,33 @@ export default class ConsultLayout extends Component {
     togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
 
     render() {
-        const {children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
+        const {applicationName, children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
         return (
             <div className='consult-layout'>
                 <div className='ribbon'>
                     <div className='top'>
                         <div className='left'>
-                            {Content}
+                            <div className='left-top'>
+                                <FlatButton hoverColor='transparent' label={'Centre d\'aide'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} /> {Content}
+                            </div>
+                            <div className='app-name'>
+                                <FlatButton onClick={() => this.props.router.push('/home') } hoverColor='transparent' label={`Aide${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
+                            </div>
                         </div>
                         <div className='middle'>
                         </div>
                         <div className='right'>
-                            <a className='button-link' href={appUrl} target='_blank'>
-                                <FlatButton
-                                    icon={<i className='material-icons'>exit_to_app</i>}
-                                    label={i18n.t('back-office.layout.back-to-app') }
-                                    labelPosition='before'
-                                    style={{color: 'white'}}
-                                    />
-                            </a>
-                            <PasswordComponent generalColor='white'/>
+                            <div className='right-container'>
+                                <a className='button-link' href={appUrl} target='_blank'>
+                                    <FlatButton
+                                        icon={<i className='material-icons'>exit_to_app</i>}
+                                        label={i18n.t('back-office.layout.back-to-app') }
+                                        labelPosition='before'
+                                        style={{color: 'white'}}
+                                        />
+                                </a>
+                                <PasswordComponent generalColor='white'/>
+                            </div>
                         </div>
                     </div>
                 </div>

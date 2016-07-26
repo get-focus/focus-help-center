@@ -35,6 +35,7 @@ export class PasswordComponent extends React.Component {
     }
 
     login = () => {
+
         if (this.props.connected) {
             this.props.logout();
         } else {
@@ -42,6 +43,12 @@ export class PasswordComponent extends React.Component {
         }
         if (this.state.dialogOpen) {
             this.setState({dialogOpen: !this.state.dialogOpen});
+        }
+    }
+
+    keyDownHandler = (e) => {
+        if (e.keyCode === 13 ) {
+            this.login();
         }
     }
 
@@ -58,48 +65,49 @@ export class PasswordComponent extends React.Component {
 
     connectClickHandler = () => {
         const {dialogOpen} = this.state;
-        this.setState({dialogOpen: !dialogOpen});
+        this.setState({dialogOpen: !dialogOpen}, () => { if (this.state.dialogOpen) { this.refs.input.focus(); } });
     }
 
     render() {
-        const {loading, connected, error, clearError, userName} = this.props;
+        const {loading, connected, error, clearError, userName, generalColor} = this.props;
         return (
             <div className='password-bar'>
                 {loading ? <CircularProgress size={0.4} style={{position: 'fixed', right: '0px'}} /> : null}
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
-                : <div className='ok'>
-                    {userName ?
-                        <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
-                    : connected ?
-                    <IconMenu
-      iconButtonElement={<FontIcon style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
-      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    >
-      <MenuItem primaryText="Déconnexion" onClick={this.login} />
-    </IconMenu>
-                        :
-                        <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} />
-                    }
-                    {userName ?
-                        <a href='./signout'>
-                            <IconButton iconClassName='material-icons'>
-                                close
-                            </IconButton>
-                        </a> : null
-                    }
-                </div>
+                    : <div className='ok'>
+                        {userName ?
+                            <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
+                            : connected ?
+                                <IconMenu
+                                    iconButtonElement={<FontIcon color={generalColor} style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
+                                    anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                                    >
+                                    <MenuItem primaryText="Déconnexion" onClick={this.login} />
+                                </IconMenu>
+                                :
+                                <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
+                        }
+                        {userName ?
+                            <a href='./signout'>
+                                <IconButton iconClassName='material-icons'>
+                                    close
+                                </IconButton>
+                            </a> : null
+                        }
+                    </div>
                 }
                 <Dialog
                     title={'Connectez-vous en tant qu\'administrateur'}
                     actions={[<RaisedButton label='connexion' primary={true} onClick={this.login} />]}
                     open={this.state.dialogOpen}
                     onRequestClose={this.connectClickHandler}
+                    ref='dialog'
                     >
                     <div>
                         <span className='ok-text'>{i18n.t('password.password') + ' : '}</span>
-                        <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' />
+                        <TextField name='password' style={{width: '150px', fontSize: '20px'}} type='password' ref='input' onKeyDown={(e) => this.keyDownHandler(e)} />
                     </div>
                 </Dialog>
             </div>

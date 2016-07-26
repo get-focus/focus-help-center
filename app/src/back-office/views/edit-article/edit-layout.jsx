@@ -6,7 +6,7 @@ import {showSnackBar} from '../../../common/actions/snack-bar';
 import {FlatButton, FloatingActionButton, Popover, Menu, MenuItem, Snackbar} from 'material-ui';
 import {green500, red500} from 'material-ui/styles/colors';
 import {appUrl} from '../../../common/server/config';
-import {withRouter} from 'react-router';
+import {withRouter, Link} from 'react-router';
 
 /** Layout component. */
 @withRouter
@@ -31,22 +31,29 @@ export default class Layout extends Component {
     togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
 
     render() {
-        const {children, BarMiddle, Content, actions, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
+        const {children, Content, actions, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
         return (
             <div className='layout'>
                 <header>
-                    <div className='top'>
-                        <a className='left' href={appUrl} target='_blank'>
-                            <FlatButton
-                                icon={<i className='material-icons'>exit_to_app</i>}
-                                label={i18n.t('back-office.layout.back-to-app')}
-                            />
-                        </a>
-                        <div className='middle'>
-                            {BarMiddle}
+                    <div className='header-top'>
+                        <div className='header-left'>
+                            <FlatButton onClick={() => this.props.router.push('/home') } icon={<i className="material-icons">keyboard_backspace</i>} labelPosition='after' label={'Retour'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} />
                         </div>
-                        <div className='right'>
-                            <PasswordComponent />
+                        <div className='header-middle'>
+                            <Link className='title' to='home'>{i18n.t('back-office.title')}</Link>
+                        </div>
+                        <div className='header-right'>
+                            <div className='right-container'>
+                                <a className='button-link' href={appUrl} target='_blank'>
+                                    <FlatButton
+                                        icon={<i className='material-icons'>exit_to_app</i>}
+                                        label={i18n.t('back-office.layout.back-to-app') }
+                                        labelPosition='before'
+                                        style={{color: 'white'}}
+                                    />
+                                </a>
+                                <PasswordComponent generalColor='white'/>
+                            </div>
                         </div>
                     </div>
                     {Content}
@@ -57,19 +64,19 @@ export default class Layout extends Component {
                                 key={i}
                                 onClick={route ? () => this.props.router.push(route) : action ? () => this.props.dispatch(action) : clickHandler}
                                 style={{margin: '0 3px'}}
-                            >
+                                >
                                 <i className="material-icons">{icon}</i>
                             </FloatingActionButton>
-                        ))}
+                        )) }
                         {actions && actions.secondary !== undefined ?
                             <FloatingActionButton
                                 secondary={true}
                                 onClick={this.togglePopover}
                                 style={{margin: '0 3px'}}
-                            >
+                                >
                                 <i className="material-icons">more_vert</i>
                             </FloatingActionButton>
-                        : null}
+                            : null}
                         {this.checkActions() ?
                             <Popover
                                 open={this.state.open}
@@ -77,18 +84,18 @@ export default class Layout extends Component {
                                 anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                 onRequestClose={this.togglePopover}
-                            >
+                                >
                                 <Menu>
                                     {actions.secondary.map(({action, clickHandler, label}, i) => (
                                         <MenuItem
                                             key={i}
                                             primaryText={label}
                                             onClick={action ? () => this.props.dispatch(action) : clickHandler}
-                                        />
-                                    ))}
+                                            />
+                                    )) }
                                 </Menu>
                             </Popover>
-                        : null}
+                            : null}
                     </div>
                 </header>
                 <div className='content'>
@@ -100,9 +107,9 @@ export default class Layout extends Component {
                     autoHideDuration={timeout}
                     action={actionText}
                     onActionTouchTap={actionHandler}
-                    onRequestClose={() => this.props.dispatch(showSnackBar())}
+                    onRequestClose={() => this.props.dispatch(showSnackBar()) }
                     bodyStyle={{backgroundColor: isError ? red500 : green500}}
-                />
+                    />
             </div>
         );
     }

@@ -96,7 +96,8 @@ export const en = {
             cancel: 'cancel',
             print: 'print',
             close: 'close',
-            send: 'send'
+            send: 'send',
+            manage: 'manage'
         },
         date: {
             to: 'et'

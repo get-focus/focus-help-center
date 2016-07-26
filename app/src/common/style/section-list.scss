@@ -20,15 +20,28 @@
         width: 100%;
         text-align: left;
         outline: none;
-        font-size: 16px;
-        transition: 0.4s;
+        font-size: 17px;
         padding: 20px;
         border: 1px solid #ddd;
         border-style: none none solid none;
+        transition: font-size 0.2s ease-in;
     }
 
-    button.accordion.active, button.accordion:hover {
+    button.accordion.active {
+        background: #727272;
+        color: white;
+        border: 1px solid #727272;
+        font-weight: bold;
+        font-size: 20px;
+        transition: font-size 0.1s ease-in;
+    }
+
+    button.accordion:hover {
         background: #ddd;
+    }
+
+    button.accordion.active:hover {
+        background: #727272;
     }
 
     button.accordion:before {
@@ -42,20 +55,21 @@
 
     button.accordion.active:before {
         content: "\2796";
+        color: white;
     }
 
     div.panel {
         background: white;
         max-height: 0;
         overflow: hidden;
-        transition: 0.6s ease-in-out;
-        opacity: 0;
+        transition: max-height 0.3s ease-out;
         border: 1px solid #ddd;
         border-style: none none solid none;
     }
 
     div.panel.show {
-        opacity: 1;
         max-height: 250%;
+        transition: max-height 0.4s ease-in;
+        border: 1px solid #727272;
     }
 }
