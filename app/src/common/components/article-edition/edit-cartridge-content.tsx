@@ -34,11 +34,11 @@ class EditCartridgeContent extends React.Component<any, any> {
     };
 
     componentDidUpdate() {
-        if (this.props.isEditDescription) {
-            this.refs.description.focus();
+        if (this.props.isEditDescription && this.refs['description']) {
+            this.refs['description']['focus']();
         }
-        if (this.props.isEditTitle) {
-            this.refs.title.focus();
+        if (this.props.isEditTitle && this.refs['title']) {
+            this.refs['title']['focus']();
         }
     }
 

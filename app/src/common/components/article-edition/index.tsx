@@ -17,11 +17,11 @@ export class EditPage extends React.Component<any, any> {
     goHome = () => this.props.router.push('');
 
     componentDidUpdate() {
-        if (this.props.isEditInformations) {
-            this.refs.informations.focus();
+        if (this.props.isEditInformations && this.refs['informations']) {
+            this.refs['informations']['focus']();
         }
-        if (this.props.isEditUrl) {
-            this.refs.url.focus();
+        if (this.props.isEditUrl && this.refs['url']) {
+            this.refs['url']['focus']();
         }
     }
 
