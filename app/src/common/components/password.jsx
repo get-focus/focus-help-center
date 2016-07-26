@@ -87,7 +87,7 @@ export class PasswordComponent extends React.Component {
                                     <MenuItem primaryText="Déconnexion" onClick={this.login} />
                                 </IconMenu>
                                 :
-                                <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} />
+                                <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
                         }
                         {userName ?
                             <a href='./signout'>

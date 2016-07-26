@@ -105,7 +105,8 @@ export const fr = {
             cancel: 'annuler',
             print: 'imprimer',
             close: 'fermer',
-            send: 'envoyer'
+            send: 'envoyer',
+            manage: 'gérer'
         },
         date: {
             to: 'à'
