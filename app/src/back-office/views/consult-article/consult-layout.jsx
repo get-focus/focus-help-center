@@ -53,7 +53,7 @@ export default class ConsultLayout extends Component {
                     </div>
                 </div>
                 <div className='card'>
-                    <Paper style={{minHeight: '75%', width: '54%', display: 'flex', marginBottom: '50px'}} zDepth={1}>
+                    <Paper style={{minHeight: '75%', display: 'flex', marginBottom: '50px'}} zDepth={1} className='paper'>
                         {children}
                     </Paper>
                 </div>
