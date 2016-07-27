@@ -33,10 +33,10 @@ export class ArticleList extends React.Component {
     }
 
     render() {
-        const {connected, articleList} = this.props;
+        const {connected, articleList, isExtension} = this.props;
         return (
             <div style={{flex: 1}}>
-                <List articleList={articleList} connected={connected} />
+                <List articleList={articleList} connected={connected} isExtension={isExtension}/>
             </div>
         );
     }
