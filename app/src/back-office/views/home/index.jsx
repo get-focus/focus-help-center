@@ -6,7 +6,6 @@ import {ArticleConsult} from '../../../common/components/article-consult';
 import {Link} from 'react-router';
 import {FlatButton} from 'material-ui';
 import {connect} from 'react-redux';
-import {loadArticleList} from '../../../common/actions/article-list';
 
 function renderLeftContent() {
     return (
@@ -24,15 +23,11 @@ function renderRightContent(sectionId) {
 }
 
 export default connect(
-    state => ({section: state.sectionDetail.section, articleList: state.articleList.list}),
-    dispatch => ({loadArticleList: () => dispatch(loadArticleList())})
-)(function HomeView({params, section, loadArticleList, articleList, ...props}) {
+    state => ({section: state.sectionDetail.section})
+)(function HomeView({params, section, ...props}) {
     let pathSplit = props.route.path.split('/');
-    if (articleList && articleList.length === 0) {
-        loadArticleList();
-    }
     return (
-        <HomeLayout Content={<ArticleListTitle articleList={articleList}/>}>
+        <HomeLayout Content={<ArticleListTitle />}>
             <SectionList sectionID={pathSplit[0] !== 'article' && params.id ? params.id : section.id ? section.id : null}/>
             {pathSplit[0] === 'article' ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent(section.id) } /> : null}
         </HomeLayout>

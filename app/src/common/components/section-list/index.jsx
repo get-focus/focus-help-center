@@ -64,7 +64,6 @@ export class SectionList extends React.Component {
         if (sectionID === null && buttonElement.className === 'accordion') {
             buttonElement.className += ' active';
             buttonElement.nextElementSibling.classList.toggle('show');
-            this.props.loadArticleList();
         } else if (sectionID === null && buttonElement.className === 'accordion active') {
             buttonElement.className = 'accordion';
             buttonElement.nextElementSibling.classList.toggle('show');

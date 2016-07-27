@@ -4,7 +4,6 @@ import {loadArticle} from '../actions/article-detail';
 import {connect} from 'react-redux';
 import {CircularProgress, FlatButton} from 'material-ui';
 import i18n from 'i18next';
-import {Link} from 'react-router';
 import {withRouter} from 'react-router';
 
 @withRouter
