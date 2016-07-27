@@ -394,3 +394,27 @@
 .new-section {
     text-transform: capitalize;
 }
+
+@media print {
+    header {
+        display: none !important;
+    }
+
+    .edit-page {
+        .parameter-panel, .parameter-drawer {
+            display: none !important;
+        }
+
+        .content {
+            .header {
+                display: none !important;
+            }
+
+            .workspace {
+                .textarea {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}
