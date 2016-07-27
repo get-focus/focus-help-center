@@ -8,7 +8,7 @@ import {RaisedButton, FontIcon} from 'material-ui';
 export function ArticleLine({article: {id, title, description, published}, canEdit}: { article: Article, canEdit: boolean }) {
     return (
         <div className='item'>
-            <i className='material-icons'>receipt</i>
+            <i className='material-icons'>description</i>
 
             <Link className='content' to={`article/${id}`}>
                 <div className='title'>

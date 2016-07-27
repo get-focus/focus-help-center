@@ -34,23 +34,16 @@ export class ArticleConsult extends React.Component {
     }
 
     render() {
-        const {article, isLoading, error, isExtension, isConnected} = this.props;
+        const {article, isLoading, error, isExtension, isConnected, leftContent, rightContent} = this.props;
         return (
             <div className='article-consult'>
                 {isExtension ?
                     <header>
+                        <div className='left-content'>
+                            {leftContent? leftContent : <div/>}
+                        </div>
                         <div className='right-content'>
-                            <FlatButton label={i18n.t('button.print') } icon={<i className="material-icons">print</i>} secondary={true} onClick={() => window.print() } />
-                            <FlatButton
-                                label={i18n.t('button.share') }
-                                icon={<i className="material-icons">share</i>}
-                                secondary={true}
-                                onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
-                                />
-                            {isConnected ?
-                                <FlatButton label={i18n.t('button.edit') } icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`) } />
-                                : null
-                            }
+                            {rightContent? rightContent : <div/>}
                         </div>
                     </header>
                     : null

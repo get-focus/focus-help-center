@@ -1,3 +1,5 @@
+@import 'variables';
+
 .article-list-header {
     display: flex;
     flex-direction: column;
@@ -18,10 +20,10 @@
         padding: 0px 10px;
         transition: background 0.2s ease-in-out;
         border-radius: 4px;
-        background: #1976D2;
+        background: $dark-primary-color;
 
         &:hover {
-            background: #2196F3;
+            background: $primary-color;;
             transition: background 0.2s ease-in-out;
             box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
         }
@@ -37,7 +39,7 @@
 }
 
 .top-search.focused {
-    background: #2196F3;
+    background: $primary-color;
     transition: background 0.2s ease-in-out;
     box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
 }

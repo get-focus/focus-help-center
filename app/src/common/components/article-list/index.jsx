@@ -22,10 +22,15 @@ export class ArticleList extends React.Component {
     static propTypes = {
         articleList: PropTypes.object,
         loadArticleList: PropTypes.func,
-        connected: PropTypes.bool
+        connected: PropTypes.bool,
+        isExtension: PropTypes.bool
     }
 
     state = {open: false};
+
+    componentWillMount() {
+        this.props.loadArticleList();
+    }
 
     render() {
         const {connected, articleList} = this.props;

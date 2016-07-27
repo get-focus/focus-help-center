@@ -17,11 +17,11 @@ function renderRightContent(params) {
     return (
         <div>
             <a href={`${backOfficeUrl}#/article/${params.id}`} target='_blank'>
-                <IconButton iconStyle={{color: '#29B6F6'}}>
+                <IconButton >
                     <i className="material-icons">open_in_new</i>
                 </IconButton>
             </a>
-            <IconButton iconStyle={{color: '#29B6F6'}} onClick={() => window.print()}>
+            <IconButton onClick={() => window.print()}>
                 <i className="material-icons">print</i>
             </IconButton>
         </div>

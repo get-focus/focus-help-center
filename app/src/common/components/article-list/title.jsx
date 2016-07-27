@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {searchArticleList} from '../../actions/article-list';
 import i18n from 'i18next';
@@ -17,20 +17,28 @@ import {withRouter} from 'react-router';
 )
 export default class ArticleListTitle extends React.Component {
 
+    static propTypes = {
+        isExtension: PropTypes.bool
+    };
+
+    static defaultProps = {
+        isExtension: false
+    };
+
     render() {
-        const {filter, search, error, articleList} = this.props;
+        const {filter, search, error, articleList, isExtension} = this.props;
         return (
             <div className='article-list-header'>
-                <div className='top-search'>
-                    <i className='material-icons'>search</i>
+                <div className={'top-search'} style={isExtension ? {width: 330, background: '#FAFAFA', borderRadius: '2px', boxShadow: 'none', padding: '5px 3px', marginBottom: '8px'} : null}>
+                    <i className='material-icons' style={isExtension ? {opacity: '.3', color: 'black'} : null}>search</i>
                     <div className='search-bar'>
                         <AutoComplete
                             errorText={error ? ' ' : null}
                             errorStyle={{color: 'indianred'}}
                             searchText={filter}
                             hintText={i18n.t('search.placeholder') }
-                            hintStyle={{color: 'white', bottom: 11, font: 'normal 16px Roboto,sans-serif'}}
-                            inputStyle={{color: 'white'}}
+                            hintStyle={{color: isExtension ? '#BDBDBD' : 'white', bottom: 11, font: 'normal 16px Roboto,sans-serif'}}
+                            inputStyle={{color: isExtension ? '#212121' : 'white'}}
                             onFocus={e => e.target.parentNode.parentNode.parentNode.parentNode.className += ' focused'}
                             onBlur={e => e.target.parentNode.parentNode.parentNode.parentNode.className = 'top-search'}
                             style={{width: 350, marginTop: '-5px'}}
@@ -45,7 +53,7 @@ export default class ArticleListTitle extends React.Component {
                                             <MenuItem
                                                 className='menu-item'
                                                 primaryText={article.title}
-                                                leftIcon={<i className='material-icons' style={{fontSize: 20, marginTop: 14.5}}>description</i>}
+                                                leftIcon={<i className='material-icons' style={{fontSize: 20, marginTop: 14.5, color: '#2196F3'}}>description</i>}
                                                 onClick={() => this.props.router.push(`article/${article.id}`) }
                                                 />
                                         )
