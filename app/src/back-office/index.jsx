@@ -8,6 +8,7 @@ import routes from './routes';
 
 /** Root component of the back-office app. */
 function HelpCenter() {
+    console.log('Help center base cll')
     return (
         <HelpCenterBase>
             <Router history={hashHistory} routes={routes} />

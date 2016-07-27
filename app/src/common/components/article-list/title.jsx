@@ -45,6 +45,7 @@ export default class ArticleListTitle extends React.Component {
                             onUpdateInput={e => search(e) }
                             filter={() => articleList.map(article => article.title) }
                             underlineShow={false}
+                            ref='autocomplete'
                             dataSource={articleList ?
                                 articleList.map(article => {
                                     return {
@@ -54,7 +55,7 @@ export default class ArticleListTitle extends React.Component {
                                                 className='menu-item'
                                                 primaryText={article.title}
                                                 leftIcon={<i className='material-icons' style={{fontSize: 20, marginTop: 14.5, color: '#2196F3'}}>description</i>}
-                                                onClick={() => this.props.router.push(`article/${article.id}`) }
+                                                onClick={() => { this.props.router.push(`article/${article.id}`); console.log(this); } }
                                                 />
                                         )
                                     };
