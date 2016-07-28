@@ -4,6 +4,7 @@ import {loadSectionList} from '../../actions/section-list';
 import {getArticles, searchArticleList, loadArticleList} from '../../actions/article-list';
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
+import ReactDOM from 'react-dom';
 
 @withRouter
 @connect(
@@ -22,6 +23,10 @@ import {ArticleList} from '../article-list';
 )
 export class SectionList extends React.Component {
 
+    state = {
+        elementHeight: null
+    }
+
     componentWillMount() {
         this.props.loadSectionList();
         if (this.props.sectionID && this.props.sectionID !== 'all') {
@@ -31,13 +36,20 @@ export class SectionList extends React.Component {
         }
     }
 
+    componentWillReceiveProps() {
+        if (this.refs.openedArticlelist) {
+            this.setState({elementHeight: ReactDOM.findDOMNode(this.refs.openedArticlelist).offsetHeight});
+            console.log(ReactDOM.findDOMNode(this.refs.openedArticlelist).offsetHeight);
+        }
+    }
+
     renderSectionList = () => {
         const {sections, sectionID} = this.props;
         return (
             <div>
                 <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
                 <div className={`panel${sectionID === 'all' ? ' show' : ''}`} >
-                    {sectionID === 'all' ? <ArticleList /> : null}
+                    {sectionID === 'all' ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}
                 </div>
                 {sections && sections.length > 0 ?
                     sections.map((section, index) => {
@@ -45,7 +57,7 @@ export class SectionList extends React.Component {
                             <div>
                                 <button className={`accordion${+sectionID === section.id ? ' active' : ''}`} onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
                                 <div className={`panel${+sectionID === section.id ? ' show' : ''}`}>
-                                    {+sectionID === section.id ? <ArticleList /> : null}
+                                    {+sectionID === section.id ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}
                                 </div>
                             </div>
                         );
@@ -82,7 +94,7 @@ export class SectionList extends React.Component {
         return (
             <div className='section-list'>
                 <div className='section-list-title'>Bienvenue dans le Centre d'aide</div>
-                {this.renderSectionList() }
+                {this.renderSectionList()}
             </div>
         );
     }
