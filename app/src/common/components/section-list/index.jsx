@@ -10,7 +10,8 @@ import {ArticleList} from '../article-list';
     state => ({
         sections: state.sectionList.list,
         sectionDetail: state.sectionDetail,
-        connected: state.login.isConnected
+        connected: state.login.isConnected,
+        articleList: state.articleList
     }),
     dispatch => ({
         loadSectionList: () => dispatch(loadSectionList()),
@@ -23,23 +24,28 @@ export class SectionList extends React.Component {
 
     componentWillMount() {
         this.props.loadSectionList();
+        if (this.props.sectionID && this.props.sectionID !== 'all') {
+            this.props.getArticles(this.props.sectionID);
+        } else if (this.props.sectionID && this.props.sectionID === 'all') {
+            this.props.loadArticleList();
+        }
     }
 
     renderSectionList = () => {
-        const {sections} = this.props;
+        const {sections, sectionID} = this.props;
         return (
             <div>
-                <button className="accordion" onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
-                <div className="panel">
-                    <ArticleList />
+                <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
+                <div className={`panel${sectionID === 'all' ? ' show' : ''}`} >
+                    {sectionID === 'all' ? <ArticleList /> : null}
                 </div>
                 {sections && sections.length > 0 ?
                     sections.map((section, index) => {
                         return (
                             <div>
-                                <button className="accordion" onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
-                                <div className="panel">
-                                    <ArticleList />
+                                <button className={`accordion${+sectionID === section.id ? ' active' : ''}`} onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
+                                <div className={`panel${+sectionID === section.id ? ' show' : ''}`}>
+                                    {+sectionID === section.id ? <ArticleList /> : null}
                                 </div>
                             </div>
                         );
@@ -62,20 +68,12 @@ export class SectionList extends React.Component {
         }
 
         if (sectionID === null && buttonElement.className === 'accordion') {
-            buttonElement.className += ' active';
-            buttonElement.nextElementSibling.classList.toggle('show');
+            this.props.router.push('/sections');
             this.props.loadArticleList();
-        } else if (sectionID === null && buttonElement.className === 'accordion active') {
-            buttonElement.className = 'accordion';
-            buttonElement.nextElementSibling.classList.toggle('show');
-        } else if (buttonElement.className === 'accordion') {
-            buttonElement.className += ' active';
+        } else if (sectionID !== null && buttonElement.className === 'accordion') {
+            this.props.router.push(`/sections/${sectionID}/articles`);
             this.props.getArticles(sectionID);
-            this.props.router.push(`/section/${sectionID}/articles`);
-            buttonElement.nextElementSibling.classList.toggle('show');
         } else {
-            buttonElement.className = 'accordion';
-            buttonElement.nextElementSibling.classList.toggle('show');
             this.props.router.push('/home');
         }
     }

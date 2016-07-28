@@ -27,9 +27,11 @@ export default connect(
 )(function HomeView({params, section, ...props}) {
     let pathSplit = props.route.path.split('/');
     return (
+        <div>
         <HomeLayout Content={<ArticleListTitle />}>
-            <SectionList sectionID={pathSplit[0] !== 'article' && params.id ? params.id : section.id ? section.id : null}/>
+            <SectionList sectionID={pathSplit[1] === 'sections' && params.id ? params.id : section.id ? section.id : pathSplit[1] === 'sections' && !params.id ? 'all' : null}/>
             {pathSplit[0] === 'article' ? <ArticleConsult id={params.id} leftContent={renderLeftContent() } rightContent={renderRightContent(section.id) } /> : null}
         </HomeLayout>
+    </div>
     );
 });

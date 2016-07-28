@@ -37,16 +37,8 @@ class ContentArea extends React.Component<any, any> {
         }
     };
 
-    componentWillMount() {
-        window.addEventListener('resize', () => this.forceUpdate());
-    }
-
     componentWillReceiveProps({content}) {
         this.setState({content});
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', () => this.forceUpdate());
     }
 
     render() {

@@ -6,6 +6,5 @@ import {defaultState} from './default-state';
 
 /** Creates the application store. */
 export function configureStore() {
-    console.log('Store changed :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::')
     return createStore(rootReducer, defaultState, applyMiddleware(thunk['withExtraArgument'](api)));
 }

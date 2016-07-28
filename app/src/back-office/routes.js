@@ -23,7 +23,11 @@ export default {
             component: EditArticle
         },
         {
-            path: '/section/:id/articles',
+            path: '/sections/:id/articles',
+            component: HomeView
+        },
+        {
+            path: '/sections',
             component: HomeView
         }
     ]
