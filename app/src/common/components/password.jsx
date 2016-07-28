@@ -50,7 +50,7 @@ export class PasswordComponent extends React.Component {
         if (e.keyCode === 13 ) {
             this.login();
         }
-    }
+    };
 
     componentWillMount() {
         const {isConnected, connected} = this.props;

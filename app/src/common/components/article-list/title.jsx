@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {searchArticleList} from '../../actions/article-list';
+import {searchArticleList, loadArticleList} from '../../actions/article-list';
 import i18n from 'i18next';
 import {AutoComplete, MenuItem} from 'material-ui';
 import {withRouter} from 'react-router';
@@ -13,7 +13,10 @@ import {withRouter} from 'react-router';
         error: state.articleList.error,
         articleList: state.articleList.list
     }),
-    dispatch => ({search: filter => dispatch(searchArticleList(filter))})
+    dispatch => ({
+        search: filter => dispatch(searchArticleList(filter)),
+        loadArticleList: () => dispatch(loadArticleList())
+    })
 )
 export default class ArticleListTitle extends React.Component {
 
@@ -29,8 +32,17 @@ export default class ArticleListTitle extends React.Component {
         isExtension: false
     };
 
+    keyDownHandler = (e, filter) => {
+        if (e.keyCode === 13) {
+            if (filter) {
+                this.props.loadArticleList();
+            }
+            this.props.router.push(`search?filter${filter ? `=${filter}` : ''}`);
+        }
+    };
+
     render() {
-        const {search, error, articleList, isExtension} = this.props;
+        const {filter, search, error, articleList, isExtension} = this.props;
         const {value} = this.state;
         return (
             <div className='article-list-header'>
@@ -52,6 +64,7 @@ export default class ArticleListTitle extends React.Component {
                             underlineShow={false}
                             ref='autocomplete'
                             fullWidth={true}
+                            onKeyDown={(e) => this.keyDownHandler(e, filter)}
                             dataSource={articleList ?
                                 articleList.map(article => {
                                     return {

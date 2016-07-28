@@ -1,6 +1,7 @@
 import EditArticle from './views/edit-article';
 import HomeView from './views/home';
 import {ConsultView} from './views/consult-article';
+import {SearchView} from './views/search';
 
 export default {
     path: '/',
@@ -29,6 +30,10 @@ export default {
         {
             path: '/sections',
             component: HomeView
+        },
+        {
+            path: '/search',
+            component: SearchView
         }
     ]
 };
