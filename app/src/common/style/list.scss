@@ -17,7 +17,7 @@
     .top-search {
         display: flex;
         align-items: center;
-        padding: 0px 10px;
+        padding-left: 10px;
         transition: background 0.2s ease-in-out;
         border-radius: 4px;
         background: $dark-primary-color;
@@ -66,6 +66,7 @@
             color: white;
             margin-right: 12px;
             flex: 0 0 auto;
+            align-self: center;
         }
 
         .content {
@@ -75,7 +76,6 @@
             .title {
                 color: white;
                 font-size: 14pt;
-                font-weight: bold;
                 line-height: 28px;
                 display: flex;
 
@@ -89,7 +89,7 @@
 
             .description {
                 color: white;
-                font-size: 9pt;
+                font-size: 11pt;
                 line-height: 20px;
             }
         }

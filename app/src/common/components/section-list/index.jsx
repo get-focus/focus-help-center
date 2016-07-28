@@ -39,7 +39,6 @@ export class SectionList extends React.Component {
     componentWillReceiveProps() {
         if (this.refs.openedArticlelist) {
             this.setState({elementHeight: ReactDOM.findDOMNode(this.refs.openedArticlelist).offsetHeight});
-            console.log(ReactDOM.findDOMNode(this.refs.openedArticlelist).offsetHeight);
         }
     }
 
