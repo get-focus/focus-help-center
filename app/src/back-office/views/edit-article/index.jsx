@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 
 const actions = {
     primary: [
-        {label: 'Print', icon: 'print', clickHandler: () => window.print()},
         {label: 'Delete', icon: 'delete', action: {type: Action.SHOW_POPUP_EDITION}}
     ]
 };

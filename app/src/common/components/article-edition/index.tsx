@@ -118,6 +118,8 @@ export class EditPage extends React.Component<any, any> {
                             </IconButton>
                         </div>
                     </div>
+
+                    <FlatButton label={`supprimer l'article`} secondary={true} style={{width: '100%', marginTop: 15}}/>
                 </div>
 
                 <div className='parameter-drawer'>
