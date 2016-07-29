@@ -45,7 +45,7 @@ class ContentArea extends React.Component<any, any> {
 
     render() {
         return (
-            <div className='content'>
+            <div className='edit-content'>
                 <div className='workspace'>
                     <div className='header'>
                         <div className='edit'>
@@ -94,7 +94,7 @@ class ContentArea extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className='display'>
-                    <Paper id='displayZone' style={{ height: '75%', overflowY: 'auto', padding: '20px 40px', display:'flex', flexDirection: 'column' }} zDepth={2}>
+                    <Paper id='displayZone' style={{ height: '80%', overflowY: 'auto', padding: '20px 40px', display:'flex', flexDirection: 'column' }} zDepth={2}>
                         <header>
                             <FlatButton
                                 label={i18n.t('button.print') }

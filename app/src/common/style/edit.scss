@@ -255,132 +255,133 @@
         }
     }
 
-    > .content {
+    > .edit-content {
         flex: 1 1 auto;
         display: flex;
         z-index: 0;
-        }
 
-        .workspace {
-            flex: 1 1 50%;
-            display: flex;
-            flex-direction: column;
-            background: white;
+            .workspace {
+                flex: 1 1 50%;
+                display: flex;
+                flex-direction: column;
+                background: white;
 
-            > .header {
-            flex: 0 1 auto;
-            display: flex;
-            box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
-            z-index: 400;
+                > .header {
+                flex: 0 1 auto;
+                display: flex;
+                box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
+                z-index: 400;
 
-            > .edit {
-                flex: 1 1;
-                background-color: $dark-primary-color;
-                border-right: 1px solid #888;
-                padding-top: 15px;
-                padding-bottom: 35px;
-                padding-right: 15px;
+                > .edit {
+                    flex: 1 1;
+                    background-color: $dark-primary-color;
+                    border-right: 1px solid #888;
+                    padding-top: 15px;
+                    padding-bottom: 35px;
+                    padding-right: 15px;
 
-                > .save-button {
-                    float: right;
-                }
-
-                > .save-text {
-                    float: right;
-                    color: #CCC;
-                    padding: 8px;
-                }
-
-                > .error {
-                    color: #F44336;
-                    padding: 3px;
-                }
-
-                > .buttons > div > div {
-                    .material-icons {
-                        margin-top: 8px;
+                    > .save-button {
+                        float: right;
                     }
 
-                    i:not(.material-icons) {
-                        position: relative;
-                        left: -4px;
-                        font-style: normal;
+                    > .save-text {
+                        float: right;
+                        color: #CCC;
+                        padding: 8px;
                     }
 
-                    i {
-                        transition: color 0.1s ease-out;
+                    > .error {
+                        color: #F44336;
+                        padding: 3px;
                     }
 
-                    &:hover {
+                    > .buttons > div > div {
+                        .material-icons {
+                            margin-top: 8px;
+                        }
+
+                        i:not(.material-icons) {
+                            position: relative;
+                            left: -4px;
+                            font-style: normal;
+                        }
+
                         i {
-                            color: lighten($primary-color, 10%)
+                            transition: color 0.1s ease-out;
+                        }
+
+                        &:hover {
+                            i {
+                                color: lighten($primary-color, 10%)
+                            }
                         }
                     }
                 }
             }
+
+            .textarea {
+                background: white;
+                border-right: 1px solid #888;
+                padding: 10px;
+                flex: 1 1 auto;
+                display: flex;
+                height: 90%;
+
+                textarea {
+                    width: 100%;
+                    font-family: Roboto;
+                    font-size: 16px;
+                    resize: none;
+                    border: none;
+                    outline: none;
+                    padding-bottom: 40px;
+                }
+            }
         }
 
-        .textarea {
+        .display {
             background: white;
-            border-right: 1px solid #888;
-            padding: 10px;
-            flex: 1 1 auto;
+            flex: 1 1 50%;
+            border-left: 1px solid #888;
+            overflow-x: hidden;
+            padding: 25px 20px;
             display: flex;
-            height: 90%;
+            flex-direction: column;
 
-            textarea {
-                width: 100%;
-                font-family: Roboto;
-                font-size: 16px;
-                resize: none;
-                border: none;
-                outline: none;
-                padding-bottom: 40px;
-            }
-        }
-    }
-
-    .display {
-        background: white;
-        flex: 1 1 auto;
-        width: 50%;
-        border-left: 1px solid #888;
-        overflow-x: hidden;
-        padding: 15px 10px;
-
-        .title {
-            color: $primary-color;
-        }
-
-
-        blockquote {
-            padding: 10px 20px;
-            font-size: 18px;
-            border-left: 5px solid #eee;
-
-            p {
-                margin: 0;
+            .title {
+                color: $primary-color;
             }
 
-            &:before, &:after {
-                display: none;
+
+            blockquote {
+                padding: 10px 20px;
+                font-size: 18px;
+                border-left: 5px solid #eee;
+
+                p {
+                    margin: 0;
+                }
+
+                &:before, &:after {
+                    display: none;
+                }
             }
-        }
 
-        h1 {
-            font-size: 42px;
-        }
+            h1 {
+                font-size: 42px;
+            }
 
-        h2 {
-            font-size: 34px;
-        }
+            h2 {
+                font-size: 34px;
+            }
 
-        h3 {
-            font-size: 30px;
-        }
+            h3 {
+                font-size: 30px;
+            }
 
-        h5 {
-            color: black;
+            h5 {
+                color: black;
+            }
         }
     }
 }
@@ -399,15 +400,16 @@
             display: none !important;
         }
 
-        .content {
-            .header {
+        .edit-content {
+            height: initial;
+            overflow: inherit;
+
+            .workspace {
                 display: none !important;
             }
 
-            .workspace {
-                .textarea {
-                    display: none !important;
-                }
+            .display {
+                border: none;
             }
         }
     }

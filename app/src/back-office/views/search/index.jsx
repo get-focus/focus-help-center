@@ -5,7 +5,7 @@ import {ArticleList} from '../../../common/components/article-list';
 
 export function SearchView() {
     return (
-        <ConsultLayout Content={<ArticleListTitle />}>
+        <ConsultLayout Content={<ArticleListTitle />} isSearch={true}>
             <ArticleList isExtension={true} />
         </ConsultLayout>
     );

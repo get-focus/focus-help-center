@@ -14,7 +14,8 @@ import {appUrl} from '../../../common/server/config';
 export default class ConsultLayout extends Component {
 
     static propTypes = {
-        Content: PropTypes.object
+        Content: PropTypes.object,
+        isSearch: PropTypes.bool
     };
 
     state = {open: false};
@@ -22,7 +23,7 @@ export default class ConsultLayout extends Component {
     togglePopover = (e) => this.setState({open: !this.state.open, anchorEl: e.currentTarget});
 
     render() {
-        const {applicationName, children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
+        const {applicationName, children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}, isSearch} = this.props;
         return (
             <div className='consult-layout'>
                 <div className='ribbon'>
@@ -53,7 +54,8 @@ export default class ConsultLayout extends Component {
                     </div>
                 </div>
                 <div className='card'>
-                    <Paper style={{display: 'flex', marginBottom: '50px'}} zDepth={1} className='paper'>
+                    <Paper style={{display: 'flex', flexDirection: 'column', marginBottom: '50px'}} zDepth={1} className='paper'>
+                        {isSearch ? <h2 className='search-title'>résultats</h2> : null}
                         {children}
                     </Paper>
                 </div>

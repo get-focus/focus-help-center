@@ -217,7 +217,7 @@ export default class Sections extends React.Component<any, any> {
                     onRequestClose={this.showDialog}
                     autoScrollBodyContent={true}
                     style={{ height: '1550px', maxHeight: '1550px' }} ><br/>
-                    <Subheader><em>{i18n.t('edit-page.content.sections.createNew') }</em></Subheader>
+                    <Subheader style={{fontSize: 18}}><em>{i18n.t('edit-page.content.sections.createNew') }</em></Subheader>
 
                     <span className='new-section' style={{ paddingLeft: 16 }}>{i18n.t('edit-page.content.sections.newSection') }</span>
                     <AutoComplete
@@ -229,7 +229,7 @@ export default class Sections extends React.Component<any, any> {
                         style={{ paddingLeft: '16px' }}
                         />
                     <FlatButton label={i18n.t('button.add') } onClick={this.addSection} /><br/><br/>
-                    <Subheader><em>{i18n.t('edit-page.content.sections.existingSections') }</em></Subheader>
+                    <Subheader style={{fontSize: 18}}><em>{i18n.t('edit-page.content.sections.existingSections') }</em></Subheader>
                     {this.showAllSections() }
                 </Dialog>
 

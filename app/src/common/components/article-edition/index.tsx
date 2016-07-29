@@ -3,9 +3,10 @@ import * as React from 'react';
 import ContentArea from './content-area';
 import Sections from './sections';
 import i18n from 'i18next';
-import {loadArticle, clearArticle, updateArticle, clickEditInformations, clickEditUrl} from '../../actions/article-detail';
+import {loadArticle, clearArticle, updateArticle, clickEditInformations, clickEditUrl, showEditPopup} from '../../actions/article-detail';
 import {TextField, FlatButton, IconButton, List, Subheader} from 'material-ui';
 import {capitalize, upperCase } from 'lodash';
+import {Action} from '../../actions/';
 
 import {State} from '../../store/default-state';
 
@@ -119,7 +120,7 @@ export class EditPage extends React.Component<any, any> {
                         </div>
                     </div>
 
-                    <FlatButton label={`supprimer l'article`} secondary={true} style={{width: '100%', marginTop: 15}}/>
+                    <FlatButton label={`supprimer l'article`} onClick={() => this.props.showEditPopup()} secondary={true} style={{width: '100%', marginTop: 15}}/>
                 </div>
 
                 <div className='parameter-drawer'>
@@ -147,6 +148,7 @@ export default connect(
         clickEditUrl: () => dispatch(clickEditUrl()),
         getArticle: id => dispatch(loadArticle(id)),
         clearArticle: () => dispatch(clearArticle()),
+        showEditPopup: () => dispatch(showEditPopup()),
         updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
 )(EditPage);

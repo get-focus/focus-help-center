@@ -1,3 +1,5 @@
+@import 'variables';
+
 .card {
   margin-top: -25vh;
   margin-left: 170px;
@@ -7,6 +9,15 @@
   .paper {
     width: 54%;
     min-height: 75%;
+
+    .search-title {
+      color: $primary-color;
+      margin-left: 35px;
+      margin-bottom: 15px;
+      padding-top: 15px;
+      font-style: italic;
+      text-transform: capitalize;
+    }
   }
 }
 
@@ -17,7 +28,7 @@
 
     .card {
       width: 100%;
-      margin: 0;
+      margin: 0px;
 
       .paper {
         width: 100%;
