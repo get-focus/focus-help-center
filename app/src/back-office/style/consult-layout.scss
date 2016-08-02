@@ -1,6 +1,46 @@
+@import 'variables';
+
 .card {
   margin-top: -25vh;
   margin-left: 170px;
   display: flex;
   flex: 1 3 auto;
+
+  .paper {
+    width: 54%;
+    min-height: 75%;
+
+    .search-title {
+      color: $primary-color;
+      margin-left: 35px;
+      margin-bottom: 15px;
+      padding-top: 15px;
+      font-style: italic;
+      text-transform: capitalize;
+    }
+  }
+}
+
+@media print {
+    .ribbon {
+      display: none !important;
+    }
+
+    .card {
+      width: 100%;
+      margin: 0px;
+
+      .paper {
+        width: 100%;
+        height: 100%;
+
+        .article-consult {
+          .article-card {
+            .top-header {
+              display: none !important;
+            }
+          }
+        }
+      }
+    }
 }

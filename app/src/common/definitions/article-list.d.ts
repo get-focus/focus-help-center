@@ -15,4 +15,5 @@ export interface ArticleListAction {
     list?: Article[];
     error?: string;
     filter?: string;
+    isLoading?: boolean;
 }

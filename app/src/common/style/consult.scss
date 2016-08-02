@@ -1,4 +1,7 @@
+@import 'variables';
+
 .article-consult {
+
     top: 0;
     left: 0;
     display: flex;
@@ -12,19 +15,14 @@
         position: fixed;
         width: 100%;
 
-        .right-content {
-            float: right;
-            margin-left: 10px;
+        .left-content {
+            display: inline-block;
+        }
 
-                .close {
-                margin-right: 10px;
-                display: block;
-                position: fixed;
-                color: black;
-                width: 32px;
-                height: 32px;
-                font-size: 32px;
-            }
+        .right-content {
+            margin-left: 10px;
+            display: inline-block;
+            float: right;
         }
     }
 
@@ -86,7 +84,7 @@
             padding-bottom: 25px;
 
             > h2 {
-                color: #29B6F6;
+                color: $primary-color;
             }
         }
     }

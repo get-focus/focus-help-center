@@ -2,22 +2,14 @@ import React from 'react';
 import Layout from './edit-layout';
 import EditPage from '../../../common/components/article-edition';
 import EditCartridgeContent from '../../../common/components/article-edition/edit-cartridge-content';
-import {Action} from '../../../common/actions/';
 import {connect} from 'react-redux';
-
-const actions = {
-    primary: [
-        {label: 'Print', icon: 'print', clickHandler: () => window.print()},
-        {label: 'Delete', icon: 'delete', action: {type: Action.SHOW_POPUP_EDITION}}
-    ]
-};
 
 /** Edition page. */
 export default connect(
     state => ({connected: state.login.isConnected})
-)(function EditArticle({params, connected}) {
+)(function EditArticle({params}) {
     return (
-        <Layout Content={<EditCartridgeContent />} actions={connected ? actions : undefined}>
+        <Layout Content={<EditCartridgeContent />}>
             <EditPage id={+params.id}/>
         </Layout>
     );

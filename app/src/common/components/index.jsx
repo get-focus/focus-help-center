@@ -22,26 +22,33 @@ export class HelpCenterBase extends React.Component {
     }
 
     render() {
+        const {loaded} = this.state || {};
         return (
-            <Provider store={configureStore()}>
-                <MuiThemeProvider muiTheme={getMuiTheme({
-                    palette: {
-                        primary1Color: blue500,
-                        accent1Color: pink400
-                    },
-                    floatingActionButton: {
-                        secondaryColor: pink400,
-                        secondaryIconColor: white
-                    },
-                    snackbar: {
-                        actionColor: white
-                    }
-                })}>
-                    <div className='app'>
-                        {this.props.children}
-                    </div>
-                </MuiThemeProvider>
-            </Provider>
+            <div>
+                {!loaded ? <div/>
+                    :
+                    <MuiThemeProvider muiTheme={getMuiTheme({
+                        palette: {
+                            primary1Color: blue500,
+                            accent1Color: pink400
+                        },
+                        floatingActionButton: {
+                            secondaryColor: pink400,
+                            secondaryIconColor: white
+                        },
+                        snackbar: {
+                            actionColor: white
+                        }
+                    }) }>
+                        <Provider store={configureStore() }>
+
+                            <div className='app'>
+                                {this.props.children}
+                            </div>
+                        </Provider>
+                    </MuiThemeProvider>
+                }
+            </div>
         );
     }
 }

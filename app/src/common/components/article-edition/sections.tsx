@@ -30,20 +30,28 @@ export default class Sections extends React.Component<any, any> {
         sectionToDelete: null,
         primaryNestedText: i18n.t('edit-page.content.sections.show-more'),
         nestedListIsLoaded: false,
-        articleSections: null
+        articleSections: null,
+        changeSection: false
     };
 
     componentWillMount() {
         this.props.loadSectionList();
     }
 
+    componentWillReceiveProps() {
+        if (this.state.changeSection) {
+            this.setState({changeSection: false});
+            this.props.loadSectionList();
+        }
+    }
+
     componentDidUpdate() {
         const {sections} = this.props.article, {articleSections} = this.state;
-        this.setPrimaryNested(); this.showAllSections();
 
         if (sections && articleSections === null) {
             this.setState({ articleSections: this.props.article.sections });
         }
+        this.setPrimaryNested(); this.showAllSections();
     }
 
     updateArticle = () => {
@@ -64,7 +72,6 @@ export default class Sections extends React.Component<any, any> {
             sections.push(section);
         }
 
-        console.log(sectionToDelete);
         if (sectionToDelete) {
             for (let i = 0; i < sections.length; i++) {
                 if (sections[i].id === sectionToDelete.id && sections[i].name === sectionToDelete.name) {
@@ -72,9 +79,22 @@ export default class Sections extends React.Component<any, any> {
                 }
             }
         }
+
         this.props.updateArticleSections(article, 'sections', sections);
         this.setState({ searchText: '', sectionToDelete: null });
     };
+
+    addSection = () => {
+        const {article} = this.props, {searchText} = this.state;
+        let sections = [];
+
+        article.sections.map(section => { sections.push(section); });
+        if (searchText.trim() !== '') {
+            searchText.split(',').map((value) => { sections.push({ name: value }); });
+            this.props.manageArticleSection(article, 'sections', sections);
+        }
+        this.setState({searchText: '', changeSection: true});
+    }
 
     onChangeHandler = (value) => {
         this.setState({ searchText: value });
@@ -85,7 +105,6 @@ export default class Sections extends React.Component<any, any> {
         this.setState({ dialogOpen: !this.state.dialogOpen });
         if (articleSections !== null && (sections.length !== articleSections.length)) {
             this.updateArticle();
-            this.props.loadSectionList();
         }
     }
 
@@ -95,7 +114,7 @@ export default class Sections extends React.Component<any, any> {
 
     removeSectionClickHandler = () => {
         const {sections} = this.props.article, {articleSections} = this.state;
-        this.setState({ alertOpen: !this.state.alertOpen });
+        this.setState({ alertOpen: !this.state.alertOpen, changeSection: true });
         if (articleSections !== null && (sections.length !== articleSections.length)) {
             this.updateArticle();
             this.props.loadSectionList();
@@ -198,7 +217,7 @@ export default class Sections extends React.Component<any, any> {
                     onRequestClose={this.showDialog}
                     autoScrollBodyContent={true}
                     style={{ height: '1550px', maxHeight: '1550px' }} ><br/>
-                    <Subheader><em>{i18n.t('edit-page.content.sections.createNew') }</em></Subheader>
+                    <Subheader style={{fontSize: 18}}><em>{i18n.t('edit-page.content.sections.createNew') }</em></Subheader>
 
                     <span className='new-section' style={{ paddingLeft: 16 }}>{i18n.t('edit-page.content.sections.newSection') }</span>
                     <AutoComplete
@@ -209,8 +228,8 @@ export default class Sections extends React.Component<any, any> {
                         searchText={searchText}
                         style={{ paddingLeft: '16px' }}
                         />
-                    <FlatButton label={i18n.t('button.add') } onClick={this.updateArticle} /><br/><br/>
-                    <Subheader><em>{i18n.t('edit-page.content.sections.existingSections') }</em></Subheader>
+                    <FlatButton label={i18n.t('button.add') } onClick={this.addSection} /><br/><br/>
+                    <Subheader style={{fontSize: 18}}><em>{i18n.t('edit-page.content.sections.existingSections') }</em></Subheader>
                     {this.showAllSections() }
                 </Dialog>
 

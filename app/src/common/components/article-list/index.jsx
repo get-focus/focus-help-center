@@ -22,16 +22,17 @@ export class ArticleList extends React.Component {
     static propTypes = {
         articleList: PropTypes.object,
         loadArticleList: PropTypes.func,
-        connected: PropTypes.bool
+        connected: PropTypes.bool,
+        isExtension: PropTypes.bool
     }
 
     state = {open: false};
 
     render() {
-        const {connected, articleList} = this.props;
+        const {connected, articleList, isExtension} = this.props;
         return (
             <div style={{flex: 1}}>
-                <List articleList={articleList} connected={connected} />
+                <List articleList={articleList} connected={connected} isExtension={isExtension}/>
             </div>
         );
     }

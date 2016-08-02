@@ -255,89 +255,77 @@
         }
     }
 
-    > .content {
+    > .edit-content {
         flex: 1 1 auto;
         display: flex;
-        flex-direction: column;
         z-index: 0;
 
+            .workspace {
+                flex: 1 1 50%;
+                display: flex;
+                flex-direction: column;
+                background: white;
 
-        > .header {
-            display: flex;
-            box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
-            z-index: 400;
+                > .header {
+                flex: 0 1 auto;
+                display: flex;
+                box-shadow: 0px 1px 10px 2px rgba(0,0,0,0.3);
+                z-index: 400;
 
-            > .edit {
-                flex: 1 1;
-                background-color: $dark-primary-color;
-                border-right: 1px solid #888;
-                padding: 15px;
+                > .edit {
+                    flex: 1 1;
+                    background-color: $dark-primary-color;
+                    border-right: 1px solid #888;
+                    padding-top: 15px;
+                    padding-bottom: 35px;
+                    padding-right: 15px;
 
-                > .save-button {
-                    float: right;
-                }
-
-                > .save-text {
-                    float: right;
-                    color: #CCC;
-                    padding: 8px;
-                }
-
-                > .error {
-                    color: #F44336;
-                    padding: 3px;
-                }
-
-                > .buttons > div > div {
-                    .material-icons {
-                        margin-top: 8px;
+                    > .save-button {
+                        float: right;
                     }
 
-                    i:not(.material-icons) {
-                        position: relative;
-                        left: -4px;
-                        font-style: normal;
+                    > .save-text {
+                        float: right;
+                        color: #CCC;
+                        padding: 8px;
                     }
 
-                    i {
-                        transition: color 0.1s ease-out;
+                    > .error {
+                        color: #F44336;
+                        padding: 3px;
                     }
 
-                    &:hover {
+                    > .buttons > div > div {
+                        .material-icons {
+                            margin-top: 8px;
+                        }
+
+                        i:not(.material-icons) {
+                            position: relative;
+                            left: -4px;
+                            font-style: normal;
+                        }
+
                         i {
-                            color: lighten($primary-color, 10%)
+                            transition: color 0.1s ease-out;
+                        }
+
+                        &:hover {
+                            i {
+                                color: lighten($primary-color, 10%)
+                            }
                         }
                     }
                 }
             }
 
-            > .preview {
-                flex: 1 1;
-                background-color: $light-primary-color;
-                padding: 15px;
-                border-left: 1px solid #888;
-
-                > h5 {
-                    text-transform: capitalize;
-                    color: white;
-                    font-weight: bold;
-                    font-size: 115%;
-                    margin: 8px;
-                }
-            }
-        }
-
-        > .workspace {
-            flex: 1 1 100px;
-            display: flex;
-
-            > .textarea {
+            .textarea {
                 background: white;
-                width: 50%;
                 border-right: 1px solid #888;
                 padding: 10px;
+                flex: 1 1 auto;
                 display: flex;
-                overflow: hidden;
+                height: 90%;
 
                 textarea {
                     width: 100%;
@@ -346,51 +334,83 @@
                     resize: none;
                     border: none;
                     outline: none;
+                    padding-bottom: 40px;
+                }
+            }
+        }
+
+        .display {
+            background: white;
+            flex: 1 1 50%;
+            border-left: 1px solid #888;
+            overflow-x: hidden;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                color: $primary-color;
+            }
+
+
+            blockquote {
+                padding: 10px 20px;
+                font-size: 18px;
+                border-left: 5px solid #eee;
+
+                p {
+                    margin: 0;
+                }
+
+                &:before, &:after {
+                    display: none;
                 }
             }
 
-            > .display {
-                background: white;
-                flex: 1 1 auto;
-                width: 50%;
-                border-left: 1px solid #888;
-                overflow-y: auto;
-                overflow-x: hidden;
-                padding: 15px 10px;
+            h1 {
+                font-size: 42px;
+            }
 
-                blockquote {
-                    padding: 10px 20px;
-                    font-size: 18px;
-                    border-left: 5px solid #eee;
+            h2 {
+                font-size: 34px;
+            }
 
-                    p {
-                        margin: 0;
-                    }
+            h3 {
+                font-size: 30px;
+            }
 
-                    &:before, &:after {
-                        display: none;
-                    }
-                }
-
-                h1 {
-                    font-size: 42px;
-                }
-
-                h2 {
-                    font-size: 34px;
-                }
-
-                h3 {
-                    font-size: 30px;
-                }
-
-                h5 {
-                    color: black;
-                }
+            h5 {
+                color: black;
             }
         }
     }
 }
+
 .new-section {
     text-transform: capitalize;
+}
+
+@media print {
+    header {
+        display: none !important;
+    }
+
+    .edit-page {
+        .parameter-panel, .parameter-drawer {
+            display: none !important;
+        }
+
+        .edit-content {
+            height: initial;
+            overflow: inherit;
+
+            .workspace {
+                display: none !important;
+            }
+
+            .display {
+                border: none;
+            }
+        }
+    }
 }
