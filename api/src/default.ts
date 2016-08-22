@@ -5,7 +5,7 @@ import expressJwt from 'express-jwt';
 import {articleService} from './services/article';
 import {articleSectionService} from './services/article-section';
 import {signinService} from './services/signin';
-import {swaggerService} from './swagger/index';
+import {swaggerService} from './swagger';
 import {sectionService} from './services/section';
 
 serveStatic('', app);

@@ -17,4 +17,4 @@ export interface IArticle {
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */
-export interface IArticleInstance extends Sequelize.Instance<{}, IArticle> { }
+export interface IArticleInstance extends Sequelize.Instance<IArticle> { }
