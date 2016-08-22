@@ -6,7 +6,7 @@ import {loadSectionList} from '../../actions/section-list';
 import {FlatButton, AutoComplete, List, Subheader, ListItem, Dialog, Checkbox} from 'material-ui';
 import {NavigationClose} from 'material-ui/svg-icons';
 
-@connect(
+export default connect<any, any, any>(
     state => ({
         article: state.articleDetail.article,
         sections: state.sectionList.list
@@ -16,8 +16,7 @@ import {NavigationClose} from 'material-ui/svg-icons';
         updateArticleSections: (article, attribute, sections, successHandler) => dispatch(updateArticleSections(article, attribute, sections, successHandler)),
         loadSectionList: () => dispatch(loadSectionList())
     })
-)
-export default class Sections extends React.Component<any, any> {
+)(class Sections extends React.Component<any, any> {
 
     static propTypes = {
         callAddSectionDialog: React.PropTypes.bool
@@ -244,4 +243,4 @@ export default class Sections extends React.Component<any, any> {
             </div>
         );
     }
-}
+});

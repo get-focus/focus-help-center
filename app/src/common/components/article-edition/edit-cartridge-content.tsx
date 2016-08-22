@@ -7,7 +7,8 @@ import {TextField, IconMenu, IconButton, MenuItem, Dialog, FlatButton} from 'mat
 import {State} from '../../store/default-state';
 import {capitalize} from 'lodash';
 
-@connect(
+export default withRouter(
+connect(
     (state: State) => ({
         article: state.articleDetail.article,
         connected: state.login.isConnected,
@@ -22,8 +23,7 @@ import {capitalize} from 'lodash';
         showEditPopup: () => dispatch(showEditPopup()),
         updateArticle: (attribute, value, successHandler) => dispatch(updateArticle(attribute, value, successHandler))
     })
-)
-class EditCartridgeContent extends React.Component<any, any> {
+)(class EditCartridgeContent extends React.Component<any, any> {
 
     goHome = () => this.props.router.push('');
 
@@ -167,6 +167,4 @@ class EditCartridgeContent extends React.Component<any, any> {
             </div>
         );
     }
-}
-
-export default withRouter(EditCartridgeContent);
+}));
