@@ -7,7 +7,7 @@ async function getArticle(url: string, block: string) {
     return await (await fetch(`http://localhost:1337/api/search?url=${url}&block=${block}`)).json<IArticle>();
 }
 
-describe.only('Search', () => {
+describe('Search', () => {
     describe('Standard cases', () => {
         it('"url=/projet, info=info" should return {url: "/projet", infos: "yolo info"} : request with exact URL and block gives exact article', mochaAsync(async () => {
             const article = await getArticle('/projet', 'info');

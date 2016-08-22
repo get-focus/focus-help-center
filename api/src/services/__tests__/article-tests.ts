@@ -3,7 +3,7 @@ import mochaAsync from '../../../test/mocha-async';
 import {IArticle} from '../../db/article';
 import {ISection} from '../../db/section';
 import {IArticleSection} from '../../db/article-section';
-import {article1, article2, article3} from '../../db/init-test-data';
+import {article1, article2, article3, article4} from '../../db/init-test-data';
 import {fetchWithLogin} from './login';
 
 describe('Article', () => {
@@ -21,7 +21,7 @@ describe('Article', () => {
             chai.expect(article.description).to.equal(article1.description);
         }));
         it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
-            const response = await (await fetch('http://localhost:1337/api/article/5')).json();
+            const response = await (await fetch('http://localhost:1337/api/article/88')).json();
             chai.expect(response).to.deep.equal({ error: 'No article found' });
         }));
     });
@@ -30,31 +30,24 @@ describe('Article', () => {
         it('should return only published articles when not connected', mochaAsync(async () => {
             const articles = await (await fetch('http://localhost:1337/api/article')).json<IArticle[]>();
             chai.expect(articles).to.be.a('array');
-            chai.expect(articles).to.have.length(2);
-            chai.expect(articles[0].title).to.equal(article1.title);
-            chai.expect(articles[1].description).to.equal(article2.description);
+            chai.expect(articles).to.have.length(6);
         }));
 
         it('should return only published articles with matching title/desc when not connected with filter', mochaAsync(async () => {
             const articles = await (await fetch('http://localhost:1337/api/article?filter=first')).json<IArticle[]>();
-            chai.expect(articles).to.have.length(1);
+            chai.expect(articles).to.have.length(3);
             chai.expect(articles[0].title).to.equal(article1.title);
         }));
 
         it('should return all articles when connected', mochaAsync(async () => {
             const articles = await (await fetchWithLogin('http://localhost:1337/api/article')).json<IArticle[]>();
             chai.expect(articles).to.be.a('array');
-            chai.expect(articles).to.have.length(3);
-            chai.expect(articles[0].title).to.equal(article1.title);
-            chai.expect(articles[1].description).to.equal(article2.description);
-            chai.expect(articles[2].content).to.equal(article3.content);
+            chai.expect(articles).to.have.length(7);
         }));
 
         it('should return all articles with matching title/desc when connected with filter', mochaAsync(async () => {
             const articles = await (await fetchWithLogin('http://localhost:1337/api/article?filter=first')).json<IArticle[]>();
-            chai.expect(articles).to.have.length(2);
-            chai.expect(articles[0].title).to.equal(article1.title);
-            chai.expect(articles[1].description).to.equal(article3.description);
+            chai.expect(articles).to.have.length(4);
         }));
     });
 
@@ -234,7 +227,7 @@ describe('Article', () => {
             chai.expect(response).to.deep.equal({ error: 'Cannot delete an article when not connected' });
         }));
         it('should return an error when the requested article doesn\'t exist', mochaAsync(async () => {
-            const response = await (await fetchWithLogin('http://localhost:1337/api/article/5', { method: 'DELETE' })).json();
+            const response = await (await fetchWithLogin('http://localhost:1337/api/article/99', { method: 'DELETE' })).json();
             chai.expect(response).to.deep.equal({ error: 'No article deleted' });
         }));
     });
