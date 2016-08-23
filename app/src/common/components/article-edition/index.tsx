@@ -5,8 +5,7 @@ import Sections from './sections';
 import i18n from 'i18next';
 import {loadArticle, clearArticle, updateArticle, clickEditInformations, clickEditUrl, showEditPopup} from '../../actions/article-detail';
 import {TextField, FlatButton, IconButton, List, Subheader} from 'material-ui';
-import {capitalize, upperCase } from 'lodash';
-import {Action} from '../../actions/';
+import {capitalize, upperCase} from 'lodash';
 
 import {State} from '../../store/default-state';
 

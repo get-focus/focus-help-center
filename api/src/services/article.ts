@@ -208,7 +208,7 @@ export function articleService(prefix: string, app: express.Application) {
      */
     app.get(/\/api\/article(\?filter=:filter)?/, async (req, res) => {
         let {filter} = req.query;
-        const order = [fn('lower', col('title')), fn('lower', col('description'))];
+        const order: any = [fn('lower', col('title')), fn('lower', col('description'))];
         if (filter) {
             const like = or({ title: { like: `%${filter}%` } }, { description: { like: `%${filter}%` } });
             if (req.user && req.user.signedIn) {

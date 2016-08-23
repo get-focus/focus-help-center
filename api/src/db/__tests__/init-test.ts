@@ -1,3 +1,5 @@
+/// <reference types="mocha" />
+
 import {sequelize} from '../';
 import mochaAsync from '../../../test/mocha-async';
 

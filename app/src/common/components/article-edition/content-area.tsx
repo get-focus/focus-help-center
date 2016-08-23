@@ -7,7 +7,8 @@ import {RaisedButton, LinearProgress, Paper, FlatButton} from 'material-ui';
 import {SimpleMarkdownEditor} from 'react-simple-markdown-editor';
 import {withRouter} from 'react-router';
 
-@connect(
+export default withRouter(
+connect(
     (state) => ({
         article: state.articleDetail.article,
         content: state.articleDetail.article.content,
@@ -16,8 +17,7 @@ import {withRouter} from 'react-router';
         error: state.articleDetail.error
     }),
     dispatch => ({ updateArticle: (content, successHandler) => dispatch(updateArticle('content', content, successHandler)) })
-)
-class ContentArea extends React.Component<any, any> {
+)(class ContentArea extends React.Component<any, any> {
     state = { content: this.props.content };
 
     md = new Markdown({ linkTarget: '_blank' });
@@ -111,6 +111,4 @@ class ContentArea extends React.Component<any, any> {
             </div>
         );
     }
-}
-
-export default withRouter(ContentArea);
+}));

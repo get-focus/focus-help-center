@@ -5,7 +5,7 @@ import i18n from 'i18next';
 import {RaisedButton, FontIcon} from 'material-ui';
 
 /** Component that displays an article as a line. */
-export function ArticleLine({isExtension, article: {id, title, description, published}, canEdit}: { article: Article, canEdit: boolean }) {
+export function ArticleLine({isExtension, article: {id, title, description, published}, canEdit}: { isExtension: boolean, article: Article, canEdit: boolean }) {
     return (
         <div className={`${isExtension ? ' extension-item' : 'item'}`}>
             <i className='material-icons'>description</i>

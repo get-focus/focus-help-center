@@ -7,4 +7,4 @@ interface IArticleSection {
 }
 
 /** Represents the article instance for the ORM (ie the object returned by queries) */
-interface IArticleSectionInstance extends Sequelize.Instance<{}, IArticleSection> { }
+interface IArticleSectionInstance extends Sequelize.Instance<IArticleSection> { }

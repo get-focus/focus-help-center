@@ -44,7 +44,7 @@ export function sectionService(prefix: string, app: express.Application) {
     });
 
     app.get(`${prefix}/api/section`, async (req, res) => {
-        const order = [fn('lower', col('name'))];
+        const order: any = [fn('lower', col('name'))];
         try {
             if (req.user && req.user.signedIn) {
                 const sections = ((await Section.findAll({ order })).map(section => section.get()));

@@ -14,7 +14,9 @@ describe('rootReducer', () => {
                     article: defaultState.articleDetail.article,
                     showPopup: false,
                     isEditDescription: false,
-                    isEditTitle: false
+                    isEditTitle: false,
+                    isEditInformations: false,
+                    isEditUrl: false
                 });
             });
         });
@@ -27,7 +29,9 @@ describe('rootReducer', () => {
                     article: apiMockData.getArticle,
                     showPopup: false,
                     isEditDescription: false,
-                    isEditTitle: false
+                    isEditTitle: false,
+                    isEditInformations: false,
+                    isEditUrl: false
                 });
             });
         });
@@ -40,7 +44,9 @@ describe('rootReducer', () => {
                     article: defaultState.articleDetail.article,
                     showPopup: false,
                     isEditDescription: false,
-                    isEditTitle: false
+                    isEditTitle: false,
+                    isEditInformations: false,
+                    isEditUrl: false
                 });
             });
         });
@@ -54,7 +60,9 @@ describe('rootReducer', () => {
                     article: defaultState.articleDetail.article,
                     showPopup: false,
                     isEditDescription: false,
-                    isEditTitle: false
+                    isEditTitle: false,
+                    isEditInformations: false,
+                    isEditUrl: false
                 });
             });
         });
@@ -172,7 +180,7 @@ describe('rootReducer', () => {
             });
 
             it('should update correctly the state with a RECEIVE_LOGIN action', () => {
-                chai.expect(newState.login).to.deep.equal({isConnected: true, isLoading: false});
+                chai.expect(newState.login).to.deep.equal({isConnected: true, isLoading: false, userName: undefined});
             });
         });
 
