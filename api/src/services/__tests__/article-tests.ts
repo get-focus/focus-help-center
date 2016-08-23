@@ -3,7 +3,7 @@ import mochaAsync from '../../../test/mocha-async';
 import {IArticle} from '../../db/article';
 import {ISection} from '../../db/section';
 import {IArticleSection} from '../../db/article-section';
-import {article1, article2, article3, article4} from '../../db/init-test-data';
+import {article1, article2} from '../../db/init-test-data';
 import {fetchWithLogin} from './login';
 
 describe('Article', () => {

@@ -60,5 +60,9 @@ export const api: Api = {
 
     async getSection() {
         return apiMockData.getSection;
-    }
+    },
+
+    async searchArticle() {
+        return apiMockData.getArticle;
+    },
 };

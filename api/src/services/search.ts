@@ -8,7 +8,7 @@ function formatUrl(url: string) {
     if (url && url[0] === '/') {
         urlF = url.substring(1);
     }
-    return urlF.replace(/[0-9]+/g, '.');
+    return urlF && urlF.replace(/[0-9]+/g, '.');
 }
 
 export function searchService(prefix: string, app: express.Application) {
@@ -24,7 +24,7 @@ export function searchService(prefix: string, app: express.Application) {
 
         // 1. Search for a unique match on the block.
         if (block) {
-            const matches = articles.filter(article => article.informations.includes(block));
+            const matches = articles.filter(article => article.informations && article.informations.includes(block));
 
             // An empty URL means we can't be any more precise in our search, so we arbitrarily choose the first article when we have matches.
             if (matches.length === 1 || !url && matches.length > 0) {
@@ -37,7 +37,7 @@ export function searchService(prefix: string, app: express.Application) {
         }
 
         // 2. Search for matches with both url and block (or only the URL if the block is empty).
-        if (searchForUrl(article => formatUrl(article.url) === url && (!block || article.informations.includes(block)))) {
+        if (searchForUrl(article => formatUrl(article.url) === url && (!block || article.informations && article.informations.includes(block)))) {
             return;
         }
 
@@ -51,7 +51,7 @@ export function searchService(prefix: string, app: express.Application) {
 
         // 4. Finally, if we still haven't found an article, it is possible that the URL could be incorrect with a correct block.
         if (block) {
-            const matches = articles.filter(article => article.informations.includes(block));
+            const matches = articles.filter(article => article.informations && article.informations.includes(block));
 
             // Once again, we can't know which article it is with multiple matches.
             if (matches.length > 1) {
@@ -78,7 +78,7 @@ export function searchService(prefix: string, app: express.Application) {
                     return true;
                 }
 
-                 // If there are more than one match, we'll filter the matches again to remove articles that have a block.
+                // If there are more than one match, we'll filter the matches again to remove articles that have a block.
                 if (matches.length > 1) {
                     const matchesWithoutBlock = matches.filter(article => !article.informations);
 
