@@ -33,4 +33,7 @@ export interface Api {
 
     /** Loads a section. */
     getSection: (id: number) => Promise<Section>;
+
+    /** Search an article by its url and block. */
+    searchArticle: (url: string, block: string) => Promise<Article | boolean>;
 }

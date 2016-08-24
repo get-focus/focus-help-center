@@ -4,6 +4,7 @@ import expressJwt from 'express-jwt';
 
 import {articleService} from './services/article';
 import {articleSectionService} from './services/article-section';
+import {searchService} from './services/search';
 import {signinService} from './services/signin';
 import {swaggerService} from './swagger';
 import {sectionService} from './services/section';
@@ -24,6 +25,7 @@ if (process.env.DB_ENV === 'test') {
 }
 
 articleService('', app);
+searchService('', app);
 configService('', app);
 swaggerService('', app);
 

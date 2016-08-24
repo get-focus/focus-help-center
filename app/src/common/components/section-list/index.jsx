@@ -53,7 +53,7 @@ export class SectionList extends React.Component {
                 {sections && sections.length > 0 ?
                     sections.map((section, index) => {
                         return (
-                            <div>
+                            <div key={index}>
                                 <button className={`accordion${+sectionID === section.id ? ' active' : ''}`} onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
                                 <div className={`panel${+sectionID === section.id ? ' show' : ''}`}>
                                     {+sectionID === section.id ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}

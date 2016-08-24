@@ -6,8 +6,8 @@ import {connect} from 'react-redux';
 
 export default connect(
     state => ({section: state.sectionDetail.section})
-)(function HomeView({params, section, ...props}) {
-    let pathSplit = props.route.path.split('/');
+)(function HomeView({params, section, route}) {
+    let pathSplit = route.path.split('/');
     return (
         <div>
         <HomeLayout Content={<ArticleListTitle />}>

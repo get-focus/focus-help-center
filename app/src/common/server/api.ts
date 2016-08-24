@@ -20,6 +20,10 @@ async function fetchWithLogin(url: string, options?) {
     }
 }
 
+function isArticle(data: {}): data is Article {
+    return !!(data as Article).title;
+}
+
 /** Api object to call the server. */
 export const api: Api = {
     async loadArticleList(filter?: string) {
@@ -61,7 +65,7 @@ export const api: Api = {
             }
         });
         const data = await response.json<Article | { error: string }>();
-        if ((data as Article).title) {
+        if (isArticle(data)) {
             return data;
         } else {
             throw new Error((data as { error }).error);
@@ -100,7 +104,7 @@ export const api: Api = {
     async getArticle(id) {
         const response = await fetchWithLogin(`${apiRoot}/api/article/${id}`, { method: 'GET' });
         const data = await response.json<Article | { error: string }>();
-        if ((data as Article).title) {
+        if (isArticle(data)) {
             return data;
         } else {
             throw new Error((data as { error }).error);
@@ -119,6 +123,16 @@ export const api: Api = {
             return data;
         } else {
             throw new Error((data as { error }).error);
+        }
+    },
+
+    async searchArticle(url, block) {
+        const response = await fetchWithLogin(`${apiRoot}/api/search?url=${url || ''}&block=${block || ''}`);
+        const data = await response.json<Article | {success: boolean}>();
+        if (isArticle(data)) {
+            return data;
+        } else {
+            return false;
         }
     }
 };
