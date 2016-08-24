@@ -43,7 +43,7 @@ export function searchService(prefix: string, app: express.Application) {
 
         // 3. If we still do not have a match but we still have both and url and a block, we start examining the URL again with no regard to the block.
         if (block && url) {
-            url = req.query.url;
+            url = formatUrl(req.query.url);
             if (searchForUrl(article => formatUrl(article.url) === url)) {
                 return;
             }
