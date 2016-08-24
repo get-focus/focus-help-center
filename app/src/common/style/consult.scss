@@ -42,7 +42,7 @@
     }
 
     .article-card {
-        padding: 20px 40px;
+        padding: 20px 40px 0;
         width: auto;
 
         .top-header {
@@ -72,10 +72,6 @@
                     font-size: 32px;
                 }
             }
-        }
-
-        .article-extension {
-            padding-top: 25px;
         }
 
         #article {

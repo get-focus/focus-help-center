@@ -10,9 +10,9 @@ export default connect(
     let pathSplit = route.path.split('/');
     return (
         <div>
-        <HomeLayout Content={<ArticleListTitle />}>
-            <SectionList sectionID={pathSplit[1] === 'sections' && params.id ? params.id : section.id ? section.id : pathSplit[1] === 'sections' && !params.id ? 'all' : null}/>
-        </HomeLayout>
-    </div>
+            <HomeLayout Content={<ArticleListTitle />}>
+                <SectionList sectionID={pathSplit[1] === 'sections' && params.id ? params.id : section.id ? section.id : pathSplit[1] === 'sections' && !params.id ? 'all' : null}/>
+            </HomeLayout>
+        </div>
     );
 });

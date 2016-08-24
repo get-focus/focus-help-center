@@ -10,10 +10,10 @@ export function Home() {
     return (
         <div className='layout'>
             <header>
-                <ArticleListTitle isExtension={true}/>
+                <ArticleListTitle isExtension={true} />
             </header>
             <div className='content'>
-                <ArticleList isExtension={true}/>
+                <ArticleList isExtension={true} />
             </div>
             <footer>
                 <a href={backOfficeUrl} target='_blank'>
