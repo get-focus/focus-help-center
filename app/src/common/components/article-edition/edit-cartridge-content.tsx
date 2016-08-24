@@ -25,6 +25,10 @@ connect(
     })
 )(class EditCartridgeContent extends React.Component<any, any> {
 
+    static contextTypes = {
+        muiTheme: React.PropTypes.object.isRequired
+    };
+
     goHome = () => this.props.router.push('');
 
     deleteArticle = () => {
@@ -65,18 +69,18 @@ connect(
         const since = i18n.t('edit-cartridge.content.since');
 
         if (diff === 0) {
-            return <div className='time'>{data === 'publish' ? publishedText : updatedText} {i18n.t('edit-cartridge.content.todayAt')} {`${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`}</div>;
+            return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>{data === 'publish' ? publishedText : updatedText} {i18n.t('edit-cartridge.content.todayAt')} {`${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`}</div>;
         } else if (diff === 1) {
-            return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {i18n.t('edit-cartridge.content.yesterdayAt')} {`${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`}`</div>;
+            return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>`{data === 'publish' ? publishedText : updatedText} {i18n.t('edit-cartridge.content.yesterdayAt')} {`${date.getHours()}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}`}`</div>;
         } else if (diff > 1) {
-            return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {diff} {i18n.t('edit-cartridge.content.days')}</div>;
+            return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>{data === 'publish' ? publishedText : updatedText} {since} {diff} {i18n.t('edit-cartridge.content.days')}</div>;
         } else if (diff > 29) {
-            return <div className='time'>`{data === 'publish' ? publishedText : updatedText} {since} {month} {i18n.t('edit-cartridge.content.months')}</div>;
+            return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>`{data === 'publish' ? publishedText : updatedText} {since} {month} {i18n.t('edit-cartridge.content.months')}</div>;
         } else if (month => 12) {
             if (year === 1) {
-                return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.year')}</div>;
+                return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.year')}</div>;
             } else {
-                return <div className='time'>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.years')}</div>;
+                return <div className='time' style={{color: this.context['muiTheme'].palette.primary2Color}}>{data === 'publish' ? publishedText : updatedText} {since} {year} {i18n.t('edit-cartridge.content.years')}</div>;
             }
         }
     }
@@ -90,7 +94,7 @@ connect(
         return (
             <div className='edit-cartridge'>
                 <div className='left'>
-                    <div className={`title ${isEditTitle ? 'editing' : ''}`}>
+                    <div className={`title ${isEditTitle ? 'editing' : ''}`} style={isEditTitle ? {backgroundColor: this.context['muiTheme'].palette.primary3Color} : {}}>
                         {isEditTitle ?
                             <TextField
                                 name='title'
@@ -111,7 +115,7 @@ connect(
                             <i className='material-icons'>{isEditTitle ? 'undo' : 'edit'}</i>
                         </IconButton>
                     </div>
-                    <div className={`description ${isEditDescription ? 'editing' : ''}`}>
+                    <div className={`description ${isEditDescription ? 'editing' : ''}`} style={isEditDescription ? {backgroundColor: this.context['muiTheme'].palette.primary3Color} : {}}>
                         {isEditDescription ?
                             <TextField
                                 name='description'

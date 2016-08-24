@@ -10,7 +10,8 @@ import {capitalize, upperCase} from 'lodash';
 import {State} from '../../store/default-state';
 
 export class EditPage extends React.Component<any, any> {
-    static propTypes = { id: React.PropTypes.number };
+    static propTypes = {id: React.PropTypes.number};
+    static contextTypes = {muiTheme: React.PropTypes.object};
 
     state = { isVisible: false, dialogOpen: false };
 
@@ -67,7 +68,7 @@ export class EditPage extends React.Component<any, any> {
                         <div className='section-title'>{i18n.t('edit-page.content.context-url') }</div>
                     </Subheader>
                     <div className='left'>
-                        <div className={`url ${isEditUrl ? 'editing' : ''}`}>
+                        <div className={`url ${isEditUrl ? 'editing' : ''}`} style={isEditUrl ? {backgroundColor: this.context['muiTheme'].palette.primary3Color} : {}}>
                             {isEditUrl ?
                                 <TextField
                                     name='url'
@@ -95,7 +96,7 @@ export class EditPage extends React.Component<any, any> {
                         <div className='section-title' style={{ display: 'flex' }}>{i18n.t('edit-page.content.bloc-information') }</div>
                     </Subheader>
                     <div className='left'>
-                        <div className={`informations ${isEditInformations ? 'editing' : ''}`}>
+                        <div className={`informations ${isEditInformations ? 'editing' : ''}`} style={isEditInformations ? {backgroundColor: this.context['muiTheme'].palette.primary3Color} : {}}>
                             {isEditInformations ?
                                 <TextField
                                     name='informations'

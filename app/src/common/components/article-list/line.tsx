@@ -21,7 +21,7 @@ export function ArticleLine({isExtension, article: {id, title, description, publ
             {canEdit ?
                 <Link className='button' to={`edit-article/${id}`}>
                     <RaisedButton
-                        primary={true}
+                        secondary={true}
                         label={i18n.t('article-list.item.edit') }
                         style={{borderRadius: '5px'}}
                         icon={<FontIcon color='white' className='material-icons'>edit</FontIcon>}

@@ -6,10 +6,10 @@ import {FlatButton} from 'material-ui';
 import i18n from 'i18next';
 import {backOfficeUrl} from '../../../common/server/config';
 
-export function Home() {
+export function Home(props, {muiTheme}) {
     return (
         <div className='layout'>
-            <header>
+            <header style={{backgroundColor: muiTheme.palette.primary1Color}}>
                 <ArticleListTitle isExtension={true} />
             </header>
             <div className='content'>
@@ -29,3 +29,7 @@ export function Home() {
         </div>
     );
 }
+
+Home.contextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+};

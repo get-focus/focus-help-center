@@ -10,8 +10,8 @@ import {withRouter} from 'react-router';
 import {appUrl} from '../../../common/server/config';
 
 /** Home-Layout component. */
-@withRouter
-@connect(
+export default withRouter(
+connect(
     state => ({
         snackBar: state.snackBar,
         connected: state.login.isConnected
@@ -20,11 +20,14 @@ import {appUrl} from '../../../common/server/config';
         saveArticle: (title, description) => dispatch(saveArticle({title, description})),
         showSnackBar: data => dispatch(showSnackBar(data))
     })
-)
-export default class HomeLayout extends Component {
+)(class HomeLayout extends Component {
 
     static propTypes = {
         Content: PropTypes.object
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired
     };
 
     state = {open: false};
@@ -75,7 +78,7 @@ export default class HomeLayout extends Component {
         const showStyle = {transform: 'scale(1)', transition: '0.6 ease-in-out'};
         return (
             <div className='home-layout'>
-                <div className='ribbon'>
+                <div className='ribbon' style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
                     <div className='top'>
                         <div className='left'>
                             <div className='left-top'>
@@ -113,9 +116,9 @@ export default class HomeLayout extends Component {
                     autoHideDuration={timeout}
                     action={actionText}
                     onActionTouchTap={actionHandler}
-                    onRequestClose={() => this.props.dispatch(showSnackBar()) }
+                    onRequestClose={() => this.props.dispatch(showSnackBar())}
                     bodyStyle={{backgroundColor: isError ? red500 : green500}}
-                    />
+                />
                 <FloatingActionButton secondary={true} onClick={() => this.toggleModal() } className='add-button' ref='createFAB' style={this.props.connected ? showStyle : notShowStyle}>
                     <i className='material-icons'>add</i>
                 </FloatingActionButton>
@@ -123,7 +126,7 @@ export default class HomeLayout extends Component {
 
                 <Dialog
                     title={i18n.t('article.create.dialog') }
-                    actions={[<FlatButton label={i18n.t('article.create.confirm') } primary={true} onClick={() => this.saveArticle() } />]}
+                    actions={[<FlatButton label={i18n.t('article.create.confirm') } primary={true} onClick={() => this.saveArticle()} />]}
                     open={this.state.open}
                     onRequestClose={() => this.toggleModal() }
                     >
@@ -136,4 +139,4 @@ export default class HomeLayout extends Component {
             </div>
         );
     }
-}
+}));

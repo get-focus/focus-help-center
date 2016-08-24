@@ -9,14 +9,19 @@ import {appUrl} from '../../../common/server/config';
 import {withRouter, Link} from 'react-router';
 
 /** Layout component. */
-@withRouter
-@connect(state => ({snackBar: state.snackBar}))
-export default class Layout extends Component {
+export default withRouter(
+connect(
+    state => ({snackBar: state.snackBar})
+)(class Layout extends Component {
 
     static propTypes = {
         BarMiddle: PropTypes.node,
         Content: PropTypes.object,
         actions: PropTypes.object
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired
     };
 
     state = {open: false};
@@ -33,8 +38,8 @@ export default class Layout extends Component {
     render() {
         const {children, Content, actions, snackBar: {show, message, timeout, actionText, actionHandler, isError}} = this.props;
         return (
-            <div className='layout'>
-                <header>
+            <div className='layout' style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
+                <header style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
                     <div className='header-top'>
                         <div className='header-left'>
                             <FlatButton onClick={() => this.props.router.push('/home') } icon={<i className="material-icons">keyboard_backspace</i>} labelPosition='after' label={'Retour'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} />
@@ -113,4 +118,4 @@ export default class Layout extends Component {
             </div>
         );
     }
-}
+}));

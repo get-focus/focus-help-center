@@ -9,13 +9,18 @@ import {withRouter} from 'react-router';
 import {appUrl} from '../../../common/server/config';
 
 /** Home-Layout component. */
-@withRouter
-@connect(state => ({snackBar: state.snackBar}))
-export default class ConsultLayout extends Component {
+export default withRouter(
+connect(
+    state => ({snackBar: state.snackBar})
+)(class ConsultLayout extends Component {
 
     static propTypes = {
         Content: PropTypes.object,
         isSearch: PropTypes.bool
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired
     };
 
     state = {open: false};
@@ -26,7 +31,7 @@ export default class ConsultLayout extends Component {
         const {applicationName, children, Content, snackBar: {show, message, timeout, actionText, actionHandler, isError}, isSearch} = this.props;
         return (
             <div className='consult-layout'>
-                <div className='ribbon'>
+                <div className='ribbon' style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
                     <div className='top'>
                         <div className='left'>
                             <div className='left-top'>
@@ -55,7 +60,7 @@ export default class ConsultLayout extends Component {
                 </div>
                 <div className='card'>
                     <Paper style={{display: 'flex', flexDirection: 'column', marginBottom: '50px'}} zDepth={1} className='paper'>
-                        {isSearch ? <h2 className='search-title'>résultats</h2> : null}
+                        {isSearch ? <h2 className='search-title' style={{color: this.context.muiTheme.palette.primary1Color}}>résultats</h2> : null}
                         {children}
                     </Paper>
                 </div>
@@ -71,4 +76,4 @@ export default class ConsultLayout extends Component {
             </div>
         );
     }
-}
+}));

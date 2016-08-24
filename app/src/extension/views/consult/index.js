@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../style';
-import {ArticleConsult} from '../../../common/components/article-consult';
+import ArticleConsult from '../../../common/components/article-consult';
 import {IconButton} from 'material-ui';
 import {browserHistory} from 'react-router';
 import {backOfficeUrl} from '../../../common/server/config';
@@ -17,7 +17,7 @@ function renderRightContent(params) {
     return (
         <div>
             <a href={`${backOfficeUrl}#/article/${params.id}`} target='_blank'>
-                <IconButton >
+                <IconButton>
                     <i className="material-icons">open_in_new</i>
                 </IconButton>
             </a>

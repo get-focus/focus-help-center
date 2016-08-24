@@ -5,8 +5,8 @@ import i18n from 'i18next';
 import {AutoComplete, MenuItem} from 'material-ui';
 import {withRouter} from 'react-router';
 
-@withRouter
-@connect(
+export default withRouter(
+connect(
     state => ({
         filter: state.articleList.filter,
         loading: state.articleList.isLoading,
@@ -17,8 +17,7 @@ import {withRouter} from 'react-router';
         search: filter => dispatch(searchArticleList(filter)),
         loadArticleList: () => dispatch(loadArticleList())
     })
-)
-export default class ArticleListTitle extends React.Component {
+)(class ArticleListTitle extends React.Component {
 
     state = {
         value: ''
@@ -26,6 +25,10 @@ export default class ArticleListTitle extends React.Component {
 
     static propTypes = {
         isExtension: PropTypes.bool
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object
     };
 
     static defaultProps = {
@@ -45,7 +48,7 @@ export default class ArticleListTitle extends React.Component {
         const {filter, search, error, articleList, isExtension} = this.props;
         return (
             <div className='article-list-header'>
-                <div className='top-search'>
+                <div className='top-search' style={{backgroundColor: this.context.muiTheme.palette.primary3Color}}>
                     <i className='material-icons' style={{color: 'white'}}>search</i>
                     <div className='search-bar'>
                         <AutoComplete
@@ -55,8 +58,14 @@ export default class ArticleListTitle extends React.Component {
                             hintText={i18n.t('search.placeholder') }
                             hintStyle={{color: '#DDD', bottom: '10px'}}
                             inputStyle={{color: 'white'}}
-                            onFocus={e => e.target.parentNode.parentNode.parentNode.parentNode.className += ' focused'}
-                            onBlur={e => e.target.parentNode.parentNode.parentNode.parentNode.className = 'top-search'}
+                            onFocus={e => {
+                                e.target.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = 'transparent';
+                                e.target.parentNode.parentNode.parentNode.parentNode.style.boxShadow = '0px 1px 3px rgba(0,0,0,0.3)';
+                            }}
+                            onBlur={e => {
+                                e.target.parentNode.parentNode.parentNode.parentNode.style.backgroundColor = this.context.muiTheme.palette.primary3Color;
+                                e.target.parentNode.parentNode.parentNode.parentNode.style.boxShadow = undefined;
+                            }}
                             style={{width: isExtension ? '280px' : '350px', marginTop: '-5px'}}
                             onUpdateInput={e => search(e) }
                             filter={() => articleList.map(article => article.title) }
@@ -84,4 +93,4 @@ export default class ArticleListTitle extends React.Component {
             </div>
         );
     }
-}
+}));
