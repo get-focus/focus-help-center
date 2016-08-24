@@ -42,7 +42,7 @@
     }
 
     .article-card {
-        padding: 20px 40px;
+        padding: 20px 40px 0;
         width: auto;
 
         .top-header {
@@ -74,18 +74,10 @@
             }
         }
 
-        .article-extension {
-            padding-top: 25px;
-        }
-
         #article {
             left: 0px;
             display: block;
             padding-bottom: 25px;
-
-            > h2 {
-                color: $primary-color;
-            }
         }
     }
 }

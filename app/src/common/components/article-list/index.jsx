@@ -28,6 +28,12 @@ export class ArticleList extends React.Component {
 
     state = {open: false};
 
+    componentWillMount() {
+        if (this.props.isExtension) {
+            this.props.loadArticleList();
+        }
+    }
+
     render() {
         const {connected, articleList, isExtension} = this.props;
         return (

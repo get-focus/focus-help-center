@@ -4,11 +4,11 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {configureStore} from '../store';
 import {i18nInit} from '../i18n';
-import {getConfig} from '../server/config';
+import {getConfig, primaryColor, primaryColorDark, primaryColorLight, accentColor} from '../server/config';
 i18nInit();
 
 import {MuiThemeProvider, getMuiTheme} from 'material-ui/styles';
-import {blue500, pink400, white} from 'material-ui/styles/colors';
+import {blue100, blue500, blue700, pink400, white} from 'material-ui/styles/colors';
 import touch from 'react-tap-event-plugin';
 touch();
 
@@ -29,19 +29,19 @@ export class HelpCenterBase extends React.Component {
                     :
                     <MuiThemeProvider muiTheme={getMuiTheme({
                         palette: {
-                            primary1Color: blue500,
-                            accent1Color: pink400
+                            primary1Color: primaryColor || blue500,
+                            primary2Color: primaryColorDark || blue100,
+                            primary3Color: primaryColorLight || blue700,
+                            accent1Color: accentColor || pink400
                         },
                         floatingActionButton: {
-                            secondaryColor: pink400,
-                            secondaryIconColor: white
+                            secondaryColor: accentColor || pink400
                         },
                         snackbar: {
                             actionColor: white
                         }
-                    }) }>
-                        <Provider store={configureStore() }>
-
+                    })}>
+                        <Provider store={configureStore()}>
                             <div className='app'>
                                 {this.props.children}
                             </div>

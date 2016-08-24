@@ -18,6 +18,11 @@ connect(
     }),
     dispatch => ({ updateArticle: (content, successHandler) => dispatch(updateArticle('content', content, successHandler)) })
 )(class ContentArea extends React.Component<any, any> {
+
+    static contextTypes = {
+        muiTheme: React.PropTypes.object.isRequired
+    };
+
     state = { content: this.props.content };
 
     md = new Markdown({ linkTarget: '_blank' });
@@ -48,7 +53,7 @@ connect(
             <div className='edit-content'>
                 <div className='workspace'>
                     <div className='header'>
-                        <div className='edit'>
+                        <div className='edit' style={{backgroundColor: this.context['muiTheme'].palette.primary3Color}}>
                             <div className='buttons' onClick={this.handleChange}>
                                 <SimpleMarkdownEditor
                                     textAreaID='textarea'
@@ -104,7 +109,7 @@ connect(
                                 style={{float: 'right'}}
                                 />
                         </header>
-                        <h2 className='title'>{this.props.article.title}</h2>
+                        <h2 className='title' style={{color: this.context['muiTheme'].palette.primary1Color}}>{this.props.article.title}</h2>
                         <div  dangerouslySetInnerHTML={this.rawMarkup() } style={{ paddingBottom: 15 }}/>
                     </Paper>
                 </div>

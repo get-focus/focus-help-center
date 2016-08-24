@@ -6,8 +6,8 @@ import {CircularProgress, FlatButton} from 'material-ui';
 import i18n from 'i18next';
 import {withRouter} from 'react-router';
 
-@withRouter
-@connect(
+export default withRouter(
+connect(
     state => ({
         article: state.articleDetail.article,
         isLoading: state.articleDetail.isLoading,
@@ -15,11 +15,14 @@ import {withRouter} from 'react-router';
         isConnected: state.login.isConnected
     }),
     dispatch => ({loadArticle: id => dispatch(loadArticle(id))})
-)
-export class ArticleConsult extends React.Component {
+)(class ArticleConsult extends React.Component {
 
     static propTypes = {
         isExtension: PropTypes.bool
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired
     };
 
     static defaultProps = {
@@ -38,7 +41,7 @@ export class ArticleConsult extends React.Component {
         return (
             <div className='article-consult'>
                 {isExtension ?
-                    <header>
+                    <header style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
                         <div className='left-content'>
                             {leftContent? leftContent : <div/>}
                         </div>
@@ -72,8 +75,8 @@ export class ArticleConsult extends React.Component {
                         <div className='error'><i className='material-icons'>error</i><div>{error}</div></div>
                         : null}
                     {!isLoading ?
-                        <div id='article' className={`${isExtension ? 'article-extension' : ''}`}>
-                            <h2>{article.title}</h2>
+                        <div id='article'>
+                            <h2 style={{color: this.context.muiTheme.palette.primary1Color}}>{article.title}</h2>
                             <div dangerouslySetInnerHTML={this.rawMarkup() } />
                         </div>
                         : null}
@@ -81,4 +84,4 @@ export class ArticleConsult extends React.Component {
             </div>
         );
     }
-}
+}));
