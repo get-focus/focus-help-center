@@ -7,8 +7,8 @@ import {ArticleList} from '../article-list';
 import ReactDOM from 'react-dom';
 import i18n from 'i18next';
 
-@withRouter
-@connect(
+export default withRouter(
+connect(
     state => ({
         sections: state.sectionList.list,
         sectionDetail: state.sectionDetail,
@@ -21,8 +21,11 @@ import i18n from 'i18next';
         getArticles: (sectionId) => dispatch(getArticles(sectionId)),
         search: () => dispatch(searchArticleList())
     })
-)
-export class SectionList extends React.Component {
+)(class SectionList extends React.Component {
+
+    static contextTypes = {
+        muiTheme: React.PropTypes.object.isRequired
+    }
 
     state = {
         elementHeight: null
@@ -45,19 +48,20 @@ export class SectionList extends React.Component {
 
     renderSectionList = () => {
         const {sections, sectionID} = this.props;
+        const {primary3Color} = this.context.muiTheme.palette;
         return (
             <div>
-                <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>{i18n.t('back-office.layout.articles') }</button>
+                <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} style={{backgroundColor: sectionID === 'all' ? primary3Color : undefined}} onClick={() => this.onClickHandler(null, 0)} ref={`button${0}`}>{i18n.t('back-office.layout.articles')}</button>
                 <div className={`panel${sectionID === 'all' ? ' show' : ''}`} >
-                    {sectionID === 'all' ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}
+                    {sectionID === 'all' ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDD'}}/>}
                 </div>
                 {sections && sections.length > 0 ?
                     sections.map((section, index) => {
                         return (
                             <div key={index}>
-                                <button className={`accordion${+sectionID === section.id ? ' active' : ''}`} onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
+                                <button className={`accordion${+sectionID === section.id ? ' active' : ''}`} style={{backgroundColor: +sectionID === section.id ? primary3Color : undefined}} onClick={() => this.onClickHandler(section.id, index+1) } ref={`button${index+1}`}>{section.name}</button>
                                 <div className={`panel${+sectionID === section.id ? ' show' : ''}`}>
-                                    {+sectionID === section.id ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}
+                                    {+sectionID === section.id ? <ArticleList ref='openedArticlelist' /> : <div style={{height: this.state.elementHeight, background: '#DDD'}}/>}
                                 </div>
                             </div>
                         );
@@ -98,4 +102,4 @@ export class SectionList extends React.Component {
             </div>
         );
     }
-}
+}));

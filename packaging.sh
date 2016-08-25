@@ -4,6 +4,7 @@ npm run build
 cd ../app
 npm run build
 cd ..
+mkdir -p dist/app
 cp api/dist/. dist/ -R
 rm -rf dist/db/db.sqlite
 rm -rf dist/docs

@@ -50,10 +50,13 @@
 
     .item {
         cursor: pointer;
-        background: #727272;
         padding: 15px;
         display: flex;
         transition: background 0.1s ease-out;
+
+        &[style]:hover {
+            background: rgba(0,0,0,0.5) !important;
+        }
 
         > .material-icons {
             color: white;

@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeLayout from './home-layout';
-import {SectionList} from '../../../common/components/section-list';
+import SectionList from '../../../common/components/section-list';
 import ArticleListTitle from '../../../common/components/article-list/title';
 import {connect} from 'react-redux';
 

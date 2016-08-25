@@ -13,7 +13,7 @@
     }
 
     button.accordion {
-        background: #fff;
+        background: white;
         color: #444;
         cursor: pointer;
         padding: 18px;
@@ -28,20 +28,15 @@
     }
 
     button.accordion.active {
-        background: #727272;
         color: white;
-        border: 1px solid #727272;
         font-weight: bold;
         font-size: 21px;
+        border-color: #333;
         transition: font-size 0.1s ease-in;
     }
 
     button.accordion:hover {
         background: #ddd;
-    }
-
-    button.accordion.active:hover {
-        background: #727272;
     }
 
     button.accordion:before {
@@ -70,6 +65,5 @@
     div.panel.show {
         max-height: 250%;
         transition: max-height 0.4s ease-in;
-        border: 1px solid #727272;
     }
 }
