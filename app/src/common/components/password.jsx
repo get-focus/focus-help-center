@@ -76,7 +76,7 @@ export class PasswordComponent extends React.Component {
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
                     : <div className='ok'>
-                        {connected ?
+                        {connected || userName ?
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 {userName ? <div style={{marginRight: '10px', color: 'white'}}>{userName}{connected ? ' [ADMIN]' : ''}</div> : null}
                                 <IconMenu
