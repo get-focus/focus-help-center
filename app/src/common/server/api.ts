@@ -92,7 +92,7 @@ export const api: Api = {
     },
 
     async deleteArticle(id) {
-        const response = await fetchWithLogin(`${apiRoot}/api/article/${id}`, { method: 'DELETE' });
+        const response = await fetchWithLogin(`${apiRoot}/api/article/${id}/delete`, { method: 'POST' });
         const data = await response.json<{ success: boolean, error: string }>();
         if (data.success) {
             return true;
