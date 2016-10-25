@@ -29,7 +29,7 @@ connect(
         isExtension: false
     };
 
-    md = new Markdown();
+    md = new Markdown({ linkTarget: '_blank' });
     rawMarkup = () => ({__html: this.md.render(this.props.article.content)});
 
     componentWillMount() {
