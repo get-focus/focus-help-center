@@ -7,7 +7,7 @@ const clip = require('gulp-clip-empty-files');
 gulp.task('build', () => {
     const tsProject = ts.createProject('./tsconfig.json', {typescript: require('typescript')});
     const tsResult = gulp.src(['src/**/*.ts', 'src/**/*.d.ts', '!src/**/__tests__/**'])
-        .pipe(ts(tsProject));
+        .pipe(tsProject());
     return merge([
         tsResult.dts,
         tsResult.js.pipe(babel())

@@ -5,7 +5,7 @@ import {ArticleLine} from './line';
 import {CircularProgress} from 'material-ui';
 
 /** Component that displays the list of all articles */
-export function ArticleList({isExtension, articleList: {isLoading, list, error}, connected}: {isExtension: boolean, articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
+export function ArticleList({isExtension, articleList: {isLoading, list, error}, connected}: {isExtension?: boolean, articleList: ArticleListState, connected: boolean, openCreate: () => void}) {
     const loading = isLoading && (!list || list && list.length === 0);
     return (
         <div className='article-list'>
