@@ -42,7 +42,7 @@ connect(
                 <header style={{backgroundColor: this.context.muiTheme.palette.primary1Color}}>
                     <div className='header-top'>
                         <div className='header-left'>
-                            <FlatButton onClick={() => this.props.router.push('/home') } icon={<i className="material-icons">keyboard_backspace</i>} labelPosition='after' label={'Retour'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} />
+                            <FlatButton onClick={() => this.props.router.push('/home') } icon={<i className="material-icons">keyboard_backspace</i>} labelPosition='after' label={i18n.t('back-office.layout.back')} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} />
                         </div>
                         <div className='header-middle'>
                             <Link className='title' to='home'>{i18n.t('back-office.title')}</Link>

@@ -35,10 +35,10 @@ connect(
                     <div className='top'>
                         <div className='left'>
                             <div className='left-top'>
-                                <FlatButton hoverColor='transparent' label={'Centre d\'aide'} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} /> {Content}
+                                <FlatButton hoverColor='transparent' label={i18n.t('back-office.title')} labelStyle={{fontSize: 16}} style={{color: 'white', marginRight: 15}} /> {Content}
                             </div>
                             <div className='app-name'>
-                                <FlatButton onClick={() => this.props.router.push('/home') } hoverColor='transparent' label={`Aide${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
+                                <FlatButton onClick={() => this.props.router.push('/home') } hoverColor='transparent' label={`${i18n.t('back-office.layout.help')} ${applicationName ? ` ${applicationName}` : ''}`} labelStyle={{fontSize: 20}} style={{color: 'white', flex: '1 1 auto'}} />
                             </div>
                         </div>
                         <div className='middle'>

@@ -85,7 +85,13 @@ export const fr = {
                     'createNew': 'Créer une nouvelle rubrique',
                     'newSection': 'nouvelle rubrique',
                     'existingSections': 'Ou choisir parmi les rubriques existantes',
-                    'addSection': 'Ajout d\'une rubrique'
+                    'addSection': 'Ajout d\'une rubrique',
+                    'delete' : 'Supprimer l\' article'
+                },
+                setting: {
+                    title: 'PARAMETRAGE',
+                    map: 'Mot clé permettant le mapping',
+                    url: 'Ajouter une URL'
                 },
                 'context-url': 'url contextuelle',
                 'bloc-information': 'bloc d\'information',
@@ -112,8 +118,11 @@ export const fr = {
             to: 'à'
         },
         password: {
+            description: 'Connectez-vous en tant qu\'administrateur',
             password: 'Mot de passe',
-            connected: 'Connecté'
+            connected: 'Connecté',
+            login: 'connexion',
+            logout: 'déconnexion'
         },
         search: {
             placeholder: 'Rechercher dans le centre d\'aide'
@@ -122,14 +131,18 @@ export const fr = {
         // Back office specific labels.
         'back-office': {
             layout: {
-                'back-to-app': 'Retour à l\'application'
+                'back' : 'RETOUR',
+                'help' : 'AIDE',
+                'articles' : 'Tous les articles',
+                'back-to-app': 'Retour à l\'application',
+                'welcome': 'Bienvenue dans le Centre d\'aide'
             },
-            title: 'centre d\'aide'
+            title: 'Centre d\'aide'
         },
 
         // Extension specific labels.
         extension: {
-            title: 'centre d\'aide',
+            title: 'Centre d\'aide',
             footer: {
                 button: 'voir tous les articles'
             }

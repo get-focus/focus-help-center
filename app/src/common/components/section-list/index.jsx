@@ -5,6 +5,7 @@ import {getArticles, searchArticleList, loadArticleList} from '../../actions/art
 import {withRouter} from 'react-router';
 import {ArticleList} from '../article-list';
 import ReactDOM from 'react-dom';
+import i18n from 'i18next';
 
 @withRouter
 @connect(
@@ -46,7 +47,7 @@ export class SectionList extends React.Component {
         const {sections, sectionID} = this.props;
         return (
             <div>
-                <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>Tous les articles</button>
+                <button className={`accordion${sectionID === 'all' ? ' active' : ''}`} onClick={() => this.onClickHandler(null, 0) } ref={`button${0}`}>{i18n.t('back-office.layout.articles') }</button>
                 <div className={`panel${sectionID === 'all' ? ' show' : ''}`} >
                     {sectionID === 'all' ? <ArticleList ref='openedArticlelist'/> : <div style={{height: this.state.elementHeight, background: '#DDDDDD'}}/>}
                 </div>
@@ -92,7 +93,7 @@ export class SectionList extends React.Component {
     render() {
         return (
             <div className='section-list'>
-                <div className='section-list-title'>Bienvenue dans le Centre d'aide</div>
+                <div className='section-list-title'>{i18n.t('back-office.layout.welcome') }</div>
                 {this.renderSectionList()}
             </div>
         );

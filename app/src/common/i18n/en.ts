@@ -10,7 +10,7 @@ export const en = {
         },
         'article-edit': {
             content: {
-                placeholder: 'Type an article...'
+                placeholder: 'Write an article...'
             }
         },
         article: {
@@ -35,7 +35,7 @@ export const en = {
                     saveSuccessMessageDescription: 'Description saved.',
                     saveSuccessMessageContent: 'Content saved.',
                     saveSuccessMessageUrl: 'Contextual url saved.',
-                    saveSuccessMessageInformations: 'Informations\'s bloc saved.',
+                    saveSuccessMessageInformations: 'Information\'s bloc saved.',
                     saveSuccessMessagePublished: 'Article published.',
                     saveSuccessMessageUnPublished: 'Article unpublished.',
                     saveFailedMessage: 'Error while saving.',
@@ -50,11 +50,19 @@ export const en = {
                 unpublish: 'unpublish',
                 upToDate: 'Content up to date.',
                 popup: {
-                    confirmMessage: 'Do you to delete this article ?',
+                    confirmMessage: 'Do you want to delete this article ?',
                     confirm: 'yes',
                     cancel: 'no'
                 },
-                updatedAt: 'Last updated',
+                updated: 'Updated',
+                todayAt: 'today at',
+                yesterdayAt: 'yesterday at',
+                since: '',
+                days: 'days ago',
+                months: 'months ago',
+                year: 'year ago',
+                years: 'years ago',
+                updatedAt: 'Last updated at',
                 publishedAt: 'Published'
             }
         },
@@ -77,16 +85,22 @@ export const en = {
                     'newSection': 'new section',
                     'createNew': 'Create a new section',
                     'existingSections': 'Or choose among the existing sections',
-                    'addSection': 'Adding a section'
+                    'addSection': 'Adding a section',
+                    'delete' : 'Delete article'
+                },
+                setting: {
+                    title: 'SETTINGS',
+                    map: 'Keyword for mapping',
+                    url: 'Add an URL'
                 },
                 'context-url': 'CONTEXTUAL URL',
                 'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
             },
         },
         'section-list-page': {
-            'title': 'Rubriques',
-            'all-sections': 'Toutes les rubriques',
-            'one-section-list': 'Rubrique : '
+            'title': 'Sections',
+            'all-sections': 'All sections',
+            'one-section-list': 'Section : '
         },
         button: {
             save: 'Save',
@@ -103,8 +117,11 @@ export const en = {
             to: 'et'
         },
         password: {
+            description: 'Login as an administrator',
             password: 'Password',
-            connected: 'Connected'
+            connected: 'Connected',
+            login: 'Login',
+            logout: 'Logout'
         },
         search: {
             placeholder: 'Search in the help center'
@@ -113,7 +130,11 @@ export const en = {
         // Back office specific labels.
         'back-office': {
             layout: {
-                'back-to-app': 'Back to the app'
+                'back' : 'BACK',
+                'help' : 'HELP',
+                'articles' : 'All articles',
+                'back-to-app': 'Back to the app',
+                'welcome': 'Welcome to the Help Center'
             },
             title: 'help center'
         },

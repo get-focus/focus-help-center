@@ -84,10 +84,10 @@ export class PasswordComponent extends React.Component {
                                     anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                                     >
-                                    <MenuItem primaryText="Déconnexion" onClick={this.login} />
+                                    <MenuItem primaryText={i18n.t('password.logout')} onClick={this.login} />
                                 </IconMenu>
                                 :
-                                <RaisedButton label='connexion' primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
+                                <RaisedButton label={i18n.t('password.login')} primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
                         }
                         {userName ?
                             <a href='./signout'>
@@ -99,8 +99,8 @@ export class PasswordComponent extends React.Component {
                     </div>
                 }
                 <Dialog
-                    title={'Connectez-vous en tant qu\'administrateur'}
-                    actions={[<RaisedButton label='connexion' primary={true} onClick={this.login} />]}
+                    title={i18n.t('password.description')}
+                    actions={[<RaisedButton label={i18n.t('password.login')} primary={true} onClick={this.login} />]}
                     open={this.state.dialogOpen}
                     onRequestClose={this.connectClickHandler}
                     ref='dialog'

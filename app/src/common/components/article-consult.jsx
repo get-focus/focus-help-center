@@ -60,7 +60,7 @@ connect(
                                     label={i18n.t('button.share') }
                                     icon={<i className="material-icons">share</i>}
                                     secondary={true}
-                                    onClick={() => window.location.href = `mailto:?subject=[Article centre d\'aide] Titre : ${this.props.article.title}&body=${window.location.href}`}
+                                    onClick={() => window.location.href = `mailto:?subject=[Article ${i18n.t('back-office.title')}] ${i18n.t('article.title')} : ${this.props.article.title}&body=${window.location.href}`}
                                     />
                                 {isConnected ?
                                     <FlatButton label={i18n.t('button.edit') } icon={<i className="material-icons">edit</i>} secondary={true} onClick={() => this.props.router.push(`/edit-article/${article.id}`) } />
