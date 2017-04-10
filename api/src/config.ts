@@ -7,6 +7,7 @@ export let primaryColor = '';
 export let primaryColorLight = '';
 export let primaryColorDark = '';
 export let accentColor = '';
+export let password = 'password';
 
 export function setConfig(c: {
     dbPath?: string,
@@ -15,7 +16,8 @@ export function setConfig(c: {
     primaryColor?: string,
     primaryColorLight?: string,
     primaryColorDark?: string,
-    accentColor?: string
+    accentColor?: string,
+    password?: string
 }) {
     dbPath = c.dbPath;
     backOfficeUrl = c.backOfficeUrl;
@@ -24,4 +26,5 @@ export function setConfig(c: {
     primaryColorLight = c.primaryColorLight;
     primaryColorDark = c.primaryColorDark;
     accentColor = c.accentColor;
+    password = c.password;
 }
