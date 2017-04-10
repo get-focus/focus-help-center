@@ -100,7 +100,7 @@ export class EditPage extends React.Component<any, any> {
                                 <TextField
                                     name='informations'
                                     ref='informations'
-                                    hintText={upperCase('informations')}
+                                    hintText={upperCase('mapping tag')}
                                     defaultValue={this.props.article.informations}
                                     fullWidth={true}
                                     />

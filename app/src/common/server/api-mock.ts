@@ -1,5 +1,4 @@
 import {Api} from './';
-import {password} from '../../../common/server/config';
 
 export const article1 = { id: 1, title: 'Title', description: 'Description', content: 'Content', published: true };
 export const article2 = { id: 2, title: 'Title2', description: 'Description2', content: 'Content2', published: false };
@@ -36,7 +35,7 @@ export const api: Api = {
     },
 
     async login(passwordInput) {
-        if (passwordInput === password) {
+        if (passwordInput === 'password') {
             return true;
         } else {
             throw new Error('Incorrect password');
