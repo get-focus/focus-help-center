@@ -35,7 +35,7 @@ export const en = {
                     saveSuccessMessageDescription: 'Description saved.',
                     saveSuccessMessageContent: 'Content saved.',
                     saveSuccessMessageUrl: 'Contextual url saved.',
-                    saveSuccessMessageInformations: 'Information\'s bloc saved.',
+                    saveSuccessMessageInformations: 'Information\'s block saved.',
                     saveSuccessMessagePublished: 'Article published.',
                     saveSuccessMessageUnPublished: 'Article unpublished.',
                     saveFailedMessage: 'Error while saving.',
@@ -94,7 +94,7 @@ export const en = {
                     url: 'Add an URL'
                 },
                 'context-url': 'CONTEXTUAL URL',
-                'bloc-information': 'CONTEXTUAL INFORMATION BLOC'
+                'bloc-information': 'CONTEXTUAL INFORMATION BLOCK'
             },
         },
         'section-list-page': {
