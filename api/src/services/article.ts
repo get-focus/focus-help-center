@@ -342,8 +342,8 @@ export function articleService(prefix: string, app: express.Application) {
 
     /**
      * @swagger
-     * /api/article/{id}:
-     *   delete:
+     * /api/article/{id}/delete:
+     *   post:
      *     tags:
      *       - Article
      *     description: Deletes an article.
@@ -369,7 +369,7 @@ export function articleService(prefix: string, app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.delete(`${prefix}/api/article/:id`, async (req, res) => {
+    app.post(`${prefix}/api/article/:id/delete`, async (req, res) => {
         if (!(req.user && req.user.signedIn)) {
             res.status(403);
             res.json({ error: 'Cannot delete an article when not connected' });
