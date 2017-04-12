@@ -53,8 +53,7 @@ export class EditPage extends React.Component<any, any> {
         return (
             <div className='edit-page'>
                 <div className={`parameter-panel ${isVisible ? '' : 'hidden'}`} ref='parametersBloc'>
-                    <h5>PARAMÉTRAGE</h5>
-
+                    <h5>{i18n.t('edit-page.content.setting.title') }</h5>
                     <List>
                         <Subheader>
                             <div className='section-title'>{i18n.t('edit-page.content.sections.title') }
@@ -78,7 +77,7 @@ export class EditPage extends React.Component<any, any> {
                                     fullWidth={true}
                                     />
                                 : !this.props.article.url || this.props.article.url.trim() === '' ?
-                                    <div onClick={() => this.props.clickEditUrl() }><em>Ajoutez une URL</em></div>
+                                    <div onClick={() => this.props.clickEditUrl() }><em>{i18n.t('edit-page.content.setting.url')}</em></div>
                                     : <div onClick={() => this.props.clickEditUrl() }>{this.props.article.url}</div>
                             }
                             {isEditUrl ?
@@ -106,7 +105,7 @@ export class EditPage extends React.Component<any, any> {
                                     fullWidth={true}
                                     />
                                 : !this.props.article.informations || this.props.article.informations.trim() === '' ?
-                                    <div onClick={() => this.props.clickEditInformations() }><em>Ajoutez des informations</em></div>
+                                    <div onClick={() => this.props.clickEditInformations() }><em>{i18n.t('edit-page.content.setting.map')}</em></div>
                                     : <div onClick={() => this.props.clickEditInformations() }>{this.props.article.informations}</div>
                             }
                             {isEditInformations ?
@@ -120,7 +119,7 @@ export class EditPage extends React.Component<any, any> {
                         </div>
                     </div>
 
-                    <FlatButton label={`supprimer l'article`} onClick={() => this.props.showEditPopup()} secondary={true} style={{width: '100%', marginTop: 15}}/>
+                    <FlatButton label={i18n.t('edit-page.content.sections.delete') } onClick={() => this.props.showEditPopup()} secondary={true} style={{width: '100%', marginTop: 15}}/>
                 </div>
 
                 <div className='parameter-drawer'>
@@ -128,7 +127,7 @@ export class EditPage extends React.Component<any, any> {
                         <i className='material-icons'>settings</i>
                     </IconButton>
                     <br />
-                    <div className={`text ${isVisible ? 'hidden' : ''}`}>PARAMÉTRAGE</div>
+                    <div className={`text ${isVisible ? 'hidden' : ''}`}>{i18n.t('edit-page.content.setting.title') }</div>
                 </div>
                 <ContentArea />
             </div>
