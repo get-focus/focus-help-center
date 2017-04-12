@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {isConnected, login, logout, clearError} from '../actions/login';
 import {loadSectionList} from '../actions/section-list';
 import i18n from 'i18next';
-import {CircularProgress, IconButton, FlatButton, TextField, Dialog, RaisedButton, IconMenu, MenuItem, FontIcon} from 'material-ui';
+import {CircularProgress, FlatButton, TextField, Dialog, RaisedButton, IconMenu, MenuItem, FontIcon} from 'material-ui';
 
 @connect(
     state => ({
@@ -76,25 +76,23 @@ export class PasswordComponent extends React.Component {
                 {error ?
                     <FlatButton label={error} onClick={clearError} icon={<i className="material-icons">error</i>} />
                     : <div className='ok'>
-                        {userName ?
-                            <span>{userName}{connected ? ' [ADMIN]' : ''}</span>
-                            : connected ?
+                        {connected || userName ?
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                {userName ? <div style={{marginRight: '10px', color: 'white'}}>{userName}{connected ? ' [ADMIN]' : ''}</div> : null}
                                 <IconMenu
                                     iconButtonElement={<FontIcon color={generalColor} style={{cursor: 'pointer', fontSize: '30px'}} className='material-icons'>account_circle</FontIcon>}
                                     anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                                    >
-                                    <MenuItem primaryText={i18n.t('password.logout')} onClick={this.login} />
+                                >
+                                    <MenuItem
+                                        linkButton={!!userName}
+                                        href={userName ? './signout' : undefined}
+                                        primaryText={i18n.t('password.logout')}
+                                        onClick={!userName ? this.login : () => null}
+                                    />
                                 </IconMenu>
-                                :
-                                <RaisedButton label={i18n.t('password.login')} primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
-                        }
-                        {userName ?
-                            <a href='./signout'>
-                                <IconButton iconClassName='material-icons'>
-                                    close
-                                </IconButton>
-                            </a> : null
+                            </div>
+                            : <RaisedButton label={i18n.t('password.login')} primary={true} onClick={this.connectClickHandler} style={{borderRadius: '5px'}} />
                         }
                     </div>
                 }

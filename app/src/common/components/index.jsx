@@ -8,7 +8,7 @@ import {getConfig, primaryColor, primaryColorDark, primaryColorLight, accentColo
 i18nInit();
 
 import {MuiThemeProvider, getMuiTheme} from 'material-ui/styles';
-import {blue100, blue500, blue700, pink400, white} from 'material-ui/styles/colors';
+import {blue50, blue500, blue700, pink400, white} from 'material-ui/styles/colors';
 import touch from 'react-tap-event-plugin';
 touch();
 
@@ -30,8 +30,8 @@ export class HelpCenterBase extends React.Component {
                     <MuiThemeProvider muiTheme={getMuiTheme({
                         palette: {
                             primary1Color: primaryColor || blue500,
-                            primary2Color: primaryColorDark || blue100,
-                            primary3Color: primaryColorLight || blue700,
+                            primary2Color: primaryColorLight || blue50,
+                            primary3Color: primaryColorDark || blue700,
                             accent1Color: accentColor || pink400
                         },
                         floatingActionButton: {

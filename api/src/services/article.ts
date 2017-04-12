@@ -314,7 +314,7 @@ export function articleService(prefix: string, app: express.Application) {
      *         schema:
      *           $ref: '#/definitions/Error'
      */
-    app.post('/api/article/:id/sections', async (req, res) => {
+    app.post(`${prefix}/api/article/:id/sections`, async (req, res) => {
         try {
             let sections: ISection[] = req.body.List;
             let article = (await Article.findById(req.params.id)).get();

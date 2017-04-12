@@ -5,9 +5,9 @@ import i18n from 'i18next';
 import {RaisedButton, FontIcon} from 'material-ui';
 
 /** Component that displays an article as a line. */
-export function ArticleLine({isExtension, article: {id, title, description, published}, canEdit}: { isExtension: boolean, article: Article, canEdit: boolean }) {
+export function ArticleLine({isExtension, article: {id, title, description, published}, canEdit}: { isExtension: boolean, article: Article, canEdit: boolean }, {muiTheme}) {
     return (
-        <div className={`${isExtension ? ' extension-item' : 'item'}`}>
+        <div className={`${isExtension ? ' extension-item' : 'item'}`} style={!isExtension ? {backgroundColor: muiTheme.palette.primary3Color} : {}}>
             <i className='material-icons'>description</i>
 
             <Link className='content' to={`article/${id}`}>
@@ -32,3 +32,7 @@ export function ArticleLine({isExtension, article: {id, title, description, publ
         </div>
     );
 }
+
+ArticleLine['contextTypes'] = {
+    muiTheme: React.PropTypes.object.isRequired
+};
