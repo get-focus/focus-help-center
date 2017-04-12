@@ -90,7 +90,7 @@ export const en = {
                 },
                 setting: {
                     title: 'SETTINGS',
-                    map: 'Keyword for mapping',
+                    map: 'Mapping tag',
                     url: 'Add an URL'
                 },
                 'context-url': 'CONTEXTUAL URL',

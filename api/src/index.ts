@@ -1,7 +1,7 @@
 import express, {Express} from 'express';
 import bodyParser from 'body-parser';
 import {resolve} from 'path';
-import * as config from './config';
+import {accentColor, appUrl, backOfficeUrl, primaryColor, primaryColorDark, primaryColorLight} from './config';
 
 const app: Express = express();
 app.use(bodyParser.text());
@@ -21,7 +21,10 @@ export function serveStatic(prefix: string, app: Express) {
 }
 
 export function configService(prefix: string, app: Express) {
-    app.get(`${prefix}/config`, (req, res) => res.json(config));
+    const confExport = {
+        accentColor, appUrl, backOfficeUrl, primaryColor, primaryColorDark, primaryColorLight
+    };
+    app.get(`${prefix}/config`, (req, res) => res.json(confExport));
 }
 
 export default app;

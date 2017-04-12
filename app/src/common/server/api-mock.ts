@@ -34,8 +34,8 @@ export const api: Api = {
         return apiMockData.getSectionArticles;
     },
 
-    async login(password) {
-        if (password === 'password') {
+    async login(passwordInput) {
+        if (passwordInput === 'password') {
             return true;
         } else {
             throw new Error('Incorrect password');
